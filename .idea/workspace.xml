@@ -87,17 +87,17 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Readme.md" pinned="false" current-in-tab="false">
+          <file leaf-file-name="Readme.md" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Readme.md">
               <provider editor-type-id="MultiMarkdownFxHtmlEditor">
                 <state />
               </provider>
-              <provider selected="true" editor-type-id="MultiMarkdownFxPreviewEditor">
+              <provider editor-type-id="MultiMarkdownFxPreviewEditor">
                 <state />
               </provider>
-              <provider editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="39" column="12" selection-start-line="39" selection-start-column="12" selection-end-line="39" selection-end-column="12" />
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.4233871">
+                  <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
                   <folding />
                 </state>
               </provider>
@@ -106,10 +106,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name=".gitIgnore" pinned="false" current-in-tab="true">
+          <file leaf-file-name=".gitIgnore" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/.gitIgnore">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.20689656">
+                <state vertical-scroll-proportion="-0.22727273">
                   <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
                   <folding />
                 </state>
@@ -143,7 +143,7 @@
           <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/package.json">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.19736843">
+                <state vertical-scroll-proportion="0.1764706">
                   <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
                   <folding />
                 </state>
@@ -184,8 +184,8 @@
         <option value="$PROJECT_DIR$/scripts/components/sidebar/sidebar.js" />
         <option value="$PROJECT_DIR$/scripts/components/main/main.js" />
         <option value="$PROJECT_DIR$/scripts/components/header/header.js" />
-        <option value="$PROJECT_DIR$/Readme.md" />
         <option value="$PROJECT_DIR$/.gitIgnore" />
+        <option value="$PROJECT_DIR$/Readme.md" />
       </list>
     </option>
   </component>
@@ -805,8 +805,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19736843">
+        <state vertical-scroll-proportion="0.1764706">
           <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitIgnore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.22727273">
+          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
           <folding />
         </state>
       </provider>
@@ -815,25 +823,17 @@
       <provider editor-type-id="MultiMarkdownFxHtmlEditor">
         <state />
       </provider>
-      <provider selected="true" editor-type-id="MultiMarkdownFxPreviewEditor">
+      <provider editor-type-id="MultiMarkdownFxPreviewEditor">
         <state />
       </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="12" selection-start-line="39" selection-start-column="12" selection-end-line="39" selection-end-column="12" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4233871">
+          <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
           <folding />
         </state>
       </provider>
       <provider editor-type-id="MarkdownPreviewEditor">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitIgnore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20689656">
-          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
-          <folding />
-        </state>
       </provider>
     </entry>
   </component>
