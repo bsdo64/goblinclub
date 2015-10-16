@@ -2,10 +2,10 @@
  * Created by dobyeongsu on 2015. 10. 15..
  */
 import express from 'express';
+import path from 'path';
+
 import React from 'react';
 import ReactDOM from 'react-dom/server';
-
-import path from 'path';
 
 import HTML from './indexHTML'
 

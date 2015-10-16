@@ -35,6 +35,9 @@ export default class header extends Component {
                 <Style rules={{
                   "#header .container" : {
                     width: "100%"
+                  },
+                  "#app" : {
+                    height: "calc(100vh - 50px)"
                   }
                 }} />
                 <Navbar fixedTop style={styles.base}>
