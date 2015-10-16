@@ -3,21 +3,30 @@
  */
 import React, { Component } from 'react';
 import Radium, { Style } from 'radium';
+import $ from 'jquery';
+import nanoScroller from 'nanoscroller';
 
 @Radium
 export default class Main extends Component {
+    componentDidMount () {
+        $(function() {
+            $('.nano').nanoScroller();
+        });
+    }
+
     render() {
         return (
             <div style={styles.main}>
                 <Style rules={{
                   "#bestPosts" : {
-                    background: "#ccc"
+                    background: "#ccc",
+                    height: "100%",
+                    overflow: "hidden"
                   }
                 }} />
                 main
-                <div className="tse-scrollbar" style={styles.scroll}><div className="drag-handle" ></div></div>
-                <div id="bestPosts" className="nano">
-                    <div className="top_btn_area _top_area">
+                <div id="bestPosts" className="">
+                    <div className="top_btn_area _top_area" style={styles.headLine}>
                         <div className="ly_new_alarm _new_alarm" >
                             <span className="new_msg"><a href="#" className="_new_alarm N=a:scx.toast">새로운 소식이 도착했습니다.</a></span>
                             <span className="new_ly_clse"><a href="#" className="_new_alarm_close N=a:scx.toast"><span className="blind">닫기</span></a></span>
@@ -33,8 +42,8 @@ export default class Main extends Component {
                         <div  className="ly_cafe _cafe_fil_lst"></div>
                         <button type="button" className="btn_reload _refresh N=a:scx.refresh"><span className="blind">새로 고침</span></button>
                     </div>
-                    <div className="lst_area _lst_area nano-content" style={styles.scrollContent}>
-                        <div style={styles.content}>
+                    <div className="lst_area _lst_area nano" style={styles.contents}>
+                        <div className="nano-content" style={styles.scrollContent}>
                             <ul className="">
                                 <li className="_ccast_item">
                                     <div className="lst_obj">
@@ -634,28 +643,23 @@ var styles = {
         marginLeft: "240px",
         marginRight: "340px",
         boxSizing: "border-box",
-        backgroundColor: "#aaa"
-    },
-    scroll : {
-        zIndex: 9999,
-        position: "absolute",
-        top: 0,
-        right: 0,
-        bottom: 0,
-        width: "10px"
+        backgroundColor: "#aaa",
+        height: "100%"
     },
     scrollContent: {
-        right: 0,
-        overflow: "hidden",
-        overflowY: "scroll",
+        right: -15,
         width: "auto; !important",
         height: "auto; !important",
-        position: "absolute",
-        top: 0,
+        overflow: "hidden",
+        overflowY: "scroll",
         bottom: 0,
-        left: 0
+        left: 0,
+        top: 0
     },
-    content: {
-        overflow: "hidden"
+    headLine : {
+        background: "#555"
+    },
+    contents : {
+        height: "700px"
     }
 };

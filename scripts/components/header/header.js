@@ -69,6 +69,6 @@ export default class header extends Component {
 
 var styles = {
     base : {
-        width: "100%"
+        height: 50
     }
 }

@@ -12,16 +12,12 @@ export default class HTML extends Component {
                     { /*<link rel="stylesheet" type="text/stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />*/ }
                     <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
                     <link rel="stylesheet" href="/nanoscroller.css" />
-                    <link rel="stylesheet" href="/style.css" />
 
                 </head>
 
                 <body>
                     <div id="app"></div>
                     <script src="bundle.js"></script>
-                    <script src="/jquery/dist/jquery.js"></script>
-                    <script type="text/javascript" src="/jquery.nanoscroller.min.js"></script>
-                    <script src="/scrollbar.js"></script>
                 </body>
             </html>
         )

@@ -17,6 +17,8 @@
     "express": "^4.13.3",
     "express-handlebars": "^2.0.1",
     "history": "^1.12.5",
+    "jquery": "^2.1.4",
+    "nanoscroller": "^0.8.7",
     "radium": "^0.14.1",
     "react": "^0.14.0",
     "react-bootstrap": "^0.27.1",
