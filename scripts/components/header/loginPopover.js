@@ -7,8 +7,11 @@ import {
     Button,
     Collapse
 } from 'react-bootstrap';
+import connectToStores from 'alt/utils/connectToStores';
+import UserActions from '../../Actions/UserActions';
 
 export default class loginPopover extends Component {
+
     constructor(...props) {
         super(...props);
         this.state = { open : false };
@@ -25,7 +28,7 @@ export default class loginPopover extends Component {
                                required=""/>
                         <input name="password" id="password" type="password" placeholder="Password"
                                title="Enter your password" required=""/><br/>
-                        <button type="button" id="btnLogin" className="btn">Login</button>
+                        <button type="button" id="btnLogin" className="btn" onClick={this._login}>Login</button>
                     </form>
 
                     <div>
@@ -59,5 +62,9 @@ export default class loginPopover extends Component {
                     </div>
                 </div>
         )
+    }
+
+    _login () {
+        UserActions.loginUser({id : "bsdo", name : "bsdo-name"});
     }
 }

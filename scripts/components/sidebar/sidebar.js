@@ -3,13 +3,30 @@
  */
 import React, { Component } from 'react';
 import Radium from 'radium';
+import connectToStores from 'alt/utils/connectToStores'
+import UserStore from '../../stores/UserStore';
 
+@connectToStores
 @Radium
 export default class sidebar extends Component {
+
+    static getStores() {
+        return [UserStore]
+    }
+
+    static getPropsFromStores() {
+        return UserStore.getState();
+    }
+
     render() {
+        let user;
+        if(this.props.user) {
+            user = <p>{this.props.user.name}</p>
+        }
         return (
             <div style={styles.base}>
                 sidebar
+                {user}
             </div>
         )
     }

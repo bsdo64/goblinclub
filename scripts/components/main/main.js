@@ -24,13 +24,8 @@ export default class Main extends Component {
                     overflow: "hidden"
                   }
                 }} />
-                main
                 <div id="bestPosts" className="">
-                    <div className="top_btn_area _top_area" style={styles.headLine}>
-                        <div className="ly_new_alarm _new_alarm" >
-                            <span className="new_msg"><a href="#" className="_new_alarm N=a:scx.toast">새로운 소식이 도착했습니다.</a></span>
-                            <span className="new_ly_clse"><a href="#" className="_new_alarm_close N=a:scx.toast"><span className="blind">닫기</span></a></span>
-                        </div>
+                    <div style={styles.headLine}>
                         <div className="view_mode _view_mode">
                             <ul>
                                 <li className="on"><a href="#" className="_news_menu N=a:sbx.feedall" servicecode="feedall">최신순</a> <span>|</span></li>
@@ -660,6 +655,6 @@ var styles = {
         background: "#555"
     },
     contents : {
-        height: "700px"
+        height: "calc(100vh - 150px)"
     }
 };
