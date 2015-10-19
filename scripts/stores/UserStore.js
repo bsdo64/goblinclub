@@ -18,10 +18,6 @@ class UserStore {
             token: {}
         };
 
-        this.on('bootstrap', function() {
-            console.log('Hello');
-        })
-
     }
 
     loginUser(user) {

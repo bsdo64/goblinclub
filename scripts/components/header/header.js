@@ -71,6 +71,9 @@ export default class header extends Component {
                   },
                   "#app" : {
                     height: "calc(100vh - 50px)"
+                  },
+                  ".nano > .nano-pane" : {
+                    background: 'rgba(0,0,0,.15)'
                   }
                 }} />
                 <Navbar fixedTop style={styles.base}>

@@ -4,11 +4,10 @@
 import React, { Component } from 'react';
 import Radium, { Style } from 'radium';
 
-
 @Radium
 export default class Main extends Component {
     componentDidMount () {
-
+        $('.nano').nanoScroller();
     }
 
     render() {

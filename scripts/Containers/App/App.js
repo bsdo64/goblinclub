@@ -12,10 +12,7 @@ export default class App extends Component {
         var cookie = Cookie.parse(document.cookie);
 
         if(cookie) {
-            console.log(cookie);
             UserActions.isLogined(cookie.token);
-        } else {
-            console.log(document.cookie);
         }
     }
 

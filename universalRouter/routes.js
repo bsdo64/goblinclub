@@ -17,8 +17,6 @@ import {
     sidebar
 } from '../scripts/components';
 
-import alt from '../scripts/alt'
-
 export default (
     <Route component={App}>
         <Route path="/" components={{header: header, main: main, sidebar: sidebar}} />
