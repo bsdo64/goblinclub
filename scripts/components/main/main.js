@@ -639,8 +639,8 @@ var styles = {
     },
     scrollContent: {
         right: -15,
-        width: "auto; !important",
-        height: "auto; !important",
+        width: "auto",
+        height: "auto",
         overflow: "hidden",
         overflowY: "scroll",
         bottom: 0,

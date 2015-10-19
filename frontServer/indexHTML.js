@@ -16,7 +16,9 @@ export default class HTML extends Component {
                 </head>
 
                 <body>
-                    <div id="app"></div>
+                    <div id="app">
+                        CONTENT
+                    </div>
                     <script src="jquery/dist/jquery.js"></script>
                     <script src="jquery.nanoscroller.js"></script>
                     <script src="bundle.js"></script>

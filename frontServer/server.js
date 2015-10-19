@@ -12,6 +12,10 @@ import fetch from 'superagent';
 import React from 'react';
 import routes from '../universalRouter/routes'
 import ReactDOM from 'react-dom/server';
+import { RoutingContext, match } from 'react-router'
+import createLocation from 'history/lib/createLocation';
+import alt from '../scripts/alt';
+import Iso from 'iso';
 
 import HTML from './indexHTML'
 
@@ -30,12 +34,14 @@ app.use((req, res, next) => {
     var token = req.cookies.token;
     if(token) {
         jsonWebToken.verify(token, 'secret', function(err, decoded) {
-            res.cookie('token', token, {
-                expires: new Date(Date.now() + (24 * 60 * 60 * 1000)),
-                httpOnly: false
-            });
+            if( err ) {
 
-            next();
+            } else {
+                res.locals.data = {
+                    UserStore: { user: {id:"bsdo@naver.com", name:"bsdo-name", nick: "Hello"} }
+                };
+                next();
+            }
         });
     } else {
         next();
@@ -60,10 +66,10 @@ var authenticate  = jwt({
 app.use(['/user', '/post'], authenticate, (err, req, res, next) => {
 
     if(!req.cookies.token) {
-        res.send(401, "auth error");
+        res.status(401).send("auth error");
     } else {
         if (err.name === 'UnauthorizedError') {
-            res.send(401, 'invalid token...');
+            res.status(401).send('invalid token...');
         }
 
         next();
@@ -98,7 +104,34 @@ app.post('/login', (req, res) => {
         });
 });
 
-app.get('*', (req, res) => {
-    res.send(ReactDOM.renderToString(<HTML />));
+app.use((req, res) => {
+
+    let state = JSON.stringify(res.locals.data || {});
+
+    let markup, content;
+    let location = new createLocation(req.url);
+    alt.bootstrap(state);
+
+    match({ routes, location }, (error, redirectLocation, renderProps) => {
+        if (redirectLocation)
+            res.redirect(301, redirectLocation.pathname + redirectLocation.search)
+        else if (error)
+            res.status(401).send(error.message)
+        else if (renderProps == null)
+            res.status(401).send('Not found')
+        else {
+            content = ReactDOM.renderToString(<RoutingContext {...renderProps} />);
+            markup = Iso.render(content, alt.flush());
+
+            let html = ReactDOM.renderToString(<HTML />);
+
+            html = html.replace('CONTENT', function(match) {
+                return match.replace('CONTENT', markup);
+            });
+
+            res.set('Content-Type', 'text/html; charset=utf8');
+            res.end(html);
+        }
+    });
 });
 app.listen(process.env.PORT || 3000);

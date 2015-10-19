@@ -3,6 +3,8 @@
  */
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import Iso from 'iso';
+import alt from './alt';
 import { Router } from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory'
 
@@ -12,7 +14,7 @@ import routes from '../universalRouter/routes'
 export default class Entry extends Component {
 
     componentDidMount() {
-
+        if(document.cookie);
     }
 
     render() {
@@ -22,9 +24,7 @@ export default class Entry extends Component {
     }
 }
 
-ReactDOM.render(
-    <Router
-        history={createBrowserHistory()}
-        routes={routes}
-    />,
-document.getElementById('app'));
+Iso.bootstrap((state, _, container) => {
+    alt.bootstrap(state);
+    ReactDOM.render(<Router history={createBrowserHistory()} children={routes} />, container);
+});
