@@ -1,12 +1,13 @@
 /**
- * Created by dobyeongsu on 2015. 10. 15..
+ * Created by dobyeongsu on 2015. 10. 19..
  */
 import React, { Component } from 'react';
+
 import connectToStores from 'alt/utils/connectToStores';
 import UserStore from '../../stores/UserStore';
 
 @connectToStores
-export default class About extends Component {
+export default class User extends Component {
 
     static getStores() {
         return [UserStore];
@@ -16,15 +17,10 @@ export default class About extends Component {
         return UserStore.getState();
     }
 
-    componentDidMount() {
-        console.log(UserStore.getState());
-    }
-
-    render () {
+    render() {
+        console.log(this.props);
         return (
-            <div>
-                Hello - About
-            </div>
+            <div>Hello</div>
         )
     }
 }

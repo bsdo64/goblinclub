@@ -5,7 +5,11 @@ import alt from '../alt';
 
 class UserActions {
     loginUser(user) {
-        this.dispatch(user);
+        return (user);
+    }
+
+    isLogined(token) {
+        return token
     }
 }
 

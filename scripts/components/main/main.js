@@ -3,15 +3,12 @@
  */
 import React, { Component } from 'react';
 import Radium, { Style } from 'radium';
-import $ from 'jquery';
-import nanoScroller from 'nanoscroller';
+
 
 @Radium
 export default class Main extends Component {
     componentDidMount () {
-        $(function() {
-            $('.nano').nanoScroller();
-        });
+
     }
 
     render() {

@@ -66,5 +66,6 @@ export default class loginPopover extends Component {
 
     _login () {
         UserActions.loginUser({id : "bsdo", name : "bsdo-name"});
+
     }
 }

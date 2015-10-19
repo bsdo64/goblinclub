@@ -10,6 +10,11 @@ import { App } from './Containers'
 import routes from '../universalRouter/routes'
 
 export default class Entry extends Component {
+
+    componentDidMount() {
+
+    }
+
     render() {
         return(
             <App />
@@ -20,6 +25,6 @@ export default class Entry extends Component {
 ReactDOM.render(
     <Router
         history={createBrowserHistory()}
-        routes={routes()}
+        routes={routes}
     />,
 document.getElementById('app'));

@@ -41,6 +41,10 @@ export default class header extends Component {
         this._toggle = this._toggle.bind(this);
     }
 
+    componentWillReceiveProps() {
+        console.log(UserStore.getState());
+    }
+
     render() {
         let userItem;
         let { user } = this.props;
@@ -74,6 +78,7 @@ export default class header extends Component {
                     <Nav right>
                         <NavItem eventKey={1} href="/about">About</NavItem>
                         <NavItem eventKey={2} href="/inbox">Inbox</NavItem>
+                        <NavItem eventKey={2} href="/user">User</NavItem>
 
                         { isUserEmpty &&
                         <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={login}>
@@ -97,6 +102,7 @@ export default class header extends Component {
     }
 
     _toggle () {
+        console.log(this.state);
         this.setState({ show : !this.state.show });
     }
 }

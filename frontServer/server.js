@@ -10,6 +10,7 @@ import jwt from 'express-jwt';
 import fetch from 'superagent';
 
 import React from 'react';
+import routes from '../universalRouter/routes'
 import ReactDOM from 'react-dom/server';
 
 import HTML from './indexHTML'
@@ -25,8 +26,48 @@ app.use(cookieParser());
 app.use(express.static(dist));
 app.use(express.static(bowerPath));
 
+app.use((req, res, next) => {
+    var token = req.cookies.token;
+    if(token) {
+        jsonWebToken.verify(token, 'secret', function(err, decoded) {
+            res.cookie('token', token, {
+                expires: new Date(Date.now() + (24 * 60 * 60 * 1000)),
+                httpOnly: false
+            });
+
+            next();
+        });
+    } else {
+        next();
+    }
+});
+
 app.use('/api', (req, res) => {
     proxy.web(req, res, {target: 'http://localhost:3001'});
+});
+
+var authenticate  = jwt({
+    secret: "secret",
+    getToken: function fromHeaderOrCookie(req) {
+        if(req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+            return req.headers.authorization.split(' ')[1];
+        } else if(req.cookies && req.cookies.token) {
+            return req.cookies.token;
+        }
+        return null;
+    }
+});
+app.use(['/user', '/post'], authenticate, (err, req, res, next) => {
+
+    if(!req.cookies.token) {
+        res.send(401, "auth error");
+    } else {
+        if (err.name === 'UnauthorizedError') {
+            res.send(401, 'invalid token...');
+        }
+
+        next();
+    }
 });
 
 app.post('/login', (req, res) => {
@@ -50,48 +91,14 @@ app.post('/login', (req, res) => {
 
             res.cookie('token', apiResponse.body.token, {
                 expires: new Date(Date.now() + (24 * 60 * 60 * 1000)),
-                httpOnly: true
+                httpOnly: false
             });
 
             res.send({message : "cookie setted"});
         });
 });
 
-var authenticate  = jwt({
-    secret: "secret",
-    getToken: function fromHeaderOrCookie(req) {
-        if(req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
-            return req.headers.authorization.split(' ')[1];
-        } else if(req.cookies && req.cookies.token) {
-            return req.cookies.token;
-        }
-        return null;
-    }
-});
-app.get('/secured/ping', authenticate, (req, res) => {
-    res.send(200, {message: 'secured'});
-});
-app.use(function (err, req, res, next) {
-
-    if (err.name === 'UnauthorizedError') {
-        res.send(401, 'invalid token...');
-    }
-    next();
-});
-
-app.post('/auth/login-cookie', authenticate, (req, res) => {
-
-    let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEyMzQ1NiIsIm5pY2siOiJNYXN0ZXIiLCJlbWFpbCI6ImJzZG9AbmF2ZXIuY29tIiwiaWF0IjoxNDQ1MDg3MDA5LCJleHAiOjE0NDU2OTE4MDl9.GkDh-Xg9khI7tfNwaSzzxY8cfekkKzzaMHwYe8HlBhs";
-
-    res.cookie('id_token', token, {
-        expires: new Date(Date.now() + 36000),
-        httpOnly: true
-    });
-    res.send(200, { message: 'Cookie set!' });
-
-});
-
-app.get('*', (req, res, next) => {
+app.get('*', (req, res) => {
     res.send(ReactDOM.renderToString(<HTML />));
 });
 app.listen(process.env.PORT || 3000);

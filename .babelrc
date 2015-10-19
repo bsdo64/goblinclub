@@ -1,0 +1,7 @@
+{
+  "stage": 0,
+  "ignore": [
+    "node_modules/**",
+    "bower_components/**"
+  ]
+}
