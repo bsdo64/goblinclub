@@ -21,6 +21,7 @@ class UserStore {
     }
 
     loginUser(user) {
+
         this.setState({ user: user });
     }
 

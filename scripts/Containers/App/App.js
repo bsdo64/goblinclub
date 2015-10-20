@@ -4,16 +4,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import UserActions from '../../Actions/UserActions';
-import Cookie from 'cookie';
 
 export default class App extends Component {
 
     componentDidMount() {
-        var cookie = Cookie.parse(document.cookie);
 
-        if(cookie) {
-            UserActions.isLogined(cookie.token);
-        }
     }
 
     render () {

@@ -9,6 +9,7 @@ import {
 } from 'react-bootstrap';
 import connectToStores from 'alt/utils/connectToStores';
 import UserActions from '../../Actions/UserActions';
+import validator from '../../utils/validator';
 
 export default class loginPopover extends Component {
 
@@ -20,15 +21,15 @@ export default class loginPopover extends Component {
     render() {
         return (
                 <div >
-                    <form id="formLogin" className="form">
+                    <form id="formLogin" className="form" onSubmit={this._sendLoginRequest.bind(this)}>
                         <label>Login</label>
                         <input name="_csrf" id="token" type="hidden" value="HIBJ9fff-c8XJNxcZqMpyUrLK-U3oYAEGpA4"/>
-                        <input name="username" id="username" type="text" placeholder="Username"
-                               pattern="^[a-z,A-Z,0-9,_]{6,15}$" data-valid-min="6" title="Enter your username"
+                        <input name="email" ref="email" id="email" type="text" placeholder="Email"
+                               pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" data-valid-min="6" title="Enter your Email"
                                required=""/>
-                        <input name="password" id="password" type="password" placeholder="Password"
+                        <input name="password" ref="password" id="password" type="password" placeholder="Password"
                                title="Enter your password" required=""/><br/>
-                        <button type="button" id="btnLogin" className="btn" onClick={this._login}>Login</button>
+                        <button type="submit" id="btnLogin" className="btn" >Login</button>
                     </form>
 
                     <div>
@@ -64,8 +65,18 @@ export default class loginPopover extends Component {
         )
     }
 
-    _login () {
-        UserActions.loginUser({id : "bsdo", name : "bsdo-name"});
+    _sendLoginRequest (e) {
+        e.preventDefault();
+        var loginUser = {
+            email :this.refs.email.value.trim(),
+            password : this.refs.password.value.trim()
+        };
 
+        validator.loginUser(loginUser.email, loginUser.password, (err, result) => {
+            if (err) {
+                err.map()
+            }
+            UserActions.loginUser({ user : loginUser });
+        });
     }
 }

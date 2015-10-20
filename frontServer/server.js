@@ -97,10 +97,10 @@ app.post('/login', (req, res) => {
 
             res.cookie('token', apiResponse.body.token, {
                 expires: new Date(Date.now() + (24 * 60 * 60 * 1000)),
-                httpOnly: false
+                httpOnly: true
             });
 
-            res.send({message : "cookie setted"});
+            res.json({message : "cookie setted"});
         });
 });
 

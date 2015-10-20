@@ -36,6 +36,8 @@
     "react-dom": "^0.14.0",
     "react-router": "^1.0.0-rc3",
     "superagent": "^1.4.0",
-    "webpack": "^1.12.2"
+    "validator": "^4.1.0",
+    "webpack": "^1.12.2",
+    "whatwg-fetch": "^0.10.0"
   }
 }
