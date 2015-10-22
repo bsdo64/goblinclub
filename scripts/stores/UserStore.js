@@ -4,31 +4,51 @@
 import alt from '../alt';
 import _ from 'lodash'
 import UserActions from '../Actions/UserActions'
-
+import Immutable from 'immutable';
 
 class UserStore {
     constructor() {
-        this.bindListeners({
-            loginUser: UserActions.LOGIN_USER,
-            isLogined: UserActions.IS_LOGINED
+
+        this.bindActions(UserActions);
+
+        this.state = Immutable.Map({
+            auth: {
+                token: {},
+                user: {}
+            },
+            loadingAuth: false,
+            loadedAuth: false,
+            authFail: false,
+            authSuccess: false
         });
 
-        this.state = {
-            user: {},
-            token: {}
-        };
-
     }
 
-    loginUser(user) {
-
-        this.setState({ user: user });
+    onLoginUser() {
+        var data = this.state.set('loadingAuth', true);
+        this.setState(data);
+    }
+    onLoginUser_uiValidateFail(result) {
+        var data = this.state.set('loadingAuth', false);
+        data = data.set('authFail', true);
+        data = data.set('authSuccess', false);
+        data = data.set('uiValidate', result);
+        this.setState(data)
+    }
+    onLoginUser_uiValidateSuccess(result) {
+        var data = this.state.set('loadingAuth', true);
+        data = data.set('authFail', false);
+        data = data.set('uiValidate', result);
+        this.setState(data);
     }
 
-    isLogined(token) {
+    onIsLogined(token) {
         let u = {id : "bsdo", name : "bsdo-name"};
-        this.setState({user : u, token : token});
+        this.setState({
+            user : u, token : token
+        });
     }
+
 }
 
 export default alt.createStore(UserStore, 'UserStore');

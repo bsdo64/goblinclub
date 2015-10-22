@@ -42,7 +42,7 @@ export default class header extends Component {
     }
 
     componentWillReceiveProps() {
-        console.log(UserStore.getState());
+
     }
 
     render() {
@@ -105,7 +105,6 @@ export default class header extends Component {
     }
 
     _toggle () {
-        console.log(this.state);
         this.setState({ show : !this.state.show });
     }
 }

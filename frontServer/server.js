@@ -66,7 +66,7 @@ var authenticate  = jwt({
 app.use(['/user', '/post'], authenticate, (err, req, res, next) => {
 
     if(!req.cookies.token) {
-        res.status(401).send("auth error");
+        res.redirect('/login');
     } else {
         if (err.name === 'UnauthorizedError') {
             res.status(401).send('invalid token...');
@@ -106,6 +106,7 @@ app.post('/login', (req, res) => {
 
 app.use((req, res) => {
 
+    //let state = JSON.stringify(res.locals.data || {});
     let state = JSON.stringify(res.locals.data || {});
 
     let markup, content;
@@ -113,6 +114,7 @@ app.use((req, res) => {
     alt.bootstrap(state);
 
     match({ routes, location }, (error, redirectLocation, renderProps) => {
+
         if (redirectLocation)
             res.redirect(301, redirectLocation.pathname + redirectLocation.search)
         else if (error)

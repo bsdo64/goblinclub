@@ -17,7 +17,7 @@ export default class About extends Component {
     }
 
     componentDidMount() {
-        console.log(UserStore.getState());
+
     }
 
     render () {

@@ -2,34 +2,41 @@
  * Created by dobyeongsu on 2015. 10. 20..
  */
 import validator from 'validator';
+import immutable from 'immutable';
 
 class validateRules {
     constructor () {
-        this.errors = [];
+        this.res = immutable.Map({
+            errors: null,
+            result: null
+        });
     }
-    loginUser(email, password, callback) {
-
-        if (!validator.isEmail(email))
-            this.errors.push('이메일을 올바르게 입력해주세요');
-
-        if (!validator.isLength(password, 6, 12))
-            this.errors.push('Password must be between 5 and 10 characters');
-        if (!validator.matches(password, /[a-z]/i))
-            this.errors.push('Password must contain a letter');
-        if (!validator.matches(password, /\d/i))
-            this.errors.push('Password must contain a number');
-        if (!validator.matches(password, /^[a-z0-9_-]+$/i))
-            this.errors.push('Password can only contain alphanumeric characters, underscores and hyphens');
-
-        var error, result;
-        if (_.isEmpty(this.errors)) {
-            error = null;
-            result = true
+    _checkError(result) {
+        if(result.get('errors').size > 0) {
+            result = result.set('result', false);
         } else {
-            error = this.errors;
-            result = false
+            result = result.set('result', true);
         }
-        callback(error, result)
+        return result
+    }
+    loginUser(user, callback) {
+        let result = this.res;
+        result = result.set('errors', immutable.Map({ email : immutable.List(), password : immutable.List()}));
+
+        if (!validator.isEmail(user.get('email')))
+            result = result.updateIn(['errors', 'email'], list=> list.push('이메일을 올바르게 입력해주세요'));
+
+        if (!validator.isLength(user.get('password'), 6, 12))
+            result = result.updateIn(['errors', 'password'], list=> list.push('Password must be between 5 and 10 characters'));
+        if (!validator.matches(user.get('password'), /[a-z]/i))
+            result = result.updateIn(['errors', 'password'], list=> list.push('Password must contain a letter'));
+        if (!validator.matches(user.get('password'), /\d/i))
+            result = result.updateIn(['errors', 'password'], list=> list.push('Password must contain a number'));
+        if (!validator.matches(user.get('password'), /^[a-z0-9_-]+$/i))
+            result = result.updateIn(['errors', 'password'], list=> list.push('Password can only contain alphanumeric characters, underscores and hyphens'));
+
+        result = this._checkError(result);
+        return callback(result)
     }
 }
 
