@@ -13,7 +13,7 @@ import {
     Popover,
     MenuItem,
     Button,
-    Panel
+    Input
 } from 'react-bootstrap';
 import Radium, { Style } from 'radium';
 import _ from 'lodash';
@@ -82,6 +82,16 @@ export default class header extends Component {
                 }} />
                 <Navbar fixedTop style={styles.base}>
                     <NavBrand><Link to="/">Goblin Club</Link></NavBrand>
+                    <div id='searchBar' style={styles.search.container}>
+                        <div style={styles.search.bar}>
+                            <Input
+                                standalone
+                                type="text"
+                                placeholder="Enter text"
+                                ref="input" />
+                        </div>
+                    </div>
+
                     <Nav right>
                         <NavItem eventKey={1} href="/about">About</NavItem>
                         <NavItem eventKey={2} href="/inbox">Inbox</NavItem>
@@ -116,5 +126,18 @@ export default class header extends Component {
 var styles = {
     base : {
         height: 50
+    },
+    search : {
+        container: {
+            float: 'left'
+        },
+        bar: {
+            maxWidth: 600,
+            width: 500,
+            margin: 'auto',
+            top: 7,
+            position: 'relative',
+            left: 115
+        }
     }
 }

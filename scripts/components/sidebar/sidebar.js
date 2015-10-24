@@ -5,6 +5,9 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import connectToStores from 'alt/utils/connectToStores'
 import UserStore from '../../stores/UserStore';
+import {
+    Input
+} from 'react-bootstrap';
 
 @connectToStores
 @Radium
@@ -21,16 +24,36 @@ export default class sidebar extends Component {
     render() {
         const { auth } = this.props;
 
-        console.log(auth);
-
-        let userInfo;
-        if(auth.token) {
-            userInfo = <p>{auth.user.email}</p>
-        }
         return (
             <div style={styles.base}>
-                sidebar
-                {userInfo}
+                <div id='searchClub' style={styles.searchClub.base}>
+                    <div id='searchClubContainer' style={styles.searchClub.container}>
+                        <Input
+                            standalone
+                            type="text"
+                            placeholder="Enter text"
+                            ref="input" />
+                    </div>
+                </div>
+
+                <hr />
+
+                <div id='clubs'>
+                    <div id='clubsContainer' style={styles.clubsContainer}>
+                        <ul>
+                            <li>게임</li>
+                            <li>코딩</li>
+                            <li>프로그래머</li>
+                        </ul>
+                        { auth.token &&
+                            <ul>
+                                <li>{auth.user.email}</li>
+                                <li>{auth.user.email}</li>
+                                <li>{auth.user.email}</li>
+                            </ul>
+                        }
+                    </div>
+                </div>
             </div>
         )
     }
@@ -44,5 +67,17 @@ var styles = {
         bottom: 0,
         backgroundColor: "#bbb",
         width: "340px"
+    },
+    searchClub : {
+        base : {
+            marginTop: 20
+        },
+        container: {
+            width: '90%',
+            margin: 'auto'
+        }
+    },
+    clubsContainer : {
+
     }
 };
