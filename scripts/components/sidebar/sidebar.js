@@ -19,14 +19,18 @@ export default class sidebar extends Component {
     }
 
     render() {
-        let user;
-        if(this.props.user) {
-            user = <p>{this.props.user.name}</p>
+        const { auth } = this.props;
+
+        console.log(auth);
+
+        let userInfo;
+        if(auth.token) {
+            userInfo = <p>{auth.user.email}</p>
         }
         return (
             <div style={styles.base}>
                 sidebar
-                {user}
+                {userInfo}
             </div>
         )
     }

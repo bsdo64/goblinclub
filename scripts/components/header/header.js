@@ -21,6 +21,8 @@ import connectToStores from 'alt/utils/connectToStores';
 import UserStore from '../../stores/UserStore';
 import UserActions from '../../Actions/UserActions';
 import LoginPopover from './loginPopover';
+import Immutable from 'immutable';
+import alt from '../../alt'
 
 @connectToStores
 @Radium
@@ -46,14 +48,16 @@ export default class header extends Component {
     }
 
     render() {
-        let userItem;
-        let { user } = this.props;
-        let isUserEmpty = _.isEmpty(user);
-        let login = <Popover id="loginPopover" title="로그인 / 회원가입" {...this.props}><LoginPopover />  </Popover>;
+        const { auth, authSuccess } = this.props;
 
-        if(!isUserEmpty) {
+        let login = <Popover id="loginPopover" title="로그인 / 회원가입" {...this.props}><LoginPopover />  </Popover>;
+        let userItem;
+
+        console.log(auth);
+
+        if(auth.token) {
             userItem = (
-                <NavDropdown eventKey={5} title={user.name} id="basic-nav-dropdown">
+                <NavDropdown eventKey={5} title={auth.user.email} id="basic-nav-dropdown">
                     <MenuItem eventKey="1">Action</MenuItem>
                     <MenuItem eventKey="2">Another action</MenuItem>
                     <MenuItem eventKey="3">Something else here</MenuItem>
@@ -83,13 +87,13 @@ export default class header extends Component {
                         <NavItem eventKey={2} href="/inbox">Inbox</NavItem>
                         <NavItem eventKey={2} href="/user">User</NavItem>
 
-                        { isUserEmpty &&
+                        { !authSuccess &&
                         <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={login}>
                             <NavItem eventKey={3} onClick={this._toggle}>로그인 / 회원가입</NavItem>
                         </OverlayTrigger>
                         }
 
-                        { !isUserEmpty && userItem }
+                        { authSuccess && userItem }
 
                         <NavDropdown eventKey={4} title="Dropdown" id="basic-nav-dropdown">
                             <MenuItem eventKey="1">Action</MenuItem>

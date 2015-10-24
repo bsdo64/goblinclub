@@ -34,7 +34,7 @@ Iso.bootstrap((state, _, container) => {
 
     /* Debug - Final Dispatched Store's State */
     function finalState (payload) {
-        console.log('Final.toJS()\t', payload.toJS());
+        console.log('Final.toJS()\t', payload);
         console.groupEnd('action');
     }
     for(var store in alt.stores) {

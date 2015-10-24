@@ -20,13 +20,7 @@ export default class loginPopover extends Component {
     }
 
     static getPropsFromStores() {
-        var store = UserStore.getState();
-
-        if(store instanceof immutable.Map) {
-            return store.toJS();
-        } else {
-            return store;
-        }
+        return UserStore.getState();
     }
 
     constructor(...props) {
@@ -109,8 +103,6 @@ export default class loginPopover extends Component {
             email :this.refs.email.value.trim(),
             password : this.refs.password.value.trim()
         };
-
-        loginUser = immutable.Map(loginUser);
         UserActions.loginUser(loginUser);
     }
 }

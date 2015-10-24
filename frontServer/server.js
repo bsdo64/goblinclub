@@ -35,11 +35,21 @@ app.use((req, res, next) => {
     if(token) {
         jsonWebToken.verify(token, 'secret', function(err, decoded) {
             if( err ) {
-
+                console.log(err);
             } else {
-                res.locals.data = {
-                    UserStore: { user: {id:"bsdo@naver.com", name:"bsdo-name", nick: "Hello"} }
+                var data = {
+                    UserStore: {
+                        auth: {
+                            token: token,
+                            user: decoded
+                        },
+                        loadingAuth: false,
+                        loadedAuth: true,
+                        authFail: false,
+                        authSuccess: true
+                    }
                 };
+                res.locals.data = data;
                 next();
             }
         });
@@ -77,36 +87,10 @@ app.use(['/user', '/post'], authenticate, (err, req, res, next) => {
 });
 
 app.post('/login', (req, res) => {
-
-    let user = {
-        id: "123456",
-        nick: "Master",
-        email: "bsdo@naver.com"
-    };
-
-    fetch
-        .post('http://localhost:3000/api/auth/login')
-        .type('form')
-        .send({user : user})
-        .set('X-API-Key', 'foobar')
-        .set('Accept', 'application/json')
-        .end((err, apiResponse) => {
-            if( err) {
-                console.log(err);
-            }
-
-            res.cookie('token', apiResponse.body.token, {
-                expires: new Date(Date.now() + (24 * 60 * 60 * 1000)),
-                httpOnly: true
-            });
-
-            res.json({message : "cookie setted"});
-        });
+    proxy.web(req, res, {target: 'http://localhost:3001/auth'});
 });
 
 app.use((req, res) => {
-
-    //let state = JSON.stringify(res.locals.data || {});
     let state = JSON.stringify(res.locals.data || {});
 
     let markup, content;

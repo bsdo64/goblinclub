@@ -1,25 +1,50 @@
 /**
  * Created by dobyeongsu on 2015. 10. 18..
  */
-import Express from 'express';
-import bodyParser from 'body-parser';
-import jsonWebToken from 'jsonwebtoken';
+var Express = require('express');
+var bodyParser = require('body-parser');
+var jsonWebToken = require('jsonwebtoken');
+var cors = require('cors');
 
 var app = Express();
 
+app.use(cors({
+    origin : 'http://localhost:3000'
+}));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
     res.send('Hello World!');
 });
 
-app.post('/auth/login', (req, res) => {
+app.post('/auth/login', function (req, res) {
 
-    let user = req.body.user;
-    let token = jsonWebToken.sign(user, 'secret', {expiresIn : "7d"});
+    var user = req.body.user;
 
-    res.json(200, { token: token });
+    try {
 
+        var token = jsonWebToken.sign(user, 'secret', {expiresIn : "7d"});
+
+        res.cookie('token', token, {
+            expires: new Date(Date.now() + (24 * 60 * 60 * 1000)),
+            httpOnly: true
+        });
+
+        res.json({
+            token : token,
+            user : user,
+            message : "Loggined!"
+        });
+
+    } catch( err ) {
+
+        res.json({
+            message : "can't make token",
+            error : err
+        });
+
+    }
 });
 
 app.listen(3001, function () {

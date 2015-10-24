@@ -19,14 +19,7 @@ alt.dispatcher.register((state) => {
     console.log('All Current Stores\t', JSON.parse(snapshot));
 
     /* Debug - Current Dispatch Payload */
-    var stateCopy
-    if( typeof state.data !== 'undefined') {
-        stateCopy = state;
-        stateCopy.data = stateCopy.data.toJS();
-    } else {
-        stateCopy = state;
-    }
-    console.log('Dispatched\t\t', stateCopy);
+    console.log('Dispatched\t\t', state);
 });
 
 export default alt;

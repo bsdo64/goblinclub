@@ -4,42 +4,56 @@
 import alt from '../alt';
 import _ from 'lodash'
 import UserActions from '../Actions/UserActions'
-import Immutable from 'immutable';
 
 class UserStore {
     constructor() {
 
         this.bindActions(UserActions);
 
-        this.state = Immutable.Map({
+        this.state = {
             auth: {
-                token: {},
+                token: null,
                 user: {}
             },
             loadingAuth: false,
             loadedAuth: false,
             authFail: false,
             authSuccess: false
-        });
+        };
 
     }
 
     onLoginUser() {
-        var data = this.state.set('loadingAuth', true);
-        this.setState(data);
+        this.setState({loadingAuth : true});
     }
     onLoginUser_uiValidateFail(result) {
-        var data = this.state.set('loadingAuth', false);
-        data = data.set('authFail', true);
-        data = data.set('authSuccess', false);
-        data = data.set('uiValidate', result);
-        this.setState(data)
+
+        this.setState({
+            loadingAuth : false,
+            authFail: true,
+            authSuccess: false,
+            uiValidate: result
+        });
     }
     onLoginUser_uiValidateSuccess(result) {
-        var data = this.state.set('loadingAuth', true);
-        data = data.set('authFail', false);
-        data = data.set('uiValidate', result);
-        this.setState(data);
+        this.setState({
+            loadingAuth : true,
+            authFail: false,
+            authSuccess: false,
+            uiValidate: result
+        });
+    }
+
+    onLoginSuccess(result) {
+        this.setState({
+            auth: {
+                token : result.token,
+                user : result.user
+            },
+            authFail: false,
+            loadingAuth: false,
+            authSuccess: true
+        })
     }
 
     onIsLogined(token) {
