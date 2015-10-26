@@ -1,0 +1,21 @@
+{
+  "name": "goblin-alt",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "ByeongSu Do <bsdo@naver.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5"
+  }
+}

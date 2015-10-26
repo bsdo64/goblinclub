@@ -3,14 +3,100 @@
  */
 import React, { Component } from 'react';
 import Radium, { Style } from 'radium';
+import connectToStores from 'alt/utils/connectToStores';
+import UserStore from '../../stores/UserStore';
+import PostStore from '../../stores/PostStore';
 
+@connectToStores
 @Radium
 export default class Main extends Component {
+    static getStores() {
+        return [UserStore, PostStore];
+    }
+
+    static getPropsFromStores() {
+        return {
+            UserStore : UserStore.getState(),
+            PostStore : PostStore.getState()
+        }
+    }
+
     componentDidMount () {
         $('.nano').nanoScroller();
     }
 
     render() {
+        const { loadSuccess, posts } = this.props.PostStore;
+
+        let postList;
+        var createItem = (v, k) => {
+            return (
+                <li className="_ccast_item" key={k}>
+                    <div className="lst_obj">
+                        <p className="thumb">
+                            <a className="N=a:sbx*c.img" href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article" target="_blank">
+                                <img alt="" height="40" onerror="this.parentElement.classNameName += &quot; cafe&quot;;this.src=&quot;http://static.naver.net/me/blank.gif&quot;;"
+                                     width="40" /> <span className="mask"></span></a>
+
+                        </p>
+                        <div className="desc_bx">
+                            <div className="con_desc">
+                                <h4><a className="N=a:sbx*c.content _ccast_item_url"
+                                       href="http://cafe.naver.com/joonggonara/287427195"
+                                       target="_blank">{v.title}</a>
+                                </h4>
+                                <p className="frm_svc">
+                                    <span className="h_title">
+                                        <a className="N=a:sbx*c.content" href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article" target="_blank">{v.author}</a>
+                                    </span>
+                                    <span className="wrt_time">{v.submitDate}</span>
+                                    <span className="h_subject">
+                                        <a className="N=a:sbx*c.content" href="http://cafe.naver.com/joonggonara" target="_blank">클럽</a> &gt; <a className="N=a:sbx*c.content" href="http://cafe.naver.com/ArticleList.nhn?search.clubid=10050146&amp;search.menuid=736&amp;search.boardtype=L" target="_blank">{v.club}</a></span> <span className="svc_name"><a className="N=a:sbx*c.content" href="http://cafe.naver.com" target="_blank">카페</a>
+                                    </span>
+                                </p>
+                                <div className="lst_type2">
+                                    <div className="rgt_dsc">
+                                        <div className="fd_cont">
+                                            <a className="N=a:sbx*c.content _ccast_item_url"
+                                               href="http://cafe.naver.com/joonggonara/287427195"
+                                               target="_blank">가격은 9만원 이내로서울직거래
+                                                합니다레오폴드 fc900r led 갈축삽니다.구성품 풀박스 이면
+                                                좋겠고여 깨끗한거 삽니다.파실분은 카톡 evidence0647 로
+                                                톡주세요</a>
+                                        </div>
+                                    </div>
+                                    <div className="btn_area" >
+                                        <button className="N=a:sbx*c.cmt btn_reple _ccast_feed_button_comment"
+                                                data-link="http://cafe.naver.com/joonggonara/287427195"
+                                                data-messagekey="{&quot;clubid&quot;:10050146,&quot;articleid&quot;:287427195}"
+                                                data-messagekeymap="{clubid=10050146, articleid=287427195}"
+                                                data-nclick="N=a:sbx*c" data-serviceid="cafe" type="button"><span className="frnt"></span> <span className="tx_node _ccast_feed_button_comment">좋아요<em className="cnt _ccast_feed_button_comment"></em></span></button>
+                                        <button className="N=a:sbx*c.cmt btn_reple _ccast_feed_button_comment"
+                                                data-link="http://cafe.naver.com/joonggonara/287427195"
+                                                data-messagekey="{&quot;clubid&quot;:10050146,&quot;articleid&quot;:287427195}"
+                                                data-messagekeymap="{clubid=10050146, articleid=287427195}"
+                                                data-nclick="N=a:sbx*c" data-serviceid="cafe" type="button"><span className="frnt"></span> <span className="tx_node _ccast_feed_button_comment">싫어요<em className="cnt _ccast_feed_button_comment"></em></span></button>
+                                        <button className="N=a:sbx*c.cmt btn_reple _ccast_feed_button_comment"
+                                                data-link="http://cafe.naver.com/joonggonara/287427195"
+                                                data-messagekey="{&quot;clubid&quot;:10050146,&quot;articleid&quot;:287427195}"
+                                                data-messagekeymap="{clubid=10050146, articleid=287427195}"
+                                                data-nclick="N=a:sbx*c" data-serviceid="cafe" type="button"><span className="frnt"></span> <span className="tx_node _ccast_feed_button_comment">댓글<em className="cnt _ccast_feed_button_comment"></em></span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="ic_bookmark">
+                            <a className="_bookmark_icon N=a:sbx*c.bmk" href="#" title="추천하기"><span className="blind">추천하기</span></a>
+                        </div>
+                        <button className="N=a:sbx*c.del feed_del _ccast_button_delete" type="button"><span className="blind">상기 내용 삭제</span></button>
+                    </div>
+                </li>
+            )
+        };
+        if (loadSuccess) {
+            postList = <ul>{posts.data.map(createItem)}</ul>
+        }
+
         return (
             <div style={styles.main}>
                 <Style rules={{
@@ -35,6 +121,9 @@ export default class Main extends Component {
                     </div>
                     <div className="lst_area _lst_area nano" style={styles.contents}>
                         <div className="nano-content" style={styles.scrollContent}>
+
+                            { loadSuccess && postList }
+
                             <ul className="">
                                 <li className="_ccast_item">
                                     <div className="lst_obj">
@@ -638,7 +727,7 @@ var styles = {
         height: "100%"
     },
     scrollContent: {
-        right: -15,
+        right: 0,
         width: "auto",
         height: "auto",
         overflow: "hidden",

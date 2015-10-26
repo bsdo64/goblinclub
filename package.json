@@ -6,7 +6,8 @@
   "scripts": {
     "front": "nodemon -w ./ bin/frontServer.js -i ./node_modules",
     "front-client": "webpack --colors --progress --watch",
-    "api": "nodemon -w ./apiServer bin/backEndServer.js"
+    "api": "nodemon -w ./apiServer bin/backEndServer.js",
+    "fake-data": "nodemon -w ./ApiSample bin/fakeApi.js"
   },
   "author": "",
   "license": "ISC",
@@ -42,5 +43,9 @@
     "validator": "^4.1.0",
     "webpack": "^1.12.2",
     "whatwg-fetch": "^0.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^1.7.3",
+    "json-server": "^0.8.2"
   }
 }

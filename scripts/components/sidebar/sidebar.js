@@ -18,11 +18,13 @@ export default class sidebar extends Component {
     }
 
     static getPropsFromStores() {
-        return UserStore.getState();
+        return {
+            UserStore : UserStore.getState()
+        }
     }
 
     render() {
-        const { auth } = this.props;
+        const { auth } = this.props.UserStore;
 
         return (
             <div style={styles.base}>

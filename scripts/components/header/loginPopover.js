@@ -20,7 +20,9 @@ export default class loginPopover extends Component {
     }
 
     static getPropsFromStores() {
-        return UserStore.getState();
+        return {
+            UserStore : UserStore.getState()
+        }
     }
 
     constructor(...props) {
@@ -29,7 +31,7 @@ export default class loginPopover extends Component {
     }
 
     render() {
-        const { loadingAuth, authFail, authSuccess, uiValidate } = this.props;
+        const { loadingAuth, authFail, authSuccess, uiValidate } = this.props.UserStore;
 
         let loadingMessage,
             errorMessage = {

@@ -10,8 +10,8 @@ export default class HTML extends Component {
             <html>
                 <head>
                     { /*<link rel="stylesheet" type="text/stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />*/ }
-                    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
-                    <link rel="stylesheet" href="/nanoscroller.css" />
+                    <link rel="stylesheet" href="/statics//bootstrap/dist/css/bootstrap.min.css" />
+                    <link rel="stylesheet" href="/statics//nanoscroller.css" />
 
                 </head>
 
@@ -19,9 +19,9 @@ export default class HTML extends Component {
                     <div id="app">
                         CONTENT
                     </div>
-                    <script src="jquery/dist/jquery.js"></script>
-                    <script src="jquery.nanoscroller.js"></script>
-                    <script src="bundle.js"></script>
+                    <script src="/statics/jquery/dist/jquery.js"></script>
+                    <script src="/statics/jquery.nanoscroller.js"></script>
+                    <script src="/statics/bundle.js"></script>
                 </body>
             </html>
         )

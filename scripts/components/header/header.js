@@ -19,6 +19,7 @@ import Radium, { Style } from 'radium';
 import _ from 'lodash';
 import connectToStores from 'alt/utils/connectToStores';
 import UserStore from '../../stores/UserStore';
+import PostStore from '../../stores/PostStore';
 import UserActions from '../../Actions/UserActions';
 import LoginPopover from './loginPopover';
 import Immutable from 'immutable';
@@ -29,11 +30,14 @@ import alt from '../../alt'
 export default class header extends Component {
 
     static getStores() {
-        return [UserStore];
+        return [UserStore, PostStore];
     }
 
     static getPropsFromStores() {
-        return UserStore.getState();
+        return {
+            UserStore : UserStore.getState(),
+            PostStore : PostStore.getState()
+        }
     }
 
     constructor(...args) {
@@ -48,12 +52,10 @@ export default class header extends Component {
     }
 
     render() {
-        const { auth, authSuccess } = this.props;
+        const { auth, authSuccess } = this.props.UserStore;
 
         let login = <Popover id="loginPopover" title="로그인 / 회원가입" {...this.props}><LoginPopover />  </Popover>;
         let userItem;
-
-        console.log(auth);
 
         if(auth.token) {
             userItem = (

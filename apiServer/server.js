@@ -6,6 +6,8 @@ var bodyParser = require('body-parser');
 var jsonWebToken = require('jsonwebtoken');
 var cors = require('cors');
 
+var composeRouter = require('./composeRouter');
+
 var app = Express();
 
 app.use(cors({
@@ -17,6 +19,7 @@ app.use(bodyParser.json());
 app.get('/', function (req, res) {
     res.send('Hello World!');
 });
+app.use('/compose', composeRouter);
 
 app.post('/auth/login', function (req, res) {
 

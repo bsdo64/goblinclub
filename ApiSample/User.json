@@ -1,0 +1,26 @@
+{
+  "get" : {
+    "total" : 2,
+    "data" : [
+      {
+        "nick" : "bsdo",
+        "email" : "bsdo@naver.com"
+      },
+      {
+        "nick" : "bsdo",
+        "email" : "bsdo@naver.com"
+      }
+    ]
+  },
+  "post" : {
+    "nick" : "bsdo",
+    "email" : "bsdo@naver.com",
+    "password" : "test1234"
+  },
+  "put" : {
+
+  },
+  "del" : {
+    "nick" : "bsdo",
+  }
+}
