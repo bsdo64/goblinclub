@@ -22,7 +22,6 @@ app.get('/', function (req, res) {
 app.use('/compose', composeRouter);
 
 app.post('/auth/login', function (req, res) {
-
     var user = req.body.user;
 
     try {

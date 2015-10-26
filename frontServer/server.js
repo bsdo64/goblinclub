@@ -25,6 +25,7 @@ var proxy = httpProxy.createProxyServer();
 app.locals.settings['x-powered-by'] = false;
 
 app.use(cookieParser());
+app.use('/favicon.ico', express.static(dist+'/favicon.ico'));
 app.use('/statics', express.static(dist));
 app.use('/statics', express.static(bowerPath));
 app.use(['/statics', '/favicon.ico'], (req, res) => {
@@ -34,8 +35,6 @@ app.use(['/statics', '/favicon.ico'], (req, res) => {
 app.use('/api', (req, res) => {
     proxy.web(req, res, {target: 'http://localhost:3001'});
 });
-
-
 
 var authenticate  = jwt({
     secret: "secret",
@@ -62,13 +61,15 @@ app.use(['/user', '/post'], authenticate, (err, req, res, next) => {
 });
 
 app.post('/login', (req, res) => {
-    proxy.web(req, res, {target: 'http://localhost:3001/auth'});
+    proxy.web(req, res, {target: 'http://localhost:3000/api/auth'});
 });
 
+app.use(Composer);
+
 app.use((req, res) => {
+    console.time('start');
     let markup, content;
     let location = new createLocation(req.url);
-
     match({ routes, location }, (error, redirectLocation, renderProps) => {
 
         if (redirectLocation)
@@ -78,27 +79,23 @@ app.use((req, res) => {
         else if (renderProps == null)
             res.status(401).send('Not found')
         else {
+            console.time('start');
 
-            let bootStrapStoreState = new Composer();
-            bootStrapStoreState.composeStore(req.url);
-
-            console.log('url -> ', req.url);
-            console.log('result -> ', bootStrapStoreState.getStoreState);
-
-            let state = JSON.stringify(bootStrapStoreState.getStoreState || {});
+            var state = JSON.stringify(res.locals.data || {});
             alt.bootstrap(state);
 
             content = ReactDOM.renderToString(<RoutingContext {...renderProps} />);
             markup = Iso.render(content, alt.flush());
 
             let html = ReactDOM.renderToString(<HTML />);
-
             html = html.replace('CONTENT', function(match) {
                 return match.replace('CONTENT', markup);
             });
 
             res.set('Content-Type', 'text/html; charset=utf8');
+
             res.end(html);
+            console.timeEnd('start');
         }
     });
 });
