@@ -4,6 +4,8 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import jwt from 'express-jwt';
 import fetch from 'superagent';
+import connectRedis from 'connect-redis'
+import session from 'express-session';
 
 import React from 'react';
 import routes from '../universalRouter/routes'
@@ -21,6 +23,7 @@ var app = express();
 var bowerPath = path.join(__dirname, "../bower_components");
 var dist = path.join(__dirname, "../_dist");
 var proxy = httpProxy.createProxyServer();
+var RedisStore = connectRedis(session);
 
 app.locals.settings['x-powered-by'] = false;
 
@@ -32,8 +35,34 @@ app.use(['/statics', '/favicon.ico'], (req, res) => {
     res.end();
 });
 
+app.use(session({
+    store: new RedisStore({
+        host: 'localhost',
+        port: 6379,
+        db: 2,
+        pass: 'RedisPASS'
+    }),
+    secret: '1234567890QWERTY',
+    resave: false,
+    saveUninitialized: false
+}));
+
 app.use('/api', (req, res) => {
     proxy.web(req, res, {target: 'http://localhost:3001'});
+});
+
+/* Front Side */
+
+app.use(function (req, res, next) {
+    if(!req.session.initialized) {
+        req.session.initialized = true;
+        req.session.save((err) => {
+            next();
+        });
+        next();
+    } else {
+        next();
+    }
 });
 
 var authenticate  = jwt({
@@ -92,7 +121,6 @@ app.use((req, res) => {
             });
 
             res.set('Content-Type', 'text/html; charset=utf8');
-
             res.end(html);
         }
     });

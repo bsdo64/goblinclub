@@ -31,7 +31,7 @@ export default class loginPopover extends Component {
     }
 
     render() {
-        const { loadingAuth, authFail, authSuccess, uiValidate } = this.props.UserStore;
+        const { loadingAuth, authFail, loadedAuth, uiValidate } = this.props.UserStore;
 
         let loadingMessage,
             errorMessage = {
@@ -39,16 +39,16 @@ export default class loginPopover extends Component {
                 password : null
             };
 
-        if( authFail ) {
+        if( loadingAuth ) {
+            loadingMessage =  <p>로딩중..</p>;
+        }
+        if( loadedAuth && authFail ) {
             let count = 0;
             var createItem = function(itemText, index) {
                 return <li key={index + count++}>{itemText}</li>;
             };
             errorMessage.email    =  <ul>{uiValidate.errors.email.map(createItem)}</ul>;
             errorMessage.password =  <ul>{uiValidate.errors.password.map(createItem)}</ul>;
-        }
-        if( loadingAuth ) {
-            loadingMessage =  <p>로딩중..</p>;
         }
         return (
                 <div >

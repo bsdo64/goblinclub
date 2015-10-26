@@ -18,7 +18,8 @@ class UserStore {
             loadingAuth: false,
             loadedAuth: false,
             authFail: false,
-            authSuccess: false
+            authSuccess: false,
+            uiValidate: {}
         };
 
     }
@@ -32,6 +33,7 @@ class UserStore {
             loadingAuth : false,
             authFail: true,
             authSuccess: false,
+            loadedAuth: true,
             uiValidate: result
         });
     }
@@ -52,6 +54,7 @@ class UserStore {
             },
             authFail: false,
             loadingAuth: false,
+            loadedAuth: true,
             authSuccess: true
         })
     }

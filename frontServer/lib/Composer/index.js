@@ -34,7 +34,7 @@ Composer.use((req, res, next) => {
     if(token) {
         jsonWebToken.verify(token, 'secret', function(err, decoded) {
             if( err ) {
-                State.UserStore.authFail = false;
+                State.UserStore.authFail = true;
 
                 res.locals.data = State;
                 next();
@@ -54,7 +54,7 @@ Composer.use((req, res, next) => {
             }
         });
     } else {
-        State.UserStore.authFail = false;
+        State.UserStore.authFail = true;
 
         res.locals.data = State;
         next();

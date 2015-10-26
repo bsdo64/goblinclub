@@ -1,4 +1,5 @@
 /bower_components
 /node_modules
 /_dist/bundle.js
-/.idea
+dump.rdb
+.idea/**/*.*
