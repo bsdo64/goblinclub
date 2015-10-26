@@ -54,9 +54,9 @@ app.use(['/user', '/post'], authenticate, (err, req, res, next) => {
     } else {
         if (err.name === 'UnauthorizedError') {
             res.status(401).send('invalid token...');
+        } else {
+            next();
         }
-
-        next();
     }
 });
 
@@ -79,7 +79,6 @@ app.use((req, res) => {
         else if (renderProps == null)
             res.status(401).send('Not found')
         else {
-            console.time('start');
 
             var state = JSON.stringify(res.locals.data || {});
             alt.bootstrap(state);
@@ -95,7 +94,6 @@ app.use((req, res) => {
             res.set('Content-Type', 'text/html; charset=utf8');
 
             res.end(html);
-            console.timeEnd('start');
         }
     });
 });

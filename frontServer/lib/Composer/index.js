@@ -13,21 +13,67 @@ var ComposeApiRequest = ((url) => {
     return request.get(ComposeApi + url)
 });
 
+var State = {
+    UserStore: {
+        auth: {
+            token: null,
+            user: {}
+        },
+        loadingAuth: false,
+        loadedAuth: false,
+        authFail: false,
+        authSuccess: false
+    }
+};
+
 Composer.use((req, res, next) => {
-    res.locals.data = res.locals.data || {};
-    next();
+    res.locals.data = res.locals.data || State;
+
+    var token = req.cookies.token;
+
+    if(token) {
+        jsonWebToken.verify(token, 'secret', function(err, decoded) {
+            if( err ) {
+                State.UserStore.authFail = false;
+
+                res.locals.data = State;
+                next();
+            } else {
+                console.log(decoded);
+                State.UserStore = {
+                    auth : {
+                        token: token,
+                        user: decoded
+                    },
+                    authSuccess : true,
+                    loadedAuth : true
+                };
+
+                res.locals.data = State;
+                next();
+            }
+        });
+    } else {
+        State.UserStore.authFail = false;
+
+        res.locals.data = State;
+        next();
+    }
 });
 
 Composer.use('/', (req, res, next) => {
     ComposeApiRequest(req.url).end((errXHR, resXHR) => {
         if(errXHR) {
 
-            res.locals.data = errXHR;
+            State['Error'] = errXHR;
             next();
         } else if(resXHR && resXHR.ok) {
 
-            res.locals.data['UserStore'] = {auth:{token:null, user:{email:"bsdoN", password:'1234'}}}
-            res.locals.data['PostStore'] = resXHR.body;
+            let apiResult = resXHR.body;
+            State['PostStore'] = {
+                loadSuccess : true,
+                posts : apiResult
+            }
             next();
         }
     });

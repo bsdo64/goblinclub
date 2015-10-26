@@ -29,9 +29,11 @@ export default class Main extends Component {
         const { loadSuccess, posts } = this.props.PostStore;
 
         let postList;
-        var createItem = (v, k) => {
+        var createItem = (post, key) => {
+            const { title, author, submitDate, club } = post;
+
             return (
-                <li className="_ccast_item" key={k}>
+                <li className="_ccast_item" key={key}>
                     <div className="lst_obj">
                         <p className="thumb">
                             <a className="N=a:sbx*c.img" href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article" target="_blank">
@@ -43,15 +45,15 @@ export default class Main extends Component {
                             <div className="con_desc">
                                 <h4><a className="N=a:sbx*c.content _ccast_item_url"
                                        href="http://cafe.naver.com/joonggonara/287427195"
-                                       target="_blank">{v.title}</a>
+                                       target="_blank">{title}</a>
                                 </h4>
                                 <p className="frm_svc">
                                     <span className="h_title">
-                                        <a className="N=a:sbx*c.content" href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article" target="_blank">{v.author}</a>
+                                        <a className="N=a:sbx*c.content" href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article" target="_blank">{author}</a>
                                     </span>
-                                    <span className="wrt_time">{v.submitDate}</span>
+                                    <span className="wrt_time">{submitDate}</span>
                                     <span className="h_subject">
-                                        <a className="N=a:sbx*c.content" href="http://cafe.naver.com/joonggonara" target="_blank">클럽</a> &gt; <a className="N=a:sbx*c.content" href="http://cafe.naver.com/ArticleList.nhn?search.clubid=10050146&amp;search.menuid=736&amp;search.boardtype=L" target="_blank">{v.club}</a></span> <span className="svc_name"><a className="N=a:sbx*c.content" href="http://cafe.naver.com" target="_blank">카페</a>
+                                        <a className="N=a:sbx*c.content" href="http://cafe.naver.com/joonggonara" target="_blank">클럽</a> &gt; <a className="N=a:sbx*c.content" href="http://cafe.naver.com/ArticleList.nhn?search.clubid=10050146&amp;search.menuid=736&amp;search.boardtype=L" target="_blank">{club}</a></span> <span className="svc_name"><a className="N=a:sbx*c.content" href="http://cafe.naver.com" target="_blank">카페</a>
                                     </span>
                                 </p>
                                 <div className="lst_type2">
