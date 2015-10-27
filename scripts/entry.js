@@ -8,6 +8,7 @@ import alt from './alt';
 import Immutable from 'immutable';
 import { Router } from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory'
+import zip from 'lz-string';
 
 import { App } from './Containers'
 import routes from '../universalRouter/routes'
@@ -29,7 +30,15 @@ export default class Entry extends Component {
     }
 }
 
+var iso_config = {
+    markupClassName: 'app-main',
+    markupElement: 'main',
+    dataClassName: 'states',
+    dataElement: 'script'
+}
+
 Iso.bootstrap((state, _, container) => {
+    state = zip.decompressFromBase64(state);
     alt.bootstrap(state);
 
     /* Debug - Final Dispatched Store's State */
@@ -42,4 +51,4 @@ Iso.bootstrap((state, _, container) => {
     }
 
     ReactDOM.render(<Router history={createBrowserHistory()} children={routes} />, container);
-});
+}, iso_config);

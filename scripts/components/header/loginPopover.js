@@ -10,7 +10,6 @@ import {
 import connectToStores from 'alt/utils/connectToStores';
 import UserStore from '../../stores/UserStore';
 import UserActions from '../../Actions/UserActions';
-import immutable from 'immutable';
 
 @connectToStores
 export default class loginPopover extends Component {

@@ -14,8 +14,9 @@ import { RoutingContext, match } from 'react-router'
 import createLocation from 'history/lib/createLocation';
 import alt from '../scripts/alt';
 import Iso from 'iso';
+import zip from 'lz-string';
 
-import Composer from './lib/Composer';
+import Composer from './lib/Composer/server';
 
 import HTML from './indexHTML'
 
@@ -26,6 +27,8 @@ var proxy = httpProxy.createProxyServer();
 var RedisStore = connectRedis(session);
 
 app.locals.settings['x-powered-by'] = false;
+
+var cache = [];
 
 app.use(cookieParser());
 app.use('/favicon.ico', express.static(dist+'/favicon.ico'));
@@ -95,9 +98,8 @@ app.post('/login', (req, res) => {
 
 app.use(Composer);
 
-app.use((req, res) => {
-    console.time('start');
-    let markup, content;
+
+app.use((req, res, next) => {
     let location = new createLocation(req.url);
     match({ routes, location }, (error, redirectLocation, renderProps) => {
 
@@ -108,21 +110,40 @@ app.use((req, res) => {
         else if (renderProps == null)
             res.status(401).send('Not found')
         else {
+            renderServersideReact(renderProps, req, res, (req, res, html) => {
 
-            var state = JSON.stringify(res.locals.data || {});
-            alt.bootstrap(state);
+                res.set('Content-Type', 'text/html; charset=utf8');
+                res.end(html);
 
-            content = ReactDOM.renderToString(<RoutingContext {...renderProps} />);
-            markup = Iso.render(content, alt.flush());
-
-            let html = ReactDOM.renderToString(<HTML />);
-            html = html.replace('CONTENT', function(match) {
-                return match.replace('CONTENT', markup);
-            });
-
-            res.set('Content-Type', 'text/html; charset=utf8');
-            res.end(html);
+            })
         }
     });
 });
+
+function renderServersideReact(renderProps, req, res, callback) {
+
+    let markup,
+        content,
+        state = JSON.stringify(res.locals.data || {});
+
+    alt.bootstrap(state);
+
+    content = ReactDOM.renderToString(<RoutingContext {...renderProps} />);
+
+    markup = Iso.render(content, zip.compressToBase64(alt.flush()), {}, {
+        markupClassName: 'app-main',
+        markupElement: 'main',
+        dataClassName: 'states',
+        dataElement: 'script'
+    });
+    //console.timeEnd('start');   //-- 114ms
+
+    let html = ReactDOM.renderToString(<HTML />);
+    html = html.replace('CONTENT', function(match) {
+        return match.replace('CONTENT', markup);
+    });
+
+    callback(req, res, html);
+}
+
 app.listen(process.env.PORT || 3000);

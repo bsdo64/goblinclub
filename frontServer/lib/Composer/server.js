@@ -73,7 +73,7 @@ Composer.use('/', (req, res, next) => {
             State['PostStore'] = {
                 loadSuccess : true,
                 posts : apiResult
-            }
+            };
             next();
         }
     });

@@ -25,6 +25,8 @@ import LoginPopover from './loginPopover';
 import Immutable from 'immutable';
 import alt from '../../alt'
 
+import { createHistory } from 'history'
+
 @connectToStores
 @Radium
 export default class header extends Component {
@@ -45,10 +47,10 @@ export default class header extends Component {
         this.state = {show: true};
 
         this._toggle = this._toggle.bind(this);
+        this._history = this._history.bind(this);
     }
 
     componentWillReceiveProps() {
-
     }
 
     render() {
@@ -64,7 +66,7 @@ export default class header extends Component {
                     <MenuItem eventKey="2">Another action</MenuItem>
                     <MenuItem eventKey="3">Something else here</MenuItem>
                     <MenuItem divider />
-                    <MenuItem eventKey="4">로그아웃</MenuItem>
+                    <MenuItem eventKey="4" onClick={this._history}>로그아웃</MenuItem>
                 </NavDropdown>
             );
         }
@@ -118,6 +120,10 @@ export default class header extends Component {
                 </Navbar>
             </div>
         )
+    }
+
+    _history () {
+
     }
 
     _toggle () {

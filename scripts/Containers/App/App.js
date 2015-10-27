@@ -4,9 +4,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import UserActions from '../../Actions/UserActions';
+import fetch from 'superagent';
 
 export default class App extends Component {
+    componentWillMount() {
+        // Data Init
 
+    }
     componentDidMount() {
 
     }
