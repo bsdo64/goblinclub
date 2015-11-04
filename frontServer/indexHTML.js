@@ -10,9 +10,9 @@ export default class HTML extends Component {
             <html>
                 <head>
                     { /*<link rel="stylesheet" type="text/stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />*/ }
-                    <link rel="stylesheet" href="/statics//bootstrap/dist/css/bootstrap.min.css" />
-                    <link rel="stylesheet" href="/statics//nanoscroller.css" />
-
+                    <link rel="stylesheet" href="/statics/bootstrap/dist/css/bootstrap.min.css" />
+                    <link rel="stylesheet" href="/statics/non-responsive.css" />
+                    <link rel="stylesheet" href="/statics/nanoscroller.css" />
                 </head>
 
                 <body>

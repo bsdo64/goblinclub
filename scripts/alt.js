@@ -3,7 +3,6 @@
  */
 import Alt from 'alt';
 import chromeDebug from 'alt/utils/chromeDebug';
-import Immutable from 'immutable';
 
 var alt = new Alt({
 });

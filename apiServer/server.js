@@ -12,11 +12,15 @@ var composeClient = require('./composeRouter/client');
 var app = Express();
 
 app.use(cors({
-    origin : 'http://localhost:3000'
+    origin: 'http://localhost:3000'
 }));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+var model = require('./db');
+app.get('/', function (req, res) {
+
+});
 app.use('/compose', composeServer);
 app.use('/compose', composeClient);
 
@@ -25,7 +29,7 @@ app.post('/auth/login', function (req, res) {
 
     try {
 
-        var token = jsonWebToken.sign(user, 'secret', {expiresIn : "7d"});
+        var token = jsonWebToken.sign(user, 'secret', {expiresIn: "7d"});
 
         res.cookie('token', token, {
             expires: new Date(Date.now() + (24 * 60 * 60 * 1000)),
@@ -33,21 +37,24 @@ app.post('/auth/login', function (req, res) {
         });
 
         res.json({
-            token : token,
-            user : user,
-            message : "Loggined!"
+            token: token,
+            user: user,
+            message: "Loggined!"
         });
 
-    } catch( err ) {
+    } catch (err) {
 
         res.json({
-            message : "can't make token",
-            error : err
+            message: "can't make token",
+            error: err
         });
 
     }
 });
 
 app.listen(3001, function () {
-    console.log('Goblin Api listening');
+
+    model.sequelize.sync().then(function() {
+        console.log('Goblin Api listening');
+    })
 });

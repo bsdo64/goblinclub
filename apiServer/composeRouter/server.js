@@ -3,6 +3,12 @@
  */
 var express = require('express');
 var router = express.Router();
+var async = require('async');
+var Model = require('../db');
+var shortId = require('shortid');
+var _ = require('lodash');
+var moment = require('moment');
+moment.locale('ko');
 
 router.use(function timeLog(req, res, next) {
     console.log('Time: ', Date.now());
@@ -10,73 +16,55 @@ router.use(function timeLog(req, res, next) {
 });
 
 router.get('/', function( req, res ) {
-    var best = {
-        total : 1,
-        data : [
-            {
-                id : 1,
-                title : "Test 입니다",
-                author : "nick",
-                submitDate : 1445751634,
-                score : 10,
-                club : 'test',
-                vote : {
-                    like : 20,
-                    dislike : 10
-                },
-                comments : {
-                    total : 2,
-                    data : [
-                        {
-                            id: 1,
-                            title : "comment",
-                            author : "nick2",
-                            submitDate : 1445751634,
-                            score : 10,
-                            vote : {
-                                like : 20,
-                                dislike : 10
-                            },
-                            postId : 1,
-                            depth : 0
-                        },
-                        {
-                            id: 2,
-                            title : "comment",
-                            author : "nick3",
-                            submitDate : 1445751634,
-                            score : 10,
-                            vote : {
-                                like : 20,
-                                dislike : 10
-                            },
-                            postId : 1,
-                            depth : 1,
-                            commentId : 1
-                        },
-                        {
-                            id: 3,
-                            title : "comment",
-                            author : "nick3",
-                            submitDate : 1445751634,
-                            score : 10,
-                            vote : {
-                                like : 20,
-                                dislike : 10
-                            },
-                            postId : 1,
-                            depth : 2,
-                            commentId : 2
-                        }
-                    ]
+    // PostList, UserInfo, ClubList
+    var User = Model.user,
+        Post = Model.post;
+
+    User.findOrCreate({
+        where: {
+            email: "bsdo@naver.com",
+            nick: "TEST",
+            password: "dkbs1234"
+        }
+        })
+        .then(function() {
+            return User.findOne({
+                where: {
+                    email : "bsdo@naver.com"
                 }
-            }
-        ]
-    };
-
-    res.json(best);
-
+        }).then(function(user) {
+            return Post.create({
+                _id: shortId.generate(),
+                title: "Hello world",
+                content: "You aorle",
+                author: user.get('id')
+            });
+        }).then(function(post) {
+            return User.findAll({
+                where: {
+                    email: "bsdo@naver.com"
+                },
+                include: [Post]
+            });
+        }).then(function(user) {
+            return User.find({
+                where: {
+                    email: "bsdo@naver.com"
+                }
+            });
+        }).then(function(user) {
+                console.log(user.get());
+            return user.getPosts();
+        }).then(function(posts) {
+                console.log(posts);
+            var newPosts = _.map(posts, function (post) {
+                post.setDataValue('createdAt', moment(post.createdAt).fromNow());
+                post.setDataValue('updatedAt', moment(post.updatedAt).fromNow());
+                return post;
+            });
+            res.send(newPosts);
+        });
+    });
 });
-
 
 module.exports = router;

@@ -38,3 +38,7 @@
 - 클럽들
 - 글쓰기(Posting)
 - Pagination
+
+
+## 데이터베이스 접속
+> mysql -u goblinclub -p -h localhost goblinclub

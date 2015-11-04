@@ -1,24 +1,24 @@
-import express from 'express';
-import httpProxy from 'http-proxy';
-import path from 'path';
-import cookieParser from 'cookie-parser';
-import jwt from 'express-jwt';
-import fetch from 'superagent';
-import connectRedis from 'connect-redis'
-import session from 'express-session';
+import express                      from 'express';
+import httpProxy                    from 'http-proxy';
+import path                         from 'path';
+import cookieParser                 from 'cookie-parser';
+import jwt                          from 'express-jwt';
+import fetch                        from 'superagent';
+import connectRedis                 from 'connect-redis'
+import session                      from 'express-session';
 
-import React from 'react';
-import routes from '../universalRouter/routes'
-import ReactDOM from 'react-dom/server';
-import { RoutingContext, match } from 'react-router'
-import createLocation from 'history/lib/createLocation';
-import alt from '../scripts/alt';
-import Iso from 'iso';
-import zip from 'lz-string';
+import React                        from 'react';
+import routes                       from '../universalRouter/routes'
+import ReactDOM                     from 'react-dom/server';
+import { RoutingContext, match }    from 'react-router'
+import createLocation               from 'history/lib/createLocation';
+import alt                          from '../scripts/alt';
+import Iso                          from 'iso';
+import zip                          from 'lz-string';
 
-import Composer from './lib/Composer/server';
+import Composer                     from './lib/Composer/server';
 
-import HTML from './indexHTML'
+import HTML                         from './indexHTML'
 
 var app = express();
 var bowerPath = path.join(__dirname, "../bower_components");
@@ -55,14 +55,12 @@ app.use('/api', (req, res) => {
 });
 
 /* Front Side */
-
 app.use(function (req, res, next) {
     if(!req.session.initialized) {
         req.session.initialized = true;
         req.session.save((err) => {
             next();
         });
-        next();
     } else {
         next();
     }
@@ -98,9 +96,9 @@ app.post('/login', (req, res) => {
 
 app.use(Composer);
 
-
 app.use((req, res, next) => {
     let location = new createLocation(req.url);
+
     match({ routes, location }, (error, redirectLocation, renderProps) => {
 
         if (redirectLocation)
@@ -114,7 +112,6 @@ app.use((req, res, next) => {
 
                 res.set('Content-Type', 'text/html; charset=utf8');
                 res.end(html);
-
             })
         }
     });
@@ -124,7 +121,7 @@ function renderServersideReact(renderProps, req, res, callback) {
 
     let markup,
         content,
-        state = JSON.stringify(res.locals.data || {});
+        state = JSON.stringify(res.storeState || {});
 
     alt.bootstrap(state);
 

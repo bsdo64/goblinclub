@@ -30,7 +30,7 @@ export default class Main extends Component {
 
         let postList;
         var createItem = (post, key) => {
-            const { title, author, submitDate, club } = post;
+            const { title, author, createdAt, club, content } = post;
 
             return (
                 <li className="_ccast_item" key={key}>
@@ -51,7 +51,7 @@ export default class Main extends Component {
                                     <span className="h_title">
                                         <a className="N=a:sbx*c.content" href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article" target="_blank">{author}</a>
                                     </span>
-                                    <span className="wrt_time">{submitDate}</span>
+                                    <span className="wrt_time">{createdAt}</span>
                                     <span className="h_subject">
                                         <a className="N=a:sbx*c.content" href="http://cafe.naver.com/joonggonara" target="_blank">클럽</a> &gt; <a className="N=a:sbx*c.content" href="http://cafe.naver.com/ArticleList.nhn?search.clubid=10050146&amp;search.menuid=736&amp;search.boardtype=L" target="_blank">{club}</a></span> <span className="svc_name"><a className="N=a:sbx*c.content" href="http://cafe.naver.com" target="_blank">카페</a>
                                     </span>
@@ -61,10 +61,7 @@ export default class Main extends Component {
                                         <div className="fd_cont">
                                             <a className="N=a:sbx*c.content _ccast_item_url"
                                                href="http://cafe.naver.com/joonggonara/287427195"
-                                               target="_blank">가격은 9만원 이내로서울직거래
-                                                합니다레오폴드 fc900r led 갈축삽니다.구성품 풀박스 이면
-                                                좋겠고여 깨끗한거 삽니다.파실분은 카톡 evidence0647 로
-                                                톡주세요</a>
+                                               target="_blank">{content}</a>
                                         </div>
                                     </div>
                                     <div className="btn_area" >
@@ -96,7 +93,7 @@ export default class Main extends Component {
             )
         };
         if (loadSuccess) {
-            postList = <ul>{posts.data.map(createItem)}</ul>
+            postList = <ul>{posts.map(createItem)}</ul>
         }
 
         return (

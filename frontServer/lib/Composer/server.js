@@ -13,50 +13,39 @@ var ComposeApiRequest = ((url) => {
     return request.get(ComposeApi + url)
 });
 
-var State = {
-    UserStore: {
-        auth: {
-            token: null,
-            user: {}
-        },
-        loadingAuth: false,
-        loadedAuth: false,
-        authFail: false,
-        authSuccess: false
-    }
-};
-
 Composer.use((req, res, next) => {
-    res.locals.data = res.locals.data || State;
+    let defaultState = {
+        UserStore: {
+            auth: {
+                token: null,
+                user: {}
+            },
+            loadingAuth: false,
+            loadedAuth: false,
+            authFail: false,
+            authSuccess: false
+        }
+    };
+    res.storeState = defaultState;
 
-    var token = req.cookies.token;
-
+    const token = req.cookies.token;
     if(token) {
         jsonWebToken.verify(token, 'secret', function(err, decoded) {
             if( err ) {
-                State.UserStore.authFail = true;
-
-                res.locals.data = State;
+                res.storeState.UserStore.authFail = true;
                 next();
             } else {
-                console.log(decoded);
-                State.UserStore = {
-                    auth : {
-                        token: token,
-                        user: decoded
-                    },
-                    authSuccess : true,
-                    loadedAuth : true
+                res.storeState.UserStore['auth'] = {
+                    token: token,
+                    user: decoded
                 };
+                res.storeState.UserStore.authSuccess = true,
+                res.storeState.UserStore.loadedAuth = true,
 
-                res.locals.data = State;
                 next();
             }
         });
     } else {
-        State.UserStore.authFail = true;
-
-        res.locals.data = State;
         next();
     }
 });
@@ -65,15 +54,16 @@ Composer.use('/', (req, res, next) => {
     ComposeApiRequest(req.url).end((errXHR, resXHR) => {
         if(errXHR) {
 
-            State['Error'] = errXHR;
+            res.storeState['Error'] = errXHR;
             next();
         } else if(resXHR && resXHR.ok) {
 
             let apiResult = resXHR.body;
-            State['PostStore'] = {
+            res.storeState['PostStore'] = {
                 loadSuccess : true,
                 posts : apiResult
             };
+
             next();
         }
     });

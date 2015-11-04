@@ -2,6 +2,7 @@
  * Created by dobyeongsu on 2015. 10. 15..
  */
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 import {
     Navbar,
@@ -27,6 +28,8 @@ import alt from '../../alt'
 
 import { createHistory } from 'history'
 
+var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+
 @connectToStores
 @Radium
 export default class header extends Component {
@@ -44,7 +47,10 @@ export default class header extends Component {
 
     constructor(...args) {
         super(...args);
-        this.state = {show: true};
+        this.state = {
+            openPopup: false,
+            clickBody : false
+        };
 
         this._toggle = this._toggle.bind(this);
         this._history = this._history.bind(this);
@@ -97,10 +103,9 @@ export default class header extends Component {
                     </div>
 
                     <Nav right>
-                        <NavItem eventKey={1} href="/about">About</NavItem>
-                        <NavItem eventKey={2} href="/inbox">Inbox</NavItem>
-                        <NavItem eventKey={2} href="/user">User</NavItem>
-
+                        <li><Link to="/about">About</Link></li>
+                        <li><Link to="/inbox">Inbox</Link></li>
+                        <li><Link to="/user">User</Link></li>
                         { !authSuccess &&
                         <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={login}>
                             <NavItem eventKey={3} onClick={this._toggle}>로그인 / 회원가입</NavItem>
@@ -122,12 +127,16 @@ export default class header extends Component {
         )
     }
 
+    closeModal() {
+
+    }
+
     _history () {
 
     }
 
     _toggle () {
-        this.setState({ show : !this.state.show });
+        this.setState({ openPopup : !this.state.openPopup });
     }
 }
 
