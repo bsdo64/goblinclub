@@ -28,8 +28,6 @@ var RedisStore = connectRedis(session);
 
 app.locals.settings['x-powered-by'] = false;
 
-var cache = [];
-
 app.use(cookieParser());
 app.use('/favicon.ico', express.static(dist+'/favicon.ico'));
 app.use('/statics', express.static(dist));
@@ -50,6 +48,9 @@ app.use(session({
     saveUninitialized: false
 }));
 
+app.use('/ajax', (req, res) => {
+    proxy.web(req, res, {target: 'http://localhost:3001/ajax'});
+});
 app.use('/api', (req, res) => {
     proxy.web(req, res, {target: 'http://localhost:3001'});
 });
@@ -88,10 +89,6 @@ app.use(['/user', '/post'], authenticate, (err, req, res, next) => {
             next();
         }
     }
-});
-
-app.post('/login', (req, res) => {
-    proxy.web(req, res, {target: 'http://localhost:3000/api/auth'});
 });
 
 app.use(Composer);
@@ -133,7 +130,6 @@ function renderServersideReact(renderProps, req, res, callback) {
         dataClassName: 'states',
         dataElement: 'script'
     });
-    //console.timeEnd('start');   //-- 114ms
 
     let html = ReactDOM.renderToString(<HTML />);
     html = html.replace('CONTENT', function(match) {

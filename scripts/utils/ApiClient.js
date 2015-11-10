@@ -8,7 +8,7 @@ var ApiClient = {
     login : (user, callback) => {
 
         request
-            .post('/login')
+            .post('/ajax/login')
             .send({user : user})
             .set('Accept', 'application/json')
             .withCredentials()

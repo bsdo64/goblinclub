@@ -14,7 +14,9 @@ import {
     Popover,
     MenuItem,
     Button,
-    Input
+    Input,
+    Overlay,
+    Modal
 } from 'react-bootstrap';
 import Radium, { Style } from 'radium';
 import _ from 'lodash';
@@ -22,7 +24,7 @@ import connectToStores from 'alt/utils/connectToStores';
 import UserStore from '../../stores/UserStore';
 import PostStore from '../../stores/PostStore';
 import UserActions from '../../Actions/UserActions';
-import LoginPopover from './loginPopover';
+import LoginForm from './loginPopover';
 import Immutable from 'immutable';
 import alt from '../../alt'
 
@@ -30,8 +32,64 @@ import { createHistory } from 'history'
 
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
-@connectToStores
 @Radium
+class LoginButton extends Component {
+    constructor () {
+        super();
+        this.state = {
+            show : false
+        };
+
+        this._toggle = this._toggle.bind(this);
+        this._close = this._close.bind(this);
+    }
+
+    _toggle() {
+        this.setState({ show: !this.state.show });
+    }
+    _close() {
+        this.setState({ show: false })
+    }
+
+    render() {
+        const style = {
+            position: 'absolute',
+            backgroundColor: '#fff',
+            boxShadow: '0 5px 10px rgba(0, 0, 0, 0.2)',
+            border: '1px solid #CCC',
+            borderRadius: 2,
+            marginTop: 5,
+            padding: 15
+        };
+
+        return (
+            <div style={{ height: 50, position: 'relative' }}>
+                <div ref="target" style={styles.menu.container} onClick={this._toggle}>
+                    <button style={styles.menu.login}>로그인 / 회원가입</button>
+                </div>
+
+                <Modal show={this.state.show} onHide={this._close} >
+                    <Modal.Header closeButton>
+                        <Modal.Title>Modal heading</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div>
+                            안녕하세요 고블린 클럽에 오신것을 환영합니다
+                            만나서 반갑습니다
+                        </div>
+                        <LoginForm />
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this._close}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
+            </div>
+        );
+    }
+}
+
+@Radium
+@connectToStores
 export default class header extends Component {
 
     static getStores() {
@@ -47,22 +105,12 @@ export default class header extends Component {
 
     constructor(...args) {
         super(...args);
-        this.state = {
-            openPopup: false,
-            clickBody : false
-        };
 
-        this._toggle = this._toggle.bind(this);
-        this._history = this._history.bind(this);
-    }
-
-    componentWillReceiveProps() {
     }
 
     render() {
         const { auth, authSuccess } = this.props.UserStore;
 
-        let login = <Popover id="loginPopover" title="로그인 / 회원가입" {...this.props}><LoginPopover />  </Popover>;
         let userItem;
 
         if(auth.token) {
@@ -72,13 +120,13 @@ export default class header extends Component {
                     <MenuItem eventKey="2">Another action</MenuItem>
                     <MenuItem eventKey="3">Something else here</MenuItem>
                     <MenuItem divider />
-                    <MenuItem eventKey="4" onClick={this._history}>로그아웃</MenuItem>
+                    <MenuItem eventKey="4" >로그아웃</MenuItem>
                 </NavDropdown>
             );
         }
 
         return (
-            <div id="header">
+            <div id="header" >
                 <Style rules={{
                   "#header .container" : {
                     width: "100%"
@@ -89,12 +137,14 @@ export default class header extends Component {
                   ".nano > .nano-pane" : {
                     background: 'rgba(0,0,0,.15)'
                   }
+
                 }} />
-                <Navbar fixedTop style={styles.base}>
-                    <NavBrand><Link to="/">Goblin Club</Link></NavBrand>
-                    <div id='searchBar' style={styles.search.container}>
-                        <div style={styles.search.bar}>
+                <Navbar fixedTop style={styles.header}>
+                    <NavBrand><Link to="/" style={styles.logo}>Goblin Club</Link></NavBrand>
+                    <div id='searchBar' style={styles.search.layout}>
+                        <div style={styles.search.container} >
                             <Input
+                                style={styles.search.bar}
                                 standalone
                                 type="text"
                                 placeholder="Enter text"
@@ -102,59 +152,80 @@ export default class header extends Component {
                         </div>
                     </div>
 
-                    <Nav right>
-                        <li><Link to="/about">About</Link></li>
-                        <li><Link to="/inbox">Inbox</Link></li>
-                        <li><Link to="/user">User</Link></li>
-                        { !authSuccess &&
-                        <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={login}>
-                            <NavItem eventKey={3} onClick={this._toggle}>로그인 / 회원가입</NavItem>
-                        </OverlayTrigger>
-                        }
+                    <div id="menu" style={styles.menu.layout}>
+                        <Nav right>
+                            { !authSuccess &&
+                                <LoginButton />
+                            }
 
-                        { authSuccess && userItem }
 
-                        <NavDropdown eventKey={4} title="Dropdown" id="basic-nav-dropdown">
-                            <MenuItem eventKey="1">Action</MenuItem>
-                            <MenuItem eventKey="2">Another action</MenuItem>
-                            <MenuItem eventKey="3">Something else here</MenuItem>
-                            <MenuItem divider />
-                            <MenuItem eventKey="4">Separated link</MenuItem>
-                        </NavDropdown>
-                    </Nav>
+                            { authSuccess && userItem }
+                        </Nav>
+                    </div>
                 </Navbar>
             </div>
         )
     }
-
-    closeModal() {
-
-    }
-
-    _history () {
-
-    }
-
-    _toggle () {
-        this.setState({ openPopup : !this.state.openPopup });
-    }
 }
 
 var styles = {
-    base : {
-        height: 50
+    header : {
+        height: 50,
+        backgroundColor: '#01403c',
+        minWidth: 1024,
+        border: 'none'
+    },
+    logo : {
+        color: '#fff',
+        fontSize : '30px',
+        fontWeight: 'bold',
+        letterSpacing: 1
     },
     search : {
-        container: {
+        layout: {
+            marginLeft: 0,
+            marginRight: 0,
             float: 'left'
         },
+        container: {
+            marginLeft: 35,
+            padding: '12px 0',
+            height: 50
+        },
         bar: {
-            maxWidth: 600,
-            width: 500,
             margin: 'auto',
-            top: 7,
             position: 'relative',
-            left: 115
+            height: 26,
+            width: 565,
+            borderRadius: 2
+        }
+    },
+
+    menu : {
+        layout : {
+            float: 'right'
+        },
+        container: {
+            height: 50,
+            padding: 12
+        },
+        login : {
+            borderRadius: 1,
+            boxShadow: '1px 1px 0 #000000',
+            color: '#fff',
+            backgroundColor: '#01403c',
+            padding: '3px 10px',
+            borderTop: 'solid #3b6b68 1px',
+            borderLeft: 'solid #3b6b68 1px',
+            borderBottom: 'none',
+            borderRight: 'none',
+            height: 25,
+            fontSize: 13,
+            ':hover': {
+                backgroundColor: '#2b5f5b',
+                backgroundImage: 'linear-gradient(to bottom, #2b5f5b, #01403c)',
+                textDecoration: 'none'
+            }
         }
     }
 }

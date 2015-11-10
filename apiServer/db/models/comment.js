@@ -5,9 +5,13 @@ var Validation = require('../validation');
 
 module.exports = function(sequelize, DataTypes) {
     var Comment = sequelize.define('comment', {
-        _id: {
+        comment_id: {
             type: DataTypes.STRING,
             primaryKey: true
+        },
+        post_id: {
+            type: DataTypes.STRING,
+            allowNull: false
         },
         content: {
             type: DataTypes.STRING
@@ -20,23 +24,30 @@ module.exports = function(sequelize, DataTypes) {
         deleted: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
+        },
+        parent_id: {
+            type: DataTypes.STRING,
+            defaultValue: null
         }
     }, {
         classMethods: {
             associate: function(models) {
-                Club.belongsTo(models.user, {
+                Comment.belongsTo(models.user, {
                     foreignKey: {
-                        name: 'creator',
+                        name: 'author',
                         allowNull: false
                     }
                 });
 
-                Club.belongsToMany(models.post, {
-                    through: {
-                        model: models.club_post,
-                        unique: false
-                    },
-                    foreignKey: 'club_id'
+                Comment.belongsTo(models.post, {
+                    foreignKey: 'post_id'
+                });
+
+                Comment.belongsTo(Comment, {
+                    foreignKey: {
+                        name: 'parent_id',
+                        allowNull: true
+                    }
                 });
             }
         }

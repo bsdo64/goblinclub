@@ -17,6 +17,10 @@ module.exports = function(sequelize, DataTypes) {
         },
         description: {
             type: DataTypes.STRING
+        },
+        type: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     }, {
         classMethods: {
@@ -31,6 +35,14 @@ module.exports = function(sequelize, DataTypes) {
                 Club.belongsToMany(models.post, {
                     through: {
                         model: models.club_post,
+                        unique: false
+                    },
+                    foreignKey: 'club_id'
+                });
+
+                Club.belongsToMany(models.user, {
+                    through: {
+                        model: models.club_user,
                         unique: false
                     },
                     foreignKey: 'club_id'

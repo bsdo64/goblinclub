@@ -3,7 +3,6 @@
  */
 var Express = require('express');
 var bodyParser = require('body-parser');
-var jsonWebToken = require('jsonwebtoken');
 var cors = require('cors');
 
 var composeServer = require('./composeRouter/server');
@@ -11,49 +10,24 @@ var composeClient = require('./composeRouter/client');
 
 var app = Express();
 
+app.locals.settings['x-powered-by'] = false;
 app.use(cors({
     origin: 'http://localhost:3000'
 }));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-var model = require('./db');
-app.get('/', function (req, res) {
-
-});
 app.use('/compose', composeServer);
-app.use('/compose', composeClient);
+app.use('/ajax', composeClient);
 
-app.post('/auth/login', function (req, res) {
-    var user = req.body.user;
-
-    try {
-
-        var token = jsonWebToken.sign(user, 'secret', {expiresIn: "7d"});
-
-        res.cookie('token', token, {
-            expires: new Date(Date.now() + (24 * 60 * 60 * 1000)),
-            httpOnly: true
-        });
-
-        res.json({
-            token: token,
-            user: user,
-            message: "Loggined!"
-        });
-
-    } catch (err) {
-
-        res.json({
-            message: "can't make token",
-            error: err
-        });
-
-    }
+app.use(function (req, res) {
+    console.log(req.url);
+    res.send('This is Api Server');
 });
 
 app.listen(3001, function () {
 
+    var model = require('./db');
     model.sequelize.sync().then(function() {
         console.log('Goblin Api listening');
     })

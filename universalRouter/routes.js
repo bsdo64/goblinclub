@@ -22,6 +22,8 @@ export default (
         <Route path="/" components={{header: header, main: main, sidebar: sidebar}} />
 
         <Route path="/login" components={{header: header, main: About, sidebar: sidebar}} />
+        <Route path="/signin" components={{header: header, main: About, sidebar: sidebar}} />
+        <Route path="/needEmailCode" components={{header: header, main: About, sidebar: sidebar}} />
 
         <Route path="/user" components={{header: header, main: User, sidebar: sidebar}}/>
         <Route path="/user/:id" components={{header: header, main: User, sidebar: sidebar}}/>
@@ -38,7 +40,7 @@ export default (
         <Route path="/submit/club" components={{header: header, main: User, sidebar: sidebar}}/>
 
         <Route path="/club" components={{header: header, main: User, sidebar: sidebar}}/>
-        <Route path="/club/:clubName" components={{header: header, main: User, sidebar: sidebar}}/>
+        <Route path="/club/:clubName" components={{header: header, main: main, sidebar: sidebar}}/>
         <Route path="/club/:clubName/submit" components={{header: header, main: User, sidebar: sidebar}}/>
         <Route path="/club/:clubName/search" components={{header: header, main: User, sidebar: sidebar}}/>
         <Route path="/club/:clubName/:article" components={{header: header, main: User, sidebar: sidebar}}/>

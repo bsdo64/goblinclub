@@ -8,7 +8,7 @@ var Composer = express.Router();
 import jsonWebToken from 'jsonwebtoken';
 import request from "superagent";
 
-var ComposeApi = 'http://localhost:3000/api/compose';
+var ComposeApi = 'http://localhost:3001/compose';
 var ComposeApiRequest = ((url) => {
     return request.get(ComposeApi + url)
 });

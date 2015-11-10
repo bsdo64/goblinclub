@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import Radium from 'radium';
+import { Link } from 'react-router';
 import connectToStores from 'alt/utils/connectToStores'
 import UserStore from '../../stores/UserStore';
 import {
@@ -28,27 +29,52 @@ export default class sidebar extends Component {
 
         return (
             <div style={styles.base}>
-                <div id='searchClub' style={styles.searchClub.base}>
-                    <div id='searchClubContainer' style={styles.searchClub.container}>
-                        <Input
-                            standalone
-                            type="text"
-                            placeholder="Enter text"
-                            ref="input" />
-                    </div>
-                </div>
-
-                <hr />
-
                 <div id='clubs'>
-                    <div id='clubsContainer' style={styles.clubsContainer}>
-                        <ul>
-                            <li>게임</li>
-                            <li>코딩</li>
-                            <li>프로그래머</li>
+                    <div id='clubsContainer' style={styles.clubs.container}>
+                        <ul style={styles.clubs.element}>
+                            <li style={styles.clubs.title}>베스트</li>
+                            <ul style={styles.clubs.list}>
+                                <li >
+                                    <Link to="/">
+                                        <div key={1} style={[styles.clubs.listElement, styles.clubs.listActive]}>오늘의 베스트</div>
+                                    </Link>
+                                </li>
+                            </ul>
+                        </ul>
+                        <ul style={styles.clubs.element}>
+                            <li key={2} style={styles.clubs.title}>핫 클럽</li>
+                            <ul style={styles.clubs.list}>
+                                <li >
+                                    <Link to="/club/starcraft2">
+                                        <div key={4} style={styles.clubs.listElement}>스타2</div>
+                                    </Link>
+                                </li>
+                                <li key={5} style={styles.clubs.listElement}>리그오브레전드</li>
+                                <li key={6} style={styles.clubs.listElement}>롤드컵</li>
+                            </ul>
+                        </ul>
+                        <ul style={styles.clubs.element}>
+                            <li key={2} style={styles.clubs.title}>메인 클럽</li>
+                            <ul style={styles.clubs.list}>
+                                <li key={7} style={styles.clubs.listElement}>게임</li>
+                                <li key={8} style={styles.clubs.listElement}>프로그래밍</li>
+                                <li key={9} style={styles.clubs.listElement}>가상현실</li>
+                                <li key={10} style={styles.clubs.listElement}>게임엔진</li>
+                                <li key={11} style={styles.clubs.listElement}>그래픽</li>
+                                <li key={12} style={styles.clubs.listElement}>전기전자</li>
+                            </ul>
+                        </ul>
+                        <ul style={styles.clubs.element}>
+                            <li key={2} style={styles.clubs.title}>구독 클럽</li>
+                            <ul style={styles.clubs.list}>
+                                <li key={13} style={styles.clubs.listElement}>페이커</li>
+                                <li key={14} style={styles.clubs.listElement}>임요환</li>
+                                <li key={15} style={styles.clubs.listElement}>홍진호</li>
+                                <li key={16} style={styles.clubs.listElement}>김슬기</li>
+                            </ul>
                         </ul>
                         { auth.token &&
-                            <ul>
+                            <ul style={styles.clubs.element}>
                                 <li>{auth.user.email}</li>
                                 <li>{auth.user.email}</li>
                                 <li>{auth.user.email}</li>
@@ -67,8 +93,10 @@ var styles = {
         right: 0,
         top : 50,
         bottom: 0,
-        backgroundColor: "#bbb",
-        width: "340px"
+        backgroundColor: "#e7efef",
+        width: "340px",
+        minHeight: 600,
+        borderTop: '1px solid #111'
     },
     searchClub : {
         base : {
@@ -79,7 +107,41 @@ var styles = {
             margin: 'auto'
         }
     },
-    clubsContainer : {
-
+    clubs : {
+        container: {
+            color : '#00A99E',
+            fontSize: 13,
+            fontWeight: 'bold',
+            paddingTop: 26
+        },
+        element: {
+            listStyle: 'none',
+            margin: 0,
+            padding: '0 0 15px 0'
+        },
+        title: {
+            listStyle: 'none',
+            fontSize: 13,
+            paddingLeft: 17
+        },
+        list: {
+            listStyle: 'none',
+            margin: 0,
+            padding: 0,
+            color: '#2b5f5b'
+        },
+        listElement: {
+            listStyle: 'none',
+            paddingLeft: 32,
+            color: '#001f35',
+            ':hover': {
+                backgroundColor: '#2b5f5b',
+                color: "#fff"
+            }
+        },
+        listActive: {
+            backgroundColor: '#2b5f5b',
+            color: "#fff"
+        }
     }
 };

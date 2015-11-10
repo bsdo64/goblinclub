@@ -98,6 +98,7 @@ export default class Main extends Component {
             postList = <ul style={styles.posts.container}>{posts.map(createItem)}</ul>
         }
 
+        console.log(this.props);
         return (
             <div style={styles.main}>
                 <Style rules={{

@@ -21,13 +21,34 @@ module.exports = function(sequelize, DataTypes) {
         deleted: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
+        },
+        comment_count: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
+        vote_count: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
+        like_count: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
+        dislike_count: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
+        author: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     },{
         classMethods: {
             associate: function(models) {
                 Post.belongsTo(models.user, {
                     onDelete: "CASCADE",
-                    foreignKey: 'author'
+                    foreignKey: 'author',
+                    allowNull: false
                 });
 
                 Post.belongsToMany(models.club, {
@@ -35,6 +56,10 @@ module.exports = function(sequelize, DataTypes) {
                         model: models.club_post,
                         unique: false
                     },
+                    foreignKey: 'post_id'
+                });
+
+                Post.hasMany(models.comment, {
                     foreignKey: 'post_id'
                 });
             }

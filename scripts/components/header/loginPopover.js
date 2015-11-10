@@ -5,8 +5,11 @@ import React, { Component } from 'react';
 import {
     Popover,
     Button,
-    Collapse
+    Collapse,
+Tab,
+Tabs
 } from 'react-bootstrap';
+import { Link } from 'react-router';
 import connectToStores from 'alt/utils/connectToStores';
 import UserStore from '../../stores/UserStore';
 import UserActions from '../../Actions/UserActions';
@@ -29,18 +32,18 @@ export default class loginPopover extends Component {
         this.state = { open : false };
     }
 
+    componentDidMount() {
+
+    }
+
     render() {
         const { loadingAuth, authFail, loadedAuth, uiValidate } = this.props.UserStore;
 
-        let loadingMessage,
-            errorMessage = {
+        let errorMessage = {
                 email : null,
                 password : null
             };
 
-        if( loadingAuth ) {
-            loadingMessage =  <p>로딩중..</p>;
-        }
         if( loadedAuth && authFail ) {
             let count = 0;
             var createItem = function(itemText, index) {
@@ -51,39 +54,66 @@ export default class loginPopover extends Component {
         }
         return (
                 <div >
-                    <form id="formLogin" className="form" onSubmit={this._sendLoginRequest.bind(this)}>
-                        <label>Login</label>
-                        <input name="email" ref="email" id="email" type="text" placeholder="Email"
-                               pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" data-valid-min="6" title="Enter your Email"
-                               required=""/>
+                    <Tabs defaultActiveKey={2} position="left" tabWidth={3}>
+                        <Tab eventKey={1} title="로그인">
+                            <form id="formLogin" className="form" onSubmit={this._sendLoginRequest.bind(this)}>
+                                <div className="form-element email-address" id="gmail-address-form-element">
+                                    <label id="gmail-address-label">
+                                        아이디
+                                        <input ref="loginEmail" type="text" name="loginEmail" id="loginEmail" n="3" />
+                                    </label>
+                                </div>
+                                { authFail && errorMessage.email }
 
-                        { authFail && errorMessage.email }
-                        {loadingMessage}
+                                <div className="form-element" id="password-form-element">
+                                    <label id="password-label">
+                                        비밀번호
+                                        <input ref="loginPassword" type="password" name="loginPassword" id="loginPassword" n="4" />
+                                    </label>
+                                </div>
+                                { authFail && errorMessage.password }
 
-                        <input name="password" ref="password" id="password" type="password" placeholder="Password"
-                               title="Enter your password" required=""/><br/>
-                        { authFail && errorMessage.password }
-                        <button type="submit" id="btnLogin" className="btn" >Login</button>
-                    </form>
+                                <button type="submit" id="btnLogin" className="btn" >{loadingAuth ? '로딩중..' : '가입하기'}</button>
+                            </form>
+                        </Tab>
+                        <Tab eventKey={2} title="회원가입">
+                            <form id="formRegister" className="form" onSubmit={this._sendSigninRequest.bind(this)}>
+                                <div className="form-element email-address" id="gmail-address-form-element">
+                                    <label id="gmail-address-label">
 
-                    <div>
-                        <a onClick={ ()=> this.setState({ open: !this.state.open })} href="#" title="Fast and free sign up!" id="btnNewUser"
-                           data-toggle="collapse" data-target="#formRegister">처음 오셨나요? 가입하기</a>
-                    </div>
+                                            이메일
 
-                    <Collapse in={this.state.open}>
-                        <div>
-                            <form id="formRegister" className="form">
-                                <input name="email" id="inputEmail" type="email" placeholder="Email" required=""/>
-                                <input name="username" id="inputUsername" type="text" placeholder="Username" pattern="^[a-z,A-Z,0-9,_]{6,15}$" data-valid-min="6" title="Choose a username" required=""/><br />
-                                <input name="password" id="inputpassword" type="password" placeholder="Password" required=""/>
-                                <input name="verify" id="inputVerify" type="password" placeholder="Password (again)" required=""/><br />
-                                <button type="button" id="btnRegister" className="btn">
+                                        <input ref="signinEmail" type="text" name="signinEmail" id="signinEmail" />
+                                    </label>
+                                </div>
+                                <div className="form-element" id="password-form-element">
+                                    <label id="password-label">
+                                        닉네임
+                                        <input ref="signinNick" type="text" name="signinNick" id="signinNick" n="4" />
+                                    </label>
+                                </div>
+                                <div className="form-element" id="password-form-element">
+                                    <label id="password-label">
+                                        비밀번호
+                                        <input ref="signinPassword" type="password" name="signinPassword" id="signinPassword" n="4" />
+                                    </label>
+                                </div>
+                                <div className="form-element" id="password-form-element">
+                                    <label id="password-label">
+                                        비밀번호 확인
+                                        <input ref="signinPasswordCheck" type="password" name="signinPasswordCheck" id="signinPasswordCheck" n="4" />
+                                    </label>
+                                </div>
+
+                                <div className="g-recaptcha" ref="loginCapcha" data-sitekey="6LddkhATAAAAAALuWnDw4tpG349vecZTkNdHYyF2"></div>
+
+                                <button type="submit" id="btnRegister" className="btn">
                                     가입하기
                                 </button>
                             </form>
-                        </div>
-                    </Collapse>
+
+                        </Tab>
+                    </Tabs>
 
                     <div>
                         <a data-toggle="modal" role="button"
@@ -101,9 +131,21 @@ export default class loginPopover extends Component {
     _sendLoginRequest (e) {
         e.preventDefault();
         var loginUser = {
-            email :this.refs.email.value.trim(),
-            password : this.refs.password.value.trim()
+            email :this.refs.loginEmail.value.trim(),
+            password : this.refs.loginPassword.value.trim()
         };
         UserActions.loginUser(loginUser);
+    }
+
+    _sendSigninRequest (e) {
+        e.preventDefault();
+        var signinUser = {
+            signinEmail :this.refs.signinEmail.value.trim(),
+            signinNick : this.refs.signinNick.value.trim(),
+            signinPassword : this.refs.signinPassword.value.trim(),
+            signinPasswordCheck : this.refs.signinPasswordCheck.value.trim()
+        };
+        console.log(screen.width);
+        UserActions.signinUser(signinUser);
     }
 }

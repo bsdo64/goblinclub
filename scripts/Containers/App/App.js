@@ -3,9 +3,11 @@
  */
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import Radium, { Style } from 'radium';
 import UserActions from '../../Actions/UserActions';
 import fetch from 'superagent';
 
+@Radium
 export default class App extends Component {
     componentWillMount() {
         // Data Init
@@ -21,6 +23,24 @@ export default class App extends Component {
 
         return (
             <div>
+                <Style
+                    rules={{
+                        a: {
+                            color: '#2b5f5b',
+                            textDecoration: 'none',
+                            cursor: 'pointer'
+                        },
+                        'a:hover': {
+
+                        },
+                        html: {
+                            background: '#ccc'
+                        },
+                        'h1, h2, h3': {
+                            fontWeight: 'bold'
+                        }
+                    }}
+                />
                 {header}
 
                 <div>

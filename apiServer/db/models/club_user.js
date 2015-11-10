@@ -4,7 +4,7 @@
 var Validation = require('../validation');
 
 module.exports = function(sequelize, DataTypes) {
-    var ClubPost = sequelize.define('club_post', {
+    var ClubUser = sequelize.define('club_user', {
         id: {
             type: DataTypes.INTEGER,
             unique: true,
@@ -13,15 +13,15 @@ module.exports = function(sequelize, DataTypes) {
         },
         club_id: {
             type: DataTypes.STRING,
-            unique: 'club_post',
+            unique: 'club_user',
             allowNull: false
         },
-        post_id: {
-            type: DataTypes.STRING,
-            unique: 'club_post',
+        user_id: {
+            type: DataTypes.INTEGER,
+            unique: 'club_user',
             allowNull: false
         }
     });
 
-    return ClubPost;
+    return ClubUser;
 };
