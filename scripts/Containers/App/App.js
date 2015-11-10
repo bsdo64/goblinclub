@@ -29,15 +29,6 @@ export default class App extends Component {
                             color: '#2b5f5b',
                             textDecoration: 'none',
                             cursor: 'pointer'
-                        },
-                        'a:hover': {
-
-                        },
-                        html: {
-                            background: '#ccc'
-                        },
-                        'h1, h2, h3': {
-                            fontWeight: 'bold'
                         }
                     }}
                 />

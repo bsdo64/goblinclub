@@ -1,5 +1,21 @@
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-
+@font-face {
+    font-family: 'Nanum Gothic';
+    font-style: normal;
+    font-weight: 400;
+    src: url(/statics/NanumGothic-Regular.eot);
+    url(/statics/NanumGothic-Regular.woff2) format('woff2'),
+    url(/statics/NanumGothic-Regular.woff) format('woff'),
+    url(/statics/NanumGothic-Regular.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'Nanum Gothic';
+    font-style: normal;
+    font-weight: 700;
+    src: url(/statics/NanumGothic-Bold.eot);
+    url(/statics/NanumGothic-Bold.woff2) format('woff2'),
+    url(/statics/NanumGothic-Bold.woff) format('woff'),
+    url(/statics/NanumGothic-Bold.ttf) format('truetype');
+}
 body {
     font-family: 'Nanum Gothic', sans-serif;
 }

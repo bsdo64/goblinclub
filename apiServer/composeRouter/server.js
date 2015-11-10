@@ -99,4 +99,71 @@ router.get('/', function( req, res ) {
     });
 });
 
+router.get('/club/:clubName', function( req, res ) {
+
+    var User = Model.user,
+        Post = Model.post,
+        Club = Model.club
+
+    var result = {
+        Post: null,
+        User: null,
+        Club: null
+    };
+    User.findOrCreate({
+            where: {
+                email: "bsdo@naver.com",
+                nick: "TEST",
+                password: "dkbs1234"
+            }
+        })
+        .then(function () {
+            return Club.find({where: {url: req.params.clubName}}).then(function (club) {
+                if (!club) { return []; }
+                return club.getPosts({
+                    order: [['createdAt', 'DESC']],
+                    include: [ User, Club ]
+                });
+            })
+        })
+        .then(function(posts) {
+            _.map(posts, function (post) {
+                post.setDataValue('createdAt', moment(post.createdAt).fromNow());
+                post.setDataValue('updatedAt', moment(post.updatedAt).fromNow());
+                return post;
+            });
+            res.send(posts);
+        });
+});
+
+router.get('/club/:clubName/:postName', function( req, res ) {
+
+    var User = Model.user,
+        Post = Model.post,
+        Club = Model.club
+
+    User.findOrCreate({
+            where: {
+                email: "bsdo@naver.com",
+                nick: "TEST",
+                password: "dkbs1234"
+            }
+        })
+        .then(function () {
+            return Post.findOne({where: {_id: req.params.postName}, include: [User, Club]}).then(function (post) {
+                if (!post) { return []; }
+
+                return post
+            });
+        })
+        .then(function(post) {
+            console.log(post);
+            post.setDataValue('createdAt', moment(post.createdAt).fromNow());
+            post.setDataValue('updatedAt', moment(post.updatedAt).fromNow());
+
+            res.send([post]);
+        });
+});
+
+
 module.exports = router;

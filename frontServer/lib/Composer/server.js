@@ -50,17 +50,54 @@ Composer.use((req, res, next) => {
     }
 });
 
-Composer.use('/', (req, res, next) => {
+Composer.get('/', (req, res, next) => {
     ComposeApiRequest(req.url).end((errXHR, resXHR) => {
         if(errXHR) {
 
             res.storeState['Error'] = errXHR;
             next();
         } else if(resXHR && resXHR.ok) {
-
             let apiResult = resXHR.body;
             res.storeState['PostStore'] = {
                 loadSuccess : true,
+                type: 'best',
+                posts : apiResult
+            };
+
+            next();
+        }
+    });
+});
+
+Composer.get('/club/:clubName', (req, res, next) => {
+    ComposeApiRequest(req.url).end((errXHR, resXHR) => {
+        if(errXHR) {
+
+            res.storeState['Error'] = errXHR;
+            next();
+        } else if(resXHR && resXHR.ok) {
+            let apiResult = resXHR.body;
+            res.storeState['PostStore'] = {
+                loadSuccess : true,
+                type: 'club',
+                posts : apiResult
+            };
+
+            next();
+        }
+    });
+});
+
+Composer.get('/club/:clubName/:postName', (req, res, next) => {
+    ComposeApiRequest(req.url).end((errXHR, resXHR) => {
+        if(errXHR) {
+            res.storeState['Error'] = errXHR;
+            next();
+        } else if(resXHR && resXHR.ok) {
+            let apiResult = resXHR.body;
+            res.storeState['PostStore'] = {
+                loadSuccess : true,
+                type: 'post',
                 posts : apiResult
             };
 

@@ -9,8 +9,7 @@ export default class HTML extends Component {
         return (
             <html>
                 <head>
-                    { /*<link rel="stylesheet" type="text/stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />*/ }
-                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+                    <link rel="stylesheet" href="/statics/font-awesome/css/font-awesome.min.css" />
                     <link rel="stylesheet" href="/statics/bootstrap/dist/css/bootstrap.css" />
                     <link rel="stylesheet" href="/statics/non-responsive.css" />
                     <link rel="stylesheet" href="/statics/style.css" />

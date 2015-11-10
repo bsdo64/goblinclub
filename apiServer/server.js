@@ -21,8 +21,10 @@ app.use('/compose', composeServer);
 app.use('/ajax', composeClient);
 
 app.use(function (req, res) {
-    console.log(req.url);
-    res.send('This is Api Server');
+    console.log(req.url, 'There\'s no endpoint!');
+    res.status(404).json({
+        msg: 'There\'s no endpoint!'
+    });
 });
 
 app.listen(3001, function () {
