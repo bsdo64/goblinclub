@@ -29,6 +29,11 @@ export default class App extends Component {
                             color: '#2b5f5b',
                             textDecoration: 'none',
                             cursor: 'pointer'
+                        },
+                        pre: {
+                            backgroundColor: 'rgba(255, 255, 255, 0)',
+                            border: 'none',
+                            borderRadius: 0
                         }
                     }}
                 />

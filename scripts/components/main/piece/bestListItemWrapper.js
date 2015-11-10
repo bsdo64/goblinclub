@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Radium, { Style } from 'radium';
 import { Link } from 'react-router';
-import marked from 'marked';
+import md from '../../../utils/markdown';
+import hljs from 'highlight.js'
 
 @Radium
 class BtnArea extends Component {
@@ -25,6 +26,10 @@ class BtnArea extends Component {
 
 @Radium
 export default class BestListItemWrapper extends Component {
+    componentDidMount() {
+        hljs.initHighlightingOnLoad();
+    }
+
     render() {
         const { title, createdAt, clubs, content, user, vote_count, comment_count, _id } = this.props.post;
 
@@ -33,8 +38,8 @@ export default class BestListItemWrapper extends Component {
                 <div style={styles.posts.listObj} className="lst_obj">
                     <div className="con_desc">
                         <h4 style={styles.posts.postTitle}>
-                            <Link to="/" style={styles.posts.postTitleItem}
-                                  href="http://cafe.naver.com/joonggonara/287427195"
+                            <Link to={'/club/' + clubs[0].url + '/' + _id }
+                                  style={styles.posts.postTitleItem}
                                   target="_blank">{title}</Link>
                         </h4>
                         <p style={styles.posts.postContentMeta} className="frm_svc">
@@ -46,7 +51,7 @@ export default class BestListItemWrapper extends Component {
                         </p>
                         <div className="lst_type2">
                             <div style={styles.posts.postContents} className="rgt_dsc">
-                                <div id="fd_cont" dangerouslySetInnerHTML={{__html: marked(content, {sanitize: true})}}>
+                                <div id="fd_cont" dangerouslySetInnerHTML={{__html: md.render(content)}}>
 
                                 </div>
                             </div>

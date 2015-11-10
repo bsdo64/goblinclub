@@ -12,6 +12,7 @@ export default class HTML extends Component {
                     <link rel="stylesheet" href="/statics/font-awesome/css/font-awesome.min.css" />
                     <link rel="stylesheet" href="/statics/bootstrap/dist/css/bootstrap.css" />
                     <link rel="stylesheet" href="/statics/non-responsive.css" />
+                    <link rel="stylesheet" href="/statics/codes/github.css" />
                     <link rel="stylesheet" href="/statics/style.css" />
                     <link rel="stylesheet" href="/statics/nanoscroller.css" />
                     <script src='https://www.google.com/recaptcha/api.js' async defer></script>

@@ -16,9 +16,14 @@ module.exports = {
         filename: "bundle.js",
         publicPath: 'http://localhost:3002/_dist'
     },
+    resolve: {
+        modulesDirectories: ['node_modules', 'bower_components'],
+        extensions: ['', '.js', '.css', '.json']
+    },
     module: {
         loaders: [
-            { test: /\.jsx?$/, loader: "babel", query: {stage: 0} },
+            { test: /\.json$/, loader: "json" },
+            { test: /\.jsx?$/, loader: "babel", query: {stage: 0}},
             { test: /\.scss$/, loaders: ["style", "css", "sass"] },
             { test: /\.css$/, loader: "style-loader!css-loader" }
         ]
