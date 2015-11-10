@@ -10,13 +10,13 @@ class BtnArea extends Component {
         const id = this.props.id;
         return (
             <div style={styles.posts.postButtons} className="btn_area" >
-                <a key={id+'thumbUp'} style={styles.posts.thumbUp} >
+                <a key='thumbUp' style={styles.posts.thumbUp} >
                     <i className="fa fa-thumbs-o-up"></i>
                 </a>
-                <a key={id+'thumbDown'} style={styles.posts.thumbDown} >
+                <a key='thumbDown' style={styles.posts.thumbDown} >
                     <i className="fa fa-thumbs-o-down"></i>
                 </a>
-                <a key={id+'commentButton'} style={styles.posts.commentButton} >
+                <a key='commentButton' style={styles.posts.commentButton} >
                     <i className="fa fa-commenting-o"></i>
                 </a>
             </div>
@@ -31,7 +31,16 @@ export default class BestListItemWrapper extends Component {
     }
 
     render() {
-        const { title, createdAt, clubs, content, user, vote_count, comment_count, _id } = this.props.post;
+        const {
+            _id,                            // article id ( shortId )
+            title,                          // article title
+            createdAt,                      // moment formatted string
+            clubs,                          // included clubs (array)
+            content,                        // article body
+            user,                           // author
+            vote_count,                     // total vote ( like +1, dislike -1 )
+            comment_count                   // total comment count ( including descendant )
+        } = this.props.post;
 
         return (
             <li style={styles.posts.post} className="_ccast_item" >
@@ -43,9 +52,7 @@ export default class BestListItemWrapper extends Component {
                                   target="_blank">{title}</Link>
                         </h4>
                         <p style={styles.posts.postContentMeta} className="frm_svc">
-                                <span className="h_title">
-                                    <a className="N=a:sbx*c.content" href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article" target="_blank">{user.nick} </a>
-                                </span>
+                            <Link to="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article" >{user.nick} </Link>
                             <span className="wrt_time">{createdAt} </span>
                             <Link to="/" style={styles.posts.postTitleClub}>/club/{clubs[0].url}</Link>
                         </p>

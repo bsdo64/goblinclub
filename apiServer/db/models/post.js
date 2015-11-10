@@ -1,4 +1,7 @@
 /**
+ * Created by dobyeongsu on 2015. 11. 11..
+ */
+/**
  * Created by dobyeongsu on 2015. 10. 28..
  */
 
@@ -12,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING
         },
         content: {
-            type: DataTypes.STRING
+            type: DataTypes.TEXT
         },
         deletedAt: {
             type: DataTypes.DATE,

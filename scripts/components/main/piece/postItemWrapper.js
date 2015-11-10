@@ -27,8 +27,20 @@ class BtnArea extends Component {
 @Radium
 export default class BestListItemWrapper extends Component {
 
+    constructor () {
+        super();
+
+        this.clicked = this.clicked.bind(this);
+    }
+
     componentDidMount() {
         hljs.initHighlightingOnLoad();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log(3);
+        console.log(document.location);
+        console.log(4);
     }
 
     render() {
@@ -40,15 +52,14 @@ export default class BestListItemWrapper extends Component {
                     <div className="con_desc">
                         <h4 style={styles.posts.postTitle}>
                             <Link to="/" style={styles.posts.postTitleItem}
-                                  href="http://cafe.naver.com/joonggonara/287427195"
-                                  target="_blank">{title}</Link>
+                                  onClick={this.clicked}>{title}</Link>
                         </h4>
                         <p style={styles.posts.postContentMeta} className="frm_svc">
                                 <span className="h_title">
                                     <a className="N=a:sbx*c.content" href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article" target="_blank">{user.nick} </a>
                                 </span>
                             <span className="wrt_time">{createdAt} </span>
-                            <Link to="/" style={styles.posts.postTitleClub}>/club/{clubs[0].url}</Link>
+                            <Link to={"/club/"+ clubs[0].url} style={styles.posts.postTitleClub}>/{clubs[0].url}</Link>
                         </p>
                         <div className="lst_type2">
                             <div style={styles.posts.postContents} className="rgt_dsc">
@@ -67,6 +78,13 @@ export default class BestListItemWrapper extends Component {
                 </div>
             </li>
         )
+    }
+
+    clicked() {
+        console.log(1);
+        setTimeout(function() { console.log(1)}, 10000)
+        console.log(document.location);
+        console.log(2);
     }
 }
 

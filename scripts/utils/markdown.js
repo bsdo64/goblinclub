@@ -3,6 +3,7 @@
  */
 import Remarkable from 'markdown-it';
 import hljs from 'highlight.js'
+import videoParser from './markdown-video-parser';
 
 var md = new Remarkable({
     highlight: function (str, lang) {
@@ -22,29 +23,6 @@ var md = new Remarkable({
     breaks: true
 }).use(video_plugin);
 
-
-// The youtube_parser is from http://stackoverflow.com/a/8260383
-function youtube_parser(url){
-    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-    var match = url.match(regExp);
-    if (match&&match[7].length==11){
-        return match[7];
-    } else{
-        return url;
-    }
-}
-
-// The vimeo_parser is from http://stackoverflow.com/a/13286930
-function vimeo_parser(url){
-    var regExp = /https?:\/\/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|)(\d+)(?:$|\/|\?)/;
-    var match = url.match(regExp);
-    if (match){
-        return match[3];
-    } else{
-        return url;
-    }
-}
-
 function video_embed(md) {
     function video_return(state, silent) {
         var code,
@@ -60,7 +38,7 @@ function video_embed(md) {
             max = state.posMax;
 
         // When we add more services, (youtube) might be (youtube|vimeo|vine), for example
-        var EMBED_REGEX = /@\[(youtube|vimeo)\]\([\s]*(.*?)[\s]*[\)]/im;
+        var EMBED_REGEX = /@\[(youtube|vimeo|twitch)\]\([\s]*(.*?)[\s]*[\)]/im;
 
 
         if (state.src.charCodeAt(state.pos) !== 0x40/* @ */) {
@@ -80,13 +58,19 @@ function video_embed(md) {
             return false;
         }
 
-
         var service = match[1];
         var videoID = match[2];
-        if (service.toLowerCase() == 'youtube') {
-            videoID = youtube_parser(videoID);
-        } else if (service.toLowerCase() == 'vimeo') {
-            videoID = vimeo_parser(videoID);
+        var parsed = videoParser.parse(videoID);
+        if (!parsed) {
+            return false;
+        }
+        var mediaType = parsed.mediaType;
+        service = parsed.provider;
+
+        if(mediaType === 'stream' && service === 'twitch') {
+            videoID = parsed.channel;
+        } else {
+            videoID = parsed.id;
         }
 
         // If the videoID field is empty, regex currently make it the close parenthesis.
@@ -116,6 +100,7 @@ function video_embed(md) {
             token = state.push('video', '');
             token.videoID = videoID;
             token.service = service;
+            token.mediaType = mediaType;
             token.level = state.level;
         }
 
@@ -138,11 +123,21 @@ function tokenize_vimeo(videoID) {
     var embedEnd = '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>';
     return embedStart + videoID + embedEnd;
 }
-
+function tokenize_twitchStream(videoID) {
+    var embedStart = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" id="twitchplayer" height="378" width="620" src="//player.twitch.tv/?channel=';
+    var embedEnd = '&muted=true" frameborder="0" scrolling="no" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>';
+    return embedStart + videoID + embedEnd;
+}
+function tokenize_twitchVideo(videoID) {
+    var embedStart = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" id="twitchplayer" height="378" width="620" src="//player.twitch.tv/?video=v';
+    var embedEnd = '&muted=true" frameborder="0" scrolling="no" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>';
+    return embedStart + videoID + embedEnd;
+}
 function tokenize_video(md) {
     function tokenize_return(tokens, idx, options, env, self) {
         var videoID = md.utils.escapeHtml(tokens[idx].videoID);
         var service = md.utils.escapeHtml(tokens[idx].service);
+        var mediaType = md.utils.escapeHtml(tokens[idx].mediaType);
         if (videoID === '') {
             return '';
         }
@@ -151,7 +146,11 @@ function tokenize_video(md) {
             return tokenize_youtube(videoID);
         } else if (service.toLowerCase() === 'vimeo') {
             return tokenize_vimeo(videoID);
-        } else{
+        } else if (service.toLowerCase() === 'twitch' && mediaType === 'stream') {
+            return tokenize_twitchStream(videoID);
+        } else if (service.toLowerCase() === 'twitch' && mediaType === 'video') {
+            return tokenize_twitchVideo(videoID);
+        } else {
             return('');
         }
 
