@@ -14,7 +14,8 @@ import {
 import {
     header,
     main,
-    sidebar
+    sidebar,
+    writePost
 } from '../scripts/components';
 
 export default (
@@ -36,12 +37,12 @@ export default (
         <Route path="/user/:id/favorated" components={{header: header, main: User, sidebar: sidebar}}/>
         <Route path="/user/:id/saved" components={{header: header, main: User, sidebar: sidebar}}/>
 
-        <Route path="/submit" components={{header: header, main: User, sidebar: sidebar}}/>
+        <Route path="/submit" components={{header: header, main: writePost, sidebar: sidebar}}/>
         <Route path="/submit/club" components={{header: header, main: User, sidebar: sidebar}}/>
 
         <Route path="/club" components={{header: header, main: User, sidebar: sidebar}}/>
         <Route path="/club/:clubName" components={{header: header, main: main, sidebar: sidebar}}/>
-        <Route path="/club/:clubName/submit" components={{header: header, main: User, sidebar: sidebar}}/>
+        <Route path="/club/:clubName/submit" components={{header: header, main: writePost, sidebar: sidebar}}/>
         <Route path="/club/:clubName/search" components={{header: header, main: User, sidebar: sidebar}}/>
         <Route path="/club/:clubName/:article" components={{header: header, main: main, sidebar: sidebar}}/>
         <Route path="/club/:clubName/:article/comments" components={{header: header, main: User, sidebar: sidebar}}/>

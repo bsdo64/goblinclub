@@ -113,23 +113,23 @@ function video_embed(md) {
 }
 
 function tokenize_youtube(videoID) {
-    var embedStart = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" id="ytplayer" type="text/html" width="640" height="390" src="//www.youtube.com/embed/';
+    var embedStart = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" id="ytplayer" type="text/html" src="//www.youtube.com/embed/';
     var embedEnd = '?vq=hd1080&fs=1&rel=0" frameborder="0" allowfullscreen></iframe></div>';
     return embedStart + videoID + embedEnd;
 }
 
 function tokenize_vimeo(videoID) {
-    var embedStart = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" id="vimeoplayer" width="500" height="281" src="//player.vimeo.com/video/';
+    var embedStart = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" id="vimeoplayer" src="//player.vimeo.com/video/';
     var embedEnd = '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>';
     return embedStart + videoID + embedEnd;
 }
 function tokenize_twitchStream(videoID) {
-    var embedStart = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" id="twitchplayer" height="378" width="620" src="//player.twitch.tv/?channel=';
+    var embedStart = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" id="twitchplayer" src="//player.twitch.tv/?channel=';
     var embedEnd = '&muted=true" frameborder="0" scrolling="no" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>';
     return embedStart + videoID + embedEnd;
 }
 function tokenize_twitchVideo(videoID) {
-    var embedStart = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" id="twitchplayer" height="378" width="620" src="//player.twitch.tv/?video=v';
+    var embedStart = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" id="twitchplayer" src="//player.twitch.tv/?video=v';
     var embedEnd = '&muted=true" frameborder="0" scrolling="no" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>';
     return embedStart + videoID + embedEnd;
 }
@@ -153,7 +153,6 @@ function tokenize_video(md) {
         } else {
             return('');
         }
-
     }
 
     return tokenize_return;

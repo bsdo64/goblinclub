@@ -4,3 +4,4 @@
 /_dist/bundle.css
 dump.rdb
 .idea/**/*.*
+npm-debug.*

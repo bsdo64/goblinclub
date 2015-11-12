@@ -26,7 +26,8 @@ module.exports = {
             { test: /\.jsx?$/, loader: "babel", query: {stage: 0}, exclude: [/node_modules/, /bower_components/]},
             { test: /\.scss$/, loaders: ["style", "css", "sass"] },
             { test: /\.css$/, loader: "style-loader!css-loader" }
-        ]
+        ],
+        noParse: [/autoit\.js$/]
     },
     node: {
         fs: "empty"
