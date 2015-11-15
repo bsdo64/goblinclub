@@ -48,6 +48,13 @@ module.exports = function(sequelize, DataTypes) {
                         allowNull: true
                     }
                 });
+
+                Comment.hasMany(models.commentcontent, {
+                    foreignKey: {
+                        name: 'comment_id',
+                        allowNull: true
+                    }
+                });
             }
         }
     });

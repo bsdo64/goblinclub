@@ -75,6 +75,9 @@ export default class BestListItemWrapper extends Component {
                         <a style={styles.posts.commentCount} href="#" title="추천하기">댓글 {comment_count} 개</a>
                         <a style={styles.posts.deleteButton} >삭제하기</a>
                     </div>
+
+                    { /* //TODO 댓글 달기 http://codepen.io/anon/pen/jbdPWL */}
+
                 </div>
             </li>
         )
