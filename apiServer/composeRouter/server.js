@@ -136,6 +136,10 @@ router.get('/club/:clubName', function( req, res ) {
         });
 });
 
+router.get('/club/:clubName/submit', function( req, res ) {
+    res.send();
+});
+
 router.get('/club/:clubName/:postName', function( req, res ) {
 
     var User = Model.user,

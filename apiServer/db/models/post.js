@@ -65,6 +65,10 @@ module.exports = function(sequelize, DataTypes) {
                 Post.hasMany(models.comment, {
                     foreignKey: 'post_id'
                 });
+
+                Post.hasMany(models.postcontent, {
+                    foreignKey: 'post_id'
+                });
             }
         }
     });

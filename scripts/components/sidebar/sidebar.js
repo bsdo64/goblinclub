@@ -35,7 +35,7 @@ export default class sidebar extends Component {
                             <li style={styles.clubs.title}>베스트</li>
                             <ul style={styles.clubs.list}>
                                 <li >
-                                    <Link to="/">
+                                    <Link to="/club">
                                         <div key={1} style={[styles.clubs.listElement, styles.clubs.listActive]}>오늘의 베스트</div>
                                     </Link>
                                 </li>
@@ -44,13 +44,21 @@ export default class sidebar extends Component {
                         <ul style={styles.clubs.element}>
                             <li key={2} style={styles.clubs.title}>핫 클럽</li>
                             <ul style={styles.clubs.list}>
-                                <li >
+                                <li>
                                     <Link to="/club/starcraft2">
                                         <div key={4} style={styles.clubs.listElement}>스타2</div>
                                     </Link>
                                 </li>
-                                <li key={5} style={styles.clubs.listElement}>리그오브레전드</li>
-                                <li key={6} style={styles.clubs.listElement}>롤드컵</li>
+                                <li>
+                                    <Link to="/">
+                                        <div key={5} style={styles.clubs.listElement}>리그오브레전드</div>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/submit">
+                                        <div key={6} style={styles.clubs.listElement}>리그오브레전드</div>
+                                    </Link>
+                                </li>
                             </ul>
                         </ul>
                         <ul style={styles.clubs.element}>

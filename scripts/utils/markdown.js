@@ -20,7 +20,8 @@ var md = new Remarkable({
         return ''; // use external default escaping
     },
     html: false,
-    breaks: true
+    breaks: true,
+    linkify: true
 }).use(video_plugin);
 
 function video_embed(md) {

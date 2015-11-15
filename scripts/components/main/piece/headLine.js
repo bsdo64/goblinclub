@@ -10,13 +10,13 @@ export default class HeadLine extends Component {
         return(
             <div style={styles.headLine.container}>
                 <div style={styles.headLine.menu} >
-                            <span  className="on">
-                                <a style={styles.headLine.menuItem} href="#" >최신순</a>
-                            </span>
+                    <span  className="on">
+                        <a style={styles.headLine.menuItem} href="#" >최신순</a>
+                    </span>
                     <span>|</span>
-                            <span  className="">
-                                <a style={styles.headLine.menuItem} href="#" >인기순</a>
-                            </span>
+                    <span  className="">
+                        <a style={styles.headLine.menuItem} href="#" >인기순</a>
+                    </span>
                 </div>
                 <h2 style={styles.headLine.title}>오늘의 베스트</h2>
             </div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Radium, { Style } from 'radium';
+import Radium from 'radium';
 import { Link } from 'react-router';
 import md from '../../../utils/markdown';
 import hljs from 'highlight.js'
@@ -82,7 +82,6 @@ export default class BestListItemWrapper extends Component {
 
     clicked() {
         console.log(1);
-        setTimeout(function() { console.log(1)}, 10000)
         console.log(document.location);
         console.log(2);
     }

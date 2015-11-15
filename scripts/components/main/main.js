@@ -3,45 +3,33 @@
  */
 import React, { Component } from 'react';
 import Radium from 'radium';
-import { Link } from 'react-router';
-import { Glyphicon } from 'react-bootstrap';
-import connectToStores from 'alt/utils/connectToStores';
-import UserStore from '../../stores/UserStore';
-import PostStore from '../../stores/PostStore';
+import PostStore from '../../stores/PostStore'
 
-import HeadLine             from './piece/headLine';
-import ListWrapper          from './piece/listWrapper';
+import HeadLine from './piece/headLine';
 
-@connectToStores
 @Radium
 export default class Main extends Component {
-    static getStores() {
-        return [UserStore, PostStore];
-    }
-
-    static getPropsFromStores() {
-        return {
-            UserStore : UserStore.getState(),
-            PostStore : PostStore.getState()
-        }
-    }
 
     componentDidMount () {
         $('.nano').nanoScroller();
-        $('.nano-content').scrollTop(500)
+        $('.nano-content').scrollTop(0)
+    }
+
+    componentWillMount() {
+
     }
 
     render() {
-        const { PostStore } = this.props;
 
         return (
             <div style={styles.main}>
+
                 <div id="bestPosts" style={styles.mainBox}>
                     <HeadLine ClubStore={{club: 'name'}} />
 
                     <div className="nano" style={styles.contents}>
                         <div className="nano-content" style={styles.scrollContent}>
-                            <ListWrapper PostStore={PostStore} />
+                            {this.props.mainSection}
                         </div>
                     </div>
 

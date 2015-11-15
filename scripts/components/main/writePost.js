@@ -3,169 +3,168 @@
  */
 import React, { Component } from 'react';
 import Radium from 'radium';
-import { Link } from 'react-router';
-import { Glyphicon } from 'react-bootstrap';
-import connectToStores from 'alt/utils/connectToStores';
-import UserStore from '../../stores/UserStore';
-import PostStore from '../../stores/PostStore';
+import md from '../../utils/markdown'
 
 import HeadLine             from './piece/headLine';
+import Editor               from './piece/editor';
+import { editor as styles } from './piece/style_editor'
 
-@connectToStores
 @Radium
-export default class Main extends Component {
-    static getStores() {
-        return [UserStore, PostStore];
-    }
+export default class WritePost extends Component {
 
-    static getPropsFromStores() {
-        return {
-            UserStore : UserStore.getState(),
-            PostStore : PostStore.getState()
+    constructor() {
+        super();
+        this.state = {
+            value: ''
         }
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit= this.handleSubmit.bind(this);
     }
 
-    componentDidMount () {
-        $('.nano').nanoScroller();
-        $('.nano-content').scrollTop(500)
+    handleChange(v) {
+        console.log(this.refs.textarea.value)
+        this.setState({value: v});
+    }
+
+    componentDidMount() {
+
+        var uploadButton = $('<button/>')
+            .addClass('btn btn-primary')
+            .prop('disabled', true)
+            .text('Processing...')
+            .on('click', function () {
+                var $this = $(this),
+                    data = $this.data();
+                $this
+                    .off('click')
+                    .text('Abort')
+                    .on('click', function () {
+                        $this.remove();
+                        data.abort();
+                    });
+                data.submit().always(function () {
+                    $this.remove();
+                });
+            });
+
+        $(this.refs.fileupload).fileupload({
+            url: 'http://localhost:3000/image',
+            dataType: 'json',
+            autoUpload: false,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            maxFileSize: 999000,
+            // Enable image resizing, except for Android and Opera,
+            // which actually support image resizing, but fail to
+            // send Blob objects via XHR requests:
+            disableImageResize: /Android(?!.*Chrome)|Opera/
+                .test(window.navigator.userAgent),
+            previewMaxWidth: 100,
+            previewMaxHeight: 100,
+            previewCrop: true
+        }).on('fileuploadadd', function (e, data) {
+            data.context = $('<div/>').appendTo('#files');
+            $.each(data.files, function (index, file) {
+                var node = $('<p/>')
+                    .append($('<span/>').text(file.name));
+                if (!index) {
+                    node
+                        .append('<br>')
+                        .append(uploadButton.clone(true).data(data));
+                }
+                node.appendTo(data.context);
+            });
+        }).on('fileuploadprocessalways', function (e, data) {
+            var index = data.index,
+                file = data.files[index],
+                node = $(data.context.children()[index]);
+            if (file.preview) {
+                node
+                    .prepend('<br>')
+                    .prepend(file.preview);
+            }
+            if (file.error) {
+                node
+                    .append('<br>')
+                    .append($('<span class="text-danger"/>').text(file.error));
+            }
+            if (index + 1 === data.files.length) {
+                data.context.find('button')
+                    .text('Upload')
+                    .prop('disabled', !!data.files.error);
+            }
+        }).on('fileuploadprogressall', function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progressall .progress-bar').css(
+                'width',
+                progress + '%'
+            );
+        }).on('fileuploadprogress', function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .progress-bar').css(
+                'width',
+                progress + '%'
+            );
+        }).on('fileuploaddone', function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                if (file.url) {
+                    var link = $('<a>')
+                        .attr('target', '_blank')
+                        .prop('href', file.url);
+                    $(data.context.children()[index])
+                        .wrap(link);
+                } else if (file.error) {
+                    var error = $('<span class="text-danger"/>').text(file.error);
+                    $(data.context.children()[index])
+                        .append('<br>')
+                        .append(error);
+                }
+            });
+        }).on('fileuploadfail', function (e, data) {
+            $.each(data.files, function (index) {
+                var error = $('<span class="text-danger"/>').text('File upload failed.');
+                $(data.context.children()[index])
+                    .append('<br>')
+                    .append(error);
+            });
+        }).prop('disabled', !$.support.fileInput)
+            .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
     }
 
     render() {
-        const { PostStore } = this.props;
 
         return (
-            <div style={styles.main}>
-                <div id="bestPosts" style={styles.mainBox}>
-                    <HeadLine ClubStore={{club: 'name'}} />
+            <div>
+                <div style={styles.widget.container}>
+                    <div style={styles.widget.listObj}>
+                        입력하기 | 미리보기
+                    </div>
+                </div>
 
-                    <div className="nano" style={styles.contents}>
-                        <div className="nano-content" style={styles.scrollContent}>
-                            <div style={styles.widget.container}>
-                                <div style={styles.widget.listObj}>
-                                    입력하기 | 미리보기
-                                </div>
-                            </div>
-                            <div style={styles.widget.container4}>
-                                <div style={styles.widget.container2}>
-                                    <div style={styles.widget.listObj1}>
-                                        <input style={styles.widget.textarea1} placeholder="제목입니다" />
-                                    </div>
-                                    <div style={styles.widget.listObj}>
-                                        <textarea style={styles.widget.textarea2} placeholder="여기에 입력하세요." />
-                                    </div>
-                                </div>
-                                <div style={styles.widget.container3}>
-                                    <div style={styles.widget.listObj}>
-                                        # H1
-                                        ## H2
-                                        ### H3
-                                        #### H4
-                                        ##### H5
-                                        ###### H6
+                <Editor
+                    onChange={this.handleChange}
+                />
+                <div>
+                    <input type="text" name="title" /><br />
+                    <input ref="fileupload" id="fileupload" type="file" name="files[]" multiple />
 
-                                        *asterisks*
-                                        **asterisks**
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div id="progressall" className="progress">
+                        <div className="progress-bar progress-bar-success"></div>
+                    </div>
+                    <div id="progress" className="progress">
+                        <div className="progress-bar progress-bar-success"></div>
                     </div>
 
+                    <div id="files" className="files"></div>
                 </div>
+
             </div>
+
         )
     }
-}
 
-var styles = {
-    widget: {
-        container: {
-            listStyle: 'none',
-            margin: 0,
-            padding: 15,
-            maxWidth: 1024,
-            width: '100%',
-            minWidth: 560,
-            display: 'inline-block'
-        },
-        container2: {
-            float: 'left',
-            width: '70%',
-            display: 'inline-block'
-        },
-        container4: {
-            listStyle: 'none',
-            margin: 0,
-            padding: '0 15',
-            maxWidth: 1024,
-            width: '100%',
-            minWidth: 560,
-            display: 'inline-block'
-        },
-        container3: {
-            float: 'right',
-            paddingLeft: '15',
-            width: '30%',
-            display: 'inline-block'
-        },
-        listObj: {
-            backgroundColor: '#fff',
-            borderRadius: 1,
-            boxShadow: '1px 1px #b0c2c0',
-            padding: 15
-        },
-        listObj1: {
-            backgroundColor: '#fff',
-            borderRadius: 1,
-            boxShadow: '1px 1px #b0c2c0',
-            padding: 15,
-            marginBottom: 15
-        },
-        textarea1: {
-            width: "100%",
-            height: 20,
-            border: 'none',
-        },
-        textarea2: {
-            width: "100%",
-            height: 400,
-            border: 'none',
-            resize: 'vertical'
-        }
-    },
-    main : {
-        position: "relative",
-        overflow: "hidden",
-        marginTop: "50px",
-        marginLeft: "240px",
-        marginRight: "340px",
-        boxSizing: "border-box",
-        backgroundColor: "#aaa",
-        height: "100%",
-        minHeight: 600,
-        minWidth: 565,
-        borderTop: '1px solid #111',
-        borderLeft: '1px solid #111',
-        borderRight: '1px solid #111',
-        borderBottom: 'none'
-    },
-    mainBox: {
-        background: "#f4f4f4",
-        height: "100%",
-        overflow: "hidden"
-    },
-    contents : {
-        height: "calc(100vh - 78px)"
-    },
-    scrollContent: {
-        right: 0,
-        width: "auto",
-        height: "auto",
-        overflow: "hidden",
-        overflowY: "scroll",
-        bottom: 0,
-        left: 0,
-        top: 0
+    handleSubmit() {
+
     }
-};
+}

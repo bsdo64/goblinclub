@@ -19,7 +19,7 @@ export default class App extends Component {
 
     render () {
 
-        const { header, main, sidebar } = this.props.children;
+        const { header, main, sidebar } = this.props;
 
         return (
             <div>

@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import _ from 'lodash';
-import { Route } from 'react-router';
+import { Route, IndexRoute } from 'react-router';
 import {
     App,
     Inbox,
@@ -18,9 +18,21 @@ import {
     writePost
 } from '../scripts/components';
 
+import best from '../scripts/components/main/piece/best';
+import club from '../scripts/components/main/piece/club';
+import post from '../scripts/components/main/piece/post';
+
 export default (
     <Route component={App}>
-        <Route path="/" components={{header: header, main: main, sidebar: sidebar}} />
+        <Route path='' components={{header: header, main: main, sidebar: sidebar}}>
+                <Route path="/" components={{mainSection: best}} />
+                <Route path="submit" components={{mainSection: writePost}} />
+
+                <Route path="club/:clubName" components={{mainSection:club}} />
+                <Route path="club/:clubName/submit" components={{mainSection: writePost}} />
+                <Route path="club/:clubName/search" components={{mainSection: writePost}}/>
+                <Route path="club/:clubName/:article" components={{mainSection:post}} />
+        </Route>
 
         <Route path="/login" components={{header: header, main: About, sidebar: sidebar}} />
         <Route path="/signin" components={{header: header, main: About, sidebar: sidebar}} />
@@ -37,14 +49,9 @@ export default (
         <Route path="/user/:id/favorated" components={{header: header, main: User, sidebar: sidebar}}/>
         <Route path="/user/:id/saved" components={{header: header, main: User, sidebar: sidebar}}/>
 
-        <Route path="/submit" components={{header: header, main: writePost, sidebar: sidebar}}/>
         <Route path="/submit/club" components={{header: header, main: User, sidebar: sidebar}}/>
+        <Route path="club" components={{header: header, main: main, sidebar: sidebar}} />
 
-        <Route path="/club" components={{header: header, main: User, sidebar: sidebar}}/>
-        <Route path="/club/:clubName" components={{header: header, main: main, sidebar: sidebar}}/>
-        <Route path="/club/:clubName/submit" components={{header: header, main: writePost, sidebar: sidebar}}/>
-        <Route path="/club/:clubName/search" components={{header: header, main: User, sidebar: sidebar}}/>
-        <Route path="/club/:clubName/:article" components={{header: header, main: main, sidebar: sidebar}}/>
         <Route path="/club/:clubName/:article/comments" components={{header: header, main: User, sidebar: sidebar}}/>
         <Route path="/club/:clubName/:article/comments/:comment" components={{header: header, main: User, sidebar: sidebar}}/>
 

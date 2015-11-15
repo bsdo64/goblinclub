@@ -25,7 +25,7 @@ class BtnArea extends Component {
 }
 
 @Radium
-export default class BestListItemWrapper extends Component {
+export default class ClubListItemWrapper extends Component {
     render() {
         const { title, createdAt, clubs, user, vote_count, comment_count, _id } = this.props.post;
 

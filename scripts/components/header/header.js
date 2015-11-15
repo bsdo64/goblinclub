@@ -140,7 +140,7 @@ export default class header extends Component {
 
                 }} />
                 <Navbar fixedTop style={styles.header}>
-                    <NavBrand><Link to="/" style={styles.logo}>Goblin Club</Link></NavBrand>
+                    <NavBrand><a href="/" style={styles.logo}>Goblin Club</a></NavBrand>
                     <div id='searchBar' style={styles.search.layout}>
                         <div style={styles.search.container} >
                             <Input

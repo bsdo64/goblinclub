@@ -48,8 +48,7 @@ export default class BestListItemWrapper extends Component {
                     <div className="con_desc">
                         <h4 style={styles.posts.postTitle}>
                             <Link to={'/club/' + clubs[0].url + '/' + _id }
-                                  style={styles.posts.postTitleItem}
-                                  target="_blank">{title}</Link>
+                                  style={styles.posts.postTitleItem}>{title}</Link>
                         </h4>
                         <p style={styles.posts.postContentMeta} className="frm_svc">
                             <Link to="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article" >{user.nick} </Link>

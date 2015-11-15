@@ -6,7 +6,6 @@ import request from 'superagent';
 var ApiClient = {
 
     login : (user, callback) => {
-
         request
             .post('/ajax/login')
             .send({user : user})
