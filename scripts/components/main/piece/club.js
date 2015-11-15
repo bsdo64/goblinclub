@@ -9,7 +9,7 @@ import UserStore from '../../../stores/UserStore';
 import PostStore from '../../../stores/PostStore';
 
 import HeadLine             from './headLine'
-import ClubListItemWrapper  from './ClubListItemWrapper'
+import ClubListItemWrapper  from './clubListItemWrapper'
 import styles from './style_post';
 
 @connectToStores

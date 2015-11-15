@@ -130,6 +130,14 @@ export default class WritePost extends Component {
         }).prop('disabled', !$.support.fileInput)
             .parent().addClass($.support.fileInput ? undefined : 'disabled');
 
+        document.getElementsByTagName('canvas').onclick = function (event) {
+            event = event || window.event;
+            var target = event.target || event.srcElement,
+                link = target.src ? target.parentNode : target,
+                options = {index: link, event: event},
+                links = this.getElementsByTagName('a');
+            blueimp.Gallery(links, options);
+        };
     }
 
     render() {
@@ -148,6 +156,16 @@ export default class WritePost extends Component {
                 <div>
                     <input type="text" name="title" /><br />
                     <input ref="fileupload" id="fileupload" type="file" name="files[]" multiple />
+
+                    <div id="blueimp-gallery" className="blueimp-gallery">
+                        <div className="slides"></div>
+                        <h3 className="title"></h3>
+                        <a className="prev">‹</a>
+                        <a className="next">›</a>
+                        <a className="close">×</a>
+                        <a className="play-pause"></a>
+                        <ol className="indicator"></ol>
+                    </div>
 
                     <div id="progressall" className="progress">
                         <div className="progress-bar progress-bar-success"></div>

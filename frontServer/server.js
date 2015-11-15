@@ -20,9 +20,6 @@ import Composer                     from './lib/Composer/server';
 
 import HTML                         from './indexHTML'
 
-import formidable from 'formidable'
-import util from 'util'
-
 var app = express();
 var bowerPath = path.join(__dirname, "../bower_components");
 var dist = path.join(__dirname, "../_dist");
@@ -53,9 +50,6 @@ app.use(session({
 
 app.use('/ajax', (req, res) => {
     proxy.web(req, res, {target: 'http://localhost:3001/ajax'});
-});
-app.use('/api', (req, res) => {
-    proxy.web(req, res, {target: 'http://localhost:3001'});
 });
 app.use('/image', (req, res) => {
     proxy.web(req, res, {target: 'http://localhost:3002'});

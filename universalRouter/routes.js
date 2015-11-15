@@ -28,10 +28,10 @@ export default (
                 <Route path="/" components={{mainSection: best}} />
                 <Route path="submit" components={{mainSection: writePost}} />
 
-                <Route path="club/:clubName" components={{mainSection:club}} />
+                <Route path="club/:clubName" components={{mainSection: club}} />
                 <Route path="club/:clubName/submit" components={{mainSection: writePost}} />
                 <Route path="club/:clubName/search" components={{mainSection: writePost}}/>
-                <Route path="club/:clubName/:article" components={{mainSection:post}} />
+                <Route path="club/:clubName/:article" components={{mainSection: post}} />
         </Route>
 
         <Route path="/login" components={{header: header, main: About, sidebar: sidebar}} />

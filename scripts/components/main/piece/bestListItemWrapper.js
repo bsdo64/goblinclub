@@ -53,7 +53,7 @@ export default class BestListItemWrapper extends Component {
                         <p style={styles.posts.postContentMeta} className="frm_svc">
                             <Link to="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article" >{user.nick} </Link>
                             <span className="wrt_time">{createdAt} </span>
-                            <Link to="/" style={styles.posts.postTitleClub}>/club/{clubs[0].url}</Link>
+                            <Link to={'/club/' + clubs[0].url } style={styles.posts.postTitleClub}>/club/{clubs[0].url}</Link>
                         </p>
                         <div className="lst_type2">
                             <div style={styles.posts.postContents} className="rgt_dsc">
