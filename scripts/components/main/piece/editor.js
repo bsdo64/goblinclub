@@ -7,25 +7,44 @@ import { Link } from 'react-router';
 import md from '../../../utils/markdown';
 
 import { editor as styles } from './style_editor'
+import connectToStores from 'alt/utils/connectToStores';
+import PostActions from '../../../Actions/PostActions';
+import PostStore from '../../../stores/PostStore';
 
+@connectToStores
 @Radium
 export default class editor extends Component {
-    constructor() {
-        super();
+    static getStores() {
+        return [PostStore];
+    }
+
+    static getPropsFromStores() {
+        return {
+            PostStore: PostStore.getState()
+        }
+    }
+
+    constructor(...props) {
+        super(...props);
         this.state = {
             value: ''
         }
 
         this.handleChange = this.handleChange.bind(this);
+        this.submit = this.submit.bind(this);
     }
 
     handleChange() {
-        console.log(this.refs.textarea.value)
         this.setState({value: this.refs.textarea.value});
+        console.log('this.state.value', this.state.value)
     }
 
+    submit() {
+        PostActions.submitPost(this.refs.textarea.value)
+    }
 
     render() {
+        console.log('this.props.PostStore', this.props.PostStore)
         return (
             <div style={styles.widget.container4}>
                 <div style={styles.widget.container2}>
@@ -37,12 +56,26 @@ export default class editor extends Component {
                                 onChange={this.handleChange}
                                 ref="textarea"
                                style={styles.widget.textarea2}
-                                placeholder="여기에 입력하세요." />
+                                placeholder="여기에 입력하세요."
+                            />
+                    </div>
+                    <div style={styles.widget.listObj}>
+                        text
+                            <textarea
+                                style={styles.widget.textarea2}
+                                placeholder="여기에 입력하세요."
+                                defaultValue={this.props.PostStore.post}
+                            />
                     </div>
 
-                <div
-                    dangerouslySetInnerHTML={{ __html: md.render(this.state.value, {sanitize: true}) }}
-                ></div>  </div>
+                    <div
+                        dangerouslySetInnerHTML={{ __html: md.render(this.state.value, {sanitize: true}) }}
+                    ></div>
+
+                    <div>
+                        <button onClick={this.submit}>제출하기</button>
+                    </div>
+                </div>
                 <div style={styles.widget.container3}>
                     <div style={styles.widget.listObj}>
 

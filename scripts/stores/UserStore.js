@@ -1,6 +1,3 @@
-/**
- * Created by dobyeongsu on 2015. 10. 17..
- */
 import alt from '../alt';
 import _ from 'lodash'
 import UserActions from '../Actions/UserActions'

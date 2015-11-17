@@ -49,10 +49,14 @@ app.use(session({
 }));
 
 app.use('/ajax', (req, res) => {
-    proxy.web(req, res, {target: 'http://localhost:3001/ajax'});
+    proxy.web(req, res, {target: 'http://localhost:3001/ajax'}, function(e) {
+        res.send(e);
+    });
 });
 app.use('/image', (req, res) => {
-    proxy.web(req, res, {target: 'http://localhost:3002'});
+    proxy.web(req, res, {target: 'http://localhost:3002'}, function(e) {
+        res.send(e);
+    });
 });
 
 /* Front Side */

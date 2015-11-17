@@ -27,7 +27,15 @@ export default class WritePost extends Component {
         this.setState({value: v});
     }
 
+    componentWillUnmount() {
+        window.removeEventListener("unload");
+    }
+
     componentDidMount() {
+
+        window.addEventListener("unload", function (e) {
+            alert('종료?');
+        });
 
         var uploadButton = $('<button/>')
             .addClass('btn btn-primary')
@@ -63,6 +71,8 @@ export default class WritePost extends Component {
             previewMaxHeight: 100,
             previewCrop: true
         }).on('fileuploadadd', function (e, data) {
+            console.log('fileuploadadd')
+
             data.context = $('<div/>').appendTo('#files');
             $.each(data.files, function (index, file) {
                 var node = $('<p/>')
@@ -93,6 +103,11 @@ export default class WritePost extends Component {
                     .text('Upload')
                     .prop('disabled', !!data.files.error);
             }
+        }).on('fileuploadprcessstart', function (e) {
+            console.log('fileuploadprcessstart')
+            $('#progressall .progress-bar').css(
+                'width', 0
+            );
         }).on('fileuploadprogressall', function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);
             $('#progressall .progress-bar').css(
@@ -106,6 +121,7 @@ export default class WritePost extends Component {
                 progress + '%'
             );
         }).on('fileuploaddone', function (e, data) {
+            console.log('fileuploaddone')
             $.each(data.result.files, function (index, file) {
                 if (file.url) {
                     var link = $('<a>')
@@ -121,6 +137,7 @@ export default class WritePost extends Component {
                 }
             });
         }).on('fileuploadfail', function (e, data) {
+            console.log('fileuploadfail')
             $.each(data.files, function (index) {
                 var error = $('<span class="text-danger"/>').text('File upload failed.');
                 $(data.context.children()[index])
@@ -147,6 +164,14 @@ export default class WritePost extends Component {
                 <div style={styles.widget.container}>
                     <div style={styles.widget.listObj}>
                         입력하기 | 미리보기
+                    </div>
+                </div>
+
+                <div style={styles.widget.container}>
+                    <div style={styles.widget.listObj}>
+                        <div
+                            dangerouslySetInnerHTML={{ __html: md.render(this.state.value, {sanitize: true}) }}
+                        ></div>
                     </div>
                 </div>
 

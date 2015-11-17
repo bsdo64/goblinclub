@@ -10,7 +10,7 @@
     "redis": "redis-server",
     "mysql": "mysql.server start",
     "image-server": "nodemon -w ./imageServer ./imageServer/server.js",
-    "document-server": "nodemon ./document/server.js -w ./document/build -w ./document/server.js"
+    "document-server": "nodemon ./document/server.js -w document"
   },
   "author": "",
   "license": "ISC",

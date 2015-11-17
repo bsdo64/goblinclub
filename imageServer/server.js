@@ -22,6 +22,7 @@
         formidable = require('formidable'),
         nodeStatic = require('node-static'),
         imageMagick = require('imagemagick'),
+        shortId = require('shortId'),
         options = {
             tmpDir: __dirname + '/tmp',
             publicDir: __dirname + '/public',
@@ -177,7 +178,9 @@
                 baseUrl = (options.ssl ? 'https:' : 'http:') +
                     '//' + req.headers.host + options.uploadUrl;
             this.url = this.deleteUrl = baseUrl + encodeURIComponent(this.name);
+            console.log(this);
             Object.keys(options.imageVersions).forEach(function (version) {
+                console.log(options.uploadDir + '/' + version + '/' + that.name);
                 if (_existsSync(
                         options.uploadDir + '/' + version + '/' + that.name
                     )) {
@@ -241,6 +244,7 @@
                 fs.unlink(file.path);
                 return;
             }
+            fileInfo.name = shortId.generate() + path.extname(fileInfo.name);
             fs.renameSync(file.path, options.uploadDir + '/' + fileInfo.name);
             if (options.imageTypes.test(fileInfo.name)) {
                 Object.keys(options.imageVersions).forEach(function (version) {
