@@ -4,7 +4,6 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 import { Link } from 'react-router';
-import md from '../../../utils/markdown';
 
 import { editor as styles } from './style_editor'
 import connectToStores from 'alt/utils/connectToStores';
@@ -26,9 +25,6 @@ export default class editor extends Component {
 
     constructor(...props) {
         super(...props);
-        this.state = {
-            value: ''
-        }
 
         this.handleChange = this.handleChange.bind(this);
         this.submit = this.submit.bind(this);
@@ -36,15 +32,16 @@ export default class editor extends Component {
 
     handleChange() {
         this.setState({value: this.refs.textarea.value});
-        console.log('this.state.value', this.state.value)
-    }
-
-    submit() {
         PostActions.submitPost(this.refs.textarea.value)
     }
 
+    submit() {
+        // PostActions.submitPost(this.state.value)
+    }
+
     render() {
-        console.log('this.props.PostStore', this.props.PostStore)
+        var value = this.props.PostStore.post;
+
         return (
             <div style={styles.widget.container4}>
                 <div style={styles.widget.container2}>
@@ -55,25 +52,14 @@ export default class editor extends Component {
                             <textarea
                                 onChange={this.handleChange}
                                 ref="textarea"
-                               style={styles.widget.textarea2}
-                                placeholder="여기에 입력하세요."
-                            />
-                    </div>
-                    <div style={styles.widget.listObj}>
-                        text
-                            <textarea
                                 style={styles.widget.textarea2}
                                 placeholder="여기에 입력하세요."
-                                defaultValue={this.props.PostStore.post}
+                                defaultValue={value}
                             />
                     </div>
 
-                    <div
-                        dangerouslySetInnerHTML={{ __html: md.render(this.state.value, {sanitize: true}) }}
-                    ></div>
-
                     <div>
-                        <button onClick={this.submit}>제출하기</button>
+                        <button onClick={this.submit}>저장하기</button>
                     </div>
                 </div>
                 <div style={styles.widget.container3}>

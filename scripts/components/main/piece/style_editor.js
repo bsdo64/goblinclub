@@ -70,7 +70,8 @@ export var editor =
                 width: "100%",
                 height: 400,
                 border: 'none',
-                resize: 'vertical'
+                resize: 'vertical',
+                lineHeight: 1
             }
         },
         main : {

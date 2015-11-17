@@ -8,23 +8,31 @@ import md from '../../utils/markdown'
 import HeadLine             from './piece/headLine';
 import Editor               from './piece/editor';
 import { editor as styles } from './piece/style_editor'
+import connectToStores from 'alt/utils/connectToStores';
 
+import PostStore from '../../stores/PostStore';
+
+@connectToStores
 @Radium
 export default class WritePost extends Component {
+    static getStores() {
+        return [PostStore];
+    }
+
+    static getPropsFromStores() {
+        return {
+            PostStore: PostStore.getState()
+        }
+    }
 
     constructor() {
         super();
         this.state = {
-            value: ''
-        }
+            value: '',
+            togglePreview: true
+        };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit= this.handleSubmit.bind(this);
-    }
-
-    handleChange(v) {
-        console.log(this.refs.textarea.value)
-        this.setState({value: v});
+        this.togglePreview = this.togglePreview.bind(this);
     }
 
     componentWillUnmount() {
@@ -147,37 +155,41 @@ export default class WritePost extends Component {
         }).prop('disabled', !$.support.fileInput)
             .parent().addClass($.support.fileInput ? undefined : 'disabled');
 
-        document.getElementsByTagName('canvas').onclick = function (event) {
-            event = event || window.event;
-            var target = event.target || event.srcElement,
-                link = target.src ? target.parentNode : target,
-                options = {index: link, event: event},
-                links = this.getElementsByTagName('a');
-            blueimp.Gallery(links, options);
-        };
+    }
+
+    togglePreview(e) {
+        var bool = e.target.getAttribute('value')
+        if(bool === '1') {
+            this.setState({togglePreview: true})
+        } else {
+            this.setState({togglePreview: false})
+        }
+
     }
 
     render() {
 
+        var post = this.props.PostStore.post;
         return (
             <div>
                 <div style={styles.widget.container}>
                     <div style={styles.widget.listObj}>
-                        입력하기 | 미리보기
+                        <a ref="write" value={1} onClick={this.togglePreview}>입력하기</a> | <a ref="preview" value={0} onClick={this.togglePreview}>미리보기</a>
                     </div>
                 </div>
 
-                <div style={styles.widget.container}>
+                { this.state.togglePreview && <Editor /> }
+
+                { !this.state.togglePreview &&
+                <div style={styles.widget.container4}>
                     <div style={styles.widget.listObj}>
                         <div
-                            dangerouslySetInnerHTML={{ __html: md.render(this.state.value, {sanitize: true}) }}
+                            dangerouslySetInnerHTML={{ __html: md.render(post, {sanitize: true}) }}
                         ></div>
                     </div>
                 </div>
+                }
 
-                <Editor
-                    onChange={this.handleChange}
-                />
                 <div>
                     <input type="text" name="title" /><br />
                     <input ref="fileupload" id="fileupload" type="file" name="files[]" multiple />
@@ -207,7 +219,4 @@ export default class WritePost extends Component {
         )
     }
 
-    handleSubmit() {
-
-    }
 }

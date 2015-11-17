@@ -24,6 +24,28 @@ var md = new Remarkable({
     linkify: true
 }).use(video_plugin);
 
+var defaultRender = md.renderer.rules.image ||
+    function(tokens, idx, options, env, self) {
+        return self.renderToken(tokens, idx, options);
+    };
+
+md.renderer.rules.image = function (tokens, idx, options, env, self) {
+
+    // 이미지 alt 삽입
+    tokens[idx].attrs[tokens[idx].attrIndex('alt')][1] =
+        self.renderInlineAsText(tokens[idx].children, options, env);
+
+    // 이미지 style override
+    var aIndex = tokens[idx].attrIndex('style');
+
+    if (aIndex < 0) {
+        tokens[idx].attrPush(['style', 'margin:auto;display:block;max-width:100%']); // add new attribute
+    } else {
+        tokens[idx].attrs[aIndex][1] = 'margin:auto;display:block;max-width:100%';    // replace value of existing attr
+    }
+    return defaultRender(tokens, idx, options, env, self);
+};
+
 function video_embed(md) {
     function video_return(state, silent) {
         var code,

@@ -8,7 +8,7 @@ class PostStore {
         this.bindActions(PostActions);
 
         this.state = {
-            post: null
+            post: ''
         };
     }
 
