@@ -16,6 +16,11 @@ export default class HTML extends Component {
                     <link rel="stylesheet" href="/statics/nanoscroller.css" />
                     <link rel="stylesheet" href="/statics/blueimp-gallery/css/blueimp-gallery.min.css" />
 
+                    <link rel="stylesheet" href="/statics/medium-editor/dist/css/medium-editor.min.css" />
+                    <link rel="stylesheet" href="/statics/medium-editor/dist/css/themes/default.css" id="medium-editor-theme" />
+                    <link rel="stylesheet" href="/statics/medium-editor-insert-plugin/dist/css/medium-editor-insert-plugin.min.css" />
+
+
                     <link rel="stylesheet" href="/statics/style.css" />
                     <script src='https://www.google.com/recaptcha/api.js' async defer></script>
                 </head>
@@ -38,6 +43,11 @@ export default class HTML extends Component {
                     <script src="/statics/blueimp-file-upload/js/jquery.fileupload-video.js"></script>
                     <script src="/statics/blueimp-file-upload/js/jquery.fileupload-validate.js"></script>
                     <script src="/statics/blueimp-gallery/js/blueimp-gallery.min.js"></script>
+
+                    <script src="/statics/medium-editor/dist/js/medium-editor.js"></script>
+                    <script src="/statics/handlebars/handlebars.runtime.min.js"></script>
+                    <script src="/statics/jquery-sortable/source/js/jquery-sortable-min.js"></script>
+                    <script src="/statics/medium-editor-insert-plugin/dist/js/medium-editor-insert-plugin.js"></script>
 
                     <script src="/statics/bundle.js"></script>
                 </body>

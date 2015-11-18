@@ -155,6 +155,7 @@ export default class WritePost extends Component {
         }).prop('disabled', !$.support.fileInput)
             .parent().addClass($.support.fileInput ? undefined : 'disabled');
 
+
     }
 
     togglePreview(e) {

@@ -30,13 +30,28 @@ export default class editor extends Component {
         this.submit = this.submit.bind(this);
     }
 
+    componentDidMount() {
+        $(function () {
+            var editor = new MediumEditor('.editable');
+            $('.editable').mediumInsert({
+                editor: editor
+            });
+
+            editor.subscribe('editableDrop', function (event, editable) {
+                // custom drop handling
+                $(editable).append('text')
+                console.log('editableDrop', event, editable)
+            });
+        });
+    }
+
     handleChange() {
         this.setState({value: this.refs.textarea.value});
         PostActions.submitPost(this.refs.textarea.value)
     }
 
     submit() {
-        // PostActions.submitPost(this.state.value)
+         PostActions.submitPost(this.state.value)
     }
 
     render() {
@@ -56,6 +71,10 @@ export default class editor extends Component {
                                 placeholder="여기에 입력하세요."
                                 defaultValue={value}
                             />
+                    </div>
+
+                    <div style={styles.widget.listObj}>
+                            <div className="editable" > </div>
                     </div>
 
                     <div>
