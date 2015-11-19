@@ -173,11 +173,6 @@ export default class WritePost extends Component {
         var post = this.props.PostStore.post;
         return (
             <div>
-                <div style={styles.widget.container}>
-                    <div style={styles.widget.listObj}>
-                        <a ref="write" value={1} onClick={this.togglePreview}>입력하기</a> | <a ref="preview" value={0} onClick={this.togglePreview}>미리보기</a>
-                    </div>
-                </div>
 
                 { this.state.togglePreview && <Editor /> }
 

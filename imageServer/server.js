@@ -223,9 +223,11 @@
                     files.forEach(function (fileInfo) {
                         fileInfo.initUrls(handler.req);
                     });
+
                     handler.callback({files: files}, redirect);
                 }
             };
+        form.multiples = true;
         form.uploadDir = options.tmpDir;
         form.on('fileBegin', function (name, file) {
             tmpFiles.push(file.path);
