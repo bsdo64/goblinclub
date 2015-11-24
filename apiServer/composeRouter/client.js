@@ -5,6 +5,10 @@ var express = require('express');
 var router = express.Router();
 var jsonWebToken = require('jsonwebtoken');
 
+var Post = require('../db/models/post');
+var User = require('../db/models/user');
+var shortId = require('shortid');
+
 router.use(function timeLog(req, res, next) {
     console.log('Time: ', Date.now());
     next();
@@ -33,6 +37,30 @@ router.post('/login', function (req, res) {
             error: err
         });
     }
+});
+
+router.post('/submit', function (req, res) {
+    var post = req.body.post;
+    var author = req.body.author;
+
+    if (!post || !author ) {
+        res.status(400).json({
+            message: "Fill out",
+            error: "Fill out"
+        });
+    }
+
+    User.findOne({
+            where: author
+        })
+        .then(function(user) {
+            return Post.create({
+                _id: shortId.generate(),
+                title: post.title,
+                content: post.content,
+                author: user.get('id')
+            });
+        });
 });
 
 router.get('/', function( req, res ) {

@@ -14,7 +14,7 @@ import styles from './style_post';
 
 @connectToStores
 @Radium
-export default class listWrapper extends Component {
+export default class Best extends Component {
     static getStores() {
         return [UserStore, PostStore];
     }
@@ -24,6 +24,14 @@ export default class listWrapper extends Component {
             UserStore: UserStore.getState(),
             PostStore: PostStore.getState()
         }
+    }
+
+    componentDidMount() {
+        console.log('Best, componentDidMount');
+    }
+
+    componentWillMount() {
+        console.log('Best, componentWillMount');
     }
 
     render() {

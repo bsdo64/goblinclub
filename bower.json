@@ -22,7 +22,7 @@
     "blueimp-load-image": "~1.14.0",
     "blueimp-canvas-to-blob": "~2.2.0",
     "blueimp-gallery": "~2.16.0",
-    "medium-editor-insert-plugin": "^2.1",
+    "medium-editor-insert-plugin": "https://bsdo64@bitbucket.org/goblinclub/medium-editor-insert-plugin.git",
     "medium-editor": "~5.10.0"
   }
 }

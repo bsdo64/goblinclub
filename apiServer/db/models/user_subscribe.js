@@ -4,15 +4,15 @@
 var Validation = require('../validation');
 
 module.exports = function(sequelize, DataTypes) {
-    var UserRead = sequelize.define('user_read', {
+    var UserRead = sequelize.define('user_subscribe', {
         id: {
             type: DataTypes.INTEGER,
             unique: true,
             autoIncrement: true,
             primaryKey: true
         },
-        post_id: {
-            type: DataTypes.STRING,
+        club_id: {
+            type: DataTypes.INTEGER,
             unique: 'club_user',
             allowNull: false
         },
@@ -29,9 +29,9 @@ module.exports = function(sequelize, DataTypes) {
                     foreignKey: 'user_id',
                     allowNull: false
                 });
-                UserRead.belongsTo(models.post, {
+                UserRead.belongsTo(models.club, {
                     onDelete: "CASCADE",
-                    foreignKey: 'post_id',
+                    foreignKey: 'club_id',
                     allowNull: false
                 });
             }

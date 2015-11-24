@@ -276,19 +276,22 @@
     UploadHandler.prototype.destroy = function () {
         var handler = this,
             fileName;
-        if (handler.req.url.slice(0, options.uploadUrl.length) === options.uploadUrl) {
-            fileName = path.basename(decodeURIComponent(handler.req.url));
-            if (fileName[0] !== '.') {
-                fs.unlink(options.uploadDir + '/' + fileName, function (ex) {
-                    Object.keys(options.imageVersions).forEach(function (version) {
-                        fs.unlink(options.uploadDir + '/' + version + '/' + fileName);
+        var form = new formidable.IncomingForm();
+        form.parse(handler.req, function(err, fields, files) {
+            if (handler.req.url.slice(0, options.uploadUrl.length) === options.uploadUrl) {
+                fileName = path.basename(decodeURIComponent(fields.file));
+                if (fileName[0] !== '.') {
+                    fs.unlink(options.uploadDir + '/' + fileName, function (ex) {
+                        Object.keys(options.imageVersions).forEach(function (version) {
+                            fs.unlink(options.uploadDir + '/' + version + '/' + fileName);
+                        });
+                        handler.callback({success: !ex});
                     });
-                    handler.callback({success: !ex});
-                });
-                return;
+                    return;
+                }
             }
-        }
-        handler.callback({success: false});
+            handler.callback({success: !err});
+        });
     };
     if (options.ssl) {
         require('https').createServer(options.ssl, serve).listen(port);

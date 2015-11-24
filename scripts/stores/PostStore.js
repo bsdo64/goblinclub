@@ -13,10 +13,7 @@ class PostStore {
     }
 
     onSubmitPost(post) {
-        console.log('store1');
-        console.log('setState : ', post);
         this.setState({post: post})
-        console.log('store2');
     }
 
 }

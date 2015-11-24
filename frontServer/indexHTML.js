@@ -20,8 +20,6 @@ export default class HTML extends Component {
                     <link rel="stylesheet" href="/statics/medium-editor/dist/css/themes/default.css" id="medium-editor-theme" />
                     <link rel="stylesheet" href="/statics/medium-editor-insert-plugin/dist/css/medium-editor-insert-plugin.min.css" />
 
-                    <link rel="stylesheet" href="/statics/js/ContentTools/build/content-tools.min.css" />
-
                     <link rel="stylesheet" href="/statics/style.css" />
                     <script src='https://www.google.com/recaptcha/api.js' async defer></script>
                 </head>
@@ -49,8 +47,6 @@ export default class HTML extends Component {
                     <script src="/statics/handlebars/handlebars.runtime.min.js"></script>
                     <script src="/statics/jquery-sortable/source/js/jquery-sortable-min.js"></script>
                     <script src="/statics/medium-editor-insert-plugin/dist/js/medium-editor-insert-plugin.js"></script>
-
-                    <script src="/statics/js/ContentTools/build/content-tools.js"></script>
 
                     <script src="/statics/bundle.js"></script>
                 </body>
