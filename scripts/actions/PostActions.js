@@ -9,6 +9,8 @@ class PostActions {
     submitPost(post) {
         let user = UserStore.getState().user;
 
+        this.dispatch(post);
+        
         fetch.submitPost(user, post, function(err, post) {
             if (err) return err;
 

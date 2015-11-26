@@ -29,7 +29,15 @@ export default class WritePost extends Component {
         super();
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log('componentWillReceiveProps');
+        if(nextProps.PostStore.writeSuccess) {
+            this.props.history.pushState(null, '/')
+        }
+    }
+
     render() {
+
 
         var post = this.props.PostStore.post;
         return (

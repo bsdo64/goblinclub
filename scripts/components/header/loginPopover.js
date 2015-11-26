@@ -37,20 +37,56 @@ export default class loginPopover extends Component {
     }
 
     render() {
-        const { loadingAuth, authFail, loadedAuth, uiValidate } = this.props.UserStore;
+        const { loadingAuth, authFail, loadedAuth, uiValidate, serverValidate } = this.props.UserStore;
 
         let errorMessage = {
                 email : null,
                 password : null
             };
 
-        if( loadedAuth && authFail ) {
+        if( loadedAuth && authFail && uiValidate ) {
             let count = 0;
             var createItem = function(itemText, index) {
                 return <li key={index + count++}>{itemText}</li>;
             };
-            errorMessage.email    =  <ul>{uiValidate.errors.email.map(createItem)}</ul>;
-            errorMessage.password =  <ul>{uiValidate.errors.password.map(createItem)}</ul>;
+            switch (uiValidate.type) {
+                case 'loginUser':
+                    errorMessage.email    =  <ul>{uiValidate.errors.email.map(createItem)}</ul>;
+                    errorMessage.password =  <ul>{uiValidate.errors.password.map(createItem)}</ul>;
+                    break;
+                case 'signinUser':
+                    errorMessage.email    =  <ul>{uiValidate.errors.email.map(createItem)}</ul>;
+                    errorMessage.password =  <ul>{uiValidate.errors.password.map(createItem)}</ul>;
+                    errorMessage.nick     =  <ul>{uiValidate.errors.nick.map(createItem)}</ul>;
+                default:
+                    break;
+            }
+
+        }
+        if( loadedAuth && authFail && serverValidate ) {
+            let count = 0;
+            var createItem = function(itemText, index) {
+                return <li key={index + count++}>{itemText.message}</li>;
+            };
+            switch (serverValidate.type) {
+                case 'loginUser':
+                    for (let prop in serverValidate.fields) {
+                        if( serverValidate.fields.hasOwnProperty( prop ) ) {
+                            errorMessage[prop] = <ul>{serverValidate.errors.map(createItem)}</ul>;
+                        }
+                    }
+                    break;
+                case 'signinUser':
+                    for (let prop in serverValidate.fields) {
+                        if( serverValidate.fields.hasOwnProperty( prop ) ) {
+                            errorMessage[prop] = <ul>{serverValidate.errors.map(createItem)}</ul>;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+
         }
         return (
                 <div >
@@ -86,12 +122,16 @@ export default class loginPopover extends Component {
                                         <input ref="signinEmail" type="text" name="signinEmail" id="signinEmail" />
                                     </label>
                                 </div>
+                                { authFail && errorMessage.email }
+
                                 <div className="form-element" id="password-form-element">
                                     <label id="password-label">
                                         닉네임
                                         <input ref="signinNick" type="text" name="signinNick" id="signinNick" n="4" />
                                     </label>
                                 </div>
+                                { authFail && errorMessage.nick }
+
                                 <div className="form-element" id="password-form-element">
                                     <label id="password-label">
                                         비밀번호
@@ -104,6 +144,7 @@ export default class loginPopover extends Component {
                                         <input ref="signinPasswordCheck" type="password" name="signinPasswordCheck" id="signinPasswordCheck" n="4" />
                                     </label>
                                 </div>
+                                { authFail && errorMessage.password }
 
                                 <div className="g-recaptcha" ref="loginCapcha" data-sitekey="6LddkhATAAAAAALuWnDw4tpG349vecZTkNdHYyF2"></div>
 
@@ -145,7 +186,6 @@ export default class loginPopover extends Component {
             signinPassword : this.refs.signinPassword.value.trim(),
             signinPasswordCheck : this.refs.signinPasswordCheck.value.trim()
         };
-        console.log(screen.width);
         UserActions.signinUser(signinUser);
     }
 }

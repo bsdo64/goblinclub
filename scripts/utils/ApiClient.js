@@ -20,6 +20,21 @@ var ApiClient = {
             })
     },
 
+    signin : (user, callback) => {
+        request
+            .post('/ajax/signin')
+            .send({user : user})
+            .set('Accept', 'application/json')
+            .withCredentials()
+            .end((xhrErr, xhrRes) => {
+                if(xhrErr) {
+                    callback(xhrErr, null);
+                } else if (xhrRes) {
+                    callback(null, xhrRes.body);
+                }
+            })
+    },
+
     submitPost : (author, post, callback) => {
         request
             .post('/ajax/submit')

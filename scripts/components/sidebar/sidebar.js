@@ -25,7 +25,7 @@ export default class sidebar extends Component {
     }
 
     render() {
-        const { auth } = this.props.UserStore;
+        const { auth, user } = this.props.UserStore;
 
         return (
             <div style={styles.base}>
@@ -83,9 +83,9 @@ export default class sidebar extends Component {
                         </ul>
                         { auth.token &&
                             <ul style={styles.clubs.element}>
-                                <li>{auth.user.email}</li>
-                                <li>{auth.user.email}</li>
-                                <li>{auth.user.email}</li>
+                                <li>{user.email}</li>
+                                <li>{user.email}</li>
+                                <li>{user.email}</li>
                             </ul>
                         }
                     </div>

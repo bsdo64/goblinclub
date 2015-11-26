@@ -28,7 +28,6 @@ export default class Club extends Component {
 
     constructor(...props) {
         super(...props)
-        console.log(this.props);
     }
 
     componentDidMount() {

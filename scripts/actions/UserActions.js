@@ -12,36 +12,76 @@ class UserActions {
         this.dispatch();
 
         var uiValidator = new Validator();
-        uiValidator.loginUser(user, (result) => {
+        uiValidator.loginUser(user, (err, result) => {
+            if (err) this.dispatch(err);
+
             if (result.result) {
                 this.actions.loginUser_uiValidateSuccess(result, user);
             } else {
-                this.actions.loginUser_uiValidateFail(result);
+                this.actions.uiValidateFail(result);
             }
         });
     }
-
     loginUser_uiValidateSuccess(uiValidator, user) {
         this.dispatch(uiValidator);
 
         ApiClient.login(user, (err, res) => {
             if( err ) {
-                this.actions.loginUser_serverFail(err);
+                this.actions.serverFail(err);
 
             } else if ( res ) {
-                this.actions.loginSuccess(res);
+                if ( res.error ) {
+                    res.error.type = 'loginUser';
+                    this.actions.serverValidateFail(res.error);
+                    return;
+                }
+
+                this.actions.success(res);
             }
         })
     }
-    loginUser_uiValidateFail(result) {
+
+    signinUser(newUser) {
+        var uiValidator = new Validator();
+        uiValidator.signinUser(newUser, (err, result) => {
+            if (err) this.dispatch(err);
+
+            if (result.result) {
+                this.actions.signinUser_uiVaildateSuccess(result, newUser);
+            } else {
+                this.actions.uiValidateFail(result);
+            }
+        })
+    }
+    signinUser_uiVaildateSuccess(uiValidator, user) {
+        this.dispatch(uiValidator);
+
+        ApiClient.signin(user, (err, res) => {
+            if( err ) {
+                this.actions.serverFail(err);
+
+            } else if ( res ) {
+                if ( res.error ) {
+                    res.error.type = 'signinUser';
+                    this.actions.serverValidateFail(res.error);
+                    return;
+                }
+
+                this.actions.success(res);
+            }
+        })
+    }
+
+    uiValidateFail(result) {
         this.dispatch(result);
     }
-
-    loginUser_serverFail(err) {
-
+    serverFail(err) {
+        this.dispatch(err);
     }
-
-    loginSuccess(res) {
+    serverValidateFail(err) {
+        this.dispatch(err);
+    }
+    success(res) {
         this.dispatch(res);
     }
 

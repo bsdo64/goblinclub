@@ -16,7 +16,10 @@ import {
     Button,
     Input,
     Overlay,
-    Modal
+    Modal,
+    ButtonToolbar,
+    DropdownButton,
+    Dropdown
 } from 'react-bootstrap';
 import Radium, { Style } from 'radium';
 import _ from 'lodash';
@@ -31,6 +34,8 @@ import alt from '../../alt'
 import { createHistory } from 'history'
 
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+
+var Button1 = Radium(Button);
 
 @Radium
 class LoginButton extends Component {
@@ -65,7 +70,7 @@ class LoginButton extends Component {
         return (
             <div style={{ height: 50, position: 'relative' }}>
                 <div ref="target" style={styles.menu.container} onClick={this._toggle}>
-                    <button style={styles.menu.login}>로그인 / 회원가입</button>
+                    <button style={styles.menu.item}>로그인 / 회원가입</button>
                 </div>
 
                 <Modal show={this.state.show} onHide={this._close} >
@@ -88,8 +93,61 @@ class LoginButton extends Component {
     }
 }
 
-@Radium
 @connectToStores
+@Radium
+class UserButton extends Component {
+
+    static getStores() {
+        return [UserStore];
+    }
+
+    static getPropsFromStores() {
+        return {
+            UserStore : UserStore.getState()
+        }
+    }
+
+    constructor () {
+        super();
+        this.state = {
+            show : false
+        };
+    }
+
+    render() {
+        const { auth, user } = this.props.UserStore;
+
+        return (
+            <div style={{ height: 50, position: 'relative'}}>
+                <ButtonToolbar style={styles.menu.container}>
+                    <Button1 style={styles.menu.item}>
+                        <Link to="/submit" ><i className="fa fa-pencil fa-fw" /></Link>
+                    </Button1>
+
+                    <Button style={styles.menu.item}>
+                        <i className="fa fa-bell-slash-o fa-fw" />
+                    </Button>
+
+                    <Dropdown id="dropdown-custom-2">
+                        <Dropdown.Toggle key="c" style={styles.menu.item}>
+                            <i className="fa fa-cog fa-fw" />&nbsp;
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu className="super-colors">
+                            <MenuItem eventKey="1">Action</MenuItem>
+                            <MenuItem eventKey="2">Another action</MenuItem>
+                            <MenuItem eventKey="3" active>Active Item</MenuItem>
+                            <MenuItem divider />
+                            <MenuItem eventKey="4">Separated link</MenuItem>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </ButtonToolbar>
+            </div>
+        );
+    }
+}
+
+@connectToStores
+@Radium
 export default class header extends Component {
 
     static getStores() {
@@ -109,21 +167,7 @@ export default class header extends Component {
     }
 
     render() {
-        const { auth, authSuccess } = this.props.UserStore;
-
-        let userItem;
-
-        if(auth.token) {
-            userItem = (
-                <NavDropdown eventKey={5} title={auth.user.email} id="basic-nav-dropdown">
-                    <MenuItem eventKey="1">Action</MenuItem>
-                    <MenuItem eventKey="2">Another action</MenuItem>
-                    <MenuItem eventKey="3">Something else here</MenuItem>
-                    <MenuItem divider />
-                    <MenuItem eventKey="4" >로그아웃</MenuItem>
-                </NavDropdown>
-            );
-        }
+        const { authSuccess } = this.props.UserStore;
 
         return (
             <div id="header" >
@@ -153,14 +197,18 @@ export default class header extends Component {
                     </div>
 
                     <div id="menu" style={styles.menu.layout}>
-                        <Nav right>
-                            { !authSuccess &&
+
+                        { !authSuccess &&
+                            <Nav right>
                                 <LoginButton />
-                            }
+                            </Nav>
+                        }
 
-
-                            { authSuccess && userItem }
-                        </Nav>
+                        { authSuccess &&
+                            <Nav right>
+                                <UserButton />
+                            </Nav>
+                        }
                     </div>
                 </Navbar>
             </div>
@@ -209,7 +257,7 @@ var styles = {
             height: 50,
             padding: 12
         },
-        login : {
+        item : {
             borderRadius: 1,
             boxShadow: '1px 1px 0 #000000',
             color: '#fff',

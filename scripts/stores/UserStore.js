@@ -15,8 +15,7 @@ class UserStore {
             loadingAuth: false,
             loadedAuth: false,
             authFail: false,
-            authSuccess: false,
-            uiValidate: {}
+            authSuccess: false
         };
 
     }
@@ -24,14 +23,25 @@ class UserStore {
     onLoginUser() {
         this.setState({loadingAuth : true});
     }
-    onLoginUser_uiValidateFail(result) {
+    onUiValidateFail(error) {
 
         this.setState({
             loadingAuth : false,
             authFail: true,
             authSuccess: false,
             loadedAuth: true,
-            uiValidate: result
+            uiValidate: error,
+            serverValidate: null
+        });
+    }
+    onServerValidateFail(error) {
+        this.setState({
+            loadingAuth : false,
+            authFail: true,
+            authSuccess: false,
+            loadedAuth: true,
+            uiValidate: null,
+            serverValidate: error
         });
     }
     onLoginUser_uiValidateSuccess(result) {
@@ -39,15 +49,21 @@ class UserStore {
             loadingAuth : true,
             authFail: false,
             authSuccess: false,
-            uiValidate: result
+            uiValidate: null,
+            serverValidate: null
         });
     }
 
-    onLoginSuccess(result) {
+    onSuccess(result) {
         this.setState({
             auth: {
                 token : result.token,
-                user : result.user
+                loginAt : new Date(),
+                state : "login"
+            },
+            user : {
+                email : result.user.email,
+                nick : result.user.nick
             },
             authFail: false,
             loadingAuth: false,

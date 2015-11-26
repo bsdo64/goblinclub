@@ -36,11 +36,13 @@ Composer.use((req, res, next) => {
                 next();
             } else {
                 res.storeState.UserStore['auth'] = {
-                    token: token,
-                    user: decoded
+                    token: token
                 };
-                res.storeState.UserStore.authSuccess = true,
-                res.storeState.UserStore.loadedAuth = true,
+                res.storeState.UserStore['user'] = decoded;
+                res.storeState.UserStore.authSuccess = true;
+                res.storeState.UserStore.loadedAuth = true;
+
+                console.log(decoded);
 
                 next();
             }

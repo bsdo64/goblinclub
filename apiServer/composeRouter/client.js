@@ -5,8 +5,9 @@ var express = require('express');
 var router = express.Router();
 var jsonWebToken = require('jsonwebtoken');
 
-var Post = require('../db/models/post');
-var User = require('../db/models/user');
+var Model = require('../db');
+var Post = Model.post;
+var User = Model.user;
 var shortId = require('shortid');
 
 router.use(function timeLog(req, res, next) {
@@ -39,6 +40,49 @@ router.post('/login', function (req, res) {
     }
 });
 
+router.post('/signin', function (req, res) {
+    var user = req.body.user;
+    var newUser = {
+        email : user.signinEmail,
+        nick : user.signinNick,
+        password : user.signinPassword
+    };
+
+    User
+        .findOrCreate({where: newUser})
+        .spread(function(user, created) {
+            console.log(user.get({
+                plain: true
+            }));
+            try {
+                var token = jsonWebToken.sign(user, 'secret', {expiresIn: "7d"});
+
+                res.cookie('token', token, {
+                    expires: new Date(Date.now() + (24 * 60 * 60 * 1000)),
+                    httpOnly: true
+                });
+
+                res.json({
+                    token: token,
+                    user: user,
+                    message: "Loggined!"
+                });
+
+            } catch (err) {
+                res.json({
+                    message: "can't make token",
+                    error: err
+                });
+            }
+        }).catch(function (err) {
+            res.json({
+                type: "signinUser",
+                message: "회원가입 오류",
+                error: err
+            })
+        });
+});
+
 router.post('/submit', function (req, res) {
     var post = req.body.post;
     var author = req.body.author;
@@ -50,7 +94,7 @@ router.post('/submit', function (req, res) {
         });
     }
 
-    User.findOne({
+    User.find({
             where: author
         })
         .then(function(user) {

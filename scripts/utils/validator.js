@@ -2,7 +2,6 @@
  * Created by dobyeongsu on 2015. 10. 20..
  */
 import validator from 'validator';
-import immutable from 'immutable';
 
 class validateRules {
     constructor () {
@@ -27,7 +26,8 @@ class validateRules {
         return result
     }
     loginUser(user, callback) {
-        let result = this.res;
+        let result = {};
+        result.type = 'loginUser';
         result.errors = { email : [], password : [] };
 
         if (!validator.isEmail(user.email))
@@ -43,7 +43,29 @@ class validateRules {
             result.errors.password.push(['Password can only contain alphanumeric characters, underscores and hyphens']);
 
         result = this._checkError(result);
-        return callback(result, user)
+        return callback(null, result)
+    }
+    signinUser(user, callback) {
+        let result = {};
+        result.type = 'signinUser';
+        result.errors = { email : [], nick : [], password : [] };
+
+        if (!validator.isEmail(user.signinEmail))
+            result.errors.email.push(['이메일을 올바르게 입력해주세요']);
+
+        if (!validator.isLength(user.signinPassword, 6, 12))
+            result.errors.password.push(['Password must be between 6 and 12 characters']);
+        if (!validator.matches(user.signinPassword, /[a-z]/i))
+            result.errors.password.push(['Password must contain a letter']);
+        if (!validator.matches(user.signinPassword, /\d/i))
+            result.errors.password.push(['Password must contain a number']);
+        if (!validator.matches(user.signinPassword, /^[a-z0-9_-]+$/i))
+            result.errors.password.push(['Password can only contain alphanumeric characters, underscores and hyphens']);
+        if (!validator.equals(user.signinPasswordCheck, user.signinPassword))
+            result.errors.password.push(['비밀번호가 일치하지 않습니다']);
+
+        result = this._checkError(result);
+        return callback(null, result)
     }
 }
 
