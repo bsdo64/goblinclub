@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1449033215124" clover="3.2.0">
+	<project timestamp="1449033215124"  name="All Files" >
+		<metrics statements="13"  coveredstatements="13"  conditionals="4"  coveredconditionals="4"  methods="7"  coveredmethods="7"  elements="24"  coveredelements="24"  complexity="0"  packages="1"  files="1"  classes="1"  loc="72"  ncloc="72" />
+		<package name="goblin-alt" >
+			<metrics statements="13"  coveredstatements="13"  conditionals="4"  coveredconditionals="4"  methods="7"  coveredmethods="7" />
+			<file name="rectangle.js"  path="/Users/dobyeongsu/projects/goblin-alt/rectangle.js" >
+				<metrics statements="13"  coveredstatements="13"  conditionals="4"  coveredconditionals="4"  methods="7"  coveredmethods="7" />
+				<line num="15"  count="14"  type="stmt" />
+				<line num="16"  count="12"  type="stmt" />
+				<line num="29"  count="6"  type="stmt" />
+				<line num="40"  count="14"  type="cond"  truecount="2"  falsecount="0" />
+				<line num="41"  count="2"  type="stmt" />
+				<line num="44"  count="12"  type="stmt" />
+				<line num="48"  count="6"  type="stmt" />
+				<line num="52"  count="16"  type="cond"  truecount="2"  falsecount="0" />
+				<line num="53"  count="3"  type="stmt" />
+				<line num="56"  count="13"  type="stmt" />
+				<line num="61"  count="2"  type="stmt" />
+				<line num="66"  count="2"  type="stmt" />
+				<line num="72"  count="1"  type="stmt" />
+			</file>
+		</package>
+	</project>
+</coverage>

@@ -47,6 +47,15 @@ module.exports = function(sequelize, DataTypes) {
                     },
                     foreignKey: 'club_id'
                 });
+
+                Club.belongsToMany(models.user, {
+                    through: {
+                        model: models.subscribe,
+                        unique: false
+                    },
+                    constraints: false,
+                    foreignKey: 'club_id'
+                });
             }
         }
     });

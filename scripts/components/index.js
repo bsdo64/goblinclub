@@ -1,12 +1,9 @@
-/**
- * Created by dobyeongsu on 2015. 10. 15..
- */
-import _header from './header/header';
-import _main from './main/main';
-import _sidebar from './sidebar/sidebar';
-import _writePost from './main/writePost';
+export {default as AuthForm} from './Header/AuthForm';
 
-export const header = _header;
-export const main = _main;
-export const sidebar = _sidebar;
-export const writePost = _writePost;
+export {default as BestPostList} from './Main/BestPostList';
+export {default as ClubPostList} from './Main/ClubPostList';
+export {default as PostPage} from './Main/PostPage';
+export {default as Editor} from './Main/Editor';
+export {default as HeadLine} from './Main/HeadLine';
+
+export {default as ClubList} from './Sidebar/ClubList';

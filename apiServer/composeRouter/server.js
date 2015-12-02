@@ -16,115 +16,91 @@ router.use(function timeLog(req, res, next) {
 });
 
 router.get('/', function( req, res ) {
+    var user = req.query.user;
+
     // PostList, UserInfo, ClubList
     var User = Model.user,
         Post = Model.post,
         Club = Model.club
 
     var result = {
-        Post : null,
-        User : null,
-        Club : null
+        postStore : {},
+        clubStore : {}
     };
-    User.findOrCreate({
-            where: {
-                email: "bsdo@naver.com",
-                nick: "TEST",
-                password: "dkbs1234"
-            }})
-        .then(function() {
-            return User.findOne({
-                where: {
-                    email : "bsdo@naver.com"
-                }
-            })
-        .then(function(user) {
-            return Post.create({
-                _id: shortId.generate(),
-                title: "Hello world",
-                content: "You aorle",
-                author: user.get('id')
+    Post.findAll({
+            order: [
+                ['createdAt', 'DESC']
+            ],
+            include: [
+                { model: User, required: true, attributes: ['nick', 'id'] },
+                { model: Club, required: true }
+            ]
+        })
+        .then(function(bestPosts) {
+            _.map(bestPosts, function (bestPost) {
+                bestPost.setDataValue('createdAt', moment(bestPost.createdAt).fromNow());
+                bestPost.setDataValue('updatedAt', moment(bestPost.updatedAt).fromNow());
+                return bestPost;
             });
+            result.postStore.bestList = bestPosts;
+
+            return Club.findAll({where: {type: 'default'}});
         })
-        .then(function(post) {
-            return Club.find({where: {id: 2}}).then(function(club) {
-                return post.setClubs([club]);
-            })
-        })
-        .then(function(post) {
-            console.log(post);
-            return User.find({
-                where: {
-                    email: "bsdo@naver.com"
-                }
-            });
-        })
-        .then(function(posts) {
-            return Club.find({where: { id: 2 }}).then(function(club) {
-                return club.getPosts({order: [['createdAt', 'ASC']]});
-            })
-        })
-        .then(function(user) {
-            return Post.findAll({
-                order: [
-                    ['createdAt', 'DESC']
-                ],
-                include: [
-                    { model: User, required: true, attributes: ['nick'] },
-                    { model: Club, required: true, include: [
-                        { model: User, required: true }
-                    ]}
-                ]
-            })
-        })
-        .then(function(user) {
-            return Post.findAll({
-                order: [
-                    ['createdAt', 'DESC']
-                ],
-                include: [
-                    { model: User, required: true, attributes: ['nick'] },
-                    { model: Club, required: true }
-                ]
-            })
-        })
-        .then(function(posts) {
-            _.map(posts, function (post) {
-                post.setDataValue('createdAt', moment(post.createdAt).fromNow());
-                post.setDataValue('updatedAt', moment(post.updatedAt).fromNow());
-                return post;
-            });
-            res.send(posts);
+        .then(function(defaultClubs) {
+            result.clubStore.defaultClubList = defaultClubs;
+
+            if( !!user.email ) {
+                var findUser;
+                User
+                .find({where: {email: user.email}})
+                .then(function(user) {
+                    findUser = user;
+                    return Club.findAll({where:{creator:user.id}});
+                })
+                .then(function(userCreatedClubList) {
+                    result.clubStore.userHas = {
+                        createdClubList: userCreatedClubList
+                    };
+                    return findUser.getUserSubscribedClubs();
+                })
+                .then(function (userSubscribedClubs) {
+                    result.clubStore.userHas = {
+                        subscribedClubList: userSubscribedClubs
+                    };
+
+                    res.send(result);
+                });
+            } else {
+                res.send(result);
+            }
         });
-    });
+
 });
 
 router.get('/club/:clubName', function( req, res ) {
+    var user = req.query.user;
 
+    // PostList, UserInfo, ClubList
     var User = Model.user,
-        Post = Model.post,
-        Club = Model.club
+        Club = Model.club;
 
     var result = {
-        Post: null,
-        User: null,
-        Club: null
+        clubStore : {},
+        postStore : {}
     };
-    User.findOrCreate({
-            where: {
-                email: "bsdo@naver.com",
-                nick: "TEST",
-                password: "dkbs1234"
-            }
-        })
-        .then(function () {
+
+    Club
+        .findAll({where: {type: 'default'}})
+        .then(function(defaultClubs) {
+            result.clubStore.defaultClubList = defaultClubs;
+
             return Club.find({where: {url: req.params.clubName}}).then(function (club) {
                 if (!club) { return []; }
                 return club.getPosts({
                     order: [['createdAt', 'DESC']],
                     include: [ User, Club ]
                 });
-            })
+            });
         })
         .then(function(posts) {
             _.map(posts, function (post) {
@@ -132,40 +108,197 @@ router.get('/club/:clubName', function( req, res ) {
                 post.setDataValue('updatedAt', moment(post.updatedAt).fromNow());
                 return post;
             });
-            res.send(posts);
+            result.postStore.postList = posts;
+
+        })
+        .then(function() {
+            if( !!user.email ) {
+                var findUser;
+                User
+                    .find({where: {email: user.email}})
+                    .then(function(user) {
+                        findUser = user;
+                        return Club.findAll({where:{creator:user.id}});
+                    })
+                    .then(function(userCreatedClubList) {
+                        result.clubStore.userHas = {
+                            createdClubList: userCreatedClubList
+                        };
+                        return findUser.getUserSubscribedClubs();
+                    })
+                    .then(function (userSubscribedClubs) {
+                        result.clubStore.userHas = {
+                            subscribedClubList: userSubscribedClubs
+                        };
+
+                        res.send(result);
+                    });
+            } else {
+                res.send(result);
+            }
         });
 });
 
 router.get('/club/:clubName/submit', function( req, res ) {
-    res.send();
-});
+    var user = req.query.user;
 
-router.get('/club/:clubName/:postName', function( req, res ) {
-
+    // PostList, UserInfo, ClubList
     var User = Model.user,
         Post = Model.post,
         Club = Model.club
 
-    User.findOrCreate({
-            where: {
-                email: "bsdo@naver.com",
-                nick: "TEST",
-                password: "dkbs1234"
-            }
-        })
-        .then(function () {
-            return Post.findOne({where: {_id: req.params.postName}, include: [User, Club]}).then(function (post) {
-                if (!post) { return []; }
+    var result = {
+        postStore : {},
+        clubStore : {}
+    };
 
-                return post
-            });
+    Club
+    .findAll({where: {type: 'default'}})
+    .then(function(defaultClubs) {
+        result.clubStore.defaultClubList = defaultClubs;
+
+        if( !!user.email ) {
+            var findUser;
+            User
+                .find({where: {email: user.email}})
+                .then(function(user) {
+                    findUser = user;
+                    return Club.findAll({where:{creator:user.id}});
+                })
+                .then(function(userCreatedClubList) {
+                    result.clubStore.userHas = {
+                        createdClubList: userCreatedClubList
+                    };
+                    return findUser.getUserSubscribedClubs();
+                })
+                .then(function (userSubscribedClubs) {
+                    result.clubStore.userHas = {
+                        subscribedClubList: userSubscribedClubs
+                    };
+
+                    res.send(result);
+                });
+        } else {
+            res.send(result);
+        }
+    });
+});
+
+router.get('/submit', function( req, res ) {
+    var user = req.query.user;
+
+    // PostList, UserInfo, ClubList
+    var User = Model.user,
+        Club = Model.club;
+
+    var result = {
+        clubStore : {}
+    };
+
+    Club
+        .findAll({where: {type: 'default'}})
+        .then(function(defaultClubs) {
+            result.clubStore.defaultClubList = defaultClubs;
+
+            if( !!user.email ) {
+                var findUser;
+                User
+                    .find({where: {email: user.email}})
+                    .then(function(user) {
+                        findUser = user;
+                        return Club.findAll({where:{creator:user.id}});
+                    })
+                    .then(function(userCreatedClubList) {
+                        result.clubStore.userHas = {
+                            createdClubList: userCreatedClubList
+                        };
+                        return findUser.getUserSubscribedClubs();
+                    })
+                    .then(function (userSubscribedClubs) {
+                        result.clubStore.userHas = {
+                            subscribedClubList: userSubscribedClubs
+                        };
+
+                        res.send(result);
+                    });
+            } else {
+                res.send(result);
+            }
+        });
+});
+
+router.get('/club/:clubName/:postName', function( req, res ) {
+    var user = req.query.user;
+    var postName = req.params.postName;
+    var clubName = req.params.clubName;
+
+    // PostList, UserInfo, ClubList
+    var User = Model.user,
+        Club = Model.club,
+        Post = Model.post;
+
+    var result = {
+        postStore : {},
+        clubStore : {}
+    };
+
+    Post.findOne({
+            where: {_id: postName},
+            include: [
+                {model: User, required: true, attributes: ['nick', 'id']},
+                {model: Club, required: true}
+            ]
         })
         .then(function(post) {
-            console.log(post);
             post.setDataValue('createdAt', moment(post.createdAt).fromNow());
             post.setDataValue('updatedAt', moment(post.updatedAt).fromNow());
+            result.postStore.readingPost = post;
 
-            res.send([post]);
+            return Club.find({where: {url: clubName}}).then(function (club) {
+                if (!club) { return []; }
+                return club.getPosts({
+                    order: [['createdAt', 'DESC']],
+                    include: [ User, Club ]
+                });
+            });
+        })
+        .then(function(posts) {
+            _.map(posts, function (post) {
+                post.setDataValue('createdAt', moment(post.createdAt).fromNow());
+                post.setDataValue('updatedAt', moment(post.updatedAt).fromNow());
+                return post;
+            });
+            result.postStore.postList = posts;
+
+            return Club.findAll({where: {type: 'default'}});
+        })
+        .then(function(defaultClubs) {
+            result.clubStore.defaultClubList = defaultClubs;
+
+            if( !!user.email ) {
+                var findUser;
+                User
+                    .find({where: {email: user.email}})
+                    .then(function(user) {
+                        findUser = user;
+                        return Club.findAll({where:{creator:user.id}});
+                    })
+                    .then(function(userCreatedClubList) {
+                        result.clubStore.userHas = {
+                            createdClubList: userCreatedClubList
+                        };
+                        return findUser.getUserSubscribedClubs();
+                    })
+                    .then(function (userSubscribedClubs) {
+                        result.clubStore.userHas = {
+                            subscribedClubList: userSubscribedClubs
+                        };
+
+                        res.send(result);
+                    });
+            } else {
+                res.send(result);
+            }
         });
 });
 

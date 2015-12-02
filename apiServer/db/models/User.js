@@ -64,6 +64,16 @@ module.exports = function(sequelize, DataTypes) {
                         model: models.club_user,
                         unique: false
                     },
+                    as: 'userCreatedClubs',
+                    foreignKey: 'user_id'
+                });
+
+                User.belongsToMany(models.club, {
+                    through: {
+                        model: models.subscribe,
+                        unique: false
+                    },
+                    as: 'userSubscribedClubs',
                     foreignKey: 'user_id'
                 });
             }

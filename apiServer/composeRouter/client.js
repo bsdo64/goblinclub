@@ -5,9 +5,12 @@ var express = require('express');
 var router = express.Router();
 var jsonWebToken = require('jsonwebtoken');
 
+var _ = require('lodash');
+
 var Model = require('../db');
-var Post = Model.post;
-var User = Model.user;
+var Post = Model.post,
+    User = Model.user,
+    Club = Model.club;
 var shortId = require('shortid');
 
 router.use(function timeLog(req, res, next) {
@@ -94,6 +97,7 @@ router.post('/submit', function (req, res) {
         });
     }
 
+    var createdPost, clubList=[];
     User.find({
             where: author
         })
@@ -104,7 +108,60 @@ router.post('/submit', function (req, res) {
                 content: post.content,
                 author: user.get('id')
             });
+        })
+        .then(function(newPost) {
+
+            createdPost = newPost;
+            clubList.push(post.defaultClubList);
+            clubList.push(post.subscribeClubList);
+            _.flatten(clubList, true);
+            _.compact(clubList);
+
+            return Club.findAll({where: {id : { $or: clubList }}});
+        })
+        .then(function(clubs) {
+
+            return createdPost.setClubs(clubs);
+        })
+        .then(function(club_post) {
+            var postId = club_post[0][0].get()['post_id'];
+            console.log(postId);
+            return Post.find({
+                where: {_id: postId},
+                include: [
+                    {model: User, required: true, attributes: ['nick', 'id']},
+                    {model: Club, required: true}
+                ]
+            });
+        })
+        .then(function(post) {
+            console.log(post);
+            res.send(post);
         });
+});
+
+router.get('/clubPostLists', function (req, res) {
+    var post = req.body.post;
+    var user = req.body.user;
+
+    if (!post || !user ) {
+        res.status(400).json({
+            message: "Fill out",
+            error: "Fill out"
+        });
+    }
+
+    Post.find({
+            where: {_id: post._id},
+            include: [
+                {model: User, required: true, attributes: ['nick', 'id']},
+                {model: Club, required: true}
+            ]
+    })
+    .then(function(post) {
+        console.log(post);
+        res.send(post);
+    });
 });
 
 router.get('/', function( req, res ) {

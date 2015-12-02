@@ -8,12 +8,41 @@ class PostStore {
         this.bindActions(PostActions);
 
         this.state = {
-            post: ''
+            post: '',
+            writingPost: {}
         };
     }
 
+    onSetDefaultClubList(club) {
+        var state = this.state;
+        state.writingPost['defaultClubList'] = club;
+
+        this.setState(state)
+    }
+    onSetSubscribeClubList(clubList) {
+        var state = this.state;
+        state.writingPost['subscribeClubList'] = clubList;
+
+        this.setState(state)
+    }
     onSubmitPost(post) {
-        this.setState({post: post})
+
+        console.log('onSubmitPost');
+        var state = this.state;
+        state.writingPost['success'] = true;
+        state.writingPost['post'] = post;
+        state.readingPost= post;
+
+        this.setState(state)
+    }
+    onSubmitSuccess(post) {
+        console.log('onSubmitPost');
+        var state = this.state;
+        state.writingPost['success'] = true;
+        state.writingPost['post'] = post;
+        state.readingPost= post;
+
+        this.setState(state)
     }
 
 }

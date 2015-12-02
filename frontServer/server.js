@@ -124,6 +124,7 @@ function renderServersideReact(renderProps, req, res, callback) {
         content,
         state = JSON.stringify(res.storeState || {});
 
+    console.log(state);
     alt.bootstrap(state);
 
     content = ReactDOM.renderToString(<RoutingContext {...renderProps} />);

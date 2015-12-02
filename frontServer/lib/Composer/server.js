@@ -16,9 +16,15 @@ var ComposeApiRequest = ((url) => {
 Composer.use((req, res, next) => {
     let defaultState = {
         UserStore: {
-            auth: {
-                token: null,
-                user: {}
+            "user" : {
+                "email" : null,
+                "nick" : null
+            },
+            "auth" : {
+                "state" : "login",
+                "loginAt" : null,
+                "device" : "Mac OS Chrome",
+                "token" : null
             },
             loadingAuth: false,
             loadedAuth: false,
@@ -53,37 +59,55 @@ Composer.use((req, res, next) => {
 });
 
 Composer.get('/', (req, res, next) => {
-    ComposeApiRequest(req.url).end((errXHR, resXHR) => {
+    ComposeApiRequest(req.url)
+        .query({user: res.storeState.UserStore.user})
+        .end((errXHR, resXHR) => {
         if(errXHR) {
 
             res.storeState['Error'] = errXHR;
             next();
         } else if(resXHR && resXHR.ok) {
             let apiResult = resXHR.body;
-            res.storeState['PostStore'] = {
-                loadSuccess : true,
-                type: 'best',
-                posts : apiResult
-            };
+            res.storeState['PostStore'] = apiResult.postStore;
+            res.storeState['PostStore']['loadSuccess'] = true;
+            res.storeState['PostStore']['type'] = 'best';
+
+            res.storeState['ClubStore'] = apiResult.clubStore;
 
             next();
         }
     });
 });
 
+Composer.get('/submit', (req, res, next) => {
+    ComposeApiRequest(req.url)
+        .query({user: res.storeState.UserStore.user})
+        .end((errXHR, resXHR) => {
+            if(errXHR) {
+
+                res.storeState['Error'] = errXHR;
+                next();
+            } else if(resXHR && resXHR.ok) {
+                let apiResult = resXHR.body;
+                res.storeState['ClubStore'] = apiResult.clubStore;
+
+                next();
+            }
+        });
+});
+
 Composer.get('/club/:clubName', (req, res, next) => {
-    ComposeApiRequest(req.url).end((errXHR, resXHR) => {
+    ComposeApiRequest(req.url)
+        .query({user: res.storeState.UserStore.user})
+        .end((errXHR, resXHR) => {
         if(errXHR) {
 
             res.storeState['Error'] = errXHR;
             next();
         } else if(resXHR && resXHR.ok) {
             let apiResult = resXHR.body;
-            res.storeState['PostStore'] = {
-                loadSuccess : true,
-                type: 'club',
-                posts : apiResult
-            };
+            res.storeState['ClubStore'] = apiResult.clubStore;
+            res.storeState['PostStore'] = apiResult.postStore;
 
             next();
         }
@@ -91,17 +115,16 @@ Composer.get('/club/:clubName', (req, res, next) => {
 });
 
 Composer.get('/club/:clubName/:postName', (req, res, next) => {
-    ComposeApiRequest(req.url).end((errXHR, resXHR) => {
+    ComposeApiRequest(req.url)
+        .query({user: res.storeState.UserStore.user})
+        .end((errXHR, resXHR) => {
         if(errXHR) {
             res.storeState['Error'] = errXHR;
             next();
         } else if(resXHR && resXHR.ok) {
             let apiResult = resXHR.body;
-            res.storeState['PostStore'] = {
-                loadSuccess : true,
-                type: 'post',
-                posts : apiResult
-            };
+            res.storeState['ClubStore'] = apiResult.clubStore;
+            res.storeState['PostStore'] = apiResult.postStore;
 
             next();
         }

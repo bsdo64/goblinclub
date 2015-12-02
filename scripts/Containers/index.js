@@ -1,12 +1,11 @@
-/**
- * Created by dobyeongsu on 2015. 10. 15..
- */
-import _App from './App/App';
-import _About from './About/About';
-import _Inbox from './Inbox/Inbox';
-import _User from './User/User';
+export { default as App } from './App';
 
-export var App = _App;
-export var About = _About;
-export var Inbox = _Inbox;
-export var User = _User;
+export { default as Header } from './Header/Header';
+
+export { default as Main } from './Main/Main';
+export { default as Best } from './Main/Best';
+export { default as Club } from './Main/Club';
+export { default as Post } from './Main/Post';
+export { default as WritePost } from './Main/WritePost';
+
+export { default as Sidebar } from './Sidebar/Sidebar';

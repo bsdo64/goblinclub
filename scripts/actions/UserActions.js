@@ -2,9 +2,8 @@
  * Created by dobyeongsu on 2015. 10. 17..
  */
 import alt from '../alt';
-import Validator from '../utils/validator'
-import ApiClient from '../utils/ApiClient';
-
+import Validator from '../Utils/validator'
+import ApiClient from '../Utils/ApiClient';
 
 class UserActions {
     loginUser(user) {

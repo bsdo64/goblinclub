@@ -48,6 +48,20 @@ var ApiClient = {
                     callback(null, xhrRes.body);
                 }
             })
+    },
+
+    getClubPostLists : (user, post, callback) => {
+        request
+            .get('/ajax/clubPostLists')
+            .query({user : user, post: post})
+            .set('Accept', 'application/json')
+            .end((xhrErr, xhrRes) => {
+                if(xhrErr) {
+                    callback(xhrErr, null);
+                } else if (xhrRes) {
+                    callback(null, xhrRes.body);
+                }
+            })
     }
 };
 
