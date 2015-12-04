@@ -128,7 +128,7 @@ var MainClubs = React.createClass({
 var Editor = React.createClass({
 
     componentDidMount() {
-        this.editor = new MediumEditor('.editable');
+        this.editor = new MediumEditor('.editable', {imageDragging: false});
         $('.editable').mediumInsert({
             editor: this.editor,
             addons: {

@@ -35,18 +35,14 @@ class PostActions {
         }
     }
 
-    getClubPostLists() {
+    getClubPostLists(params) {
         let user = UserStore.getState().user;
-        let writingPost = PostStore.getState().writingPost;
-
-        console.log(user);
-        console.log(writingPost);
 
         return function (dispatch) {
-            fetch.getClubPostLists(user, writingPost, function(err, post) {
+            fetch.getClubPost(user, params, function(err, data) {
                 if (err) return err;
 
-                dispatch(post);
+                dispatch(data);
             })
         }
     }

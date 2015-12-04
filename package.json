@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "front": "nodemon -w ./ bin/frontServer.js -i ./node_modules",
+    "front": "nodemon -w ./ bin/frontServer.js -i ./node_modules | bunyan -o short --color",
     "front-client": "webpack --colors --progress --watch",
     "api": "nodemon -w ./apiServer bin/backEndServer.js",
     "redis": "redis-server",
@@ -41,6 +41,8 @@
     "babel-preset-stage-0": "^6.1.18",
     "blueimp-file-upload-node": "^2.1.0",
     "body-parser": "^1.14.1",
+    "bunyan": "^1.5.1",
+    "bunyan-elasticsearch": "https://github.com/tojocky/bunyan-elasticsearch",
     "connect-redis": "^3.0.1",
     "cookie": "^0.2.2",
     "cookie-parser": "^1.4.0",

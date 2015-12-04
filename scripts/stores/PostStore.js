@@ -36,11 +36,18 @@ class PostStore {
         this.setState(state)
     }
     onSubmitSuccess(post) {
-        console.log('onSubmitPost');
+        console.log('onSubmitSuccess');
         var state = this.state;
         state.writingPost['success'] = true;
         state.writingPost['post'] = post;
         state.readingPost= post;
+
+        this.setState(state)
+    }
+    onGetClubPostLists(data) {
+        var state = this.state;
+        state.readingPost = data.PostStore.readingPost;
+        state.postList = data.PostStore.postList;
 
         this.setState(state)
     }

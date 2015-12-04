@@ -11,7 +11,10 @@ var Model = require('../db');
 var Post = Model.post,
     User = Model.user,
     Club = Model.club;
-var shortId = require('shortid');
+var shortId = require('shortid'),
+    moment = require('moment');
+moment.locale('ko');
+
 
 router.use(function timeLog(req, res, next) {
     console.log('Time: ', Date.now());
@@ -140,28 +143,50 @@ router.post('/submit', function (req, res) {
         });
 });
 
-router.get('/clubPostLists', function (req, res) {
-    var post = req.body.post;
-    var user = req.body.user;
+router.get('/club/:clubName/:article', function (req, res) {
+    var article = req.params.article;
+    var clubName = req.params.clubName;
 
-    if (!post || !user ) {
-        res.status(400).json({
-            message: "Fill out",
-            error: "Fill out"
-        });
-    }
+    // PostList, UserInfo, ClubList
+    var User = Model.user,
+        Club = Model.club,
+        Post = Model.post;
 
-    Post.find({
-            where: {_id: post._id},
+    var result = {
+        PostStore : {},
+        ClubStore : {}
+    };
+
+    Post.findOne({
+            where: {_id: article},
             include: [
                 {model: User, required: true, attributes: ['nick', 'id']},
                 {model: Club, required: true}
             ]
-    })
-    .then(function(post) {
-        console.log(post);
-        res.send(post);
-    });
+        })
+        .then(function(post) {
+            post.setDataValue('createdAt', moment(post.createdAt).fromNow());
+            post.setDataValue('updatedAt', moment(post.updatedAt).fromNow());
+            result.PostStore.readingPost = post;
+
+            return Club.find({where: {url: clubName}}).then(function (club) {
+                if (!club) { return []; }
+                return club.getPosts({
+                    order: [['createdAt', 'DESC']],
+                    include: [ User, Club ]
+                });
+            });
+        })
+        .then(function(posts) {
+            _.map(posts, function (post) {
+                post.setDataValue('createdAt', moment(post.createdAt).fromNow());
+                post.setDataValue('updatedAt', moment(post.updatedAt).fromNow());
+                return post;
+            });
+            result.PostStore.postList = posts;
+
+            res.send(result);
+        })
 });
 
 router.get('/', function( req, res ) {

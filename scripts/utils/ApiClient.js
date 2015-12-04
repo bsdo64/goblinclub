@@ -50,10 +50,10 @@ var ApiClient = {
             })
     },
 
-    getClubPostLists : (user, post, callback) => {
+    getClubPost : (user, params, callback) => {
         request
-            .get('/ajax/clubPostLists')
-            .query({user : user, post: post})
+            .get('/ajax/club/'+ params.clubName+'/' + params.article)
+            .query(user)
             .set('Accept', 'application/json')
             .end((xhrErr, xhrRes) => {
                 if(xhrErr) {

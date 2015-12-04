@@ -1,0 +1,8 @@
+[2015-12-04 09:01:50,604][INFO ][cluster.metadata         ] [Titanium Man] [logstash-2015.12.04] creating index, cause [auto(index api)], templates [], shards [5]/[1], mappings [logs]
+[2015-12-04 09:01:54,754][INFO ][cluster.metadata         ] [Titanium Man] [logstash-2015.12.04] update_mapping [logs]
+[2015-12-04 17:07:10,780][INFO ][cluster.metadata         ] [Titanium Man] [logstash-2015.12.04] update_mapping [logs]
+[2015-12-04 17:08:31,983][INFO ][cluster.metadata         ] [Titanium Man] [logstash-2015.12.04] update_mapping [logs]
+[2015-12-04 17:08:32,285][INFO ][cluster.metadata         ] [Titanium Man] [logstash-2015.12.04] update_mapping [logs]
+[2015-12-04 17:11:52,386][INFO ][cluster.metadata         ] [Titanium Man] [logstash-2015.12.04] update_mapping [logs]
+[2015-12-04 17:12:07,559][INFO ][cluster.metadata         ] [Titanium Man] [logstash-2015.12.04] update_mapping [logs]
+[2015-12-04 18:09:47,956][INFO ][cluster.metadata         ] [Titanium Man] [logstash-2015.12.04] update_mapping [logs]

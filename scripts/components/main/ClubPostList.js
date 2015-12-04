@@ -13,7 +13,6 @@ class BtnArea extends Component {
                 <a key="down" style={styles.posts.thumbDown} >
                     <i className="fa fa-thumbs-o-down" ></i>
                 </a>
-                <a style={styles.posts.voteCount} href="#" title="추천하기" >{vote_count} 점 </a>
                 <a key="comment" style={styles.posts.commentButton} >
                     <i className="fa fa-commenting-o" ></i>
                 </a>
@@ -34,12 +33,12 @@ class ClubPostList extends Component {
                         <img style={styles.posts.thumbNailImg} src="//b.thumbs.redditmedia.com/fUE7ZBvN3clcZKU0CKag35Rc3zNc1LQtJPculHyxjxY.jpg" />
                     </div>
                     <div style={styles.posts.textBody}>
-                        <h4 style={styles.posts.postTitle} >
-                            <Link to={"/club/" + clubs[0].url + "/" + _id} style={styles.posts.postTitleItem} >{title}</Link>
-                        </h4>
-                        <div style={styles.posts.postContentMeta} >
-                            <span className="h_title" ><a href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article" target="_blank" >{user.nick} </a></span>
-                            <span className="wrt_time" >{createdAt} </span>
+                        <div style={styles.posts.postTitle} >
+                            <div style={styles.posts.postTitleContainer}>
+                                <a style={styles.posts.voteCount} href="#" >{vote_count} 점 </a>
+                                <Link to={"/club/" + clubs[0].url + "/" + _id} style={styles.posts.postTitleItem} >{title}</Link>
+                            </div>
+                            <div style={styles.posts.postContentMeta} >
                                 {
                                     clubs.map(function(val, index) {
                                         return (
@@ -49,10 +48,11 @@ class ClubPostList extends Component {
                                         )
                                     })
                                 }
-                            <BtnArea vote_count={vote_count} comment_count={comment_count} />
+                                <span className="h_title" ><a href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article" target="_blank" >{user.nick} </a></span>
+                                <span className="wrt_time" >{createdAt} </span>
 
-                            <div className="ic_bookmark"  style={styles.posts.deleteButton}>
-                                <a style={styles.posts.deleteButtonText} >삭제하기</a>
+                                <BtnArea vote_count={vote_count} comment_count={comment_count} />
+
                             </div>
                         </div>
                     </div>
@@ -75,30 +75,34 @@ var styles = {
             backgroundColor: '#fff',
             borderRadius: 1,
             boxShadow: '1px 1px #b0c2c0',
-            padding: 12,
+            padding: '4px 12px 5px 12px',
             borderLeft: '3px solid #2B5F5B',
-            minHeight: 88
+            minHeight: 35
         },
         thumbNail: {
             position: 'absolute',
-            width: 98,
-            height: 66,
-            paddingRight: 15
+            width: 30,
+            height: 20,
+            paddingTop: 3
         },
         thumbNailImg: {
             width: 'inherit'
         },
         textBody: {
-            marginLeft: 113
+            marginLeft: 45
         },
         postTitle: {
             margin: 0,
-            padding: '0 0 5px 0',
+            padding: '3px 0 4px 0',
             borderBottom: '1px solid #DFE9E8'
+        },
+        postTitleContainer: {
+            width: 'calc(100% - 320px)',
+            display: 'inline-block'
         },
         postTitleItem: {
             color: '#000',
-            fontSize: '18px',
+            fontSize: '14px',
             fontWeight: 'bold'
         },
         postTitleClub: {
@@ -107,7 +111,7 @@ var styles = {
             fontWeight: 'bold'
         },
         postContentMeta: {
-            margin: '9px 0 0 0',
+            float: 'right',
             fontSize: 10
         },
         postContents: {
@@ -120,8 +124,9 @@ var styles = {
             margin: '10px 0'
         },
         voteCount: {
-            fontSize: 12,
-            color: '#aaa'
+            fontSize: 11,
+            color: '#aaa',
+            padding: '0 5px'
         },
         commentCount: {
             fontSize: 12,

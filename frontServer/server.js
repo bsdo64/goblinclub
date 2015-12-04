@@ -21,10 +21,47 @@ import Composer                     from './lib/Composer/server';
 import HTML                         from './indexHTML'
 
 var app = express();
+
 var bowerPath = path.join(__dirname, "../bower_components");
 var dist = path.join(__dirname, "../_dist");
 var proxy = httpProxy.createProxyServer();
 var RedisStore = connectRedis(session);
+
+var bunyan = require('bunyan');
+var Elasticsearch = require('bunyan-elasticsearch');
+
+var logger = bunyan.createLogger({
+    name: "My Application",
+    streams: [
+        { stream: process.stdout },
+        { stream: new Elasticsearch() }
+    ],
+    serializers: bunyan.stdSerializers
+});
+
+logger.info('Starting application on port %d', app.get('port'));
+
+app.use(function (req, res, next) {
+    var start = new Date();
+    var end = res.end;
+    res.end = function (chunk, encoding) {
+        var responseTime = (new Date()).getTime() - start.getTime();
+        end.call(res, chunk, encoding);
+        var contentLength = parseInt(res.getHeader('Content-Length'), 10);
+        var data = {
+            res: res,
+            req: req,
+            responseTime: responseTime,
+            contentLength: isNaN(contentLength) ? 0 : contentLength
+        };
+        logger.info(data, '%s %s %d %dms - %d', data.req.method, data.req.url, data.res.statusCode, data.responseTime, data.contentLength);
+    };
+    next();
+});
+var errorLogger = function (err, req, res, next) {
+    logger.error({ req: req, res: res, error: err }, err.stack);
+    next(err);
+};
 
 app.locals.settings['x-powered-by'] = false;
 
@@ -143,5 +180,27 @@ function renderServersideReact(renderProps, req, res, callback) {
 
     callback(req, res, html);
 }
+
+app.use(errorLogger);
+
+setInterval(function () {
+    var startTime = Date.now();
+    setImmediate(function () {
+        var data = process.memoryUsage();
+        data.uptime = process.uptime();
+        data.pid = process.pid;
+        data.tags = ['process-metrics'];
+        data.lag = Date.now()-startTime;
+        logger.info(data,
+            'process.pid: %d heapUsed: %d heapTotal: %d rss: %d uptime %d lag: %d',
+            data.pid,
+            data.heapUsed,
+            data.heapTotal,
+            data.rss,
+            data.uptime,
+            data.lag
+        );
+    });
+}, 5000);
 
 app.listen(process.env.PORT || 3000);

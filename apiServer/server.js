@@ -9,11 +9,8 @@ var composeServer = require('./composeRouter/server');
 var composeClient = require('./composeRouter/client');
 
 var app = Express();
-
 app.locals.settings['x-powered-by'] = false;
-app.use(cors({
-    origin: 'http://localhost:3000'
-}));
+app.use(cors({origin: 'http://localhost:3000'}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 

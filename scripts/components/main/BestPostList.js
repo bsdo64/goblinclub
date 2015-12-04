@@ -2,18 +2,20 @@ import React, { Component } from 'react';
 import Radium, { Style } from 'radium';
 import { Link } from 'react-router';
 
+import styles from './style/style_post';
+
 class BtnArea extends Component {
     render() {
         const id = this.props.id;
         return (
             <div style={styles.posts.postButtons} className="btn_area" >
-                <a key='thumbUp' style={styles.posts.thumbUp} >
+                <a key={id+'thumbUp'} style={styles.posts.thumbUp} >
                     <i className="fa fa-thumbs-o-up"></i>
                 </a>
-                <a key='thumbDown' style={styles.posts.thumbDown} >
+                <a key={id+'thumbDown'} style={styles.posts.thumbDown} >
                     <i className="fa fa-thumbs-o-down"></i>
                 </a>
-                <a key='commentButton' style={styles.posts.commentButton} >
+                <a key={id+'commentButton'} style={styles.posts.commentButton} >
                     <i className="fa fa-commenting-o"></i>
                 </a>
             </div>
@@ -62,14 +64,22 @@ class BestPostList extends Component {
 
                                 </div>
                             </div>
-                            <BtnArea id={_id} />
                         </div>
                     </div>
-                    <div className="ic_bookmark">
-                        <a style={styles.posts.voteCount} href="#" title="추천하기">{vote_count} 점 </a>
-                        <a style={styles.posts.commentCount} href="#" title="추천하기">댓글 {comment_count} 개</a>
-                        <a style={styles.posts.deleteButton} >삭제하기</a>
+                    <div className="ic_bookmark" style={styles.posts.countInfo}>
+                        <span >
+                            <span style={styles.posts.voteCount}>{vote_count + ' '}</span>
+                             점
+                        </span>
+                        <a href="#" style={styles.posts.paddingLeft10}>
+                            답글
+                            <span style={styles.posts.commentCount}>{' ' + comment_count + ' '}</span>
+                            개
+                        </a>
+                        <a style={styles.posts.deleteButton}>삭제하기</a>
                     </div>
+                    <BtnArea id={_id} />
+
                 </div>
             </li>
         )
@@ -77,80 +87,3 @@ class BestPostList extends Component {
 }
 BtnArea = Radium(BtnArea);
 export default BestPostList = Radium(BestPostList);
-
-var styles = {
-    posts: {
-        post: {
-            listStyle: 'none',
-            marginBottom: 10
-        },
-        listObj: {
-            backgroundColor: '#fff',
-            borderRadius: 1,
-            boxShadow: '1px 1px #b0c2c0',
-            padding: 15
-        },
-        postTitle: {
-            margin: 0,
-            padding: '0 0 5px 0',
-            borderBottom: '1px solid #b0c2c0'
-        },
-        postTitleItem: {
-            color: '#000',
-            fontSize: '18px',
-            fontWeight: 'bold'
-        },
-        postTitleClub: {
-            color: '#00A99E',
-            fontSize: 11,
-            fontWeight: 'bold'
-        },
-        postContentMeta: {
-            margin: '9px 0',
-            fontSize: 10
-        },
-        postContents: {
-            margin: '5px 0'
-        },
-        postButtons: {
-            margin: '10px 0'
-        },
-        voteCount: {
-            fontSize: 12,
-            color: '#aaa'
-        },
-        commentCount: {
-            fontSize: 12,
-            color: '#aaa'
-        },
-        deleteButton: {
-            float: 'right',
-            fontSize: 12,
-            color: '#aaa'
-        },
-        thumbUp: {
-            fontSize: 12,
-            color: '#aaa',
-            padding: '5px 10px',
-            ':hover': {
-                color: 'red'
-            }
-        },
-        thumbDown: {
-            fontSize: 12,
-            color: '#aaa',
-            padding: '5px 10px',
-            ':hover': {
-                color: 'red'
-            }
-        },
-        commentButton: {
-            fontSize: 12,
-            color: '#aaa',
-            padding: '5px 10px',
-            ':hover': {
-                color: 'red'
-            }
-        }
-    }
-}

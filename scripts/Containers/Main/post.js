@@ -25,13 +25,19 @@ class Post extends Component {
             PostStore: PostStore.getState()
         }
     }
+
+    constructor(...props) {
+        super(...props);
+    }
+
     componentDidMount() {
         console.log('Post, componentDidMount');
     }
 
     componentWillMount() {
         if(!this.props.PostStore.postList) {
-            PostActions.getClubPostLists()
+            var params = this.props.params;
+            PostActions.getClubPostLists(params);
         }
     }
 
