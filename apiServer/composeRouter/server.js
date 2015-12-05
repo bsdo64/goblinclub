@@ -235,7 +235,8 @@ router.get('/club/:clubName/:postName', function( req, res ) {
     // PostList, UserInfo, ClubList
     var User = Model.user,
         Club = Model.club,
-        Post = Model.post;
+        Post = Model.post,
+        Comment = Model.comment;
 
     var result = {
         postStore : {},
@@ -246,13 +247,44 @@ router.get('/club/:clubName/:postName', function( req, res ) {
             where: {_id: postName},
             include: [
                 {model: User, required: true, attributes: ['nick', 'id']},
-                {model: Club, required: true}
+                {model: Club, required: true},
+                {model: Comment, required: false,
+                    include: [
+                        {model: User, required: false}
+                    ]
+                }
             ]
         })
         .then(function(post) {
             post.setDataValue('createdAt', moment(post.createdAt).fromNow());
             post.setDataValue('updatedAt', moment(post.updatedAt).fromNow());
             result.postStore.readingPost = post;
+
+            var tempId = shortId.generate();
+
+            Comment.create({
+                comment_id: tempId,
+                post_id: post._id,
+                content: "Hello world",
+                author: 1
+            });
+
+            return Comment.create({
+                comment_id: shortId.generate(),
+                post_id: post._id,
+                content: "Child of "+ tempId,
+                author: 1,
+                parentComment_id: tempId
+            });
+        })
+        .then(function(createdComment) {
+
+
+            return Comment.findAll({ hierarchy: true });
+        })
+        .then(function(comments) {
+
+            console.log(JSON.parse(JSON.stringify(comments)));
 
             return Club.find({where: {url: clubName}}).then(function (club) {
                 if (!club) { return []; }
