@@ -38,8 +38,8 @@ class PostPage extends Component {
 
     render() {
         const { title, createdAt, clubs, content, user, vote_count, comment_count, _id } = this.props.post;
+        const { commentList } = this.props;
 
-        console.log('post', this.props.post);
         return (
             <li style={styles.posts.post} className="_ccast_item" >
                 <div style={styles.posts.listObj} className="lst_obj">
@@ -85,9 +85,8 @@ class PostPage extends Component {
                     </div>
                     <BtnArea id={_id} />
                     <div className="comments">
-                        <CommentList />
+                        <CommentList commentList={commentList} />
                     </div>
-
                 </div>
             </li>
         )

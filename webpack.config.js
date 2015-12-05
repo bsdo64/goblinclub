@@ -46,6 +46,7 @@ module.exports = {
             "process.env": {
                 BROWSER: JSON.stringify(true)
             }
-        })
+        }),
+        new webpack.OldWatchingPlugin()
     ]
 };

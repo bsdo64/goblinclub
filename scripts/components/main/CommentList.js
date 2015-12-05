@@ -131,9 +131,6 @@ var comment = {
     p: {
         fontSize: 12,
         marginBottom: 3
-    },
-    img: {
-
     }
 };
 
@@ -188,78 +185,61 @@ var CommentHead = React.createClass({
     }
 });
 
-var data = [{
-    author: '야임마',
-    vote: 102,
-    content: '<p style="font-size:12px;margin-bottom:3px;">Hello </p> <div class="medium-insert-images"> <figure contenteditable="false"> <img alt="" class="" src="http://i.imgur.com/cJkCVwy.png"/> </figure> </div>',
-    child: [{
-        author: '안눙',
-        vote: 121,
-        content: '<p style="font-size:12px;margin-bottom:3px;">Hello </p> <div class="medium-insert-images"> <figure contenteditable="false"> <img alt="" class="" src="http://i.imgur.com/cJkCVwy.png"/> </figure> </div>'
-    }, {
-        author: '헬로',
-        vote: 21,
-        content: '<p style="font-size:12px;margin-bottom:3px;">Hello </p> <div class="medium-insert-images"> <figure contenteditable="false"> <img alt="" class="" src="http://i.imgur.com/cJkCVwy.png"/> </figure> </div>',
-        child: [{
-            author: '영자',
-            vote: 1,
-            content: '<p style="font-size:12px;margin-bottom:3px;">Hello </p> <div class="medium-insert-images"> <figure contenteditable="false"> <img alt="" class="" src="http://i.imgur.com/cJkCVwy.png"/> </figure> </div>',
-        }, {
-            author: '헐',
-            vote: 10,
-            content: '<p style="font-size:12px;margin-bottom:3px;">Hello </p> <div class="medium-insert-images"> <figure contenteditable="false"> <img alt="" class="" src="http://i.imgur.com/cJkCVwy.png"/> </figure> </div>',
-        }]
-    }]
-}, {
-    author: '헐키',
-    vote: 21,
-    content: '<p style="font-size:12px;margin-bottom:3px;">Hello </p> <div class="medium-insert-images"> <figure contenteditable="false"> <img alt="" class="" src="http://i.imgur.com/cJkCVwy.png"/> </figure> </div>'
-}];
+var CommentBox = React.createClass({
+
+    render() {
+        const { oneComment } = this.props;
+        return <div style={comment.box}>
+            <div style={comment.rightButtonBox}>
+                <span><span >하루 전</span> </span>
+                <div style={comment.inlineBlock}>
+                    <a style={comment.voteButton}>
+                        <i className="fa fa-thumbs-o-up"></i>
+                    </a>
+                    <a style={comment.voteButton}>
+                        <i className="fa fa-thumbs-o-down"></i>
+                    </a>
+                    <a href="#" style={comment.replayCount}>
+                        <span >댓글</span><span >{ oneComment.children ? oneComment.children.length : 0} 개 </span>
+                    </a>
+                    <a href="#" style={[comment.replayCount, comment.paddingLeft10]}>
+                        <span >댓글달기</span>
+                    </a>
+                </div>
+            </div>
+            <div style={comment.contentLeft}>
+                        <span style={comment.author}>
+                            <a href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article" target="_blank"><span >{ oneComment.user.nick }</span> </a>
+                        </span>
+                <div style={comment.point}>0 점</div>
+            </div>
+            <div style={comment.contentRight}>
+                <div >
+                    <div style={comment.content}>
+                        { oneComment.content }
+                    </div>
+                    <hr style={comment.hr}/>
+                </div>
+            </div>
+
+            <WriteBox />
+        </div>
+    }
+});
 
 var CommentList = React.createClass({
     render() {
 
-        var listing = function (val, index) {
+        const { commentList } = this.props;
+
+        var listing = function (oneComment, index) {
             return <li>
-                <div style={comment.box}>
-                    <div style={comment.rightButtonBox}>
-                        <span><span >하루 전</span> </span>
-                        <div style={comment.inlineBlock}>
-                            <a style={comment.voteButton}>
-                                <i className="fa fa-thumbs-o-up"></i>
-                            </a>
-                            <a style={comment.voteButton}>
-                                <i className="fa fa-thumbs-o-down"></i>
-                            </a>
-                            <a href="#" style={comment.replyCount}>
-                                <span >댓글</span><span >{ val.child? val.child.length : 0 } 개</span>
-                            </a>
-                            <a href="#" style={[comment.replayCount, comment.paddingLeft10]}>
-                                <span >댓글달기</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div style={comment.contentLeft}>
-                        <span style={comment.author}>
-                            <a href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article" target="_blank"><span >{ val.author }</span> </a>
-                        </span>
-                        <div style={comment.point}>{val.vote} 점</div>
-                    </div>
-                    <div style={comment.contentRight}>
-                        <div >
-                            <div style={comment.content}>
-                                { val.content }
-                            </div>
-                            <hr style={comment.hr}/>
-                        </div>
-                    </div>
 
-                    <WriteBox />
-                </div>
+                <CommentBox key={oneComment.comment_id} oneComment={oneComment} />
 
-                { val.child &&
+                { oneComment.children && oneComment.children.length > 0 &&
                 <ul style={[comment.listBox, comment.marginLeft50]}>
-                    { val.child.map(listing) }
+                    { oneComment.children.map(listing) }
                 </ul>
                 }
             </li>
@@ -274,7 +254,7 @@ var CommentList = React.createClass({
                 <div>
                     <div >
                         <ul id="main-comment" style={comment.listBox}>
-                            {data.map(listing) }
+                            {commentList.map(listing) }
                         </ul>
                     </div>
                 </div>

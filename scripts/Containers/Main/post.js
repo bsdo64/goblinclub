@@ -42,9 +42,9 @@ class Post extends Component {
     }
 
     render() {
-        const { readingPost, postList } = this.props.PostStore;
+        const { readingPost, postList, commentList } = this.props.PostStore;
         const wrapper = function (post) {
-            return <PostPage key={post._id} post={post}/>;
+            return <PostPage key={post._id} post={post} commentList={commentList} />;
         };
         const listWrapper = function (posts) {
             return posts.map((post) => {

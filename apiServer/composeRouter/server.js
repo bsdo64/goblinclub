@@ -240,19 +240,15 @@ router.get('/club/:clubName/:postName', function( req, res ) {
 
     var result = {
         postStore : {},
-        clubStore : {}
+        clubStore : {},
+
     };
 
     Post.findOne({
             where: {_id: postName},
             include: [
                 {model: User, required: true, attributes: ['nick', 'id']},
-                {model: Club, required: true},
-                {model: Comment, required: false,
-                    include: [
-                        {model: User, required: false}
-                    ]
-                }
+                {model: Club, required: true}
             ]
         })
         .then(function(post) {
@@ -260,31 +256,22 @@ router.get('/club/:clubName/:postName', function( req, res ) {
             post.setDataValue('updatedAt', moment(post.updatedAt).fromNow());
             result.postStore.readingPost = post;
 
-            var tempId = shortId.generate();
-
-            Comment.create({
-                comment_id: tempId,
-                post_id: post._id,
-                content: "Hello world",
-                author: 1
+            return Comment.findAll({
+                limit: 5,
+                include: [ {
+                    model: Comment,
+                    include: [ {model: User} ],
+                    as: 'descendents',
+                    hierarchy: true
+                }, {
+                    model: User
+                } ],
+                where: { hierarchyLevel: 1, post_id: post._id }
             });
-
-            return Comment.create({
-                comment_id: shortId.generate(),
-                post_id: post._id,
-                content: "Child of "+ tempId,
-                author: 1,
-                parentComment_id: tempId
-            });
-        })
-        .then(function(createdComment) {
-
-
-            return Comment.findAll({ hierarchy: true });
         })
         .then(function(comments) {
-
             console.log(JSON.parse(JSON.stringify(comments)));
+            result.postStore.commentList = comments;
 
             return Club.find({where: {url: clubName}}).then(function (club) {
                 if (!club) { return []; }
