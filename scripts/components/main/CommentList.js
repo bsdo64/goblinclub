@@ -144,8 +144,8 @@ var WriteBox = React.createClass({
             </div>
             <div style={comment.writeBoxRight}>
                 <div style={comment.inputBox}>
-                    <div contenteditable="true" style={comment.input}>
-                        입력하기
+                    <div contentEditable="true" style={comment.input}>
+
                     </div>
                 </div>
                 <div style={comment.pictureBox}>
@@ -171,10 +171,10 @@ var CommentHead = React.createClass({
                 </h2>
                 <ul id="sortlist" style={comment.selectBox}>
                     <li style={comment.inlineBlock}>
-                        <input name="sort" type="radio"/> <label for="like" id="likability">호감순</label>
+                        <input name="sort" type="radio"/> <label htmlFor="like" id="likability">호감순</label>
                     </li>
                     <li style={comment.inlineBlock}>
-                        <input name="sort" type="radio"/> <label for="latest" id="newest">최신순</label>
+                        <input name="sort" type="radio"/> <label htmlFor="latest" id="newest">최신순</label>
                     </li>
                 </ul>
             </div>
@@ -186,7 +186,15 @@ var CommentHead = React.createClass({
 });
 
 var CommentBox = React.createClass({
+    getInitialState: function() {
+        return {
+            openWriteBox: false
+        };
+    },
 
+    openWriteBox() {
+        this.setState({openWriteBox: !this.state.openWriteBox});
+    },
     render() {
         const { oneComment } = this.props;
         return <div style={comment.box}>
@@ -202,27 +210,27 @@ var CommentBox = React.createClass({
                     <a href="#" style={comment.replayCount}>
                         <span >댓글</span><span >{ oneComment.children ? oneComment.children.length : 0} 개 </span>
                     </a>
-                    <a href="#" style={[comment.replayCount, comment.paddingLeft10]}>
+                    <a
+                        onClick={this.openWriteBox}
+                        style={[comment.replayCount, comment.paddingLeft10]}>
                         <span >댓글달기</span>
                     </a>
                 </div>
             </div>
             <div style={comment.contentLeft}>
-                        <span style={comment.author}>
-                            <a href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article" target="_blank"><span >{ oneComment.user.nick }</span> </a>
-                        </span>
+                <span style={comment.author}>
+                    <a href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article" target="_blank"><span >{ oneComment.user.nick }</span> </a>
+                </span>
                 <div style={comment.point}>0 점</div>
             </div>
             <div style={comment.contentRight}>
-                <div >
-                    <div style={comment.content}>
-                        { oneComment.content }
-                    </div>
-                    <hr style={comment.hr}/>
+                <div style={comment.content}>
+                    { oneComment.content }
                 </div>
+                <hr style={comment.hr}/>
             </div>
 
-            <WriteBox />
+            { this.state.openWriteBox && <WriteBox /> }
         </div>
     }
 });
@@ -252,19 +260,15 @@ var CommentList = React.createClass({
                 <WriteBox />
 
                 <div>
-                    <div >
-                        <ul id="main-comment" style={comment.listBox}>
-                            {commentList.map(listing) }
-                        </ul>
-                    </div>
+                    <ul id="main-comment" style={comment.listBox}>
+                        {commentList.map(listing) }
+                    </ul>
                 </div>
 
                 <div >
-                    <div>
-                        <a href="#">
-                            <span><span>(<strong>1-20</strong>)</span><span>더보기</span></span>
-                        </a>
-                    </div>
+                    <a href="#">
+                        <span><span>(<strong>1-20</strong>)</span><span>더보기</span></span>
+                    </a>
                 </div>
             </div>
         </div>)

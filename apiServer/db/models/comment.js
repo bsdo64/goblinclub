@@ -16,6 +16,18 @@ module.exports = function(sequelize, DataTypes) {
         content: {
             type: DataTypes.TEXT
         },
+        voteCount: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
+        likeCount: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
+        dislikeCount: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
         deletedAt: {
             type: DataTypes.DATE,
             defaultValue: null
