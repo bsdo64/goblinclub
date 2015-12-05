@@ -3,6 +3,7 @@ import Radium from 'radium';
 import { Link } from 'react-router';
 
 import styles from './style/style_post';
+import { CommentList } from '../index';
 
 class BtnArea extends Component {
     render() {
@@ -83,7 +84,9 @@ class PostPage extends Component {
                         <a style={styles.posts.deleteButton}>삭제하기</a>
                     </div>
                     <BtnArea id={_id} />
-                    <div className="comments"></div>
+                    <div className="comments">
+                        <CommentList />
+                    </div>
 
                 </div>
             </li>

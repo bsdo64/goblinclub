@@ -23,10 +23,6 @@ module.exports = function(sequelize, DataTypes) {
         deleted: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
-        },
-        parent_id: {
-            type: DataTypes.STRING,
-            defaultValue: null
         }
     }, {
         classMethods: {
@@ -42,13 +38,6 @@ module.exports = function(sequelize, DataTypes) {
                     foreignKey: 'post_id'
                 });
 
-                Comment.belongsTo(Comment, {
-                    foreignKey: {
-                        name: 'parent_id',
-                        allowNull: true
-                    }
-                });
-
                 Comment.hasMany(models.commentcontent, {
                     foreignKey: {
                         name: 'comment_id',
@@ -56,7 +45,9 @@ module.exports = function(sequelize, DataTypes) {
                     }
                 });
             }
-        }
+        },
+
+        hierarchy: true
     });
 
     return Comment;

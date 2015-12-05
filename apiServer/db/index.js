@@ -5,6 +5,8 @@ var fs        = require("fs");
 var path      = require("path");
 var config    = require('./config').DB;
 var Sequelize = require('sequelize');
+require('sequelize-hierarchy')(Sequelize);
+
 var sequelize = new Sequelize(config.database, config.user, config.password, {
     host: config.host,
     dialect: 'mysql',
