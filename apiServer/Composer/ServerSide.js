@@ -3,30 +3,29 @@
  */
 var express = require('express');
 var router = express.Router();
-var async = require('async');
-var Model = require('../db');
-var shortId = require('shortid');
 var _ = require('lodash');
 var moment = require('moment');
+
+var Model = require('../db');
+var User = Model.user;
+var Post = Model.post;
+var Club = Model.club;
+var Comment = Model.comment;
+
 moment.locale('ko');
 
 router.use(function timeLog(req, res, next) {
-    console.log('Time: ', Date.now());
-    next();
+  console.log('Time: ', Date.now());
+  next();
 });
 
-router.get('/', function( req, res ) {
-    var user = req.query.user;
+router.get('/', function (req, res) {
+  var user = req.query.user;
 
-    // PostList, UserInfo, ClubList
-    var User = Model.user,
-        Post = Model.post,
-        Club = Model.club
-
-    var result = {
-        postStore : {},
-        clubStore : {}
-    };
+  var result = {
+    postStore : {},
+    clubStore : {}
+  };
     Post.findAll({
             order: [
                 ['createdAt', 'DESC']
@@ -79,10 +78,6 @@ router.get('/', function( req, res ) {
 
 router.get('/club/:clubName', function( req, res ) {
     var user = req.query.user;
-
-    // PostList, UserInfo, ClubList
-    var User = Model.user,
-        Club = Model.club;
 
     var result = {
         clubStore : {},
@@ -142,11 +137,6 @@ router.get('/club/:clubName', function( req, res ) {
 router.get('/club/:clubName/submit', function( req, res ) {
     var user = req.query.user;
 
-    // PostList, UserInfo, ClubList
-    var User = Model.user,
-        Post = Model.post,
-        Club = Model.club
-
     var result = {
         postStore : {},
         clubStore : {}
@@ -186,10 +176,6 @@ router.get('/club/:clubName/submit', function( req, res ) {
 
 router.get('/submit', function( req, res ) {
     var user = req.query.user;
-
-    // PostList, UserInfo, ClubList
-    var User = Model.user,
-        Club = Model.club;
 
     var result = {
         clubStore : {}
@@ -232,18 +218,12 @@ router.get('/club/:clubName/:postName', function( req, res ) {
     var postName = req.params.postName;
     var clubName = req.params.clubName;
 
-    // PostList, UserInfo, ClubList
-    var User = Model.user,
-        Club = Model.club,
-        Post = Model.post,
-        Comment = Model.comment;
-
     var result = {
-        postStore : {},
-        clubStore : {},
-
+        postStore: {},
+        clubStore: {}
     };
 
+    var postId;
     Post.findOne({
             where: {_id: postName},
             include: [
@@ -251,11 +231,14 @@ router.get('/club/:clubName/:postName', function( req, res ) {
                 {model: Club, required: true}
             ]
         })
-        .then(function(post) {
+        .then(function (post) {
+            postId = post._id;
             post.setDataValue('createdAt', moment(post.createdAt).fromNow());
             post.setDataValue('updatedAt', moment(post.updatedAt).fromNow());
             result.postStore.readingPost = post;
 
+        })
+        .then(function(comment) {
             return Comment.findAll({
                 limit: 5,
                 include: [ {
@@ -266,7 +249,7 @@ router.get('/club/:clubName/:postName', function( req, res ) {
                 }, {
                     model: User
                 } ],
-                where: { hierarchyLevel: 1, post_id: post._id }
+                where: { hierarchyLevel: 1, post_id: postId }
             });
         })
         .then(function(comments) {

@@ -5,8 +5,8 @@ var Express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 
-var composeServer = require('./composeRouter/server');
-var composeClient = require('./composeRouter/client');
+var composeServer = require('./Composer/ServerSide');
+var composeClient = require('./Composer/ClientSide');
 
 var app = Express();
 app.locals.settings['x-powered-by'] = false;
@@ -25,9 +25,8 @@ app.use(function (req, res) {
 });
 
 app.listen(3001, function () {
-
     var model = require('./db');
     model.sequelize.sync().then(function() {
         console.log('Goblin Api listening');
-    })
+    });
 });

@@ -24,7 +24,8 @@
         "json",
         "es6"
       ]
-    }
+    },
+    "lint": "eslint ./scripts -c ./scripts/.eslintrc"
   },
   "author": "",
   "license": "ISC",
@@ -84,6 +85,7 @@
     "sequelize": "^3.13.0",
     "sequelize-hierarchy": "^0.5.8",
     "shortid": "^2.2.4",
+    "stats-webpack-plugin": "^0.2.2",
     "style-loader": "^0.13.0",
     "superagent": "^1.4.0",
     "validator": "^4.1.0",
@@ -92,9 +94,11 @@
   },
   "devDependencies": {
     "babel-cli": "^6.2.0",
+    "babel-eslint": "^5.0.0-beta4",
     "babel-jest": "^6.0.1",
     "chai": "^3.4.1",
     "eslint": "^1.7.3",
+    "eslint-plugin-react": "^3.11.3",
     "extract-text-webpack-plugin": "^0.9.1",
     "isparta": "^4.0.0",
     "istanbul": "^0.4.1",

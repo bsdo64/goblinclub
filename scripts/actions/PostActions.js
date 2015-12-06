@@ -7,45 +7,48 @@ import UserStore from '../Stores/UserStore';
 import PostStore from '../Stores/PostStore';
 
 class PostActions {
-    setDefaultClubList(club) {
-        this.dispatch(club);
-    }
-    setSubscribeClubList(clubList) {
-        this.dispatch(clubList);
-    }
-    submitPost(post) {
-        let user = UserStore.getState().user;
-        let writingPost = PostStore.getState().writingPost;
+  setDefaultClubList(club) {
+    this.dispatch(club);
+  }
 
-        var newPost = {
-            ...post,
-            defaultClubList: writingPost.defaultClubList,
-            subscribeClubList: writingPost.subscribeClubList
-        };
-        user = {
-            email: user.email
-        };
+  setSubscribeClubList(clubList) {
+    this.dispatch(clubList);
+  }
 
-        return function (dispatch) {
-            fetch.submitPost(user, newPost, function(err, post) {
-                if (err) return err;
+  submitPost(post) {
+    let user = UserStore.getState().user;
+    let writingPost = PostStore.getState().writingPost;
+    let newPost = {
+      ...post,
+      defaultClubList: writingPost.defaultClubList,
+      subscribeClubList: writingPost.subscribeClubList
+    };
+    user = {
+      email: user.email
+    };
 
-                dispatch(post);
-            });
+    return function (dispatch) {
+      fetch.submitPost(user, newPost, function (err, post) {
+        if (err) {
+          return err;
         }
-    }
+        dispatch(post);
+      });
+    };
+  }
 
-    getClubPostLists(params) {
-        let user = UserStore.getState().user;
+  getClubPostLists(params) {
+    let user = UserStore.getState().user;
 
-        return function (dispatch) {
-            fetch.getClubPost(user, params, function(err, data) {
-                if (err) return err;
-
-                dispatch(data);
-            })
+    return function (dispatch) {
+      fetch.getClubPost(user, params, function (err, data) {
+        if (err) {
+          return err;
         }
-    }
+        dispatch(data);
+      });
+    };
+  }
 }
 
 export default alt.createActions(PostActions);

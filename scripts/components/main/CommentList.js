@@ -239,9 +239,9 @@ var CommentList = React.createClass({
     render() {
 
         const { commentList } = this.props;
-
+        console.log({a : commentList});
         var listing = function (oneComment, index) {
-            return <li>
+            return <li key={oneComment.comment_id}>
 
                 <CommentBox key={oneComment.comment_id} oneComment={oneComment} />
 

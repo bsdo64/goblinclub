@@ -1,101 +1,93 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Radium from 'radium';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 
 import styles from './style/style_post';
-import { CommentList } from '../index';
+import {CommentList} from '../index';
 
-class BtnArea extends Component {
-    render() {
-        const id = this.props.id;
-        return (
-            <div style={styles.posts.postButtons} className="btn_area" >
-                <a key={id+'thumbUp'} style={styles.posts.thumbUp} >
-                    <i className="fa fa-thumbs-o-up"></i>
-                </a>
-                <a key={id+'thumbDown'} style={styles.posts.thumbDown} >
-                    <i className="fa fa-thumbs-o-down"></i>
-                </a>
-                <a key={id+'commentButton'} style={styles.posts.commentButton} >
-                    <i className="fa fa-commenting-o"></i>
-                </a>
-            </div>
-        )
-    }
-}
+let BtnArea = React.createClass({
+  displayName: 'BtnArea',
 
-class PostPage extends Component {
-
-    constructor () {
-        super();
-
-        this.clicked = this.clicked.bind(this);
-    }
-
-    componentWillReceiveProps(nextProps) {
-
-    }
-
-    render() {
-        const { title, createdAt, clubs, content, user, vote_count, comment_count, _id } = this.props.post;
-        const { commentList } = this.props;
-
-        return (
-            <li style={styles.posts.post} className="_ccast_item" >
-                <div style={styles.posts.listObj} className="lst_obj">
-                    <div className="con_desc">
-                        <h4 style={styles.posts.postTitle}>
-                            <Link to="/" style={styles.posts.postTitleItem}
-                                  onClick={this.clicked}>{title}</Link>
-                        </h4>
-                        <p style={styles.posts.postContentMeta} className="frm_svc">
-                                <span className="h_title">
-                                    <a className="N=a:sbx*c.content" href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article" target="_blank">{user.nick} </a>
-                                </span>
-                            <span className="wrt_time">{createdAt} </span>
-                            {
-                                clubs.map(function(val, index) {
-                                    return (
-                                        <Link key={index} to={"/club/" + val.url} style={styles.posts.postTitleClub} >
-                                            {val.name+" "}
-                                        </Link>
-                                    )
-                                })
-                            }
-                        </p>
-                        <div className="lst_type2">
-                            <div style={styles.posts.postContents} className="rgt_dsc">
-                                <div id="fd_cont" dangerouslySetInnerHTML={{__html: content}}>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="ic_bookmark" style={styles.posts.countInfo}>
-                        <span >
-                            <span style={styles.posts.voteCount}>{vote_count + ' '}</span>
-                             점
-                        </span>
-                        <a href="#" style={styles.posts.paddingLeft10}>
-                             답글
-                            <span style={styles.posts.commentCount}>{' ' + comment_count + ' '}</span>
-                             개
-                        </a>
-                        <a style={styles.posts.deleteButton}>삭제하기</a>
-                    </div>
-                    <BtnArea id={_id} />
-                    <div className="comments">
-                        <CommentList commentList={commentList} />
-                    </div>
-                </div>
-            </li>
-        )
-    }
-
-    clicked() {
-
-    }
-}
-
+  render() {
+    return (
+      <div className="btn_area" style={styles.posts.postButtons} >
+        <a key={'thumbUp'} style={styles.posts.thumbUp}>
+          <i className="fa fa-thumbs-o-up"></i>
+        </a>
+        <a key={'thumbDown'} style={styles.posts.thumbDown}>
+          <i className="fa fa-thumbs-o-down"></i>
+        </a>
+        <a key={'commentButton'} style={styles.posts.commentButton}>
+          <i className="fa fa-commenting-o"></i>
+        </a>
+      </div>
+    );
+  }
+});
 BtnArea = Radium(BtnArea);
+
+let PostPage = React.createClass({
+  displayName: 'PostPage',
+  propTypes: {
+    commentList: React.PropTypes.arrayOf.isRequired,
+    post: React.PropTypes.shape.isRequired
+  },
+  render() {
+    const {title, createdAt, clubs, content, user, voteCount, commentCount} = this.props.post;
+    const {commentList} = this.props;
+
+    return (
+      <li className="_ccast_item" style={styles.posts.post}>
+        <div className="lst_obj" style={styles.posts.listObj}>
+          <div className="con_desc">
+            <h4 style={styles.posts.postTitle}>
+              <Link style={styles.posts.postTitleItem} to="/">{title}</Link>
+            </h4>
+            <p className="frm_svc" style={styles.posts.postContentMeta}>
+              <span className="h_title">
+              <a
+                  className="N=a:sbx*c.content" href="#"
+                  target="_blank">{user.nick}
+              </a>
+              </span>
+              <span className="wrt_time">{createdAt} </span>
+              {
+                clubs.map(function (val, index) {
+                  return (
+                    <Link
+                        key={index} style={styles.posts.postTitleClub}
+                        to={'/club/' + val.url}>
+                      {val.name + ' '}
+                    </Link>
+                  );
+                })
+              }
+            </p>
+            <div className="lst_type2">
+              <div className="rgt_dsc" style={styles.posts.postContents}>
+                <div id="fd_cont" dangerouslySetInnerHTML={{__html: content}}>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="ic_bookmark" style={styles.posts.countInfo}>
+            <span >
+              <span style={styles.posts.voteCount}>{voteCount + ' 점'}</span>
+            </span>
+            <a href="#" style={styles.posts.paddingLeft10}>
+              <span style={styles.posts.commentCount}>{'답글 ' + commentCount + ' 개'}</span>
+            </a>
+            <a style={styles.posts.deleteButton}>{'삭제하기'}</a>
+          </div>
+          <BtnArea />
+          <div className="comments">
+            <CommentList commentList={commentList} />
+          </div>
+        </div>
+      </li>
+    );
+  }
+});
+
 export default PostPage = Radium(PostPage);

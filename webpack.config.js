@@ -2,10 +2,11 @@
  * Created by dobyeongsu on 2015. 10. 15..
  */
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var StatsPlugin = require('stats-webpack-plugin');
 var webpack = require('webpack');
 
 module.exports = {
-    devtool: 'inline-source-map',
+    devtool: 'source-map',
     entry: {
         'main': [
             "./scripts/entry.js"
@@ -43,10 +44,20 @@ module.exports = {
             allChunks: true
         }),
         new webpack.DefinePlugin({
-            "process.env": {
-                BROWSER: JSON.stringify(true)
+            'process.env': {
+                // This has effect on the react lib size
+                'NODE_ENV': JSON.stringify('production'),
             }
         }),
-        new webpack.OldWatchingPlugin()
+        new webpack.optimize.UglifyJsPlugin(),
+        new webpack.OldWatchingPlugin(),
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),
+        new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
+        new StatsPlugin('stats.json', {
+            chunkModules: true,
+            exclude: [/node_modules[\\\/]react/]
+        })
     ]
 };

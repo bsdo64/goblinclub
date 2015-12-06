@@ -1,20 +1,18 @@
 /**
  * Created by dobyeongsu on 2015. 10. 25..
  */
-var express = require('express');
-var router = express.Router();
+var express = require('express'),
+    router = express.Router();
 var jsonWebToken = require('jsonwebtoken');
-
 var _ = require('lodash');
-
-var Model = require('../db');
-var Post = Model.post,
+var Model = require('../db'),
+    Post = Model.post,
     User = Model.user,
     Club = Model.club;
 var shortId = require('shortid'),
     moment = require('moment');
-moment.locale('ko');
 
+moment.locale('ko');
 
 router.use(function timeLog(req, res, next) {
     console.log('Time: ', Date.now());

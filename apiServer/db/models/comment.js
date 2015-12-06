@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
     var Comment = sequelize.define('comment', {
         comment_id: {
             type: DataTypes.STRING,
-            primaryKey: true
+            unique: true
         },
         post_id: {
             type: DataTypes.STRING,

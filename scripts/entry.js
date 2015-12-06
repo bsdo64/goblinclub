@@ -1,54 +1,48 @@
 /**
  * Created by dobyeongsu on 2015. 10. 15..
  */
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import Iso from 'iso';
 import alt from './alt';
-import Immutable from 'immutable';
-import { Router } from 'react-router';
-import createBrowserHistory from 'history/lib/createBrowserHistory'
+import {Router} from 'react-router';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 import zip from 'lz-string';
 
-import { App } from './Containers'
-import routes from '../universalRouter/routes'
+import {App} from './Containers/index';
+import routes from '../universalRouter/routes';
 
-export default class Entry extends Component {
+React.createClass({
+  displayName: 'Entry',
+  render() {
+    return (
+      <App />
+    );
+  }
+});
 
-    componentDidMount() {
-
-    }
-
-    componentWillUnmount () {
-
-    }
-
-    render() {
-        return(
-            <App />
-        )
-    }
-}
-
-var iso_config = {
-    markupClassName: 'app-main',
-    markupElement: 'main',
-    dataClassName: 'states',
-    dataElement: 'script'
-}
+const isoConfig = {
+  markupClassName: 'app-main',
+  markupElement: 'main',
+  dataClassName: 'states',
+  dataElement: 'script'
+};
 
 Iso.bootstrap((state, _, container) => {
-    state = zip.decompressFromBase64(state);
-    alt.bootstrap(state);
+  let decodeState = zip.decompressFromBase64(state);
+  alt.bootstrap(decodeState);
 
-    /* Debug - Final Dispatched Store's State */
-    function finalState (payload) {
-        console.log('Final.toJS()\t', payload);
-        console.groupEnd('action');
-    }
-    for(var store in alt.stores) {
-        alt.stores[store].listen(finalState)
-    }
+  /* Debug - Final Dispatched Store's State */
+  function finalState(payload) {
+    console.log('Final.toJS()\t', payload);
+    console.groupEnd('action');
+  }
 
-    ReactDOM.render(<Router history={createBrowserHistory()} children={routes} />, container);
-}, iso_config);
+  for (let store in alt.stores) {
+    if (alt.stores.hasOwnProperty(store)) {
+      alt.stores[store].listen(finalState);
+    }
+  }
+
+  ReactDOM.render(<Router children={routes} history={createBrowserHistory()} />, container);
+}, isoConfig);

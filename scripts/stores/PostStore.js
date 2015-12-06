@@ -1,56 +1,57 @@
 import alt from '../alt';
-import _ from 'lodash'
-import PostActions from '../Actions/PostActions'
+import PostActions from '../Actions/PostActions';
 
 class PostStore {
-    constructor() {
+  constructor() {
+    this.bindActions(PostActions);
 
-        this.bindActions(PostActions);
+    this.state = {
+      post: '',
+      writingPost: {}
+    };
+  }
 
-        this.state = {
-            post: '',
-            writingPost: {}
-        };
-    }
+  onSetDefaultClubList(club) {
+    let state = this.state;
+    state.writingPost.defaultClubList = club;
 
-    onSetDefaultClubList(club) {
-        var state = this.state;
-        state.writingPost['defaultClubList'] = club;
+    this.setState(state);
+  }
 
-        this.setState(state)
-    }
-    onSetSubscribeClubList(clubList) {
-        var state = this.state;
-        state.writingPost['subscribeClubList'] = clubList;
+  onSetSubscribeClubList(clubList) {
+    let state = this.state;
+    state.writingPost.subscribeClubList = clubList;
 
-        this.setState(state)
-    }
-    onSubmitPost(post) {
+    this.setState(state);
+  }
 
-        console.log('onSubmitPost');
-        var state = this.state;
-        state.writingPost['success'] = true;
-        state.writingPost['post'] = post;
-        state.readingPost= post;
+  onSubmitPost(post) {
+    console.log('onSubmitPost');
+    let state = this.state;
+    state.writingPost.success = true;
+    state.writingPost.post = post;
+    state.readingPost = post;
 
-        this.setState(state)
-    }
-    onSubmitSuccess(post) {
-        console.log('onSubmitSuccess');
-        var state = this.state;
-        state.writingPost['success'] = true;
-        state.writingPost['post'] = post;
-        state.readingPost= post;
+    this.setState(state);
+  }
 
-        this.setState(state)
-    }
-    onGetClubPostLists(data) {
-        var state = this.state;
-        state.readingPost = data.PostStore.readingPost;
-        state.postList = data.PostStore.postList;
+  onSubmitSuccess(post) {
+    console.log('onSubmitSuccess');
+    let state = this.state;
+    state.writingPost.success = true;
+    state.writingPost.post = post;
+    state.readingPost = post;
 
-        this.setState(state)
-    }
+    this.setState(state);
+  }
+
+  onGetClubPostLists(data) {
+    let state = this.state;
+    state.readingPost = data.PostStore.readingPost;
+    state.postList = data.PostStore.postList;
+
+    this.setState(state);
+  }
 
 }
 
