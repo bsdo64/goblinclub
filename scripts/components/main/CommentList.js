@@ -4,7 +4,7 @@
 import React from 'react';
 import Radium from 'radium';
 
-var comment = {
+let comment = {
   top: {
     padding: '10px 0'
   },
@@ -134,12 +134,13 @@ var comment = {
   }
 };
 
-var WriteBox = React.createClass({
+let WriteBox = React.createClass({
+  displayName: 'WriteBox',
   render() {
     return (<div style={comment.writeBox}>
       <div style={comment.writeBoxLeft}>
         <div style={comment.writeBoxName}>
-          TEST
+          {'TEST'}
         </div>
       </div>
       <div style={comment.writeBoxRight}>
@@ -150,108 +151,118 @@ var WriteBox = React.createClass({
         </div>
         <div style={comment.pictureBox}>
           <div style={comment.picture}>
-            <i className="fa fa-camera"></i>
+            <i className="fa fa-camera" />
           </div>
         </div>
       </div>
       <div style={comment.remainText}>
-        (300/300)
+        {'(300/300)'}
       </div>
     </div>);
   }
 });
 
-var CommentHead = React.createClass({
+let CommentHead = React.createClass({
+  displayName: 'CommentHead',
   render() {
-    return <div >
-      <div id="sortComboBox" style={comment.top}>
-        <h2 style={comment.boxHeadLine}>
-          <strong style={comment.red}>{'203'}</strong><span>{'개의 댓글'}</span>
-          <a href="#" title="새로 고침"><span>새로 고침</span></a>
-        </h2>
-        <ul id="sortlist" style={comment.selectBox}>
-          <li style={comment.inlineBlock}>
-            <input name="sort" type="radio"/> <label htmlFor="like" id="likability">호감순</label>
-          </li>
-          <li style={comment.inlineBlock}>
-            <input name="sort" type="radio"/> <label htmlFor="latest" id="newest">최신순</label>
-          </li>
-        </ul>
+    return (
+      <div >
+        <div id="sortComboBox" style={comment.top}>
+          <h2 style={comment.boxHeadLine}>
+            <strong style={comment.red}>{'203'}</strong><span>{'개의 댓글'}</span>
+            <a href="#" title="새로 고침">{'새로 고침'}</a>
+          </h2>
+          <ul id="sortlist" style={comment.selectBox}>
+            <li style={comment.inlineBlock}>
+              <input name="sort" type="radio"/>
+              <label htmlFor="like" id="likability">{'호감순'}</label>
+            </li>
+            <li style={comment.inlineBlock}>
+              <input name="sort" type="radio"/>
+              <label htmlFor="latest" id="newest">{'최신순'}</label>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <hr style={comment.hr}/>
+        </div>
       </div>
-      <div>
-        <hr style={comment.hr}/>
-      </div>
-    </div>
+    );
   }
 });
 
-var CommentBox = React.createClass({
+let CommentBox = React.createClass({
+  displayName: 'CommentBox',
   getInitialState: function () {
     return {
       openWriteBox: false
     };
   },
-
   openWriteBox() {
     this.setState({openWriteBox: !this.state.openWriteBox});
   },
   render() {
-    const { oneComment } = this.props;
-    return <div style={comment.box}>
+    const {oneComment} = this.props;
+    return (
+    <div style={comment.box}>
       <div style={comment.rightButtonBox}>
-        <span><span >하루 전</span> </span>
+        {'하루 전 '}
         <div style={comment.inlineBlock}>
           <a style={comment.voteButton}>
-            <i className="fa fa-thumbs-o-up"></i>
+            <i className="fa fa-thumbs-o-up" />
           </a>
           <a style={comment.voteButton}>
-            <i className="fa fa-thumbs-o-down"></i>
+            <i className="fa fa-thumbs-o-down" />
           </a>
           <a href="#" style={comment.replayCount}>
-            <span >댓글</span><span >{ oneComment.children ? oneComment.children.length : 0} 개 </span>
+            {'댓글 ' + (oneComment.children ? oneComment.children.length : 0) + ' 개'}
           </a>
-          <a
-            onClick={this.openWriteBox}
-            style={[comment.replayCount, comment.paddingLeft10]}>
-            <span >댓글달기</span>
+          <a onClick={this.openWriteBox} style={[comment.replayCount, comment.paddingLeft10]}>
+            {'댓글달기'}
           </a>
         </div>
       </div>
       <div style={comment.contentLeft}>
                 <span style={comment.author}>
                     <a href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article"
-                       target="_blank"><span >{ oneComment.user.nick }</span> </a>
+                       target="_blank">{oneComment.user.nick}</a>
                 </span>
-        <div style={comment.point}>0 점</div>
+        <div style={comment.point}>{'0 점'}</div>
       </div>
       <div style={comment.contentRight}>
         <div style={comment.content}>
-          { oneComment.content }
+          {
+            oneComment.content
+          }
         </div>
         <hr style={comment.hr}/>
       </div>
-
-      { this.state.openWriteBox && <WriteBox /> }
-    </div>
+      {
+        this.state.openWriteBox && <WriteBox />
+      }
+    </div>);
   }
 });
 
-var CommentList = React.createClass({
+let CommentList = React.createClass({
+  displayName: 'CommentList',
   render() {
+    const {commentList} = this.props;
 
-    const { commentList } = this.props;
-    console.log({a: commentList});
-    var listing = function (oneComment, index) {
-      return <li key={oneComment.comment_id}>
-
+    let listing = function (oneComment) {
+      return (
+        <li key={oneComment.comment_id}>
         <CommentBox key={oneComment.comment_id} oneComment={oneComment}/>
 
-        { oneComment.children && oneComment.children.length > 0 &&
-        <ul style={[comment.listBox, comment.marginLeft50]}>
-          { oneComment.children.map(listing) }
-        </ul>
+        {
+          oneComment.children && oneComment.children.length > 0 &&
+          <ul style={[comment.listBox, comment.marginLeft50]}>
+            {
+              oneComment.children.map(listing)
+            }
+          </ul>
         }
-      </li>
+      </li>);
     };
     return (<div>
       <div id="sc_comment_box">
@@ -262,20 +273,21 @@ var CommentList = React.createClass({
 
         <div>
           <ul id="main-comment" style={comment.listBox}>
-            {commentList.map(listing) }
+            {commentList.map(listing)}
           </ul>
         </div>
 
         <div >
           <a href="#">
-            <span><span>(<strong>1-20</strong>)</span><span>더보기</span></span>
+            {
+              '(' + <strong>{'1-20'}</strong> + ') 더보기'
+            }
           </a>
         </div>
       </div>
-    </div>)
+    </div>);
   }
 });
 
 
 export default CommentList = Radium(CommentList);
-

@@ -4,34 +4,34 @@
 /**
  * Created by dobyeongsu on 2015. 11. 10..
  */
-import React, { Component } from 'react';
-import Radium, { Style } from 'radium';
-import { Link } from 'react-router';
+import React, {Component} from 'react';
+import Radium from 'radium';
+import {Link} from 'react-router';
 
 class Club extends Component {
   render() {
-    var { link, name } = this.props;
+    let {link, name} = this.props;
     return (
       <Link to={'/club/' + link}>
         <div style={styles.clubs.listElement}>{name}</div>
       </Link>
-    )
+    );
   }
 }
 
 
 class ClubList extends Component {
   render() {
-    var defaultClubList = this.props.clubList,
-      title = this.props.title;
+    let defaultClubList = this.props.clubList;
+    let title = this.props.title;
 
-    var createItem = function (val, index) {
-      return <li key={val.url+index}>
-        <Club
-          link={val.url}
-          name={val.name}
-        />
-      </li>
+    let createItem = function (val, index) {
+      return (
+        <li key={val.url + index}>
+          <Club
+            link={val.url}
+            name={val.name} />
+        </li>);
     };
 
     return (
@@ -39,14 +39,14 @@ class ClubList extends Component {
         <li style={styles.clubs.title}>{title}</li>
         <ul style={styles.clubs.list}>{defaultClubList.map(createItem)}</ul>
       </ul>
-    )
+    );
   }
 }
 
 Club = Radium(Club);
 export default ClubList = Radium(ClubList);
 
-var styles = {
+let styles = {
   clubs: {
     container: {
       color: '#00B1A3',

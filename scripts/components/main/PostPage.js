@@ -12,13 +12,13 @@ let BtnArea = React.createClass({
     return (
       <div className="btn_area" style={styles.posts.postButtons} >
         <a key={'thumbUp'} style={styles.posts.thumbUp}>
-          <i className="fa fa-thumbs-o-up"></i>
+          <i className="fa fa-thumbs-o-up" />
         </a>
         <a key={'thumbDown'} style={styles.posts.thumbDown}>
-          <i className="fa fa-thumbs-o-down"></i>
+          <i className="fa fa-thumbs-o-down" />
         </a>
         <a key={'commentButton'} style={styles.posts.commentButton}>
-          <i className="fa fa-commenting-o"></i>
+          <i className="fa fa-commenting-o" />
         </a>
       </div>
     );
@@ -29,8 +29,16 @@ BtnArea = Radium(BtnArea);
 let PostPage = React.createClass({
   displayName: 'PostPage',
   propTypes: {
-    commentList: React.PropTypes.arrayOf.isRequired,
-    post: React.PropTypes.shape.isRequired
+    commentList: React.PropTypes.arrayOf(React.PropTypes.array).isRequired,
+    post: React.PropTypes.shape({
+      title: React.PropTypes.string,
+      createdAt: React.PropTypes.string,
+      clubs: React.PropTypes.object,
+      content: React.PropTypes.string,
+      user: React.PropTypes.object,
+      vote_count: React.PropTypes.number,
+      comment_count: React.PropTypes.number
+    })
   },
   render() {
     const {title, createdAt, clubs, content, user, vote_count, comment_count} = this.props.post;

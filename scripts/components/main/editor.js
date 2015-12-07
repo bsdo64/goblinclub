@@ -1,24 +1,24 @@
 /**
  * Created by dobyeongsu on 2015. 11. 14..
  */
-import React, { Component } from 'react';
+import React from 'react';
 import Radium from 'radium';
-import { Link } from 'react-router';
-import { Input } from 'react-bootstrap';
+import {Input} from 'react-bootstrap';
 
-import { editor as styles } from '../Style/style_editor'
+import {editor as styles} from '../Style/style_editor';
 import PostActions from '../../Actions/PostActions';
 import alt from '../../alt';
 import HeadLine from './HeadLine';
 
-var SubscribeClubs = React.createClass({
+let SubscribeClubs = React.createClass({
+  displayName: 'SubscribeClubs',
   getInitialState() {
     return {
       value: ''
     };
   },
 
-  handleChange () {
+  handleChange() {
     this.setState({
       value: this.getValue()
     }, function () {
@@ -28,13 +28,14 @@ var SubscribeClubs = React.createClass({
   getValue() {
     let result;
     // convert HTMLCollection  to Array
-    let children = Array.prototype.slice.call(this.getButtonGroupNode().querySelectorAll('input[type=checkbox]'));
+    let inputs = this.getButtonGroupNode().quHerySelectorAll('input[type=checkbox]');
+    let children = Array.prototype.slice.call(inputs);
     // find out the radio which was checked
     result = children.filter(item => {
       return item.checked;
     });
     result = result.map(function (i) {
-      return i.value
+      return i.value;
     });
 
     return result;
@@ -44,41 +45,45 @@ var SubscribeClubs = React.createClass({
   },
 
   render() {
-    var slf = this;
-    var { ClubStore } = this.props;
-    var createItem = function (val, index) {
-      return <div key={val.url+index} className="checkbox-inline">
-        <label >
-          <input
-            type="checkbox"
-            name="subscribedClubList"
-            label={val.name}
-            readOnly
-            value={val.id}
-            onClick={slf.handleChange}
-          />
-          <span >{val.name}</span>
-        </label>
-      </div>
+    let slf = this;
+    let {ClubStore} = this.props;
+    let createItem = function (val, index) {
+      return (
+        <div className="checkbox-inline" key={val.url + index}>
+          <label >
+            <input
+              label={val.name}
+              name="subscribedClubList"
+              onClick={slf.handleChange}
+              readOnly
+              type="checkbox"
+              value={val.id} />
+            <span >{val.name}</span>
+          </label>
+        </div>
+      );
     };
-    return <div ref="subscribedClubList" style={styles.widget.clubSelectOption}>
-      <h4>가입한 클럽(최대 3개)</h4>
-      {
-        ClubStore.userHas.subscribedClubList.map(createItem)
-      }
-    </div>
+    return (
+      <div ref="subscribedClubList" style={styles.widget.clubSelectOption}>
+        <h4>{'가입한 클럽(최대 3개)'}</h4>
+        {
+          ClubStore.userHas.subscribedClubList.map(createItem)
+        }
+      </div>
+    );
   }
 });
 
 
-var MainClubs = React.createClass({
+let MainClubs = React.createClass({
+  displayName: 'MainClubs',
   getInitialState() {
     return {
       value: ''
     };
   },
 
-  handleChange () {
+  handleChange() {
     // This could also be done using ReactLink:
     // http://facebook.github.io/react/docs/two-way-binding-helpers.html
     this.setState({
@@ -90,7 +95,8 @@ var MainClubs = React.createClass({
   getValue() {
     let result;
     // convert HTMLCollection  to Array
-    let children = Array.prototype.slice.call(this.getButtonGroupNode().querySelectorAll('input[type=radio]'));
+    let inputs = this.getButtonGroupNode().querySelectorAll('input[type=radio]');
+    let children = Array.prototype.slice.call(inputs);
     // find out the radio which was checked
     result = children.filter(item => {
       return item.checked;
@@ -103,30 +109,32 @@ var MainClubs = React.createClass({
   },
 
   render() {
-    var slf = this;
-    var { ClubStore } = this.props;
-    var createItem = function (val, index) {
-      return <Input
-        key={val.url}
-        type="radio"
-        name="defaultClubList"
-        label={val.name}
-        readOnly
-        onClick={slf.handleChange}
-        value={val.id}
-      />
+    let slf = this;
+    let {ClubStore} = this.props;
+    let createItem = function (val) {
+      return (
+        <Input
+          key={val.url}
+          label={val.name}
+          name="defaultClubList"
+          onClick={slf.handleChange}
+          readOnly
+          type="radio"
+          value={val.id} />
+      );
     };
-    return <div ref="defaultClubList" style={styles.widget.clubSelect}>
-      <h4>메인 클럽(필수)</h4>
-      {
-        ClubStore.defaultClubList.map(createItem)
-      }
-    </div>
+    return (
+      <div ref="defaultClubList" style={styles.widget.clubSelect}>
+        <h4>{'메인 클럽(필수)'}</h4>
+        {
+          ClubStore.defaultClubList.map(createItem)
+        }
+      </div>
+    );
   }
 });
 
-var Editor = React.createClass({
-
+let Editor = React.createClass({
   componentDidMount() {
     this.editor = new MediumEditor('.editable', {imageDragging: false});
     $('.editable').mediumInsert({
@@ -153,49 +161,43 @@ var Editor = React.createClass({
       }
     });
   },
+  componentWillReceiveProps() {
+    let PostStore = alt.getStore('PostStore').getState();
+    if (PostStore.writingPost.success) {
+      this.props.history.pushState(null, '/club/' + PostStore.readingPost.clubs[0]['url'] + '/' + PostStore.readingPost._id)
+    }
+  },
+
   submit() {
-    var allContents = this.editor.serialize(),
-      el = allContents["element-0"].value;
+    let allContents = this.editor.serialize();
+    let el = allContents['element-0'].value;
 
     PostActions.submitPost({
       title: this.refs.title.value.trim(),
       content: el
     });
   },
-
-  componentWillReceiveProps (nextProps) {
-    var PostStore = alt.getStore('PostStore').getState();
-    if (PostStore.writingPost.success) {
-      this.props.history.pushState(null, '/club/' + PostStore.readingPost.clubs[0]['url'] + '/' + PostStore.readingPost._id)
-    }
-  },
-
   render() {
     return (
       <div style={styles.widget.container}>
         <HeadLine />
         <div style={styles.widget.listObj1}>
-          <input ref="title" style={styles.widget.textarea1} placeholder="제목입니다"/>
+          <input placeholder="제목입니다" ref="title"
+                 style={styles.widget.textarea1} />
           <div className="editable"></div>
         </div>
 
         <HeadLine />
         <div style={styles.widget.listObj1}>
-          <MainClubs
-            ClubStore={this.props.ClubStore}
-          />
-
-          <SubscribeClubs
-            ClubStore={this.props.ClubStore}
-          />
+          <MainClubs ClubStore={this.props.ClubStore} />
+          <SubscribeClubs ClubStore={this.props.ClubStore} />
         </div>
 
         <div>
-          <button onClick={this.submit}>저장하기</button>
+          <button onClick={this.submit}>{'저장하기'}</button>
         </div>
       </div>
-
-    )
+    );
   }
 });
 
