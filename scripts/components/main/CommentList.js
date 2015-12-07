@@ -279,9 +279,7 @@ let CommentList = React.createClass({
 
         <div >
           <a href="#">
-            {
-              '(' + <strong>{'1-20'}</strong> + ') 더보기'
-            }
+            {'('} <strong>{'1-20'}</strong> {') 더보기'}
           </a>
         </div>
       </div>

@@ -18,15 +18,15 @@ app.use('/compose', composeServer);
 app.use('/ajax', composeClient);
 
 app.use(function (req, res) {
-    console.log(req.url, 'There\'s no endpoint!');
-    res.status(404).json({
-        msg: 'There\'s no endpoint!'
-    });
+  console.log(req.url, 'There\'s no endpoint!');
+  res.status(404).json({
+    msg: 'There\'s no endpoint!'
+  });
 });
 
 app.listen(3001, function () {
-    var model = require('./db');
-    model.sequelize.sync().then(function() {
-        console.log('Goblin Api listening');
-    });
+  var model = require('./db');
+  model.sequelize.sync().then(function () {
+    console.log('Goblin Api listening');
+  });
 });

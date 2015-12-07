@@ -3,46 +3,46 @@
  */
 var Validation = require('../validation');
 
-module.exports = function(sequelize, DataTypes) {
-    var Commentcontent = sequelize.define('commentcontent', {
-        filename: {
-            type: DataTypes.STRING
-        },
-        name: {
-            type: DataTypes.STRING
-        },
-        content: {
-            type: DataTypes.STRING
-        },
-        ext: {
-            type: DataTypes.STRING
-        },
-        contentType: {
-            type: DataTypes.STRING
-        },
-        size: {
-            type: DataTypes.BIGINT
-        },
-        uploader: {
-            type: DataTypes.INTEGER
-        },
-        comment_id: {
-            type: DataTypes.STRING
-        }
-    },{
-        classMethods: {
-            associate: function(models) {
-                Commentcontent.belongsTo(models.user, {
-                    onDelete: "CASCADE",
-                    foreignKey: 'uploader'
-                });
+module.exports = function (sequelize, DataTypes) {
+  var Commentcontent = sequelize.define('commentcontent', {
+    filename: {
+      type: DataTypes.STRING
+    },
+    name: {
+      type: DataTypes.STRING
+    },
+    content: {
+      type: DataTypes.STRING
+    },
+    ext: {
+      type: DataTypes.STRING
+    },
+    contentType: {
+      type: DataTypes.STRING
+    },
+    size: {
+      type: DataTypes.BIGINT
+    },
+    uploader: {
+      type: DataTypes.INTEGER
+    },
+    comment_id: {
+      type: DataTypes.STRING
+    }
+  }, {
+    classMethods: {
+      associate: function (models) {
+        Commentcontent.belongsTo(models.user, {
+          onDelete: "CASCADE",
+          foreignKey: 'uploader'
+        });
 
-                Commentcontent.belongsTo(models.comment, {
-                    foreignKey: 'comment_id'
-                });
-            }
-        }
-    });
+        Commentcontent.belongsTo(models.comment, {
+          foreignKey: 'comment_id'
+        });
+      }
+    }
+  });
 
-    return Commentcontent;
+  return Commentcontent;
 };
