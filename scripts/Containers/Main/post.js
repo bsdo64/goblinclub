@@ -12,7 +12,7 @@ import PostActions from '../../Actions/PostActions';
 
 import { PostPage, ClubPostList, HeadLine } from '../../Components/index';
 
-import styles from '../../Components/Main/style/style_post';
+import styles from '../../Components/Style/style_post';
 
 class Post extends Component {
     static getStores() {

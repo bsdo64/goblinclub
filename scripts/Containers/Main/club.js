@@ -9,7 +9,7 @@ import UserStore from '../../Stores/UserStore';
 import PostStore from '../../Stores/PostStore';
 
 import { ClubPostList, HeadLine } from '../../Components/index'
-import styles from '../../Components/Main/style/style_post';
+import styles from '../../Components/Style/style_post';
 
 class Club extends Component {
     static getStores() {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Radium, { Style } from 'radium';
 import { Link } from 'react-router';
 
-import styles from './style/style_post';
+import styles from '../Style/style_post';
 
 class BtnArea extends Component {
     render() {

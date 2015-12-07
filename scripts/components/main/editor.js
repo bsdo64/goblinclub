@@ -6,7 +6,7 @@ import Radium from 'radium';
 import { Link } from 'react-router';
 import { Input } from 'react-bootstrap';
 
-import { editor as styles } from './style/style_editor'
+import { editor as styles } from '../Style/style_editor'
 import PostActions from '../../Actions/PostActions';
 import alt from '../../alt';
 import HeadLine from './HeadLine';

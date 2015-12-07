@@ -28,11 +28,11 @@ class PostActions {
     };
 
     return function (dispatch) {
-      fetch.submitPost(user, newPost, function (err, post) {
+      fetch.submitPost(user, newPost, function (err, submittedPost) {
         if (err) {
           return err;
         }
-        dispatch(post);
+        dispatch(submittedPost);
       });
     };
   }

@@ -62,7 +62,7 @@ class validateRules {
       result.errors.email.push(['이메일을 올바르게 입력해주세요']);
     }
 
-    if (!validator.isLength(user.signinPassword, 6, 12)){
+    if (!validator.isLength(user.signinPassword, 6, 12)) {
       result.errors.password.push(['Password must be between 6 and 12 characters']);
     }
     if (!validator.matches(user.signinPassword, /[a-z]/i)) {

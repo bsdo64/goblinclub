@@ -2,7 +2,7 @@ import React from 'react';
 import Radium from 'radium';
 import {Link} from 'react-router';
 
-import styles from './style/style_post';
+import styles from '../Style/style_post';
 import {CommentList} from '../index';
 
 let BtnArea = React.createClass({
@@ -33,9 +33,8 @@ let PostPage = React.createClass({
     post: React.PropTypes.shape.isRequired
   },
   render() {
-    const {title, createdAt, clubs, content, user, voteCount, commentCount} = this.props.post;
+    const {title, createdAt, clubs, content, user, vote_count, comment_count} = this.props.post;
     const {commentList} = this.props;
-
     return (
       <li className="_ccast_item" style={styles.posts.post}>
         <div className="lst_obj" style={styles.posts.listObj}>
@@ -73,10 +72,10 @@ let PostPage = React.createClass({
           </div>
           <div className="ic_bookmark" style={styles.posts.countInfo}>
             <span >
-              <span style={styles.posts.voteCount}>{voteCount + ' 점'}</span>
+              <span style={styles.posts.voteCount}>{vote_count + ' 점'}</span>
             </span>
             <a href="#" style={styles.posts.paddingLeft10}>
-              <span style={styles.posts.commentCount}>{'답글 ' + commentCount + ' 개'}</span>
+              <span style={styles.posts.commentCount}>{'답글 ' + comment_count + ' 개'}</span>
             </a>
             <a style={styles.posts.deleteButton}>{'삭제하기'}</a>
           </div>

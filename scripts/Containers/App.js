@@ -1,50 +1,43 @@
 /**
  * Created by dobyeongsu on 2015. 10. 15..
  */
-import React, { Component } from 'react';
-import { Link } from 'react-router';
-import Radium, { Style } from 'radium';
-import UserActions from '../Actions/UserActions';
-import fetch from 'superagent';
+import React from 'react';
+import Radium, {Style} from 'radium';
 
-class App extends Component {
-    componentWillMount() {
-        // Data Init
+let App = React.createClass({
+  displayName: 'App',
+  propTypes: {
+    header: React.PropTypes.element.isRequired,
+    main: React.PropTypes.element.isRequired,
+    sidebar: React.PropTypes.element.isRequired
+  },
+  render() {
+    const {header, main, sidebar} = this.props;
+    const style = {
+      a: {
+        color: '#2b5f5b',
+        textDecoration: 'none',
+        cursor: 'pointer'
+      },
+      pre: {
+        backgroundColor: 'rgba(255, 255, 255, 0)',
+        border: 'none',
+        borderRadius: 0
+      }
+    };
+    return (
+      <div>
+        <Style rules={style} />
 
-    }
-    componentDidMount() {
+        {header}
 
-    }
+        <div>
+          {main}
 
-    render () {
-
-        const { header, main, sidebar } = this.props;
-
-        return (
-            <div>
-                <Style
-                    rules={{
-                        a: {
-                            color: '#2b5f5b',
-                            textDecoration: 'none',
-                            cursor: 'pointer'
-                        },
-                        pre: {
-                            backgroundColor: 'rgba(255, 255, 255, 0)',
-                            border: 'none',
-                            borderRadius: 0
-                        }
-                    }}
-                />
-                {header}
-
-                <div>
-                    {main}
-
-                    {sidebar}
-                </div>
-            </div>
-        )
-    }
-}
+          {sidebar}
+        </div>
+      </div>
+    );
+  }
+});
 export default App = Radium(App);
