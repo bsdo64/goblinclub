@@ -1,5 +1,7 @@
 # Goblin Club
 
+![](https://travis-ci.org/GoblinWorld/goblinclub.svg?branch=master)
+
 * 실행 방법
 
 ````
