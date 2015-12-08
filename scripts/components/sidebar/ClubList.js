@@ -4,11 +4,18 @@
 /**
  * Created by dobyeongsu on 2015. 11. 10..
  */
-import React, {Component} from 'react';
+import React from 'react';
 import Radium from 'radium';
 import {Link} from 'react-router';
 
-class Club extends Component {
+import styles from '../Style/style_clublist';
+
+let Club = React.createClass({
+  displayName: 'Club',
+  propTypes: {
+    link: React.PropTypes.string.isRequired,
+    name: React.PropTypes.string.isRequired
+  },
   render() {
     let {link, name} = this.props;
     return (
@@ -17,10 +24,14 @@ class Club extends Component {
       </Link>
     );
   }
-}
+});
 
-
-class ClubList extends Component {
+let ClubList = React.createClass({
+  displayName: 'ClubList',
+  propTypes: {
+    clubList: React.PropTypes.shape,
+    title: React.PropTypes.string.isRequired
+  },
   render() {
     let defaultClubList = this.props.clubList;
     let title = this.props.title;
@@ -41,47 +52,7 @@ class ClubList extends Component {
       </ul>
     );
   }
-}
+});
 
 Club = Radium(Club);
 export default ClubList = Radium(ClubList);
-
-let styles = {
-  clubs: {
-    container: {
-      color: '#00B1A3',
-      fontSize: 13,
-      fontWeight: 'bold',
-      paddingTop: 26
-    },
-    element: {
-      listStyle: 'none',
-      margin: 0,
-      padding: '0 0 15px 0'
-    },
-    title: {
-      listStyle: 'none',
-      fontSize: 13,
-      paddingLeft: 17
-    },
-    list: {
-      listStyle: 'none',
-      margin: 0,
-      padding: 0,
-      color: '#2b5f5b'
-    },
-    listElement: {
-      listStyle: 'none',
-      paddingLeft: 32,
-      color: '#001f35',
-      ':hover': {
-        backgroundColor: '#2b5f5b',
-        color: '#fff'
-      }
-    },
-    listActive: {
-      backgroundColor: '#2b5f5b',
-      color: '#fff'
-    }
-  }
-};

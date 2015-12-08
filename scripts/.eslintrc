@@ -7,7 +7,10 @@
   "plugins": [
     "react"
   ],
-
+  "globals": {
+    "$": 1,
+    "MediumEditor": 1
+  },
   "ecmaFeatures": {
     "jsx": true,
     "modules": true,

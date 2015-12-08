@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Radium from 'radium';
 import {Link} from 'react-router';
 
-import styles from '../Style/style_clublist';
+import styles from '../Style/style_clubpostlist';
 
 class BtnArea extends Component {
   render() {
@@ -24,7 +24,19 @@ class BtnArea extends Component {
   }
 }
 
-class ClubPostList extends Component {
+let ClubPostList = React.createClass({
+  displayName: 'ClubPostList',
+  propTypes: {
+    post: React.PropTypes.shape({
+      _id: React.PropTypes.string.isRequired,
+      title: React.PropTypes.string.isRequired,
+      createdAt: React.PropTypes.string.isRequired,
+      clubs: React.PropTypes.string.isRequired,
+      user: React.PropTypes.string.isRequired,
+      vote_count: React.PropTypes.string.isRequired,
+      comment_count: React.PropTypes.string.isRequired
+    })
+  },
   render() {
     const {title, createdAt, clubs, user, vote_count, comment_count, _id} = this.props.post;
 
@@ -65,7 +77,7 @@ class ClubPostList extends Component {
       </li>
     );
   }
-}
+});
 
 BtnArea = Radium(BtnArea);
 export default ClubPostList = Radium(ClubPostList);

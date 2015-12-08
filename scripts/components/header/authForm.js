@@ -73,11 +73,7 @@ let AuthForm = React.createClass({
       }
     }
 
-    if (loadedAuth && authFail && serverValidate) {
-      let count = 0;
-      let createItem = function (itemText, index) {
-        return <li key={index + count++}>{itemText.message}</li>;
-      };
+    function printError(createItem) {
       switch (serverValidate.type) {
       case 'loginUser':
         for (let prop in serverValidate.fields) {
@@ -96,6 +92,14 @@ let AuthForm = React.createClass({
       default:
         break;
       }
+    }
+    if (loadedAuth && authFail && serverValidate) {
+      let count = 0;
+      let createItem = function (itemText, index) {
+        count = count + 1;
+        return <li key={index + count}>{itemText.message}</li>;
+      };
+      printError(createItem);
     }
 
     return (

@@ -193,6 +193,12 @@ let CommentHead = React.createClass({
 
 let CommentBox = React.createClass({
   displayName: 'CommentBox',
+  propTypes: {
+    oneComment: React.PropTypes.shape({
+      nick: React.PropTypes.string.isRequired,
+      children: React.PropTypes.object
+    })
+  },
   getInitialState: function () {
     return {
       openWriteBox: false
@@ -246,6 +252,9 @@ let CommentBox = React.createClass({
 
 let CommentList = React.createClass({
   displayName: 'CommentList',
+  propTypes: {
+    commentList: React.PropTypes.shape.isRequired
+  },
   render() {
     const {commentList} = this.props;
 

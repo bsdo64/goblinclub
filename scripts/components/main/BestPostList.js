@@ -1,30 +1,42 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Radium from 'radium';
 import {Link} from 'react-router';
 
 import styles from '../Style/style_post';
 
-class BtnArea extends Component {
+let BtnArea = React.createClass({
+  displayName: 'BtnArea',
   render() {
-    const id = this.props.id;
     return (
       <div className="btn_area" style={styles.posts.postButtons}>
-        <a key={id+'thumbUp'} style={styles.posts.thumbUp}>
+        <a key={'thumbUp'} style={styles.posts.thumbUp}>
           <i className="fa fa-thumbs-o-up" />
         </a>
-        <a key={id+'thumbDown'} style={styles.posts.thumbDown}>
+        <a key={'thumbDown'} style={styles.posts.thumbDown}>
           <i className="fa fa-thumbs-o-down" />
         </a>
-        <a key={id+'commentButton'} style={styles.posts.commentButton}>
+        <a key={'commentButton'} style={styles.posts.commentButton}>
           <i className="fa fa-commenting-o" />
         </a>
       </div>
     );
   }
-}
+});
 
-class BestPostList extends Component {
-
+let BestPostList = React.createClass({
+  displayName: 'BestPostList',
+  propTypes: {
+    post: React.PropTypes.shape({
+      _id: React.PropTypes.string.isRequired,
+      title: React.PropTypes.string.isRequired,
+      createdAt: React.PropTypes.string.isRequired,
+      clubs: React.PropTypes.object.isRequired,
+      content: React.PropTypes.string.isRequired,
+      user: React.PropTypes.object.isRequired,
+      vote_count: React.PropTypes.number.isRequired,
+      comment_count: React.PropTypes.number.isRequired
+    })
+  },
   render() {
     const {
       _id,
@@ -61,7 +73,7 @@ class BestPostList extends Component {
             </p>
             <div className="lst_type2">
               <div className="rgt_dsc" style={styles.posts.postContents}>
-                <div id="fd_cont" dangerouslySetInnerHTML={{__html: content}}>
+                <div dangerouslySetInnerHTML={{__html: content}} id="fd_cont">
 
                 </div>
               </div>
@@ -83,6 +95,7 @@ class BestPostList extends Component {
       </li>
     );
   }
-}
+});
+
 BtnArea = Radium(BtnArea);
 export default BestPostList = Radium(BestPostList);

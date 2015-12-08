@@ -45,7 +45,6 @@ let SubscribeClubs = React.createClass({
   },
 
   render() {
-    let slf = this;
     let {ClubStore} = this.props;
     let createItem = function (val, index) {
       return (
@@ -54,7 +53,7 @@ let SubscribeClubs = React.createClass({
             <input
               label={val.name}
               name="subscribedClubList"
-              onClick={slf.handleChange}
+              onClick={this.handleChange}
               readOnly
               type="checkbox"
               value={val.id} />
@@ -62,7 +61,7 @@ let SubscribeClubs = React.createClass({
           </label>
         </div>
       );
-    };
+    }.bind(this);
     return (
       <div ref="subscribedClubList" style={styles.widget.clubSelectOption}>
         <h4>{'가입한 클럽(최대 3개)'}</h4>
@@ -109,7 +108,6 @@ let MainClubs = React.createClass({
   },
 
   render() {
-    let slf = this;
     let {ClubStore} = this.props;
     let createItem = function (val) {
       return (
@@ -117,12 +115,12 @@ let MainClubs = React.createClass({
           key={val.url}
           label={val.name}
           name="defaultClubList"
-          onClick={slf.handleChange}
+          onClick={this.handleChange}
           readOnly
           type="radio"
           value={val.id} />
       );
-    };
+    }.bind(this);
     return (
       <div ref="defaultClubList" style={styles.widget.clubSelect}>
         <h4>{'메인 클럽(필수)'}</h4>
@@ -135,6 +133,7 @@ let MainClubs = React.createClass({
 });
 
 let Editor = React.createClass({
+  displayName: 'Editor',
   componentDidMount() {
     this.editor = new MediumEditor('.editable', {imageDragging: false});
     $('.editable').mediumInsert({
@@ -142,20 +141,13 @@ let Editor = React.createClass({
       addons: {
         images: {
           deleteScript: '/image/image/files/',
-          // (string) A relative path to a delete script
           deleteMethod: 'DELETE',
           preview: true,
-          // (boolean) Show an image before it is uploaded (only in browsers that support this feature)
           captions: true,
-          // (boolean) Enable captions
           captionPlaceholder: '이미지 캡션을 입력하세요(옵션)',
-          // (string) Caption placeholder
           fileUploadOptions: {
-            // (object) File upload configuration. See https://github.com/blueimp/jQuery-File-Upload/wiki/Options
             url: '/image',
-            // (string) A relative path to an upload script
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-            // (regexp) Regexp of accepted file types
           }
         }
       }
@@ -164,7 +156,10 @@ let Editor = React.createClass({
   componentWillReceiveProps() {
     let PostStore = alt.getStore('PostStore').getState();
     if (PostStore.writingPost.success) {
-      this.props.history.pushState(null, '/club/' + PostStore.readingPost.clubs[0]['url'] + '/' + PostStore.readingPost._id)
+      this.props.history.pushState(
+        null,
+        '/club/' + PostStore.readingPost.clubs[0].url + '/' + PostStore.readingPost._id
+      );
     }
   },
 

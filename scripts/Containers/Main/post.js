@@ -25,10 +25,6 @@ let Post = React.createClass({
     params: React.PropTypes.object
   },
 
-  componentDidMount() {
-    console.log('Post, componentDidMount', this.props.params);
-  },
-
   componentWillMount() {
     if (!this.props.PostStore.postList) {
       const params = this.props.params;
@@ -36,11 +32,17 @@ let Post = React.createClass({
     }
   },
 
+  componentDidMount() {
+    console.log('Post, componentDidMount', this.props.params);
+  },
+
   render() {
     const {readingPost, postList, commentList} = this.props.PostStore;
     const wrapper = function (post) {
-      return <PostPage commentList={commentList} key={post._id}
-                       post={post} />;
+      return (
+        <PostPage commentList={commentList} key={post._id}
+                  post={post} />
+      );
     };
     const listWrapper = function (posts) {
       return posts.map((post) => {
