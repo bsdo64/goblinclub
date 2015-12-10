@@ -5,11 +5,11 @@ var Validation = require('../validation');
 
 module.exports = function (sequelize, DataTypes) {
   var Comment = sequelize.define('comment', {
-    comment_id: {
+    commentId: {
       type: DataTypes.STRING,
-      unique: true
+      primaryKey: true
     },
-    post_id: {
+    postId: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -47,13 +47,13 @@ module.exports = function (sequelize, DataTypes) {
         });
 
         Comment.belongsTo(models.post, {
-          foreignKey: 'post_id'
+          foreignKey: 'postId'
         });
 
         Comment.hasMany(models.commentcontent, {
           foreignKey: {
-            name: 'comment_id',
-            allowNull: true
+            name: 'commentId',
+            onDelete: 'CASCADE'
           }
         });
       }

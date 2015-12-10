@@ -40,13 +40,13 @@ let Post = React.createClass({
     const {readingPost, postList, commentList} = this.props.PostStore;
     const wrapper = function (post) {
       return (
-        <PostPage commentList={commentList} key={post._id}
+        <PostPage commentList={commentList} key={post.uid}
                   post={post} />
       );
     };
     const listWrapper = function (posts) {
       return posts.map((post) => {
-        return <ClubPostList key={post._id} post={post}/>;
+        return <ClubPostList key={post.uid} post={post}/>;
       });
     };
     return (

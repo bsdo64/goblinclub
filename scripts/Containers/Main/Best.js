@@ -1,7 +1,7 @@
 /**
  * Created by dobyeongsu on 2015. 11. 13..
  */
-import React, { Component } from 'react';
+import React from 'react';
 import Radium from 'radium';
 import _ from 'lodash';
 import connectToStores from '../../../node_modules/alt/utils/connectToStores';
@@ -11,29 +11,22 @@ import PostStore from '../../Stores/PostStore';
 import {BestPostList} from '../../Components/index';
 import styles from '../../Components/Style/style_post';
 
-class Best extends Component {
-  static getStores() {
-    return [UserStore, PostStore];
-  }
-
-  static getPropsFromStores() {
-    return {
-      UserStore: UserStore.getState(),
-      PostStore: PostStore.getState()
-    };
-  }
+let Best = React.createClass({
+  displayName: 'Best',
+  propTypes: {
+    PostStore: React.PropTypes.object.isRequired
+  },
   componentWillMount() {
     console.log('Best, componentWillMount');
-  }
+  },
   componentDidMount() {
     console.log('Best, componentDidMount');
-  }
-
+  },
   render() {
     const {loadSuccess, bestList} = this.props.PostStore;
     const wrapper = function (posts) {
       return posts.map((post) => {
-        return <BestPostList key={post._id} post={post}/>;
+        return <BestPostList key={post.uid} post={post}/>;
       });
     };
     return (
@@ -45,6 +38,20 @@ class Best extends Component {
       </div>
     );
   }
-}
+});
 
-export default Best = connectToStores(Radium(Best));
+Best = connectToStores({
+  getStores() {
+    // this will handle the listening/unlistening for you
+    return [PostStore, UserStore];
+  },
+
+  getPropsFromStores() {
+    // this is the data that gets passed down as props
+    return {
+      PostStore: PostStore.getState(),
+      UserStore: UserStore.getState()
+    };
+  }
+}, Radium(Best));
+export default Best;

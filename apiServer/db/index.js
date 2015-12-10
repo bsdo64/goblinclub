@@ -14,7 +14,8 @@ var sequelize = new Sequelize(config.database, config.user, config.password, {
     max: 10,
     min: 0,
     idle: 10000
-  }
+  },
+  logging: false
 });
 var DB = {};
 

@@ -21,11 +21,11 @@ let Main = React.createClass({
     return (
       <div style={styles.main}>
 
-        <div id='bestPosts' style={styles.mainBox}>
+        <div id="bestPosts" style={styles.mainBox}>
           <HeadLine ClubStore={{club: 'name'}}/>
 
-          <div className='nano' style={styles.contents}>
-            <div className='nano-content' style={styles.scrollContent}>
+          <div className="nano" style={styles.contents}>
+            <div className="nano-content" style={styles.scrollContent}>
               {this.props.mainSection}
             </div>
           </div>

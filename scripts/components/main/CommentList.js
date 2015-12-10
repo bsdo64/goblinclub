@@ -253,15 +253,15 @@ let CommentBox = React.createClass({
 let CommentList = React.createClass({
   displayName: 'CommentList',
   propTypes: {
-    commentList: React.PropTypes.shape.isRequired
+    commentList: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
   },
   render() {
     const {commentList} = this.props;
 
     let listing = function (oneComment) {
       return (
-        <li key={oneComment.comment_id}>
-        <CommentBox key={oneComment.comment_id} oneComment={oneComment}/>
+        <li key={oneComment.commentId}>
+        <CommentBox key={oneComment.commentId} oneComment={oneComment}/>
 
         {
           oneComment.children && oneComment.children.length > 0 &&
@@ -297,4 +297,4 @@ let CommentList = React.createClass({
 });
 
 
-export default CommentList = Radium(CommentList);
+export default Radium(CommentList);

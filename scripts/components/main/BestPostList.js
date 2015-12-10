@@ -27,26 +27,26 @@ let BestPostList = React.createClass({
   displayName: 'BestPostList',
   propTypes: {
     post: React.PropTypes.shape({
-      _id: React.PropTypes.string.isRequired,
+      uid: React.PropTypes.string.isRequired,
       title: React.PropTypes.string.isRequired,
       createdAt: React.PropTypes.string.isRequired,
-      clubs: React.PropTypes.object.isRequired,
+      clubs: React.PropTypes.array.isRequired,
       content: React.PropTypes.string.isRequired,
       user: React.PropTypes.object.isRequired,
-      vote_count: React.PropTypes.number.isRequired,
-      comment_count: React.PropTypes.number.isRequired
+      voteCount: React.PropTypes.number.isRequired,
+      commentCount: React.PropTypes.number.isRequired
     })
   },
   render() {
     const {
-      _id,
+      uid,
       title,
       createdAt,
       clubs,
       content,
       user,
-      vote_count,
-      comment_count
+      voteCount,
+      commentCount
     } = this.props.post;
 
     return (
@@ -55,7 +55,7 @@ let BestPostList = React.createClass({
           <div className="con_desc">
             <h4 style={styles.posts.postTitle}>
               <Link style={styles.posts.postTitleItem}
-                    to={'/club/' + clubs[0].url + '/' + _id}>{title}</Link>
+                    to={'/club/' + clubs[0].url + '/' + uid}>{title}</Link>
             </h4>
             <p className="frm_svc" style={styles.posts.postContentMeta}>
               <Link to="#">{user.nick} </Link>
@@ -80,17 +80,17 @@ let BestPostList = React.createClass({
             </div>
           </div>
           <div className="ic_bookmark" style={styles.posts.countInfo}>
-            <span style={styles.posts.voteCount}>{vote_count + ' '}</span>
+            <span style={styles.posts.voteCount}>{voteCount + ' '}</span>
             {'점'}
 
             <a href="#" style={styles.posts.paddingLeft10}>
               {'답글'}
-              <span style={styles.posts.commentCount}>{' ' + comment_count + ' '}</span>
+              <span style={styles.posts.commentCount}>{' ' + commentCount + ' '}</span>
               {'개'}
             </a>
             <a style={styles.posts.deleteButton}>{'삭제하기'}</a>
           </div>
-          <BtnArea id={_id}/>
+          <BtnArea id={uid}/>
         </div>
       </li>
     );

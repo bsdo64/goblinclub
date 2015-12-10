@@ -25,7 +25,7 @@ module.exports = function (sequelize, DataTypes) {
     uploader: {
       type: DataTypes.INTEGER
     },
-    post_id: {
+    postId: {
       type: DataTypes.STRING
     }
   }, {
@@ -37,7 +37,7 @@ module.exports = function (sequelize, DataTypes) {
         });
 
         PostContent.belongsTo(models.post, {
-          foreignKey: 'post_id'
+          foreignKey: 'postId'
         });
       }
     }

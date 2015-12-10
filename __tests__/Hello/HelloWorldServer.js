@@ -1,6 +1,6 @@
-jest.dontMock('../rectangle');
+jest.dontMock('../../rectangle');
 
-var Rectangle = require('../rectangle');
+var Rectangle = require('../../rectangle');
 
 describe('Rectangle', () => {
   describe('#constructor()', () => {

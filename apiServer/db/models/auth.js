@@ -9,25 +9,25 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    email_verify: {
+    emailVerify: {
       type: DataTypes.BOOLEAN,
       allowNull: false
     },
-    email_verify_at: {
+    emailVerifyAt: {
       type: DataTypes.DATE,
       allowNull: false
     },
-    drop_user: {
+    dropUser: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-    drop_at: {
+    dropAt: {
       type: DataTypes.DATE
     },
-    login_at: {
+    loginAt: {
       type: DataTypes.DATE
     },
-    logout_at: {
+    logoutAt: {
       type: DataTypes.DATE
     },
     status: {

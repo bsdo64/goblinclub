@@ -204,7 +204,7 @@
     "no-plusplus": 2, // disallow use of unary operators, ++ and -- (off by default)
 
     "react/display-name": 1,
-    "react/forbid-prop-types": 1,
+    "react/forbid-prop-types": [1, { "forbid": ['any'] }],
     "react/jsx-boolean-value": 1,
     "react/jsx-closing-bracket-location": [1, {selfClosing: 'after-props', nonEmpty: 'after-props'}],
     "react/jsx-curly-spacing": 1,
@@ -216,7 +216,7 @@
     "react/jsx-no-literals": 1,
     "react/jsx-no-undef": 1,
     "react/jsx-pascal-case": 1,
-    "react/jsx-quotes": 1,
+    "jsx-quotes": 1,
     "react/jsx-sort-prop-types": 1,
     "react/jsx-sort-props": 1,
     "react/jsx-uses-react": 1,

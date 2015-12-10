@@ -89,7 +89,7 @@
     "no-with": 2, // disallow use of the with statement
     "radix": 2, // require use of the second argument for parseInt() (off by default)
     "vars-on-top": 2, // requires to declare all vars on top of their containing scope (off by default)
-    "wrap-iife": 2, // require immediate function invocation to be wrapped in parentheses (off by default)
+    "wrap-iife": [2, "inside"], // require immediate function invocation to be wrapped in parentheses (off by default)
     "yoda": 2, // require or disallow Yoda conditions
 
     //
@@ -143,9 +143,11 @@
     "no-new-object": 1, // disallow use of the Object constructor
     "no-spaced-func": 1, // disallow space between function identifier and application
     "no-ternary": 0, // disallow the use of ternary operators (off by default)
-    "no-trailing-spaces": 1, // disallow trailing whitespace at the end of lines
-    "no-underscore-dangle": 1, // disallow dangling underscores in identifiers
-    "one-var": [1, "never"], // allow just one var statement per function (off by default)
+    "no-trailing-spaces": [2, { "skipBlankLines": true }], // disallow trailing whitespace at the end of lines
+    "one-var": [2, {
+      "uninitialized": "always", // Exactly one declaration for uninitialized variables per function (var) or block (let or const)
+      "initialized": "never" // Exactly one declarator per initialized variable declaration per function (var) or block (let or const)
+    }], // allow just one var statement per function (off by default)
     "operator-assignment": [1, "never"], // require assignment operator shorthand where possible or prohibit it entirely (off by default)
     "padded-blocks": [1, "never"], // enforce padding within blocks (off by default)
     "quote-props": [1, "as-needed"], // require quotes around object literal property names (off by default)

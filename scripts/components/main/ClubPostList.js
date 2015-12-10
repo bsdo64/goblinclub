@@ -6,7 +6,7 @@ import styles from '../Style/style_clubpostlist';
 
 class BtnArea extends Component {
   render() {
-    const {comment_count} = this.props;
+    const {commentCount} = this.props;
     return (
       <div className="btn_area" style={styles.btnArea}>
         <a key="up" style={styles.thumbUp}>
@@ -18,7 +18,7 @@ class BtnArea extends Component {
         <a key="comment" style={styles.commentButton}>
           <i className="fa fa-commenting-o" />
         </a>
-        <a href="#" style={styles.commentCount}>{'댓글 ' + comment_count + ' 개'}</a>
+        <a href="#" style={styles.commentCount}>{'댓글 ' + commentCount + ' 개'}</a>
       </div>
     );
   }
@@ -28,17 +28,17 @@ let ClubPostList = React.createClass({
   displayName: 'ClubPostList',
   propTypes: {
     post: React.PropTypes.shape({
-      _id: React.PropTypes.string.isRequired,
+      uid: React.PropTypes.string.isRequired,
       title: React.PropTypes.string.isRequired,
       createdAt: React.PropTypes.string.isRequired,
-      clubs: React.PropTypes.string.isRequired,
-      user: React.PropTypes.string.isRequired,
-      vote_count: React.PropTypes.string.isRequired,
-      comment_count: React.PropTypes.string.isRequired
+      clubs: React.PropTypes.array.isRequired,
+      user: React.PropTypes.object.isRequired,
+      voteCount: React.PropTypes.number.isRequired,
+      commentCount: React.PropTypes.number.isRequired
     })
   },
   render() {
-    const {title, createdAt, clubs, user, vote_count, comment_count, _id} = this.props.post;
+    const {title, createdAt, clubs, user, voteCount, commentCount, uid} = this.props.post;
 
     return (
       <li className="_ccast_item" style={styles.post}>
@@ -50,8 +50,8 @@ let ClubPostList = React.createClass({
           <div style={styles.textBody}>
             <div style={styles.postTitle}>
               <div style={styles.postTitleContainer}>
-                <a href="#" style={styles.voteCount}>{vote_count + ' 점'} </a>
-                <Link style={styles.postTitleItem} to={'/club/' + clubs[0].url + '/' + _id}>
+                <a href="#" style={styles.voteCount}>{voteCount + ' 점'} </a>
+                <Link style={styles.postTitleItem} to={'/club/' + clubs[0].url + '/' + uid}>
                   {title}
                 </Link>
               </div>
@@ -69,7 +69,7 @@ let ClubPostList = React.createClass({
                 <a href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article"
                    target="_blank">{user.nick} </a>
                 <span className="wrt_time">{createdAt}</span>
-                <BtnArea comment_count={comment_count}/>
+                <BtnArea commentCount={commentCount}/>
               </div>
             </div>
           </div>

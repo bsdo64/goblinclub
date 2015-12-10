@@ -9,7 +9,7 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
-    votable_id: {
+    votableId: {
       comment: '투표한 게시물 아이디',
       type: DataTypes.STRING,
       allowNull: false

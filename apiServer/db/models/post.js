@@ -3,7 +3,7 @@
  */
 module.exports = function (sequelize, DataTypes) {
   var Post = sequelize.define('post', {
-    _id: {
+    uid: {
       type: DataTypes.STRING,
       primaryKey: true
     },
@@ -21,19 +21,19 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-    comment_count: {
+    commentCount: {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
-    vote_count: {
+    voteCount: {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
-    like_count: {
+    likeCount: {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
-    dislike_count: {
+    dislikeCount: {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
@@ -45,7 +45,7 @@ module.exports = function (sequelize, DataTypes) {
     classMethods: {
       associate: function (models) {
         Post.belongsTo(models.user, {
-          onDelete: "CASCADE",
+          onDelete: 'CASCADE',
           foreignKey: 'author',
           allowNull: false
         });
@@ -55,15 +55,17 @@ module.exports = function (sequelize, DataTypes) {
             model: models.club_post,
             unique: false
           },
-          foreignKey: 'post_id'
+          foreignKey: 'postId'
         });
 
         Post.hasMany(models.comment, {
-          foreignKey: 'post_id'
+          foreignKey: 'postId',
+          onDelete: 'CASCADE'
         });
 
         Post.hasMany(models.postcontent, {
-          foreignKey: 'post_id'
+          foreignKey: 'postId',
+          onDelete: 'CASCADE'
         });
       }
     }

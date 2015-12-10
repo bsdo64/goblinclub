@@ -9,17 +9,7 @@ import {Router} from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import zip from 'lz-string';
 
-import {App} from './Containers/index';
 import routes from '../universalRouter/routes';
-
-React.createClass({
-  displayName: 'Entry',
-  render() {
-    return (
-      <App />
-    );
-  }
-});
 
 const isoConfig = {
   markupClassName: 'app-main',

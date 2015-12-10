@@ -13,8 +13,8 @@ import {Editor} from '../../Components/index';
 let WritePost = React.createClass({
   displayName: 'WritePost',
   propTypes: {
-    ClubStore: React.PropTypes.shape.isRequired,
-    history: React.PropTypes.shape.isRequired
+    ClubStore: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object.isRequired
   },
   componentWillReceiveProps(nextProps) {
     console.log('componentWillReceiveProps');

@@ -55,7 +55,7 @@ router.post('/signin', function (req, res) {
 
   User.findOrCreate({
     where: newUser
-  }).spread(function (user, created) {
+  }).spread(function (user) {
     console.log(user.get({
       plain: true
     }));
@@ -72,7 +72,6 @@ router.post('/signin', function (req, res) {
         user: user,
         message: 'Loggined!'
       });
-
     }catch (err) {
       res.json({
         message: 'can\'t make token',
@@ -92,6 +91,8 @@ router.post('/submit', function (req, res) {
   var post = req.body.post;
   var author = req.body.author;
 
+  var createdPost, clubList = [];
+
   if (!post || !author) {
     res.status(400).json({
       message: 'Fill out',
@@ -99,12 +100,11 @@ router.post('/submit', function (req, res) {
     });
   }
 
-  var createdPost, clubList = [];
   User.find({
     where: author
   }).then(function (user) {
     return Post.create({
-      _id: shortId.generate(),
+      uid: shortId.generate(),
       title: post.title,
       content: post.content,
       author: user.get('id')
@@ -120,10 +120,10 @@ router.post('/submit', function (req, res) {
   }).then(function (clubs) {
     return createdPost.setClubs(clubs);
   }).then(function (club_post) {
-    var postId = club_post[0][0].get()['post_id'];
+    var postId = club_post[0][0].get()['postId'];
     console.log(postId);
     return Post.find({
-      where: {_id: postId},
+      where: {uid: postId},
       include: [
         {model: User, required: true, attributes: ['nick', 'id']},
         {model: Club, required: true}
@@ -145,7 +145,7 @@ router.get('/club/:clubName/:article', function (req, res) {
   };
 
   Post.findOne({
-    where: {_id: article},
+    where: {uid: article},
     include: [
       {model: User, required: true, attributes: ['nick', 'id']},
       {model: Club, required: true}

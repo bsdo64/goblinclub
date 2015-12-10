@@ -15,8 +15,8 @@ import {ClubList} from '../../Components/index';
 let Sidebar = React.createClass({
   displayName: 'Sidebar',
   propTypes: {
-    ClubStore: React.PropTypes.shape.isRequired,
-    UserStore: React.PropTypes.shape.isRequired
+    ClubStore: React.PropTypes.object.isRequired,
+    UserStore: React.PropTypes.object.isRequired
   },
   componentWillReceiveProps(nextProps) {
     console.log('Sidebar', nextProps);
@@ -28,8 +28,8 @@ let Sidebar = React.createClass({
     console.log('ClubStore', this.props.ClubStore);
     return (
       <div style={styles.base}>
-        <div id='clubs'>
-          <div id='clubsContainer' style={styles.clubs.container} >
+        <div id="clubs">
+          <div id="clubsContainer" style={styles.clubs.container} >
             <ul style={styles.clubs.element}>
               <li style={styles.clubs.title}>{'베스트'}</li>
               <ul style={styles.clubs.list}>

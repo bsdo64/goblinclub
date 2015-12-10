@@ -26,19 +26,19 @@ module.exports = function (sequelize, DataTypes) {
     uploader: {
       type: DataTypes.INTEGER
     },
-    comment_id: {
+    commentId: {
       type: DataTypes.STRING
     }
   }, {
     classMethods: {
       associate: function (models) {
         Commentcontent.belongsTo(models.user, {
-          onDelete: "CASCADE",
+          onDelete: 'CASCADE',
           foreignKey: 'uploader'
         });
 
         Commentcontent.belongsTo(models.comment, {
-          foreignKey: 'comment_id'
+          foreignKey: 'commentId'
         });
       }
     }

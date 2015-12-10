@@ -1,7 +1,7 @@
 /**
  * Created by dobyeongsu on 2015. 10. 15..
  */
-import React, {Component} from 'react';
+import React from 'react';
 import {Link} from 'react-router';
 import Radium, {Style} from 'radium';
 import {
@@ -24,34 +24,31 @@ import {AuthForm} from '../../Components/index';
 import {Header as styles} from '../Styles/index';
 
 const ButtonR = Radium(Button);
-class LoginButton extends Component {
-  constructor() {
-    super();
-    this.state = {
+let LoginButton = React.createClass({
+  displayName: 'LoginButton',
+  getInitialState() {
+    return {
       show: false
     };
+  },
 
-    this._toggle = this._toggle.bind(this);
-    this._close = this._close.bind(this);
-  }
-
-  _toggle() {
+  handleToggle() {
     this.setState({show: !this.state.show});
-  }
+  },
 
-  _close() {
+  handleClose() {
     this.setState({show: false});
-  }
+  },
 
   render() {
     return (
       <div style={{height: 50, position: 'relative'}}>
-        <div onClick={this._toggle} ref='target'
+        <div onClick={this.handleToggle} ref="target"
              style={styles.menu.container} >
           <button style={styles.menu.item}>{'로그인 / 회원가입'}</button>
         </div>
 
-        <Modal onHide={this._close} show={this.state.show} >
+        <Modal onHide={this.handleClose} show={this.state.show} >
           <Modal.Header closeButton>
             <Modal.Title>{'Modal heading'}</Modal.Title>
           </Modal.Header>
@@ -62,78 +59,63 @@ class LoginButton extends Component {
             <AuthForm />
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this._close}>{'Close'}</Button>
+            <Button onClick={this.handleClose}>{'Close'}</Button>
           </Modal.Footer>
         </Modal>
       </div>
     );
   }
-}
+});
 
-class UserButton extends Component {
-  static getStores() {
-    return [UserStore];
-  }
-
-  static getPropsFromStores() {
+let UserButton = React.createClass({
+  displayName: 'UserButton',
+  getInitialState() {
     return {
-      UserStore: UserStore.getState()
-    };
-  }
-
-  constructor() {
-    super();
-    this.state = {
       show: false
     };
-  }
+  },
 
   render() {
     return (
       <div style={{height: 50, position: 'relative'}}>
         <ButtonToolbar style={styles.menu.container}>
-          <Link to='/submit'>
+          <Link to="/submit">
             <ButtonR style={[styles.menu.item, styles.menu.marginLeft]}>
-              <i className='fa fa-pencil fa-fw'/>
+              <i className="fa fa-pencil fa-fw"/>
             </ButtonR>
           </Link>
 
-          <Link to='/submit'>
+          <Link to="/submit">
             <ButtonR style={[styles.menu.item, styles.menu.marginLeft]}>
-              <i className='fa fa-bell-slash-o fa-fw'/>
+              <i className="fa fa-bell-slash-o fa-fw"/>
             </ButtonR>
           </Link>
 
-          <Dropdown id='dropdown-custom-2'>
-            <Dropdown.Toggle key='c' style={styles.menu.item}>
-              <i className='fa fa-cog fa-fw' />{' '}
+          <Dropdown id="dropdown-custom-2">
+            <Dropdown.Toggle key="c" style={styles.menu.item}>
+              <i className="fa fa-cog fa-fw" />{' '}
             </Dropdown.Toggle>
-            <Dropdown.Menu className='super-colors'>
-              <MenuItem eventKey='1'>{'Action'}</MenuItem>
-              <MenuItem eventKey='2'>{'Another action'}</MenuItem>
-              <MenuItem eventKey='3' active>{'Active Item'}</MenuItem>
+            <Dropdown.Menu className="super-colors">
+              <MenuItem eventKey="1">{'Action'}</MenuItem>
+              <MenuItem eventKey="2">{'Another action'}</MenuItem>
+              <MenuItem eventKey="3" active>{'Active Item'}</MenuItem>
               <MenuItem divider/>
-              <MenuItem eventKey='4'>{'Separated link'}</MenuItem>
+              <MenuItem eventKey="4">{'Separated link'}</MenuItem>
             </Dropdown.Menu>
           </Dropdown>
         </ButtonToolbar>
       </div>
     );
   }
-}
+});
 
-class Header extends Component {
-  static getStores() {
-    return [UserStore, PostStore];
-  }
-
-  static getPropsFromStores() {
-    return {
-      UserStore: UserStore.getState(),
-      PostStore: PostStore.getState()
-    };
-  }
-
+let Header = React.createClass({
+  displayName: 'Header',
+  propTypes: {
+    UserStore: React.PropTypes.shape({
+      authSuccess: React.PropTypes.boolean
+    })
+  },
   render() {
     const {authSuccess} = this.props.UserStore;
     const inlineStyle = {
@@ -148,22 +130,22 @@ class Header extends Component {
       }
     };
     return (
-      <div id='header'>
+      <div id="header">
         <Style rules={inlineStyle} />
         <Navbar fixedTop style={styles.header}>
-          <NavBrand><a href='/' style={styles.logo}>{'Goblin Club'}</a></NavBrand>
-          <div id='searchBar' style={styles.search.layout}>
+          <NavBrand><a href="/" style={styles.logo}>{'Goblin Club'}</a></NavBrand>
+          <div id="searchBar" style={styles.search.layout}>
             <div style={styles.search.container}>
               <Input
-                placeholder='Enter text'
-                ref='input'
+                placeholder="Enter text"
+                ref="input"
                 standalone
                 style={styles.search.bar}
-                type='text' />
+                type="text" />
             </div>
           </div>
 
-          <div id='menu' style={styles.menu.layout}>
+          <div id="menu" style={styles.menu.layout}>
             {
               !authSuccess &&
               <Nav right>
@@ -182,8 +164,22 @@ class Header extends Component {
       </div>
     );
   }
-}
+});
 
 LoginButton = Radium(LoginButton);
-UserButton = connectToStores(Radium(UserButton));
-export default Header = connectToStores(Radium(Header));
+UserButton = Radium(UserButton);
+Header = connectToStores({
+  getStores() {
+    // this will handle the listening/unlistening for you
+    return [PostStore, UserStore];
+  },
+
+  getPropsFromStores() {
+    // this is the data that gets passed down as props
+    return {
+      PostStore: PostStore.getState(),
+      UserStore: UserStore.getState()
+    };
+  }
+}, Radium(Header));
+export default Header;

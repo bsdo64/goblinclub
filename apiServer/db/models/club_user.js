@@ -11,14 +11,14 @@ module.exports = function (sequelize, DataTypes) {
       autoIncrement: true,
       primaryKey: true
     },
-    club_id: {
+    clubId: {
       type: DataTypes.STRING,
-      unique: 'club_user',
+      unique: true,
       allowNull: false
     },
-    user_id: {
+    userId: {
       type: DataTypes.INTEGER,
-      unique: 'club_user',
+      unique: true,
       allowNull: false
     }
   });

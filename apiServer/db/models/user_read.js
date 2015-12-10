@@ -9,14 +9,14 @@ module.exports = function (sequelize, DataTypes) {
       autoIncrement: true,
       primaryKey: true
     },
-    post_id: {
+    postId: {
       type: DataTypes.STRING,
-      unique: 'club_user',
+      unique: true,
       allowNull: false
     },
-    user_id: {
+    userId: {
       type: DataTypes.INTEGER,
-      unique: 'club_user',
+      unique: true,
       allowNull: false
     }
   }, {
@@ -24,12 +24,12 @@ module.exports = function (sequelize, DataTypes) {
       associate: function (models) {
         UserRead.belongsTo(models.user, {
           onDelete: 'CASCADE',
-          foreignKey: 'user_id',
+          foreignKey: 'userId',
           allowNull: false
         });
         UserRead.belongsTo(models.post, {
           onDelete: 'CASCADE',
-          foreignKey: 'post_id',
+          foreignKey: 'postId',
           allowNull: false
         });
       }

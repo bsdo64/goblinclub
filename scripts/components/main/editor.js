@@ -158,7 +158,7 @@ let Editor = React.createClass({
     if (PostStore.writingPost.success) {
       this.props.history.pushState(
         null,
-        '/club/' + PostStore.readingPost.clubs[0].url + '/' + PostStore.readingPost._id
+        '/club/' + PostStore.readingPost.clubs[0].url + '/' + PostStore.readingPost.uid
       );
     }
   },

@@ -29,19 +29,19 @@ BtnArea = Radium(BtnArea);
 let PostPage = React.createClass({
   displayName: 'PostPage',
   propTypes: {
-    commentList: React.PropTypes.arrayOf(React.PropTypes.array).isRequired,
+    commentList: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
     post: React.PropTypes.shape({
       title: React.PropTypes.string,
       createdAt: React.PropTypes.string,
-      clubs: React.PropTypes.object,
+      clubs: React.PropTypes.array,
       content: React.PropTypes.string,
       user: React.PropTypes.object,
-      vote_count: React.PropTypes.number,
-      comment_count: React.PropTypes.number
+      voteCount: React.PropTypes.number,
+      commentCount: React.PropTypes.number
     })
   },
   render() {
-    const {title, createdAt, clubs, content, user, vote_count, comment_count} = this.props.post;
+    const {title, createdAt, clubs, content, user, voteCount, commentCount} = this.props.post;
     const {commentList} = this.props;
     return (
       <li className="_ccast_item" style={styles.posts.post}>
@@ -80,10 +80,10 @@ let PostPage = React.createClass({
           </div>
           <div className="ic_bookmark" style={styles.posts.countInfo}>
             <span >
-              <span style={styles.posts.voteCount}>{vote_count + ' 점'}</span>
+              <span style={styles.posts.voteCount}>{voteCount + ' 점'}</span>
             </span>
             <a href="#" style={styles.posts.paddingLeft10}>
-              <span style={styles.posts.commentCount}>{'답글 ' + comment_count + ' 개'}</span>
+              <span style={styles.posts.commentCount}>{'답글 ' + commentCount + ' 개'}</span>
             </a>
             <a style={styles.posts.deleteButton}>{'삭제하기'}</a>
           </div>

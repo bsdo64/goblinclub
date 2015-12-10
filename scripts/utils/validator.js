@@ -11,7 +11,7 @@ class validateRules {
     };
   }
 
-  _checkError(result) {
+  checkError(result) {
     let countErrors = 0;
 
     for (let key in result.errors) {
@@ -49,7 +49,7 @@ class validateRules {
       result.errors.password.push(['비밀번호는 영어와 숫자, _, -만 허용됩니다']);
     }
 
-    result = this._checkError(result);
+    result = this.checkError(result);
     return callback(null, result);
   }
 
@@ -78,7 +78,7 @@ class validateRules {
       result.errors.password.push(['비밀번호가 일치하지 않습니다']);
     }
 
-    result = this._checkError(result);
+    result = this.checkError(result);
     return callback(null, result);
   }
 }

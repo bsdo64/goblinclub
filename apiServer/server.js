@@ -5,8 +5,8 @@ var Express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 
-var composeServer = require('./Composer/ServerSide');
-var composeClient = require('./Composer/ClientSide');
+var composeServer = require('./Router/ServerSide');
+var composeClient = require('./Router/ClientSide');
 
 var app = Express();
 app.locals.settings['x-powered-by'] = false;

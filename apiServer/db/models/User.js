@@ -65,7 +65,7 @@ module.exports = function (sequelize, DataTypes) {
             unique: false
           },
           as: 'userCreatedClubs',
-          foreignKey: 'user_id'
+          foreignKey: 'userId'
         });
 
         User.belongsToMany(models.club, {
@@ -74,7 +74,7 @@ module.exports = function (sequelize, DataTypes) {
             unique: false
           },
           as: 'userSubscribedClubs',
-          foreignKey: 'user_id'
+          foreignKey: 'userId'
         });
       }
     }

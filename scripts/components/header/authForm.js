@@ -24,7 +24,7 @@ let AuthForm = React.createClass({
       open: false
     };
   },
-  _sendLoginRequest(e) {
+  handleLoginRequest(e) {
     e.preventDefault();
     let loginUser = {
       email: this.refs.loginEmail.value.trim(),
@@ -33,7 +33,7 @@ let AuthForm = React.createClass({
     UserActions.loginUser(loginUser);
   },
 
-  _sendSigninRequest(e) {
+  handleSigninRequest(e) {
     e.preventDefault();
     let signinUser = {
       signinEmail: this.refs.signinEmail.value.trim(),
@@ -107,7 +107,8 @@ let AuthForm = React.createClass({
         <Tabs defaultActiveKey={2} position="left"
               tabWidth={3}>
           <Tab eventKey={1} title="로그인">
-            <form className="form" id="formLogin" onSubmit={this._sendLoginRequest}>
+            <form className="form" id="formLogin"
+                  onSubmit={this.handleLoginRequest}>
               <div className="form-element email-address" id="gmail-address-form-element">
                 <label id="gmail-address-label">
                   {'아이디'}
@@ -138,7 +139,7 @@ let AuthForm = React.createClass({
           </Tab>
           <Tab eventKey={2} title="회원가입">
             <form className="form" id="formRegister"
-                  onSubmit={this._sendSigninRequest}>
+                  onSubmit={this.handleSigninRequest}>
               <div className="form-element email-address" id="gmail-address-form-element">
                 <label id="gmail-address-label">
                   {'이메일'}

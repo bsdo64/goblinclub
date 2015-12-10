@@ -12,6 +12,9 @@ import styles from '../../Components/Style/style_post';
 
 let Club = React.createClass({
   displayName: 'Club',
+  propTypes: {
+    PostStore: React.PropTypes.object.isRequired
+  },
   componentWillMount() {
     console.log('Club, componentWillMount');
     console.log(this.props);
@@ -24,7 +27,7 @@ let Club = React.createClass({
     const {postList} = this.props.PostStore;
     const wrapper = function (posts) {
       return posts.map((post) => {
-        return <ClubPostList key={post._id} post={post}/>;
+        return <ClubPostList key={post.uid} post={post}/>;
       });
     };
     return (

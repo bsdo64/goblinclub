@@ -20,7 +20,7 @@ let Club = React.createClass({
     let {link, name} = this.props;
     return (
       <Link to={'/club/' + link}>
-        <div style={styles.clubs.listElement}>{name}</div>
+        <div style={styles.listElement}>{name}</div>
       </Link>
     );
   }
@@ -29,7 +29,7 @@ let Club = React.createClass({
 let ClubList = React.createClass({
   displayName: 'ClubList',
   propTypes: {
-    clubList: React.PropTypes.shape,
+    clubList: React.PropTypes.array,
     title: React.PropTypes.string.isRequired
   },
   render() {
@@ -46,9 +46,9 @@ let ClubList = React.createClass({
     };
 
     return (
-      <ul style={styles.clubs.element}>
-        <li style={styles.clubs.title}>{title}</li>
-        <ul style={styles.clubs.list}>{defaultClubList.map(createItem)}</ul>
+      <ul style={styles.element}>
+        <li style={styles.title}>{title}</li>
+        <ul style={styles.list}>{defaultClubList.map(createItem)}</ul>
       </ul>
     );
   }
