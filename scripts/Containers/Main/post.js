@@ -26,18 +26,23 @@ let Post = React.createClass({
   },
 
   componentWillMount() {
-    if (!this.props.PostStore.postList) {
-      const params = this.props.params;
+  },
+
+  componentDidMount() {
+    console.log('Post, componentDidMount', this.props);
+    const params = this.props.params;
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.params.article !== nextProps.params.article) {
+      const params = nextProps.params;
       PostActions.getClubPostLists(params);
     }
   },
 
-  componentDidMount() {
-    console.log('Post, componentDidMount', this.props.params);
-  },
-
   render() {
     const {readingPost, postList, commentList} = this.props.PostStore;
+    const {params} = this.props;
     const wrapper = function (post) {
       return (
         <PostPage commentList={commentList} key={post.uid}
@@ -46,25 +51,27 @@ let Post = React.createClass({
     };
     const listWrapper = function (posts) {
       return posts.map((post) => {
-        return <ClubPostList key={post.uid} post={post}/>;
+        return <ClubPostList key={post.uid} post={post} params={params}/>;
       });
     };
     return (
-      !_.isEmpty(readingPost) &&
       <div>
-        <div>
-          <ul style={styles.posts.container}>
-            {
-              wrapper(readingPost)
-            }
-          </ul>
-          <ul style={styles.posts.container}>
-            <li><HeadLine /></li>
-            {
-              listWrapper(postList)
-            }
-          </ul>
-        </div>
+        {
+          !_.isEmpty(readingPost) && !_.isEmpty(postList) &&
+          <div>
+            <ul style={styles.posts.container}>
+              {
+                wrapper(readingPost)
+              }
+            </ul>
+            <ul style={styles.posts.container}>
+              <li><HeadLine /></li>
+              {
+                listWrapper(postList)
+              }
+            </ul>
+          </div>
+        }
       </div>
     );
   }

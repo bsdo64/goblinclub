@@ -43,16 +43,6 @@ class UserStore {
     });
   }
 
-  onLoginUser_uiValidateSuccess() {
-    this.setState({
-      loadingAuth: true,
-      authFail: false,
-      authSuccess: false,
-      uiValidate: null,
-      serverValidate: null
-    });
-  }
-
   onSuccess(result) {
     this.setState({
       auth: {

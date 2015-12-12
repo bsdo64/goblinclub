@@ -204,7 +204,7 @@ let CommentBox = React.createClass({
       openWriteBox: false
     };
   },
-  openWriteBox() {
+  handleOpenWriteBox() {
     this.setState({openWriteBox: !this.state.openWriteBox});
   },
   render() {
@@ -223,7 +223,7 @@ let CommentBox = React.createClass({
           <a href="#" style={comment.replayCount}>
             {'댓글 ' + (oneComment.children ? oneComment.children.length : 0) + ' 개'}
           </a>
-          <a onClick={this.openWriteBox} style={[comment.replayCount, comment.paddingLeft10]}>
+          <a onClick={this.handleOpenWriteBox} style={[comment.replayCount, comment.paddingLeft10]}>
             {'댓글달기'}
           </a>
         </div>

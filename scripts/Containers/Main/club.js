@@ -25,9 +25,11 @@ let Club = React.createClass({
 
   render() {
     const {postList} = this.props.PostStore;
+    const {params} = this.props;
+
     const wrapper = function (posts) {
       return posts.map((post) => {
-        return <ClubPostList key={post.uid} post={post}/>;
+        return <ClubPostList key={post.uid} post={post} params={params}/>;
       });
     };
     return (

@@ -19,7 +19,7 @@ moment.locale('ko');
 
 router.use(function (req, res, next) {
   Goblin('Composer', function (G) {
-    var conf = Composerconf['/'];
+    var conf = Composerconf[req.baseUrl]['/'];
     var result = {
       PostStore: {},
       ClubStore: {}
@@ -27,10 +27,11 @@ router.use(function (req, res, next) {
 
     G.Post.findAll(conf[0])
     .then(function (posts) {
-      console.log(JSON.parse(JSON.stringify(posts))[0].clubs);
-      'hello';
+      console.log(JSON.parse(JSON.stringify(posts))[0]);
 
-      console.log(req);
+      console.log(req.session);
+      console.log(req.cookies);
+      console.log(req.headers);
       return G.Club.findAll(conf[1]);
     });
   });

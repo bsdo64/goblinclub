@@ -12,9 +12,9 @@ let HeadLine = React.createClass({
     return (
       <div style={styles.container}>
         <div style={styles.menu}>
-          <a href='#' style={styles.menuItem}>{'최신순'}</a>
+          <a href="#" style={styles.menuItem}>{'최신순'}</a>
           {'|'}
-          <a href='#' style={styles.menuItem}>{'인기순'}</a>
+          <a href="#" style={styles.menuItem}>{'인기순'}</a>
         </div>
         <h2 style={styles.title}>{'오늘의 베스트'}</h2>
       </div>

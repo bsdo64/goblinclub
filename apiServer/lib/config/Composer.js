@@ -8,17 +8,22 @@ var Club = Model.club;
 var Comment = Model.comment;
 
 var queryOptions = {
-  '/': [{
-    order: [
-      ['createdAt', 'DESC']
-    ],
-    include: [
-      {model: User, required: true, attributes: ['nick', 'id']},
-      {model: Club, required: true}
-    ]
-  }, {
-    where: {type: 'default'}
-  }]
+  '/ajax': {
+
+  },
+  '/compose': {
+    '/': [{
+      order: [
+        ['createdAt', 'DESC']
+      ],
+      include: [
+        {model: User, required: true, attributes: ['nick', 'id']},
+        {model: Club, required: true}
+      ]
+    }, {
+      where: {type: 'default'}
+    }]
+  }
 };
 
 module.exports = queryOptions;

@@ -23,14 +23,14 @@ let Best = React.createClass({
     console.log('Best, componentDidMount');
   },
   render() {
-    const {loadSuccess, bestList} = this.props.PostStore;
+    const {bestList} = this.props.PostStore;
     const wrapper = function (posts) {
       return posts.map((post) => {
         return <BestPostList key={post.uid} post={post}/>;
       });
     };
     return (
-      loadSuccess && !_.isEmpty(bestList) &&
+      !_.isEmpty(bestList) &&
       <div>
         <ul style={styles.posts.container}>
           {wrapper(bestList)}

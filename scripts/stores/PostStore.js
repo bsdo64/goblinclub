@@ -49,6 +49,7 @@ class PostStore {
     let state = this.state;
     state.readingPost = data.PostStore.readingPost;
     state.postList = data.PostStore.postList;
+    state.commentList = data.PostStore.commentList;
 
     this.setState(state);
   }

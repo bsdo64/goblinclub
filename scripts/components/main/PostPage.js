@@ -72,7 +72,7 @@ let PostPage = React.createClass({
             </p>
             <div className="lst_type2">
               <div className="rgt_dsc" style={styles.posts.postContents}>
-                <div id="fd_cont" dangerouslySetInnerHTML={{__html: content}}>
+                <div dangerouslySetInnerHTML={{__html: content}} id="fd_cont">
 
                 </div>
               </div>

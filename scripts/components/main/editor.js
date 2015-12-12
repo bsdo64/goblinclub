@@ -28,7 +28,7 @@ let SubscribeClubs = React.createClass({
   getValue() {
     let result;
     // convert HTMLCollection  to Array
-    let inputs = this.getButtonGroupNode().quHerySelectorAll('input[type=checkbox]');
+    let inputs = this.getButtonGroupNode().querySelectorAll('input[type=checkbox]');
     let children = Array.prototype.slice.call(inputs);
     // find out the radio which was checked
     result = children.filter(item => {

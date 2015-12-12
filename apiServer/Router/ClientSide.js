@@ -13,6 +13,7 @@ var Model = require('../db');
 var Post = Model.post;
 var User = Model.user;
 var Club = Model.club;
+var Comment = Model.comment;
 
 moment.locale('ko');
 
@@ -154,6 +155,21 @@ router.get('/club/:clubName/:article', function (req, res) {
     post.setDataValue('createdAt', moment(post.createdAt).fromNow());
     post.setDataValue('updatedAt', moment(post.updatedAt).fromNow());
     result.PostStore.readingPost = post;
+
+    return Comment.findAll({
+      limit: 5,
+      include: [{
+        model: Comment,
+        include: [{model: User}],
+        as: 'descendents',
+        hierarchy: true
+      }, {
+        model: User
+      }],
+      where: {hierarchyLevel: 1, postId: post.uid}
+    });
+  }).then(function (comments) {
+    result.PostStore.commentList = comments;
 
     return Club.find({where: {url: clubName}}).then(function (club) {
       if (!club) {

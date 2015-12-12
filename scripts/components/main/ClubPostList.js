@@ -1,10 +1,14 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Radium from 'radium';
 import {Link} from 'react-router';
 
 import styles from '../Style/style_clubpostlist';
 
-class BtnArea extends Component {
+let BtnArea = React.createClass({
+  displayName: 'BtnArea',
+  propTypes: {
+    commentCount: React.PropTypes.number
+  },
   render() {
     const {commentCount} = this.props;
     return (
@@ -22,7 +26,7 @@ class BtnArea extends Component {
       </div>
     );
   }
-}
+});
 
 let ClubPostList = React.createClass({
   displayName: 'ClubPostList',
@@ -39,6 +43,7 @@ let ClubPostList = React.createClass({
   },
   render() {
     const {title, createdAt, clubs, user, voteCount, commentCount, uid} = this.props.post;
+    const {params} = this.props;
 
     return (
       <li className="_ccast_item" style={styles.post}>
@@ -51,7 +56,7 @@ let ClubPostList = React.createClass({
             <div style={styles.postTitle}>
               <div style={styles.postTitleContainer}>
                 <a href="#" style={styles.voteCount}>{voteCount + ' 점'} </a>
-                <Link style={styles.postTitleItem} to={'/club/' + clubs[0].url + '/' + uid}>
+                <Link style={styles.postTitleItem} to={'/club/' + params.clubName + '/' + uid}>
                   {title}
                 </Link>
               </div>

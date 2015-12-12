@@ -22,7 +22,7 @@ let Sidebar = React.createClass({
     console.log('Sidebar', nextProps);
   },
   render() {
-    const {auth} = this.props.UserStore;
+    const {authSuccess} = this.props.UserStore;
     const {defaultClubList, userHas} = this.props.ClubStore;
 
     console.log('ClubStore', this.props.ClubStore);
@@ -68,7 +68,7 @@ let Sidebar = React.createClass({
             }
 
             {
-              auth.token &&
+              authSuccess &&
               <ClubList clubList={userHas.subscribedClubList} title="구독 클럽" />
             }
           </div>

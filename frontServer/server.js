@@ -11,12 +11,12 @@ import React                        from 'react';
 import routes                       from '../universalRouter/routes'
 import ReactDOM                     from 'react-dom/server';
 import { RoutingContext, match }    from 'react-router'
-import createLocation               from 'history/lib/createLocation';
+import CreateLocation               from 'history/lib/createLocation';
 import alt                          from '../scripts/alt';
 import Iso                          from 'iso';
 import zip                          from 'lz-string';
 
-import Composer                     from './lib/Composer/server';
+import Composer                     from './Router/Composer/server';
 
 import HTML                         from './indexHTML'
 
@@ -33,7 +33,6 @@ var Elasticsearch = require('bunyan-elasticsearch');
 var logger = bunyan.createLogger({
     name: "My Application",
     streams: [
-        { stream: process.stdout },
         { stream: new Elasticsearch() }
     ],
     serializers: bunyan.stdSerializers
@@ -98,6 +97,8 @@ app.use('/image', (req, res) => {
 
 /* Front Side */
 app.use(function (req, res, next) {
+    console.log(req.session);
+
     if(!req.session.initialized) {
         req.session.initialized = true;
         req.session.save((err) => {
@@ -134,17 +135,17 @@ app.use(['/user', '/post'], authenticate, (err, req, res, next) => {
 
 app.use(Composer);
 
-app.use((req, res, next) => {
-    let location = new createLocation(req.url);
+app.use((req, res) => {
+    let location = new CreateLocation(req.url);
 
     match({ routes, location }, (error, redirectLocation, renderProps) => {
 
         if (redirectLocation)
-            res.redirect(301, redirectLocation.pathname + redirectLocation.search)
+            res.redirect(301, redirectLocation.pathname + redirectLocation.search);
         else if (error)
-            res.status(401).send(error.message)
+            res.status(401).send(error.message);
         else if (renderProps == null)
-            res.status(401).send('Not found')
+            res.status(401).send('Not found');
         else {
             renderServersideReact(renderProps, req, res, (req, res, html) => {
 
