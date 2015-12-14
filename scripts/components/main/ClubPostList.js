@@ -19,9 +19,6 @@ let BtnArea = React.createClass({
         <a key="down" style={styles.thumbDown}>
           <i className="fa fa-thumbs-o-down" />
         </a>
-        <a key="comment" style={styles.commentButton}>
-          <i className="fa fa-commenting-o" />
-        </a>
         <a href="#" style={styles.commentCount}>{'댓글 ' + commentCount + ' 개'}</a>
       </div>
     );
@@ -53,12 +50,12 @@ let ClubPostList = React.createClass({
                  style={styles.thumbNailImg}/>
           </div>
           <div style={styles.textBody}>
+            <Link style={styles.postTitleItem} to={'/club/' + params.clubName + '/' + uid}>
+              {title}
+            </Link>
             <div style={styles.postTitle}>
               <div style={styles.postTitleContainer}>
                 <a href="#" style={styles.voteCount}>{voteCount + ' 점'} </a>
-                <Link style={styles.postTitleItem} to={'/club/' + params.clubName + '/' + uid}>
-                  {title}
-                </Link>
               </div>
               <div style={styles.postContentMeta}>
                 {

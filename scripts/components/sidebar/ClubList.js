@@ -16,11 +16,18 @@ let Club = React.createClass({
     link: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired
   },
+  getClubName(pathname) {
+
+  },
   render() {
     let {link, name} = this.props;
+    let active = [styles.listElement];
+    if (this.props.location.pathname === '/club/' + link) {
+      active.push(styles.listActive);
+    }
     return (
       <Link to={'/club/' + link}>
-        <div style={styles.listElement}>{name}</div>
+        <div style={active}>{name}</div>
       </Link>
     );
   }
@@ -40,10 +47,11 @@ let ClubList = React.createClass({
       return (
         <li key={val.url + index}>
           <Club
+            location={this.props.location}
             link={val.url}
             name={val.name} />
         </li>);
-    };
+    }.bind(this);
 
     return (
       <ul style={styles.element}>

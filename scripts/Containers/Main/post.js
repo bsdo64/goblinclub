@@ -26,11 +26,12 @@ let Post = React.createClass({
   },
 
   componentWillMount() {
+    const params = this.props.params;
+    PostActions.getClubPostLists(params);
   },
 
   componentDidMount() {
     console.log('Post, componentDidMount', this.props);
-    const params = this.props.params;
   },
 
   componentWillReceiveProps(nextProps) {

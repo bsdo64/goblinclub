@@ -4,8 +4,10 @@
 import React from 'react';
 import Radium from 'radium';
 import _ from 'lodash';
+
 import connectToStores from '../../../node_modules/alt/utils/connectToStores';
 import PostStore from '../../Stores/PostStore';
+import PostActions from '../../Actions/PostActions';
 
 import {ClubPostList} from '../../Components/index';
 import styles from '../../Components/Style/style_post';
@@ -21,6 +23,13 @@ let Club = React.createClass({
   },
   componentDidMount() {
     console.log('Club, componentDidMount');
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.params.clubName !== nextProps.params.clubName) {
+      const params = nextProps.params;
+      PostActions.getClubPostLists(params);
+    }
   },
 
   render() {
