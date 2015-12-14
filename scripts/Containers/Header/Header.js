@@ -24,6 +24,7 @@ import {AuthForm} from '../../Components/index';
 import {Header as styles} from '../Styles/index';
 
 const ButtonR = Radium(Button);
+
 let LoginButton = React.createClass({
   displayName: 'LoginButton',
   getInitialState() {
@@ -41,6 +42,14 @@ let LoginButton = React.createClass({
   },
 
   render() {
+    let modalStyle = {
+      fontSize: 35,
+      fontWeight: 'bold',
+      color: '#176963',
+      textShadow: '1px 1px 1px #ccc',
+      textAlign: 'center',
+      marginBottom: 30
+    };
     return (
       <div style={{height: 50, position: 'relative'}}>
         <div onClick={this.handleToggle} ref="target"
@@ -48,19 +57,15 @@ let LoginButton = React.createClass({
           <button style={styles.menu.item}>{'로그인 / 회원가입'}</button>
         </div>
 
-        <Modal onHide={this.handleClose} show={this.state.show} >
-          <Modal.Header closeButton>
-            <Modal.Title>{'Modal heading'}</Modal.Title>
-          </Modal.Header>
+        <Modal dialogClassName="loginModal" onHide={this.handleClose}
+               show={this.state.show} >
+          <Modal.Header style={{borderBottom:'none'}} closeButton />
           <Modal.Body>
-            <div>
-              {'안녕하세요 고블린 클럽에 오신것을 환영합니다 만나서 반갑습니다'}
+            <div style={modalStyle}>
+              {'Gobblin Club'}
             </div>
             <AuthForm />
           </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.handleClose}>{'Close'}</Button>
-          </Modal.Footer>
         </Modal>
       </div>
     );
@@ -127,6 +132,16 @@ let Header = React.createClass({
       },
       '.nano > .nano-pane': {
         background: 'rgba(0,0,0,.15)'
+      },
+      '.loginModal .modal-content': {
+        backgroundColor: '#f1f1f1'
+      },
+      '.loginModal .modal-content li > a': {
+        padding: 5
+      },
+      '.loginModal .modal-content li.active > a': {
+        backgroundColor: '#227973',
+        color: '#fff'
       }
     };
     return (

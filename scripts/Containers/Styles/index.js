@@ -15,7 +15,6 @@ export const Main = {
     height: '100%',
     minHeight: 600,
     minWidth: 565,
-    borderTop: '1px solid #111',
     borderLeft: '1px solid #111',
     borderRight: '1px solid #111',
     borderBottom: 'none'
@@ -49,7 +48,6 @@ export const Sidebar = {
     backgroundColor: '#e7efef',
     width: 340,
     minHeight: 600,
-    borderTop: '1px solid #111',
     '@media (max-width: 1145px)': {
       width: 'calc(100% - 805px)'
     }

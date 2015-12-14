@@ -2,7 +2,7 @@
  * Created by dobyeongsu on 2015. 10. 15..
  */
 import React from 'react';
-import {Tab, Tabs} from 'react-bootstrap';
+import {Tab, Tabs, Input} from 'react-bootstrap';
 
 import connectToStores from 'alt/utils/connectToStores';
 import UserStore from '../../Stores/UserStore';
@@ -102,79 +102,86 @@ let AuthForm = React.createClass({
       printError(createItem);
     }
 
+    const styles = {
+      inputElement: {
+        marginBottom: 5
+      },
+      input: {
+        width: 250,
+        height: 30,
+        border: 'none',
+        boxShadow: '1px 1px 1px #ccc',
+        padding: 6,
+        fontSize: 12
+      },
+      button: {
+        borderRadius: 2,
+        color: '#fff',
+        backgroundColor: '#227973',
+        width: 250
+      }
+    };
     return (
-      <div >
-        <Tabs defaultActiveKey={2} position="left"
-              tabWidth={3}>
-          <Tab eventKey={1} title="로그인">
+      <div style={{margin:'auto', width: 250}}>
+        <Tabs defaultActiveKey={2} position="top"
+              tabWidth={3} style={{color:'#aaa'}}>
+          <Tab eventKey={1} title="로그인" style={{color:'#bbb'}}>
             <form className="form" id="formLogin"
                   onSubmit={this.handleLoginRequest}>
-              <div className="form-element email-address" id="gmail-address-form-element">
-                <label id="gmail-address-label">
-                  {'아이디'}
-                  <input id="loginEmail" name="loginEmail"
-                         ref="loginEmail" type="text" />
-                </label>
+              <div style={styles.inputElement}>
+                <input id="loginEmail" name="loginEmail"
+                       placeholder="이메일" ref="loginEmail"
+                       style={styles.input} type="text" />
               </div>
               {
                 authFail &&
                 errorMessage.email
               }
-              <div className="form-element" id="password-form-element">
-                <label id="password-label">
-                  {'비밀번호'}
+              <div style={styles.inputElement}>
                   <input id="loginPassword" name="loginPassword"
+                         placeholder="비밀번호" style={styles.input}
                          ref="loginPassword" type="password" />
-                </label>
               </div>
               {
                 authFail &&
                 errorMessage.password
               }
-              <button className="btn" id="btnLogin"
+              <button className="btn" style={styles.button}
                       type="submit" >
-                {loadingAuth ? '로딩중..' : '가입하기'}
+                {loadingAuth ? '로딩중..' : '로그인'}
               </button>
             </form>
           </Tab>
-          <Tab eventKey={2} title="회원가입">
+          <Tab eventKey={2} title="회원가입" style={{color:'#ccc'}}>
             <form className="form" id="formRegister"
                   onSubmit={this.handleSigninRequest}>
-              <div className="form-element email-address" id="gmail-address-form-element">
-                <label id="gmail-address-label">
-                  {'이메일'}
-                  <input id="signinEmail" name="signinEmail"
-                         ref="signinEmail" type="text" />
-                </label>
+              <div style={styles.inputElement}>
+                <input id="signinEmail" name="signinEmail"
+                       placeholder="이메일" ref="signinEmail"
+                       style={styles.input} type="text" />
               </div>
               {
                 authFail &&
                 errorMessage.email
               }
-              <div className="form-element" id="password-form-element">
-                <label id="password-label">
-                  {'닉네임'}
-                  <input id="signinNick" name="signinNick"
-                         ref="signinNick" type="text" />
-                </label>
+              <div style={styles.inputElement}>
+                <input id="signinNick" name="signinNick"
+                       placeholder="닉네임" ref="signinNick"
+                       style={styles.input} type="text" />
               </div>
               {
                 authFail &&
                 errorMessage.nick
               }
-              <div className="form-element" id="password-form-element">
-                <label id="password-label">
-                  {'비밀번호'}
+              <div style={styles.inputElement}>
                   <input id="signinPassword" name="signinPassword"
-                         ref="signinPassword" type="password" />
-                </label>
+                         placeholder="비밀번호" ref="signinPassword"
+                         style={styles.input} type="password" />
               </div>
-              <div className="form-element" id="password-form-element">
-                <label id="password-label">
-                  {'비밀번호 확인'}
+              <div style={styles.inputElement}>
                   <input id="signinPasswordCheck" name="signinPasswordCheck"
-                         ref="signinPasswordCheck" type="password" />
-                </label>
+                         placeholder="비밀번호 확인" ref="signinPasswordCheck"
+                         style={styles.input} type="password" />
               </div>
               {
                 authFail &&
@@ -182,7 +189,8 @@ let AuthForm = React.createClass({
               }
               <div className="g-recaptcha" data-sitekey="6LddkhATAAAAAALuWnDw4tpG349vecZTkNdHYyF2"
                    ref="loginCapcha"></div>
-              <button className="btn" id="btnRegister"
+
+              <button className="btn" style={styles.button}
                       type="submit" >
                 {'가입하기'}
               </button>

@@ -1,5 +1,6 @@
 /**
- * Created by dobyeongsu on 2015. 11. 13..
+ * Created by DoByeongSu on 2015. 11. 13..
+ *
  */
 import React from 'react';
 import Radium from 'radium';
@@ -26,11 +27,12 @@ let Post = React.createClass({
   },
 
   componentWillMount() {
+    const params = this.props.params;
+    PostActions.getClubPostLists(params);
   },
 
   componentDidMount() {
     console.log('Post, componentDidMount', this.props);
-    const params = this.props.params;
   },
 
   componentWillReceiveProps(nextProps) {

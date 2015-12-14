@@ -175,14 +175,14 @@ let Editor = React.createClass({
   render() {
     return (
       <div style={styles.widget.container}>
-        <HeadLine />
+        <HeadLine title="글 쓰기" rightMenu={false}/>
         <div style={styles.widget.listObj1}>
           <input placeholder="제목입니다" ref="title"
                  style={styles.widget.textarea1} />
           <div className="editable"></div>
         </div>
 
-        <HeadLine />
+        <HeadLine title="클럽 선택하기" rightMenu={false}/>
         <div style={styles.widget.listObj1}>
           <MainClubs ClubStore={this.props.ClubStore} />
           <SubscribeClubs ClubStore={this.props.ClubStore} />

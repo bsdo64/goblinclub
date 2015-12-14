@@ -50,7 +50,7 @@ module.exports = {
     //  }
     //}),
     //new webpack.optimize.UglifyJsPlugin(),
-    //new webpack.OldWatchingPlugin(),
+    new webpack.OldWatchingPlugin(),
     //new webpack.optimize.OccurenceOrderPlugin(),
     //new webpack.optimize.DedupePlugin(),
     //new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),
