@@ -64,12 +64,12 @@ let Sidebar = React.createClass({
             </ul>
             {
               defaultClubList.length &&
-              <ClubList clubList={defaultClubList} title="메인 클럽"/>
+              <ClubList {...this.props} clubList={defaultClubList} title="메인 클럽"/>
             }
 
             {
               authSuccess &&
-              <ClubList clubList={userHas.subscribedClubList} title="구독 클럽" />
+              <ClubList {...this.props} clubList={userHas.subscribedClubList} title="구독 클럽" />
             }
           </div>
         </div>

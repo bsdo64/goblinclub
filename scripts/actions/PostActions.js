@@ -8,11 +8,11 @@ import PostStore from '../Stores/PostStore';
 
 class PostActions {
   setDefaultClubList(club) {
-    this.dispatch(club);
+    return club;
   }
 
   setSubscribeClubList(clubList) {
-    this.dispatch(clubList);
+    return clubList;
   }
 
   submitPost(post) {
