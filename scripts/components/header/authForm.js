@@ -2,7 +2,7 @@
  * Created by dobyeongsu on 2015. 10. 15..
  */
 import React from 'react';
-import {Tab, Tabs, Input} from 'react-bootstrap';
+import {Tab, Tabs} from 'react-bootstrap';
 
 import connectToStores from 'alt/utils/connectToStores';
 import UserStore from '../../Stores/UserStore';

@@ -22,7 +22,8 @@ let Club = React.createClass({
     console.log(this.props);
   },
   componentDidMount() {
-    console.log('Club, componentDidMount');
+    const params = this.props.params;
+    PostActions.getClubPostLists(params);
   },
 
   componentWillReceiveProps(nextProps) {

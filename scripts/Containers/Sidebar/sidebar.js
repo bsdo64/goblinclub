@@ -25,6 +25,10 @@ let Sidebar = React.createClass({
     const {authSuccess} = this.props.UserStore;
     const {defaultClubList, userHas} = this.props.ClubStore;
 
+    let bestStyle = [styles.clubs.listElement];
+    if (this.props.location.pathname === '/') {
+      bestStyle.push(styles.clubs.listActive);
+    }
     console.log('ClubStore', this.props.ClubStore);
     return (
       <div style={styles.base}>
@@ -34,8 +38,8 @@ let Sidebar = React.createClass({
               <li style={styles.clubs.title}>{'베스트'}</li>
               <ul style={styles.clubs.list}>
                 <li >
-                  <Link to="/club">
-                    <div key={1} style={[styles.clubs.listElement, styles.clubs.listActive]}>
+                  <Link to="/">
+                    <div key={1} style={bestStyle}>
                       {'오늘의 베스트'}
                     </div>
                   </Link>

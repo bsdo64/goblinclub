@@ -16,9 +16,6 @@ let Club = React.createClass({
     link: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired
   },
-  getClubName(pathname) {
-
-  },
   render() {
     let {link, name} = this.props;
     let active = [styles.listElement];
