@@ -1,6 +1,3 @@
-/**
- * Created by dobyeongsu on 2015. 10. 15..
- */
 import React from 'react';
 import {Tab, Tabs} from 'react-bootstrap';
 
@@ -188,7 +185,7 @@ let AuthForm = React.createClass({
                 errorMessage.password
               }
               <div className="g-recaptcha" data-sitekey="6LddkhATAAAAAALuWnDw4tpG349vecZTkNdHYyF2"
-                   ref="loginCapcha"></div>
+                   ref="loginCaptcha"></div>
 
               <button className="btn" style={styles.button}
                       type="submit" >
@@ -214,12 +211,9 @@ let AuthForm = React.createClass({
 
 AuthForm = connectToStores({
   getStores() {
-    // this will handle the listening/unlistening for you
     return [UserStore];
   },
-
   getPropsFromStores() {
-    // this is the data that gets passed down as props
     return {
       UserStore: UserStore.getState()
     };

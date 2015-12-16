@@ -9,8 +9,7 @@ import connectToStores from '../../../node_modules/alt/utils/connectToStores';
 import PostStore from '../../Stores/PostStore';
 import PostActions from '../../Actions/PostActions';
 
-import {ClubPostList} from '../../Components/index';
-import styles from '../../Components/Style/style_post';
+import {ThreadPostList} from '../../Components/index';
 
 let Club = React.createClass({
   displayName: 'Club',
@@ -19,37 +18,40 @@ let Club = React.createClass({
   },
   componentWillMount() {
     console.log('Club, componentWillMount');
-    console.log(this.props);
   },
   componentDidMount() {
-    const params = this.props.params;
-    PostActions.getClubPostLists(params);
+    console.log('Club, componentDidMount');
   },
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.params.clubName !== nextProps.params.clubName) {
-      const params = nextProps.params;
-      PostActions.getClubPostLists(params);
-    }
+    console.log('Club, componentWillReceiveProps');
   },
 
+  componentWillUpdate(nextProps, nextState) {
+    console.log('Club, componentWillUpdate');
+  },
+  _fetch() {
+
+  },
+  wrapper(posts) {
+    return posts.map((post) => {
+      return <ThreadPostList key={post.uid} post={post} params={this.props.params}/>;
+    });
+  },
   render() {
     const {postList} = this.props.PostStore;
     const {params} = this.props;
 
-    const wrapper = function (posts) {
-      return posts.map((post) => {
-        return <ClubPostList key={post.uid} post={post} params={params}/>;
-      });
-    };
+    console.log('Render');
+    console.log(this.props);
+    PostActions.getClubPostLists(params);
+
     return (
-      !_.isEmpty(postList) &&
       <div>
-        <ul style={styles.posts.container}>
-          {
-            wrapper(postList)
-          }
-        </ul>
+        {
+          !_.isEmpty(postList) &&
+          <ThreadPostList hasHeadLine={false} {...this.props}/>
+        }
       </div>
     );
   }

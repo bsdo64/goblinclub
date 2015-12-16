@@ -3,6 +3,14 @@
  */
 import request from 'superagent';
 
+function sendResult (xhrErr, xhrRes, callback) {
+  if (xhrErr) {
+    callback(xhrErr, null);
+  } else if (xhrRes) {
+    callback(null, xhrRes.body);
+  }
+}
+
 const ApiClient = {
   login: (user, callback) => {
     request
@@ -11,11 +19,7 @@ const ApiClient = {
       .set('Accept', 'application/json')
       .withCredentials()
       .end((xhrErr, xhrRes) => {
-        if (xhrErr) {
-          callback(xhrErr, null);
-        } else if (xhrRes) {
-          callback(null, xhrRes.body);
-        }
+        sendResult(xhrErr, xhrRes, callback)
       });
   },
 
@@ -26,11 +30,7 @@ const ApiClient = {
       .set('Accept', 'application/json')
       .withCredentials()
       .end((xhrErr, xhrRes) => {
-        if (xhrErr) {
-          callback(xhrErr, null);
-        } else if (xhrRes) {
-          callback(null, xhrRes.body);
-        }
+        sendResult(xhrErr, xhrRes, callback)
       });
   },
 
@@ -41,11 +41,7 @@ const ApiClient = {
       .set('Accept', 'application/json')
       .withCredentials()
       .end((xhrErr, xhrRes) => {
-        if (xhrErr) {
-          callback(xhrErr, null);
-        } else if (xhrRes) {
-          callback(null, xhrRes.body);
-        }
+        sendResult(xhrErr, xhrRes, callback)
       });
   },
 
@@ -55,11 +51,7 @@ const ApiClient = {
       .query(user)
       .set('Accept', 'application/json')
       .end((xhrErr, xhrRes) => {
-        if (xhrErr) {
-          callback(xhrErr, null);
-        } else if (xhrRes) {
-          callback(null, xhrRes.body);
-        }
+        sendResult(xhrErr, xhrRes, callback)
       });
   }
 };

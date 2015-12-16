@@ -11,7 +11,7 @@ import UserStore from '../../Stores/UserStore';
 import PostStore from '../../Stores/PostStore';
 import PostActions from '../../Actions/PostActions';
 
-import {PostPage, ClubPostList, HeadLine} from '../../Components/index';
+import {CardPostItem, ThreadPostList} from '../../Components/index';
 
 import styles from '../../Components/Style/style_post';
 
@@ -44,35 +44,22 @@ let Post = React.createClass({
 
   render() {
     const {readingPost, postList, commentList} = this.props.PostStore;
-    const {params} = this.props;
-    const wrapper = function (post) {
-      return (
-        <PostPage commentList={commentList} key={post.uid}
-                  post={post} />
-      );
-    };
-    const listWrapper = function (posts) {
-      return posts.map((post) => {
-        return <ClubPostList key={post.uid} post={post} params={params}/>;
-      });
-    };
+
     return (
       <div>
         {
-          !_.isEmpty(readingPost) && !_.isEmpty(postList) &&
-          <div>
-            <ul style={styles.posts.container}>
-              {
-                wrapper(readingPost)
-              }
-            </ul>
-            <ul style={styles.posts.container}>
-              <li><HeadLine /></li>
-              {
-                listWrapper(postList)
-              }
-            </ul>
-          </div>
+          !_.isEmpty(readingPost) &&
+          <ul style={styles.posts.container}>
+            <li style={styles.posts.post}>
+              <CardPostItem commentList={commentList} hasComment={true}
+                            key={readingPost.uid} post={readingPost}/>
+            </li>
+          </ul>
+        }
+
+        {
+          !_.isEmpty(postList) &&
+          <ThreadPostList {...this.props} hasHeadLine={true}/>
         }
       </div>
     );

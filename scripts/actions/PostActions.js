@@ -2,7 +2,7 @@
  * Created by dobyeongsu on 2015. 10. 17..
  */
 import alt from '../alt';
-import fetch from '../Utils/ApiClient';
+import Api from '../Utils/ApiClient';
 import UserStore from '../Stores/UserStore';
 import PostStore from '../Stores/PostStore';
 
@@ -28,7 +28,7 @@ class PostActions {
     };
 
     return function (dispatch) {
-      fetch.submitPost(user, newPost, function (err, submittedPost) {
+      Api.submitPost(user, newPost, function (err, submittedPost) {
         if (err) {
           return err;
         }
@@ -41,7 +41,7 @@ class PostActions {
     let user = UserStore.getState().user;
 
     return function (dispatch) {
-      fetch.getClubPost(user, params, function (err, data) {
+      Api.getClubPost(user, params, function (err, data) {
         if (err) {
           return err;
         }

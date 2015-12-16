@@ -43,7 +43,6 @@ let ClubPostList = React.createClass({
     const {params} = this.props;
 
     return (
-      <li className="_ccast_item" style={styles.post}>
         <div className="lst_obj" style={styles.listObj}>
           <div style={styles.thumbNail}>
             <img src="//b.thumbs.redditmedia.com/fUE7ZBvN3clcZKU0CKag35Rc3zNc1LQtJPculHyxjxY.jpg"
@@ -76,7 +75,6 @@ let ClubPostList = React.createClass({
             </div>
           </div>
         </div>
-      </li>
     );
   }
 });

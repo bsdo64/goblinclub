@@ -3,13 +3,12 @@
  */
 import React from 'react';
 import Radium from 'radium';
-import _ from 'lodash';
+
 import connectToStores from '../../../node_modules/alt/utils/connectToStores';
 import UserStore from '../../Stores/UserStore';
 import PostStore from '../../Stores/PostStore';
 
-import {BestPostList} from '../../Components/index';
-import styles from '../../Components/Style/style_post';
+import {CardPostList} from '../../Components/index';
 
 let Best = React.createClass({
   displayName: 'Best',
@@ -23,20 +22,7 @@ let Best = React.createClass({
     console.log('Best, componentDidMount');
   },
   render() {
-    const {bestList} = this.props.PostStore;
-    const wrapper = function (posts) {
-      return posts.map((post) => {
-        return <BestPostList key={post.uid} post={post}/>;
-      });
-    };
-    return (
-      !_.isEmpty(bestList) &&
-      <div>
-        <ul style={styles.posts.container}>
-          {wrapper(bestList)}
-        </ul>
-      </div>
-    );
+    return <CardPostList {...this.props} />;
   }
 });
 
