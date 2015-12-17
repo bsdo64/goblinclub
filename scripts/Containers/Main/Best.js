@@ -21,6 +21,12 @@ let Best = React.createClass({
   componentDidMount() {
     console.log('Best, componentDidMount');
   },
+  componentWillReceiveProps() {
+    console.log('Best, componentWillReceiveProps');
+  },
+  componentWillUpdate() {
+    console.log('Best, componentWillUpdate');
+  },
   render() {
     return <CardPostList {...this.props} />;
   }
