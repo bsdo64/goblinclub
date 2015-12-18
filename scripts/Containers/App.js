@@ -4,12 +4,18 @@
 import React from 'react';
 import Radium, {Style} from 'radium';
 
+import AppActions from '../Actions/AppActions';
+
 let App = React.createClass({
   displayName: 'App',
   propTypes: {
     header: React.PropTypes.element.isRequired,
     main: React.PropTypes.element.isRequired,
     sidebar: React.PropTypes.element.isRequired
+  },
+  componentDidMount() {
+    // 모든 하위 컴포넌트 마운트 완료 -> AppStore.serverRendered: false
+    AppActions.disableServerRender();
   },
   render() {
     const {header, main, sidebar} = this.props;

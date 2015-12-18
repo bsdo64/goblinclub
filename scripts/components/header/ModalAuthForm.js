@@ -5,8 +5,8 @@ import connectToStores from 'alt/utils/connectToStores';
 import UserStore from '../../Stores/UserStore';
 import UserActions from '../../Actions/UserActions';
 
-let AuthForm = React.createClass({
-  displayName: 'AuthForm',
+let ModalAuthForm = React.createClass({
+  displayName: 'ModalAuthForm',
   propTypes: {
     UserStore: React.PropTypes.shape({
       loadingAuth: React.PropTypes.bool,
@@ -209,7 +209,7 @@ let AuthForm = React.createClass({
   }
 });
 
-AuthForm = connectToStores({
+ModalAuthForm = connectToStores({
   getStores() {
     return [UserStore];
   },
@@ -218,5 +218,5 @@ AuthForm = connectToStores({
       UserStore: UserStore.getState()
     };
   }
-}, AuthForm);
-export default AuthForm;
+}, ModalAuthForm);
+export default ModalAuthForm;

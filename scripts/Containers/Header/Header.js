@@ -12,7 +12,7 @@ import {
   MenuItem,
   Modal,
   Navbar,
-  NavBrand,
+  NavbarBrand,
   Nav
 } from 'react-bootstrap';
 
@@ -20,7 +20,7 @@ import connectToStores from 'alt/utils/connectToStores';
 import UserStore from '../../Stores/UserStore';
 import PostStore from '../../Stores/PostStore';
 
-import {AuthForm} from '../../Components/index';
+import {ModalAuthForm} from '../../Components/index';
 import {Header as styles} from '../Styles/index';
 
 const ButtonR = Radium(Button);
@@ -64,7 +64,7 @@ let LoginButton = React.createClass({
             <div style={modalStyle}>
               {'Gobblin Club'}
             </div>
-            <AuthForm />
+            <ModalAuthForm />
           </Modal.Body>
         </Modal>
       </div>
@@ -148,7 +148,7 @@ let Header = React.createClass({
       <div id="header">
         <Style rules={inlineStyle} />
         <Navbar fixedTop style={styles.header}>
-          <NavBrand><a href="/" style={styles.logo}>{'Goblin Club'}</a></NavBrand>
+          <NavbarBrand><Link href="/" style={styles.logo}>{'Goblin Club'}</Link></NavbarBrand>
           <div id="searchBar" style={styles.search.layout}>
             <div style={styles.search.container}>
               <Input
@@ -163,14 +163,14 @@ let Header = React.createClass({
           <div id="menu" style={styles.menu.layout}>
             {
               !authSuccess &&
-              <Nav right>
+              <Nav pullRight>
                 <LoginButton />
               </Nav>
             }
 
             {
               authSuccess &&
-              <Nav right>
+              <Nav pullRight>
                 <UserButton />
               </Nav>
             }
