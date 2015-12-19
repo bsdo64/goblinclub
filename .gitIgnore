@@ -3,7 +3,8 @@
 /_dist/bundle.js
 /_dist/bundle.css
 dump.rdb
-.idea/**/*.*
+.idea/
 npm-debug.*
 debug/
+
 _dist/bundle.js.map
