@@ -1,4 +1,4 @@
-export {default as AuthForm} from './header/AuthForm';
+export {default as ModalAuthForm} from './header/ModalAuthForm';
 
 export {default as CardPostList} from './main/CardPostList';
 export {default as CardPostItem} from './main/CardPostItem';

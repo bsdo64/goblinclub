@@ -10,7 +10,7 @@ let HeadLine = React.createClass({
   displayName: 'HeadLine',
   propTypes: {
     title: React.PropTypes.string,
-    rightMenu: React.PropTypes.boolean
+    rightMenu: React.PropTypes.bool
   },
   render() {
     let {title, rightMenu} = this.props;

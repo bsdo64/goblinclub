@@ -33,7 +33,7 @@ let CardPostList = React.createClass({
 
     return (
       <ul style={styles.posts.container}>
-        {this.printListItem(bestList)}
+        {bestList && this.printListItem(bestList)}
       </ul>
     );
   }

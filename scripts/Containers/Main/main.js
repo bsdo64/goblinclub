@@ -22,7 +22,7 @@ let Main = React.createClass({
       <div style={styles.main}>
 
         <div id="bestPosts" style={styles.mainBox}>
-          <HeadLine ClubStore={{club: 'name'}}/>
+          <HeadLine />
 
           <div className="nano" style={styles.contents}>
             <div className="nano-content" style={styles.scrollContent}>

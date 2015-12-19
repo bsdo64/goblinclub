@@ -1,14 +1,31 @@
 import alt from '../alt';
+import AppActions from '../Actions/AppActions';
 import PostActions from '../Actions/PostActions';
+
+import AppStore from '../Stores/AppStore';
 
 class PostStore {
   constructor() {
     this.bindActions(PostActions);
+    this.bindListeners({
+      initBest: AppActions.INIT_BEST
+    });
 
     this.state = {
       post: '',
-      writingPost: {}
+      writingPost: {},
+      bestList: []
+
     };
+  }
+
+  initBest(stores) {
+    this.waitFor(AppStore);
+
+    let state = this.state;
+    state.bestList = stores.PostStore.bestList;
+
+    this.setState(state);
   }
 
   onSetDefaultClubList(club) {

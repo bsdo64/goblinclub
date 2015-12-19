@@ -3,7 +3,7 @@
  */
 import request from 'superagent';
 
-function sendResult (xhrErr, xhrRes, callback) {
+function sendResult(xhrErr, xhrRes, callback) {
   if (xhrErr) {
     callback(xhrErr, null);
   } else if (xhrRes) {
@@ -12,6 +12,41 @@ function sendResult (xhrErr, xhrRes, callback) {
 }
 
 const ApiClient = {
+  init: {
+    Best: (callback) => {
+      request
+        .get('/ajax/best')
+        .set('Accept', 'application/json')
+        .end((xhrErr, xhrRes) => {
+          sendResult(xhrErr, xhrRes, callback);
+        });
+    },
+    Club: (callback) => {
+      request
+        .get('/ajax/best')
+        .set('Accept', 'application/json')
+        .end((xhrErr, xhrRes) => {
+          sendResult(xhrErr, xhrRes, callback);
+        });
+    },
+    Post: (callback) => {
+      request
+        .get('/ajax/best')
+        .set('Accept', 'application/json')
+        .end((xhrErr, xhrRes) => {
+          sendResult(xhrErr, xhrRes, callback);
+        });
+    },
+    WritePost: (callback) => {
+      request
+        .get('/ajax/best')
+        .set('Accept', 'application/json')
+        .end((xhrErr, xhrRes) => {
+          sendResult(xhrErr, xhrRes, callback);
+        });
+    }
+  },
+
   login: (user, callback) => {
     request
       .post('/ajax/login')
@@ -19,7 +54,7 @@ const ApiClient = {
       .set('Accept', 'application/json')
       .withCredentials()
       .end((xhrErr, xhrRes) => {
-        sendResult(xhrErr, xhrRes, callback)
+        sendResult(xhrErr, xhrRes, callback);
       });
   },
 
@@ -30,7 +65,7 @@ const ApiClient = {
       .set('Accept', 'application/json')
       .withCredentials()
       .end((xhrErr, xhrRes) => {
-        sendResult(xhrErr, xhrRes, callback)
+        sendResult(xhrErr, xhrRes, callback);
       });
   },
 
@@ -41,7 +76,7 @@ const ApiClient = {
       .set('Accept', 'application/json')
       .withCredentials()
       .end((xhrErr, xhrRes) => {
-        sendResult(xhrErr, xhrRes, callback)
+        sendResult(xhrErr, xhrRes, callback);
       });
   },
 
@@ -51,7 +86,7 @@ const ApiClient = {
       .query(user)
       .set('Accept', 'application/json')
       .end((xhrErr, xhrRes) => {
-        sendResult(xhrErr, xhrRes, callback)
+        sendResult(xhrErr, xhrRes, callback);
       });
   }
 };

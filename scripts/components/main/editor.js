@@ -66,6 +66,7 @@ let SubscribeClubs = React.createClass({
       <div ref="subscribedClubList" style={styles.widget.clubSelectOption}>
         <h4>{'가입한 클럽(최대 3개)'}</h4>
         {
+          ClubStore.userHas &&
           ClubStore.userHas.subscribedClubList.map(createItem)
         }
       </div>

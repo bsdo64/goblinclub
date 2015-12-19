@@ -57,8 +57,8 @@ Composer.get('/', (req, res, next) => {
         next();
       } else if (resXHR && resXHR.ok) {
         let apiResult = resXHR.body;
-        res.storeState['PostStore'] = apiResult.postStore;
-        res.storeState['ClubStore'] = apiResult.clubStore;
+        res.storeState.PostStore = apiResult.PostStore;
+        res.storeState.ClubStore = apiResult.ClubStore;
 
         next();
       }
@@ -75,7 +75,7 @@ Composer.get('/submit', (req, res, next) => {
         next();
       } else if (resXHR && resXHR.ok) {
         let apiResult = resXHR.body;
-        res.storeState['ClubStore'] = apiResult.clubStore;
+        res.storeState.ClubStore = apiResult.ClubStore;
 
         next();
       }
@@ -92,8 +92,8 @@ Composer.get('/club/:clubName', (req, res, next) => {
         next();
       } else if (resXHR && resXHR.ok) {
         let apiResult = resXHR.body;
-        res.storeState['ClubStore'] = apiResult.clubStore;
-        res.storeState['PostStore'] = apiResult.postStore;
+        res.storeState.ClubStore = apiResult.ClubStore;
+        res.storeState.PostStore = apiResult.PostStore;
 
         next();
       }
@@ -109,8 +109,8 @@ Composer.get('/club/:clubName/:postName', (req, res, next) => {
         next();
       } else if (resXHR && resXHR.ok) {
         let apiResult = resXHR.body;
-        res.storeState['ClubStore'] = apiResult.clubStore;
-        res.storeState['PostStore'] = apiResult.postStore;
+        res.storeState.ClubStore = apiResult.ClubStore;
+        res.storeState.PostStore = apiResult.PostStore;
 
         next();
       }

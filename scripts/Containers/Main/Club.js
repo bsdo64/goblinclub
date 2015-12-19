@@ -40,11 +40,9 @@ let Club = React.createClass({
   },
   render() {
     const {postList} = this.props.PostStore;
-    const {params} = this.props;
 
     console.log('Render');
     console.log(this.props);
-    PostActions.getClubPostLists(params);
 
     return (
       <div>
