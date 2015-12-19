@@ -1,6 +1,9 @@
 [submodule "document"]
 	path = document
 	url = https://github.com/bsdo64/goblinclub-document.git
+[submodule "goblinclub-document"]
+	path = goblinclub-document
+	url = https://github.com/bsdo64/goblinclub-document.git
 [submodule "apiServer"]
 	path = apiServer
 	url = https://github.com/bsdo64/goblinclub-apiserver.git
