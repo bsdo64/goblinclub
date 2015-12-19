@@ -19,6 +19,7 @@ import zip                          from 'lz-string';
 import Composer                     from './Router/Composer/server';
 
 import HTML                         from './indexHTML'
+import Wrapper                      from './Wrapper'
 
 var app = express();
 
@@ -156,6 +157,8 @@ app.use((req, res) => {
     });
 });
 
+
+
 function renderServersideReact(renderProps, req, res, callback) {
 
     let markup,
@@ -165,7 +168,11 @@ function renderServersideReact(renderProps, req, res, callback) {
     console.log(state);
     alt.bootstrap(state);
 
-    content = ReactDOM.renderToString(<RoutingContext {...renderProps} />);
+    content = ReactDOM.renderToString(
+      <Wrapper radiumConfig={{userAgent: req.headers['user-agent']}}>
+          <RoutingContext {...renderProps} />
+      </Wrapper>
+    );
 
     markup = Iso.render(content, zip.compressToBase64(alt.flush()), {}, {
         markupClassName: 'app-main',
@@ -174,7 +181,7 @@ function renderServersideReact(renderProps, req, res, callback) {
         dataElement: 'script'
     });
 
-    let html = ReactDOM.renderToString(<HTML />);
+    let html = ReactDOM.renderToString(<Wrapper><HTML radiumConfig={{userAgent: req.headers['user-agent']}} /></Wrapper>);
     html = html.replace('CONTENT', function(match) {
         return match.replace('CONTENT', markup);
     });

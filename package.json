@@ -6,7 +6,7 @@
   "scripts": {
     "front": "nodemon -w ./ bin/frontServer.js -i ./node_modules | ./node_modules/bunyan/bin/bunyan -o short --color",
     "front-client": "webpack --colors --progress --watch",
-    "api": "nodemon -w ./apiServer bin/backEndServer.js",
+    "api": "nodemon -w ./apiServer bin/apiServer.js",
     "redis": "redis-server",
     "mysql": "mysql.server start",
     "image-server": "nodemon -w ./imageServer ./imageServer/server.js",

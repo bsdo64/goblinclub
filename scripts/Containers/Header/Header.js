@@ -12,7 +12,7 @@ import {
   MenuItem,
   Modal,
   Navbar,
-  NavbarBrand,
+  NavBrand,
   Nav
 } from 'react-bootstrap';
 
@@ -148,7 +148,10 @@ let Header = React.createClass({
       <div id="header">
         <Style rules={inlineStyle} />
         <Navbar fixedTop style={styles.header}>
-          <NavbarBrand><Link href="/" style={styles.logo}>{'Goblin Club'}</Link></NavbarBrand>
+          <NavBrand>
+            <Link to="/" style={styles.logo}>{'Goblin Club'}</Link>
+          </NavBrand>
+
           <div id="searchBar" style={styles.search.layout}>
             <div style={styles.search.container}>
               <Input
