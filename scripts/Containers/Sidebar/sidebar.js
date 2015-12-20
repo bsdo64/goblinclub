@@ -67,7 +67,7 @@ let Sidebar = React.createClass({
               </ul>
             </ul>
             {
-              defaultClubList.length &&
+              defaultClubList &&
               <ClubList {...this.props} clubList={defaultClubList} title="메인 클럽"/>
             }
 
