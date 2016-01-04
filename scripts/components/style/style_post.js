@@ -91,6 +91,9 @@ export default {
       ':hover': {
         color: 'red'
       }
+    },
+    textCenter: {
+      textAlign: 'center'
     }
   }
 };

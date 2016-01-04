@@ -32,14 +32,14 @@ let ClubPostList = React.createClass({
       uid: React.PropTypes.string.isRequired,
       title: React.PropTypes.string.isRequired,
       createdAt: React.PropTypes.string.isRequired,
-      clubs: React.PropTypes.array.isRequired,
+      belongingClubs: React.PropTypes.array.isRequired,
       user: React.PropTypes.object.isRequired,
       voteCount: React.PropTypes.number.isRequired,
       commentCount: React.PropTypes.number.isRequired
     })
   },
   render() {
-    const {title, createdAt, clubs, user, voteCount, commentCount, uid} = this.props.post;
+    const {title, createdAt, belongingClubs, user, voteCount, commentCount, uid} = this.props.post;
     const {params} = this.props;
 
     return (
@@ -58,7 +58,7 @@ let ClubPostList = React.createClass({
               </div>
               <div style={styles.postContentMeta}>
                 {
-                  clubs.map(function (val, index) {
+                  belongingClubs.map(function (val, index) {
                     return (
                       <Link key={index} style={styles.postTitleClub}
                             to={'/club/' + val.url}>

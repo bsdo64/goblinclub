@@ -13,7 +13,10 @@ class PostStore {
 
     this.state = {
       post: '',
-      writingPost: {},
+      writingPost: {
+        defaultClubList : [],
+        subscribeClubList : []
+      },
       bestList: []
 
     };
@@ -52,16 +55,6 @@ class PostStore {
     this.setState(state);
   }
 
-  onSubmitSuccess(post) {
-    console.log('onSubmitSuccess');
-    let state = this.state;
-    state.writingPost.success = true;
-    state.writingPost.post = post;
-    state.readingPost = post;
-
-    this.setState(state);
-  }
-
   onGetClubPostLists(data) {
     let state = this.state;
     state.readingPost = data.PostStore.readingPost;
@@ -71,6 +64,48 @@ class PostStore {
     this.setState(state);
   }
 
+  onRedirectToNotFound() {
+    let state = this.state;
+    state = {
+      redirectTo : '/notFound',
+      status : 404
+    };
+
+    this.setState(state);
+  }
+
+  onResetNotFound() {
+    let state = this.state;
+    state = {
+      post: '',
+      writingPost: {
+        defaultClubList : [],
+        subscribeClubList : []
+      },
+      bestList: []
+    };
+
+    this.setState(state);
+  }
+
+  onGetPostsByClub(data) {
+    let state = this.state;
+    state.postList = data.PostStore.postList;
+
+    this.setState(state);
+  }
+
+  onMoreBest() {
+    let state = this.state;
+    let test = [];
+
+    for (var i = 0; i < test.length; i++) {
+      state.bestList.push(test[i]);
+    }
+
+
+    this.setState(state);
+  }
 }
 
 export default alt.createStore(PostStore, 'PostStore');

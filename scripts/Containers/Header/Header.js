@@ -101,11 +101,9 @@ let UserButton = React.createClass({
               <i className="fa fa-cog fa-fw" />{' '}
             </Dropdown.Toggle>
             <Dropdown.Menu className="super-colors">
-              <MenuItem eventKey="1">{'Action'}</MenuItem>
-              <MenuItem eventKey="2">{'Another action'}</MenuItem>
-              <MenuItem active eventKey="3">{'Active Item'}</MenuItem>
+              <MenuItem eventKey="1">{'프로필'}</MenuItem>
               <MenuItem divider/>
-              <MenuItem eventKey="4">{'Separated link'}</MenuItem>
+              <MenuItem eventKey="4">{'로그아웃'}</MenuItem>
             </Dropdown.Menu>
           </Dropdown>
         </ButtonToolbar>

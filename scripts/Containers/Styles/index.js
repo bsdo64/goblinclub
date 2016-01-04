@@ -45,7 +45,7 @@ export const Sidebar = {
     right: 0,
     top: 50,
     bottom: 0,
-    backgroundColor: '#e7efef',
+    backgroundColor: '#F4F4F4',
     width: 340,
     minHeight: 600,
     '@media (max-width: 1145px)': {
@@ -63,20 +63,20 @@ export const Sidebar = {
   },
   clubs: {
     container: {
-      color: '#00B1A3',
-      fontSize: 13,
-      fontWeight: 'bold',
-      paddingTop: 26
+      fontSize: 14
     },
     element: {
       listStyle: 'none',
       margin: 0,
-      padding: '0 0 15px 0'
+      padding: '0 0 2px 0'
     },
     title: {
-      listStyle: 'none',
       fontSize: 13,
-      paddingLeft: 17
+      paddingLeft: 17,
+      color: '#fff',
+      backgroundColor: '#2B5F5B',
+      height: '26px',
+      lineHeight: '26px'
     },
     list: {
       listStyle: 'none',
@@ -85,17 +85,20 @@ export const Sidebar = {
       color: '#2b5f5b'
     },
     listElement: {
-      listStyle: 'none',
-      paddingLeft: 32,
-      color: '#001f35',
+      paddingLeft: 25,
+      color: '#2B5F5B',
+      margin: '2px 0 2px 0',
+      height: '22px',
+      lineHeight: '22px',
+      fontWeight: 'bold',
+      fontSize: 12,
+      backgroundColor: '#fff',
       ':hover': {
-        backgroundColor: '#2b5f5b',
-        color: '#fff'
+        backgroundColor: '#f4f4f4'
       }
     },
     listActive: {
-      backgroundColor: '#2b5f5b',
-      color: '#fff'
+      backgroundColor: '#2B5F5B'
     }
   }
 };

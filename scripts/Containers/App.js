@@ -29,6 +29,10 @@ let App = React.createClass({
         backgroundColor: 'rgba(255, 255, 255, 0)',
         border: 'none',
         borderRadius: 0
+      },
+      'html, body': {
+        height: '100%',
+        overflow: 'hidden'
       }
     };
     return (

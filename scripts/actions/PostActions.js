@@ -39,15 +39,41 @@ class PostActions {
 
   getClubPostLists(params) {
     let user = UserStore.getState().user;
+    let slf = this;
 
     return function (dispatch) {
       Api.getClubPost(user, params, function (err, data) {
         if (err) {
-          return err;
+          return slf.actions.redirectToNotFound();
         }
         dispatch(data);
       });
     };
+  }
+
+  getPostsByClub(params) {
+    let slf = this;
+
+    return function (dispatch) {
+      Api.getPostsByClub(params, function (err, data) {
+        if (err) {
+          return slf.actions.redirectToNotFound();
+        }
+        dispatch(data);
+      });
+    };
+  }
+
+  moreBest() {
+    return null;
+  }
+
+  redirectToNotFound() {
+    return null;
+  }
+
+  resetNotFound() {
+    return null;
   }
 }
 

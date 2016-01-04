@@ -17,13 +17,25 @@ let Club = React.createClass({
     name: React.PropTypes.string.isRequired
   },
   render() {
-    let {link, name} = this.props;
+    let {link, name, type} = this.props;
     let active = [styles.listElement];
-    if (this.props.location.pathname === '/club/' + link) {
-      active.push(styles.listActive);
-    }
+    let clubName = function (name) {
+      let url = this.props.location.pathname.split('/');
+      if (type === 'best') {
+        if (name === '/' && url[1] === '') {
+          active.push(styles.listActive);
+        }
+      } else if (type === 'club') {
+        link = '/club/' + name;
+
+        if (name === url[2]) {
+          active.push(styles.listActive);
+        }
+      }
+    }.bind(this);
+    clubName(link);
     return (
-      <Link to={'/club/' + link}>
+      <Link to={link}>
         <div style={active}>{name}</div>
       </Link>
     );
@@ -34,10 +46,11 @@ let ClubList = React.createClass({
   displayName: 'ClubList',
   propTypes: {
     clubList: React.PropTypes.array,
+    best: React.PropTypes.bool,
     title: React.PropTypes.string.isRequired
   },
   render() {
-    let defaultClubList = this.props.clubList;
+    let clubList = this.props.clubList;
     let title = this.props.title;
 
     let createItem = function (val, index) {
@@ -46,15 +59,31 @@ let ClubList = React.createClass({
           <Club
             location={this.props.location}
             link={val.url}
-            name={val.name} />
+            name={val.name}
+            type={'club'} />
         </li>);
     }.bind(this);
 
     return (
-      <ul style={styles.element}>
-        <li style={styles.title}>{title}</li>
-        <ul style={styles.list}>{defaultClubList.map(createItem)}</ul>
-      </ul>
+      <div style={styles.element}>
+        <div style={styles.title}>
+          {title}
+          {/* 검색 입력 */}
+        </div>
+        {
+          this.props.best &&
+          <li >
+            <Club
+              location={this.props.location}
+              link={'/'}
+              name={'베스트'}
+              type={'best'} />
+          </li>
+        }
+        { clubList &&
+          clubList.map(createItem)
+        }
+      </div>
     );
   }
 });

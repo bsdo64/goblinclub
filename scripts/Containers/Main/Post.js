@@ -40,10 +40,19 @@ let Post = React.createClass({
       const params = nextProps.params;
       PostActions.getClubPostLists(params);
     }
+
+    console.log('Post, componentWillReceiveProps', nextProps);
+    if (nextProps.PostStore.status === 404) {
+      this.props.history.pushState(
+        null,
+        nextProps.PostStore.redirectTo
+      );
+    }
   },
 
   render() {
     const {readingPost, postList, commentList} = this.props.PostStore;
+    const {auth} = this.props.UserStore;
 
     return (
       <div>
@@ -51,7 +60,8 @@ let Post = React.createClass({
           !_.isEmpty(readingPost) &&
           <ul style={styles.posts.container}>
             <li style={styles.posts.post}>
-              <CardPostItem commentList={commentList} hasComment={true}
+              <CardPostItem auth={auth} commentList={commentList}
+                            hasComment={true}
                             key={readingPost.uid} post={readingPost}/>
             </li>
           </ul>

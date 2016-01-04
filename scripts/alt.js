@@ -10,7 +10,7 @@ alt.dispatcher.register((state) => {
   let snapshot = alt.takeSnapshot();
 
   /* Debug - All Current Stores */
-  console.group('action');
+
   console.log('All Current Stores\t', JSON.parse(snapshot));
 
   /* Debug - Current Dispatch Payload */

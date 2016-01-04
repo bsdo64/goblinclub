@@ -88,6 +88,15 @@ const ApiClient = {
       .end((xhrErr, xhrRes) => {
         sendResult(xhrErr, xhrRes, callback);
       });
+  },
+
+  getPostsByClub: (params, callback) => {
+    request
+      .get('/ajax/club/' + params.clubName)
+      .set('Accept', 'application/json')
+      .end((xhrErr, xhrRes) => {
+        sendResult(xhrErr, xhrRes, callback);
+      });
   }
 };
 

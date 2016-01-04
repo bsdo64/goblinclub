@@ -18,22 +18,27 @@ let CardPostList = React.createClass({
       commentCount: React.PropTypes.number.isRequired
     })
   },
-  printListItem(list) {
+  printListItem(list, auth) {
     return list.map((item) => {
       return (
         <li key={item.uid} style={styles.posts.post}>
           <CardPostItem hasComment={false}
-                        post={item}/>
+                        post={item}
+                        auth={auth}/>
         </li>
       );
     });
   },
   render() {
     const {bestList} = this.props.PostStore;
+    const {auth} = this.props.UserStore;
 
     return (
       <ul style={styles.posts.container}>
-        {bestList && this.printListItem(bestList)}
+        {
+          bestList &&
+          this.printListItem(bestList, auth)
+        }
       </ul>
     );
   }

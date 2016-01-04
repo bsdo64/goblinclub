@@ -154,8 +154,9 @@ let Editor = React.createClass({
       }
     });
   },
-  componentWillReceiveProps() {
-    let PostStore = alt.getStore('PostStore').getState();
+  componentWillReceiveProps(nextProps) {
+    console.log('nextProps', nextProps);
+    let PostStore = nextProps.PostStore;
     if (PostStore.writingPost.success) {
       this.props.history.pushState(
         null,

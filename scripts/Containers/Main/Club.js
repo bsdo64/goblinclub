@@ -17,33 +17,20 @@ let Club = React.createClass({
     PostStore: React.PropTypes.object.isRequired
   },
   componentWillMount() {
-    console.log('Club, componentWillMount');
+    const params = this.props.params;
+    PostActions.getPostsByClub(params);
   },
   componentDidMount() {
-    console.log('Club, componentDidMount');
+    console.log('Club, componentDidMount', this.props);
   },
-
   componentWillReceiveProps(nextProps) {
-    console.log('Club, componentWillReceiveProps');
-  },
-
-  componentWillUpdate(nextProps, nextState) {
-    console.log('Club, componentWillUpdate');
-  },
-  _fetch() {
-
-  },
-  wrapper(posts) {
-    return posts.map((post) => {
-      return <ThreadPostList key={post.uid} post={post} params={this.props.params}/>;
-    });
+    if (this.props.params.clubName !== nextProps.params.clubName) {
+      const params = nextProps.params;
+      PostActions.getPostsByClub(params);
+    }
   },
   render() {
     const {postList} = this.props.PostStore;
-
-    console.log('Render');
-    console.log(this.props);
-
     return (
       <div>
         {

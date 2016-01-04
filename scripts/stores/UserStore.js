@@ -46,9 +46,12 @@ class UserStore {
   onSuccess(result) {
     this.setState({
       auth: {
-        token: result.token,
         loginAt: new Date(),
-        state: 'login'
+        state: 'login',
+        user: {
+          email: result.user.email,
+          nick: result.user.nick
+        }
       },
       user: {
         email: result.user.email,

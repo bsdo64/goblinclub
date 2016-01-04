@@ -14,7 +14,6 @@ let Main = React.createClass({
   },
   componentDidMount() {
     $('.nano').nanoScroller();
-    $('.nano-content').scrollTop(0);
   },
 
   render() {

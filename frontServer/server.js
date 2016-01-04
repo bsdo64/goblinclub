@@ -16,7 +16,8 @@ import alt                          from '../scripts/alt';
 import Iso                          from 'iso';
 import zip                          from 'lz-string';
 
-import Composer                     from './Router/Composer/server';
+import CSRF                         from './middleware/Csrf';
+import Composer                     from './Router/Composer';
 
 import HTML                         from './indexHTML'
 import Wrapper                      from './Wrapper'
@@ -134,6 +135,7 @@ app.use(['/user', '/post'], authenticate, (err, req, res, next) => {
     }
 });
 
+// app.use(CSRF);
 app.use(Composer);
 
 app.use((req, res) => {
@@ -146,10 +148,12 @@ app.use((req, res) => {
         else if (error)
             res.status(401).send(error.message);
         else if (renderProps == null)
-            res.status(401).send('Not found');
+            renderServersideReact(renderProps, req, res, (req, res, html) => {
+                res.set('Content-Type', 'text/html; charset=utf8');
+                res.end(html);
+            });
         else {
             renderServersideReact(renderProps, req, res, (req, res, html) => {
-
                 res.set('Content-Type', 'text/html; charset=utf8');
                 res.end(html);
             })

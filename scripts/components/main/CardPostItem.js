@@ -31,7 +31,7 @@ let CardPostItem = React.createClass({
       uid: React.PropTypes.string.isRequired,
       title: React.PropTypes.string.isRequired,
       createdAt: React.PropTypes.string.isRequired,
-      clubs: React.PropTypes.array.isRequired,
+      belongingClubs: React.PropTypes.array.isRequired,
       content: React.PropTypes.string.isRequired,
       user: React.PropTypes.object.isRequired,
       voteCount: React.PropTypes.number.isRequired,
@@ -43,26 +43,30 @@ let CardPostItem = React.createClass({
       uid,
       title,
       createdAt,
-      clubs,
+      belongingClubs,
       content,
       user,
       voteCount,
       commentCount
     } = this.props.post;
     const {hasComment, commentList} = this.props;
+    const {auth} = this.props;
+
+    console.log(auth);
+    console.log(user);
 
     return (
       <div className="lst_obj" style={styles.posts.listObj}>
         <div className="con_desc">
           <h4 style={styles.posts.postTitle}>
             <Link style={styles.posts.postTitleItem}
-                  to={'/club/' + clubs[0].url + '/' + uid}>{title}</Link>
+                  to={'/club/' + belongingClubs[0].url + '/' + uid}>{title}</Link>
           </h4>
           <p className="frm_svc" style={styles.posts.postContentMeta}>
             <Link to="#">{user.nick} </Link>
             <span className="wrt_time">{createdAt} </span>
             {
-              clubs.map(function (val, index) {
+              belongingClubs.map(function (val, index) {
                 return (
                   <Link key={index} style={styles.posts.postTitleClub}
                         to={'/club/' + val.url} >
@@ -89,7 +93,10 @@ let CardPostItem = React.createClass({
             <span style={styles.posts.commentCount}>{' ' + commentCount + ' '}</span>
             {'개'}
           </a>
-          <a style={styles.posts.deleteButton}>{'삭제하기'}</a>
+          {
+            auth.user && auth.user.nick === user.nick &&
+            <a style={styles.posts.deleteButton}>{'삭제하기'}</a>
+          }
         </div>
 
         <BtnArea />

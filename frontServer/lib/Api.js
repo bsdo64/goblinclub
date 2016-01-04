@@ -4,16 +4,18 @@
 import request from 'superagent';
 
 const Api = (function(req) {
-  let token = 'NotLogin';
+  let token = null;
   const ApiEndPoint = 'http://localhost:3001/compose';
 
   const setToken = function (userToken) {
-    token = userToken || 'NotLogin';
+    token = userToken || null;
   };
   const get = function (url) {
-    return req
-      .get(ApiEndPoint + url)
-      .set({userToken: token})
+    let requester = req.get(ApiEndPoint + url);
+    if (token) {
+      requester.set({token: token})
+    }
+    return requester
   };
   return {
     setToken : setToken,

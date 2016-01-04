@@ -5,6 +5,7 @@ import React from 'react';
 import Radium from 'radium';
 
 import AppActions from '../../Actions/AppActions';
+import PostActions from '../../Actions/PostActions';
 
 import connectToStores from '../../../node_modules/alt/utils/connectToStores';
 import AppStore from '../../Stores/AppStore';
@@ -44,7 +45,14 @@ let Best = React.createClass({
    * @returns {void}
    */
   componentDidMount() {
-
+    let scrollContent = document.getElementsByClassName('nano-content')[0];
+    scrollContent.onscroll = function () {
+      let bottomGap = scrollContent.scrollHeight - (scrollContent.offsetHeight + scrollContent.scrollTop);
+      if (bottomGap <= 0) {
+        PostActions.moreBest();
+        $('.nano').nanoScroller();
+      }
+    };
   },
 
   /**

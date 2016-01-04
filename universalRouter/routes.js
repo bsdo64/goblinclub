@@ -13,6 +13,7 @@ import {
   Club,
   Post,
   WritePost,
+  NotFound,
   Sidebar
 } from '../scripts/Containers/index';
 
@@ -29,6 +30,10 @@ export default (
         <Route path="club/:clubName/search" components={{mainSection: WritePost}}/>
         <Route path="club/:clubName/:article" components={{mainSection: Post}}/>
       </Route>
+    </Route>
+
+    <Route path='/notFound' components={App}>
+      <IndexRoute components={{header: Header, main: NotFound, sidebar: Sidebar}}/>
     </Route>
 
     <Route path="/login" component={App}>
@@ -60,5 +65,9 @@ export default (
     <Route path="/user/:id/multiclub/:name/search" components={{header: Header, main: Main, sidebar: Sidebar}}/>
 
     <Route path="/search" components={{header: Header, main: Main, sidebar: Sidebar}}/>
+
+    <Route path="*" component={App}>
+      <IndexRoute components={{header: Header, main: NotFound}}/>
+    </Route>
   </Router>
 )
