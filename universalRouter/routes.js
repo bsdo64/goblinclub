@@ -12,6 +12,7 @@ import {
   Best,
   Club,
   Post,
+  Login,
   WritePost,
   NotFound,
   Sidebar
@@ -24,6 +25,7 @@ export default (
       <Route path='/' components={{header: Header, main: Main, sidebar: Sidebar}}>
         <IndexRoute components={{mainSection: Best}}/>
         <Route path="submit" components={{mainSection: WritePost}}/>
+        <Route path="login" components={{mainSection: Login}}/>
 
         <Route path="club/:clubName" components={{mainSection: Club}}/>
         <Route path="club/:clubName/submit" components={{mainSection: WritePost}}/>
@@ -34,10 +36,6 @@ export default (
 
     <Route path='/notFound' components={App}>
       <IndexRoute components={{header: Header, main: NotFound, sidebar: Sidebar}}/>
-    </Route>
-
-    <Route path="/login" component={App}>
-      <IndexRoute components={{header: Header, main: Main, sidebar: Sidebar}}/>
     </Route>
 
     <Route path="/signin" components={{header: Header, main: Main, sidebar: Sidebar}}/>

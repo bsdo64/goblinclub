@@ -147,7 +147,7 @@ let Header = React.createClass({
         <Style rules={inlineStyle} />
         <Navbar fixedTop style={styles.header}>
           <NavBrand>
-            <Link to="/" style={styles.logo}>{'Goblin Club'}</Link>
+            <Link to="/" style={styles.logo}>{'Gobblin Club'}</Link>
           </NavBrand>
 
           <div id="searchBar" style={styles.search.layout}>
