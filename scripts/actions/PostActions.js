@@ -3,8 +3,7 @@
  */
 import alt from '../alt';
 import Api from '../Utils/ApiClient';
-import UserStore from '../Stores/UserStore';
-import PostStore from '../Stores/PostStore';
+const Apis = new Api();
 
 class PostActions {
   setDefaultClubList(club) {
@@ -16,51 +15,48 @@ class PostActions {
   }
 
   submitPost(post) {
-    let user = UserStore.getState().user;
-    let writingPost = PostStore.getState().writingPost;
+    let writingPost = post;
     let newPost = {
       ...post,
       defaultClubList: writingPost.defaultClubList,
       subscribeClubList: writingPost.subscribeClubList
     };
-    user = {
-      email: user.email
-    };
 
     return function (dispatch) {
-      Api.submitPost(user, newPost, function (err, submittedPost) {
-        if (err) {
+      Apis
+        .post('/submit', newPost)
+        .then(function (res) {
+          dispatch(res);
+        })
+        .catch(function (err) {
           return err;
-        }
-        dispatch(submittedPost);
-      });
+        });
     };
   }
 
   getClubPostLists(params) {
-    let user = UserStore.getState().user;
-    let slf = this;
-
-    return function (dispatch) {
-      Api.getClubPost(user, params, function (err, data) {
-        if (err) {
-          return slf.actions.redirectToNotFound();
-        }
-        dispatch(data);
-      });
+    return (dispatch) => {
+      Apis
+        .get('/club/' + params.clubName + '/' + params.article, params)
+        .then(function (res) {
+          dispatch(res);
+        })
+        .catch(function (err) {
+          this.redirectToNotFound(err);
+        }.bind(this));
     };
   }
 
   getPostsByClub(params) {
-    let slf = this;
-
-    return function (dispatch) {
-      Api.getPostsByClub(params, function (err, data) {
-        if (err) {
-          return slf.actions.redirectToNotFound();
-        }
-        dispatch(data);
-      });
+    return (dispatch) => {
+      Apis
+        .get('/club/' + params.clubName)
+        .then(function (res) {
+          dispatch(res);
+        })
+        .catch(function (err) {
+          this.redirectToNotFound(err);
+        }.bind(this));
     };
   }
 

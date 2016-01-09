@@ -3,82 +3,88 @@
  */
 import alt from '../alt';
 import Validator from '../Utils/validator';
-import ApiClient from '../Utils/ApiClient';
+import Api from '../Utils/ApiClient';
 
 class UserActions {
   loginUser(user) {
-    this.dispatch();
-
     let uiValidator = new Validator();
+    let Apis = new Api();
+    let slf = this;
+
     uiValidator.loginUser(user, (err, result) => {
       if (err) {
-        this.dispatch(err);
+        return (err);
       }
 
       if (result.result) {
-        ApiClient.login(user, (errXHR, res) => {
-          if (errXHR) {
-            this.actions.serverFail(errXHR);
-          } else if (res) {
-            if (res.error) {
-              res.error.type = 'loginUser';
-              this.actions.serverValidateFail(res.error);
-              return;
+        Apis
+          .post('/login', user)
+          .then(function (res) {
+            slf.success(res);
+          })
+          .catch(function (error) {
+            if (error) {
+              slf.serverFail(error);
             }
-
-            this.actions.success(res);
-          }
-        });
+            if (error.error) {
+              error.error.type = 'loginUser';
+              slf.serverValidateFail(error.error);
+            }
+          });
       } else {
-        this.actions.uiValidateFail(result);
+        slf.uiValidateFail(result);
       }
     });
   }
 
   signinUser(newUser) {
     let uiValidator = new Validator();
+    let slf = this;
+
     uiValidator.signinUser(newUser, (err, result) => {
       if (err) {
-        this.dispatch(err);
+        return (err);
       }
 
       if (result.result) {
-        ApiClient.signin(newUser, (errXHR, res) => {
-          if (errXHR) {
-            this.actions.serverFail(errXHR);
-          } else if (res) {
-            if (res.error) {
-              res.error.type = 'signinUser';
-              this.actions.serverValidateFail(res.error);
-              return;
+        Apis
+          .post('/signin', newUser)
+          .then(function (res) {
+            slf.success(res);
+          })
+          .catch(function (error) {
+            if (error) {
+              slf.serverFail(error);
             }
-            this.actions.success(res);
-          }
-        });
+            if (error.error) {
+              error.error.type = 'loginUser';
+              slf.serverValidateFail(error.error);
+            }
+          });
       } else {
-        this.actions.uiValidateFail(result);
+        slf.uiValidateFail(result);
       }
     });
   }
 
   uiValidateFail(result) {
-    this.dispatch(result);
+    return (result);
   }
 
   serverFail(err) {
-    this.dispatch(err);
+    return (err);
   }
 
   serverValidateFail(err) {
-    this.dispatch(err);
+    return (err);
   }
 
   success(res) {
-    this.dispatch(res);
+    return (res);
   }
 
   isLogined(token) {
-    this.dispatch(token);
+    return (token);
   }
 }
 

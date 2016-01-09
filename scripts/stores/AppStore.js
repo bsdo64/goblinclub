@@ -5,10 +5,18 @@ class AppStore {
   constructor() {
     this.state = {
       serverRendered: true,
+      openLoginModal: false,
       initData:{}
     };
 
     this.bindActions(AppActions);
+    this.bindListeners({
+      onLoginModal: [AppActions.closeLoginModal, AppActions.toggleLoginModal]
+    });
+  }
+
+  onLoginModal(state) {
+    this.setState(state);
   }
 
   onDisableServerRender(state) {

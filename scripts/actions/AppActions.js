@@ -3,53 +3,77 @@
  */
 import alt from '../alt';
 import Api from '../Utils/ApiClient';
+const Apis = new Api();
 
 class AppActions {
   disableServerRender() {
     return {serverRendered: false};
   }
 
+  toggleLoginModal(bool) {
+    return {openLoginModal: !bool};
+  }
+  closeLoginModal() {
+    return {openLoginModal: false};
+  }
+
   initBest() {
     return function (dispatch) {
-      Api.init.Best(function (err, data) {
-        if (err) {
-          return err;
-        }
-        dispatch(data);
-      });
+      Apis
+        .get('/best')
+        .then(function (res) {
+          dispatch(res);
+        })
+        .catch(function (err) {
+          if (err) {
+            return err;
+          }
+        });
     };
   }
 
   initClub() {
     return function (dispatch) {
-      Api.init.Club(function (err, data) {
-        if (err) {
-          return err;
-        }
-        dispatch(data);
-      });
+      Apis
+        .get('/best')
+        .then(function (res) {
+          dispatch(res);
+        })
+        .catch(function (err) {
+          if (err) {
+            return err;
+          }
+        });
     };
   }
 
   initPost() {
     return function (dispatch) {
-      Api.init.Post(function (err, data) {
-        if (err) {
-          return err;
-        }
-        dispatch(data);
-      });
+      Apis
+        .get('/best')
+        .then(function (res) {
+          dispatch(res);
+        })
+        .catch(function (err) {
+          if (err) {
+            return err;
+          }
+        });
     };
   }
 
   initWritePost() {
     return function (dispatch) {
-      Api.init.WritePost(function (err, data) {
-        if (err) {
-          return err;
-        }
-        dispatch(data);
-      });
+      Apis
+        .get('/best')
+        .then(function (res) {
+          dispatch(res);
+        })
+        .catch(function (err) {
+          if (err) {
+            return err;
+          }
+        });
     };
   }
 }

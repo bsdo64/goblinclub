@@ -6,10 +6,10 @@ import AppStore from '../Stores/AppStore';
 
 class PostStore {
   constructor() {
-    this.bindActions(PostActions);
     this.bindListeners({
-      initBest: AppActions.INIT_BEST
+      initBest: AppActions.initBest
     });
+    this.bindActions(PostActions);
 
     this.state = {
       post: '',
@@ -46,7 +46,6 @@ class PostStore {
   }
 
   onSubmitPost(post) {
-    console.log('onSubmitPost');
     let state = this.state;
     state.writingPost.success = true;
     state.writingPost.post = post;
@@ -57,6 +56,7 @@ class PostStore {
 
   onGetClubPostLists(data) {
     let state = this.state;
+
     state.readingPost = data.PostStore.readingPost;
     state.postList = data.PostStore.postList;
     state.commentList = data.PostStore.commentList;
@@ -90,6 +90,7 @@ class PostStore {
 
   onGetPostsByClub(data) {
     let state = this.state;
+
     state.postList = data.PostStore.postList;
 
     this.setState(state);
@@ -108,4 +109,4 @@ class PostStore {
   }
 }
 
-export default alt.createStore(PostStore, 'PostStore');
+export default alt.createStore(PostStore);
