@@ -20,7 +20,6 @@ import CSRF                         from './middleware/Csrf';
 import Composer                     from './Router/Composer';
 
 import HTML                         from './indexHTML'
-import Wrapper                      from './Wrapper'
 
 var app = express();
 
@@ -172,11 +171,7 @@ function renderServersideReact(renderProps, req, res, callback) {
     console.log(state);
     alt.bootstrap(state);
 
-    content = ReactDOM.renderToString(
-      <Wrapper radiumConfig={{userAgent: req.headers['user-agent']}}>
-          <RoutingContext {...renderProps} />
-      </Wrapper>
-    );
+    content = ReactDOM.renderToString(<RoutingContext {...renderProps} radiumConfig={{userAgent: req.headers['user-agent']}} />);
 
     markup = Iso.render(content, zip.compressToBase64(alt.flush()), {}, {
         markupClassName: 'app-main',
@@ -185,7 +180,7 @@ function renderServersideReact(renderProps, req, res, callback) {
         dataElement: 'script'
     });
 
-    let html = ReactDOM.renderToString(<Wrapper><HTML radiumConfig={{userAgent: req.headers['user-agent']}} /></Wrapper>);
+    let html = ReactDOM.renderToString(<HTML radiumConfig={{userAgent: req.headers['user-agent']}} />);
     html = html.replace('CONTENT', function(match) {
         return match.replace('CONTENT', markup);
     });

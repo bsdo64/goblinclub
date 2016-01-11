@@ -45,7 +45,18 @@ let Header = React.createClass({
     const {authSuccess} = this.props.UserStore;
     return (
       <div id="header">
-        <Style rules={styles.INLINE_STYLE} />
+        <Style
+          rules={styles.INLINE_STYLE['#header']}
+          scopeSelector="#header" />
+        <Style
+          rules={styles.INLINE_STYLE.body}
+          scopeSelector="body" />
+        <Style
+          rules={styles.INLINE_STYLE['.nano']}
+          scopeSelector=".nano" />
+        <Style
+          rules={styles.INLINE_STYLE['.loginModal']}
+          scopeSelector=".loginModal" />
         <Navbar fixedTop style={styles.header}>
           <HeaderLogo />
 

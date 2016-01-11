@@ -37,7 +37,7 @@ class PostActions {
   getClubPostLists(params) {
     return (dispatch) => {
       Apis
-        .get('/club/' + params.clubName + '/' + params.article, params)
+        .get('/club/' + params.clubName + '/' + params.article)
         .then(function (res) {
           dispatch(res);
         })

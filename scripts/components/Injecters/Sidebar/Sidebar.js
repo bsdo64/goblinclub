@@ -2,7 +2,7 @@
  * Created by dobyeongsu on 2015. 10. 15..
  */
 import React from 'react';
-import Radium from 'radium';
+import Radium, {StyleRoot} from 'radium';
 
 import connectToStores from 'alt-utils/lib/connectToStores';
 import UserStore from '../../../Stores/UserStore';
@@ -58,5 +58,17 @@ let Sidebar = React.createClass({
   }
 });
 
-export default connectToStores(Radium(Sidebar));
+Sidebar = connectToStores(Radium(Sidebar));
 
+let App = React.createClass({
+  displayName: 'App',
+  render() {
+    return (
+      <StyleRoot>
+        <Sidebar {...this.props} />
+      </StyleRoot>
+    );
+  }
+});
+
+export default App;

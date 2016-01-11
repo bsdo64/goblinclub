@@ -3,24 +3,32 @@
  */
 export default {
   INLINE_STYLE: {
-    '#header .container': {
-      width: '100%'
+    '#header': {
+      '.container': {
+        width: '100%'
+      }
     },
-    '#app': {
-      height: 'calc(100vh - 50px)'
+    body: {
+      '#app': {
+        height: 'calc(100vh - 50px)'
+      }
     },
-    '.nano > .nano-pane': {
-      background: 'rgba(0,0,0,.15)'
+    '.nano': {
+      '.nano-pane': {
+        background: 'rgba(0,0,0,.15)'
+      }
     },
-    '.loginModal .modal-content': {
-      backgroundColor: '#f1f1f1'
-    },
-    '.loginModal .modal-content li > a': {
-      padding: 5
-    },
-    '.loginModal .modal-content li.active > a': {
-      backgroundColor: '#227973',
-      color: '#fff'
+    '.loginModal': {
+      '.modal-content': {
+        backgroundColor: '#f1f1f1'
+      },
+      '.modal-content li > a': {
+        padding: 5
+      },
+      '.modal-content li.active > a': {
+        backgroundColor: '#227973',
+        color: '#fff'
+      }
     }
   },
   header: {
