@@ -34,7 +34,7 @@ let Club = React.createClass({
     PostActions.getPostsByClub(params);
   },
   componentDidMount() {
-    console.log('Club, componentDidMount', this.props);
+    console.log('Club, componentDidMount');
   },
   componentWillReceiveProps(nextProps) {
     if (this.props.params.clubName !== nextProps.params.clubName) {

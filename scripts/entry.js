@@ -24,8 +24,8 @@ Iso.bootstrap((state, _, container) => {
 
   /* Debug - Final Dispatched Store's State */
   function finalState(payload) {
-    console.log('Final.toJS()\t', payload);
     if (!process.env.NODE) {
+      console.log('Final.toJS()\t', payload);
       console.groupEnd('Action');
     }
   }
@@ -37,7 +37,6 @@ Iso.bootstrap((state, _, container) => {
   }
 
   ReactDOM.render(
-
     <Router children={routes} history={createBrowserHistory()} />,
     container
   );

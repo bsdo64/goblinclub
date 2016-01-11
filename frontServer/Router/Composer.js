@@ -36,8 +36,6 @@ Composer.use((req, res, next) => {
         res.storeState.UserStore.authSuccess = true;
         res.storeState.UserStore.loadedAuth = true;
 
-        console.log(decoded);
-
         next();
       }
     });
@@ -55,7 +53,6 @@ Composer.get('/', (req, res, next) => {
         next();
       } else if (resXHR && resXHR.ok) {
         let apiResult = resXHR.body;
-        console.log(apiResult.UserStore);
         res.storeState.PostStore = apiResult.PostStore;
         res.storeState.ClubStore = apiResult.ClubStore;
         res.storeState.UserStore = apiResult.UserStore;

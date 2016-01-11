@@ -1,0 +1,41 @@
+{
+  "apps" : [{
+    "name"        : "Front-Server",
+    "script"      : "bin/frontServer.js",
+    "watch"       : true,
+    "cwd"         : "/Users/dobyeongsu/Dev/app/goblin-alt",
+    "error_file" : "/Users/dobyeongsu/Dev/app/log/front-server/err.log",
+    "out_file"   : "/Users/dobyeongsu/Dev/app/log/front-server/out.log",
+    "pid_file"   : "/Users/dobyeongsu/Dev/app/log/front-server/pid.pid",
+    "ignore_watch" : ["debug", "node_modules", "scripts", ".idea", ".git"],
+    "env" : {
+      "NODE": "4.2.1"
+    }
+  },{
+    "name"        : "Api-Server",
+    "script"      : "server.js",
+    "watch"       : true,
+    "node_args"   : "--harmony",
+    "cwd"         : "/Users/dobyeongsu/Dev/app/goblin-alt/apiServer",
+    "error_file" : "/Users/dobyeongsu/Dev/app/log/api-server/err.log",
+    "out_file"   : "/Users/dobyeongsu/Dev/app/log/api-server/out.log",
+    "pid_file"   : "/Users/dobyeongsu/Dev/app/log/api-server/pid.pid",
+    "ignore_watch" : ["[\\/\\\\]\\./", "node_modules"],
+    "env" : {
+      "NODE": "4.2.1"
+    }
+  },{
+    "name"        : "Image-Server",
+    "script"      : "server.js",
+    "watch"       : false,
+    "node_args"   : "--harmony",
+    "cwd"         : "/Users/dobyeongsu/Dev/app/goblin-alt/imageServer",
+    "error_file" : "/Users/dobyeongsu/Dev/app/log/image-server/err.log",
+    "out_file"   : "/Users/dobyeongsu/Dev/app/log/image-server/out.log",
+    "pid_file"   : "/Users/dobyeongsu/Dev/app/log/image-server/pid.pid",
+    "ignore_watch" : ["[\\/\\\\]\\./", "node_modules", "public/", "tmp"],
+    "env" : {
+      "NODE": "4.2.1"
+    }
+  }]
+}

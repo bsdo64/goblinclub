@@ -16,7 +16,9 @@ import alt                          from '../scripts/alt';
 import Iso                          from 'iso';
 import zip                          from 'lz-string';
 
+import Log                          from './lib/Log';
 import CSRF                         from './middleware/Csrf';
+import Logger                       from './middleware/Logger';
 import Composer                     from './Router/Composer';
 
 import HTML                         from './indexHTML'
@@ -27,44 +29,11 @@ var bowerPath = path.join(__dirname, "../bower_components");
 var dist = path.join(__dirname, "../_dist");
 var proxy = httpProxy.createProxyServer();
 var RedisStore = connectRedis(session);
-
-var bunyan = require('bunyan');
-var Elasticsearch = require('bunyan-elasticsearch');
-
-var logger = bunyan.createLogger({
-    name: "My Application",
-    streams: [
-        { stream: new Elasticsearch() }
-    ],
-    serializers: bunyan.stdSerializers
-});
-
-logger.info('Starting application on port %d', app.get('port'));
-
-app.use(function (req, res, next) {
-    var start = new Date();
-    var end = res.end;
-    res.end = function (chunk, encoding) {
-        var responseTime = (new Date()).getTime() - start.getTime();
-        end.call(res, chunk, encoding);
-        var contentLength = parseInt(res.getHeader('Content-Length'), 10);
-        var data = {
-            res: res,
-            req: req,
-            responseTime: responseTime,
-            contentLength: isNaN(contentLength) ? 0 : contentLength
-        };
-        logger.info(data, '%s %s %d %dms - %d', data.req.method, data.req.url, data.res.statusCode, data.responseTime, data.contentLength);
-    };
-    next();
-});
-var errorLogger = function (err, req, res, next) {
-    logger.error({ req: req, res: res, error: err }, err.stack);
-    next(err);
-};
+var ElasticLog = Log.ElasticLog;
 
 app.locals.settings['x-powered-by'] = false;
 
+app.use(Logger);
 app.use(cookieParser());
 app.use('/favicon.ico', express.static(dist+'/favicon.ico'));
 app.use('/statics', express.static(dist));
@@ -87,19 +56,17 @@ app.use(session({
 
 app.use('/ajax', (req, res) => {
     proxy.web(req, res, {target: 'http://localhost:3001/ajax'}, function(e) {
-        res.send(e);
+        res.send('Ajax Error : ', e);
     });
 });
 app.use('/image', (req, res) => {
     proxy.web(req, res, {target: 'http://localhost:3002'}, function(e) {
-        res.send(e);
+        res.send('Image-Server Error : ', e);
     });
 });
 
 /* Front Side */
 app.use(function (req, res, next) {
-    console.log(req.session);
-
     if(!req.session.initialized) {
         req.session.initialized = true;
         req.session.save((err) => {
@@ -160,18 +127,18 @@ app.use((req, res) => {
     });
 });
 
-
-
 function renderServersideReact(renderProps, req, res, callback) {
 
     let markup,
         content,
         state = JSON.stringify(res.storeState || {});
 
-    console.log(state);
     alt.bootstrap(state);
-
-    content = ReactDOM.renderToString(<RoutingContext {...renderProps} radiumConfig={{userAgent: req.headers['user-agent']}} />);
+    content = ReactDOM.renderToString(
+      <RoutingContext
+        {...renderProps}
+        radiumConfig={{userAgent: req.headers['user-agent']}} />
+    );
 
     markup = Iso.render(content, zip.compressToBase64(alt.flush()), {}, {
         markupClassName: 'app-main',
@@ -180,7 +147,7 @@ function renderServersideReact(renderProps, req, res, callback) {
         dataElement: 'script'
     });
 
-    let html = ReactDOM.renderToString(<HTML radiumConfig={{userAgent: req.headers['user-agent']}} />);
+    let html = ReactDOM.renderToString(<HTML />);
     html = html.replace('CONTENT', function(match) {
         return match.replace('CONTENT', markup);
     });
@@ -188,7 +155,7 @@ function renderServersideReact(renderProps, req, res, callback) {
     callback(req, res, html);
 }
 
-app.use(errorLogger);
+app.use(Logger.errorLogger);
 
 setInterval(function () {
     var startTime = Date.now();
@@ -198,7 +165,7 @@ setInterval(function () {
         data.pid = process.pid;
         data.tags = ['process-metrics'];
         data.lag = Date.now()-startTime;
-        logger.info(data,
+        ElasticLog.info(data,
             'process.pid: %d heapUsed: %d heapTotal: %d rss: %d uptime %d lag: %d',
             data.pid,
             data.heapUsed,

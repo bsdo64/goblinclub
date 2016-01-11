@@ -147,7 +147,7 @@ let Editor = React.createClass({
           captions: true,
           captionPlaceholder: '이미지 캡션을 입력하세요(옵션)',
           fileUploadOptions: {
-            url: '/image',
+            url: 'http://localhost:3000/image',
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
           }
         }
