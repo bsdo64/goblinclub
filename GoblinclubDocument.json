@@ -1,0 +1,16 @@
+{
+  "apps" : [{
+    "name"        : "Document-Server",
+    "script"      : "server.js",
+    "watch"       : true,
+    "node_args"   : "--harmony",
+    "cwd"         : "/Users/dobyeongsu/Dev/app/goblin-alt/document",
+    "error_file" : "/Users/dobyeongsu/Dev/app/log/document-server/err.log",
+    "out_file"   : "/Users/dobyeongsu/Dev/app/log/document-server/out.log",
+    "pid_file"   : "/Users/dobyeongsu/Dev/app/log/document-server/pid.pid",
+    "ignore_watch" : ["[\\/\\\\]\\./", "node_modules"],
+    "env" : {
+      "NODE": "4.2.1"
+    }
+  }]
+}

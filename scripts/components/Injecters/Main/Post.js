@@ -46,7 +46,7 @@ let Post = React.createClass({
   },
 
   componentDidMount() {
-    console.log('Post, componentDidMount', this.props);
+    console.log('Post, componentDidMount');
   },
 
   componentWillReceiveProps(nextProps) {
@@ -55,7 +55,7 @@ let Post = React.createClass({
       PostActions.getClubPostLists(params);
     }
 
-    console.log('Post, componentWillReceiveProps', nextProps);
+    console.log('Post, componentWillReceiveProps');
     if (nextProps.PostStore.status === 404) {
       this.props.history.pushState(
         null,

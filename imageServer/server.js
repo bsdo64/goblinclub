@@ -77,6 +77,7 @@
             this.callback = callback;
         },
         serve = function (req, res) {
+            console.log('%s %s %s', req.method, req.url, req.body);
             res.setHeader(
                 'Access-Control-Allow-Origin',
                 options.accessControl.allowOrigin
@@ -104,6 +105,7 @@
                             .indexOf('application/json') !== -1 ?
                                     'application/json' : 'text/plain'
                     });
+                    console.log('The end Result : ', JSON.stringify(result));
                     res.end(JSON.stringify(result));
                 }
             },
@@ -218,6 +220,8 @@
             counter = 1,
             redirect,
             finish = function () {
+                console.log('finish : ', files);
+                console.log('finish, counter : ', counter);
                 counter -= 1;
                 if (!counter) {
                     files.forEach(function (fileInfo) {
@@ -227,6 +231,7 @@
                     handler.callback({files: files}, redirect);
                 }
             };
+
         form.multiples = true;
         form.uploadDir = options.tmpDir;
         form.on('fileBegin', function (name, file) {

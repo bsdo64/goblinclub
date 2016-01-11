@@ -7,16 +7,15 @@ const alt = new Alt({});
 chromeDebug(alt);
 
 alt.dispatcher.register((state) => {
-  let snapshot = alt.takeSnapshot();
-
-  /* Debug - All Current Stores */
   if (!process.env.NODE) {
-    console.group('Action : ' + state.action);
-  }
-  console.log('All Current Stores\t', JSON.parse(snapshot));
+    let snapshot = alt.takeSnapshot();
 
-  /* Debug - Current Dispatch Payload */
-  console.log('Dispatched\t\t', state);
+    /* Debug - All Current Stores */
+    console.group('Action : ' + state.action);
+    console.log('All Current Stores\t', JSON.parse(snapshot));
+    /* Debug - Current Dispatch Payload */
+    console.log('Dispatched\t\t', state);
+  }
 });
 
 export default alt;
