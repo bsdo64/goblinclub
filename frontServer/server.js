@@ -177,4 +177,6 @@ setInterval(function () {
     });
 }, 5000);
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3000, function () {
+    Log.AppLog.warn('Start Front Server');
+});

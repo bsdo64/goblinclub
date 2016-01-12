@@ -10,7 +10,7 @@ var AppLog = Log.AppLog;
 
 Logger.use((req, res, next) => {
   // Request Logger
-  AppLog.info('%s %s %s', req.method, req.url, req.path);
+  AppLog.info('%s %s %s %s %s', req.method, req.url, req.ip, req.hostname, req.get('User-Agent'));
 
   // Elastic
   var start = new Date();

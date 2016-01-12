@@ -7,6 +7,8 @@
     "front-build": "webpack --colors --progress --watch",
     "redis": "redis-server",
     "mysql": "mysql.server start",
+    "kibana": "./debug/kibana-4.3.0-darwin-x64/bin/kibana",
+    "elastic": "./debug/elasticsearch-2.1.1/bin/elasticsearch",
     "test": "./node_modules/.bin/babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha -- --recursive",
     "test1": "jest --testRunner='<rootDir>/node_modules/jest-cli/src/testRunners/jasmine/jasmine2.js' --coverage",
     "jest": {
