@@ -36,8 +36,8 @@ class validateRules {
       result.errors.email.push(['이메일을 올바르게 입력해주세요']);
     }
 
-    if (!validator.isLength(user.password, 6, 12)) {
-      result.errors.password.push(['Password must be between 5 and 10 characters']);
+    if (!validator.isLength(user.password, 6, 21)) {
+      result.errors.password.push(['Password must be between 5 and 20 characters']);
     }
     if (!validator.matches(user.password, /[a-z]/i)) {
       result.errors.password.push(['Password must contain a letter']);

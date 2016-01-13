@@ -35,11 +35,13 @@ let Club = React.createClass({
   },
   componentDidMount() {
     console.log('Club, componentDidMount');
+    $('.nano-content').scrollTop(0);
   },
   componentWillReceiveProps(nextProps) {
     if (this.props.params.clubName !== nextProps.params.clubName) {
       const params = nextProps.params;
       PostActions.getPostsByClub(params);
+      $('.nano-content').scrollTop(0);
     }
   },
   render() {

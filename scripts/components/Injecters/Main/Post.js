@@ -47,12 +47,14 @@ let Post = React.createClass({
 
   componentDidMount() {
     console.log('Post, componentDidMount');
+    $('.nano-content').scrollTop(0);
   },
 
   componentWillReceiveProps(nextProps) {
     if (this.props.params.article !== nextProps.params.article) {
       const params = nextProps.params;
       PostActions.getClubPostLists(params);
+      $('.nano-content').scrollTop(0);
     }
 
     console.log('Post, componentWillReceiveProps');
