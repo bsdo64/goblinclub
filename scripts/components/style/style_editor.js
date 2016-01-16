@@ -74,18 +74,6 @@ export const editor =
         border: 'none',
         resize: 'vertical',
         lineHeight: 1
-      },
-      clubSelect: {
-        width: '30%',
-        display: 'inline-block',
-        borderRight: '1px solid #ddd',
-        float: 'left'
-      },
-      clubSelectOption: {
-        width: '70%',
-        display: 'inline-block',
-        paddingLeft: 10,
-        height: 300
       }
     },
     main: {

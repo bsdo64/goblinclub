@@ -30,6 +30,9 @@ let Sidebar = React.createClass({
       };
     }
   },
+  componentDidMount() {
+
+  },
   componentWillReceiveProps(nextProps) {
 
   },
@@ -38,8 +41,8 @@ let Sidebar = React.createClass({
     const {defaultClubList, userHas} = this.props.ClubStore;
 
     return (
-      <div style={styles.base}>
-        <div id="clubs">
+      <div className="nano" style={styles.base} >
+        <div className="nano-content" id="clubs">
           <div id="clubsContainer" style={styles.clubs.container} >
             {
               defaultClubList &&

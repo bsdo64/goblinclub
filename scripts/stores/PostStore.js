@@ -14,7 +14,7 @@ class PostStore {
     this.state = {
       post: '',
       writingPost: {
-        defaultClubList : [],
+        defaultClubList : 0,
         subscribeClubList : []
       },
       bestList: []
@@ -100,7 +100,7 @@ class PostStore {
     let state = this.state;
     let test = [];
 
-    for (var i = 0; i < test.length; i++) {
+    for (let i = 0; i < test.length; i += 1) {
       state.bestList.push(test[i]);
     }
 

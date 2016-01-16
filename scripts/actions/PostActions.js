@@ -6,12 +6,12 @@ import Api from '../Utils/ApiClient';
 const Apis = new Api();
 
 class PostActions {
-  setDefaultClubList(club) {
-    return club;
+  setDefaultClubList(clubId) {
+    return clubId;
   }
 
-  setSubscribeClubList(clubList) {
-    return clubList;
+  setSubscribeClubList(clubIds) {
+    return clubIds;
   }
 
   submitPost(post) {

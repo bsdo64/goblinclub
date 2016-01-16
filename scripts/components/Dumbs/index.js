@@ -10,6 +10,7 @@ export {default as CardPostItem} from './main/CardPostItem';
 
 export {default as ThreadPostList} from './main/ThreadPostList';
 export {default as ThreadPostItem} from './main/ThreadPostItem';
+export {default as ClubPagination} from './main/ClubPagination';
 
 export {default as Editor} from './main/Editor';
 export {default as HeadLine} from './main/HeadLine';

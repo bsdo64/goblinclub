@@ -9,7 +9,7 @@ import connectToStores from 'alt-utils/lib/connectToStores';
 import PostStore from '../../../Stores/PostStore';
 import PostActions from '../../../Actions/PostActions';
 
-import {ThreadPostList} from '../../../Components/Dumbs/index';
+import {ThreadPostList, ClubPagination} from '../../../Components/Dumbs/index';
 
 let Club = React.createClass({
   displayName: 'Club',
@@ -52,6 +52,8 @@ let Club = React.createClass({
           !_.isEmpty(postList) &&
           <ThreadPostList hasHeadLine={false} {...this.props}/>
         }
+
+        <ClubPagination />
       </div>
     );
   }

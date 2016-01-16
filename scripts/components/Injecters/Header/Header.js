@@ -7,7 +7,6 @@ import {Navbar} from 'react-bootstrap';
 
 import connectToStores from 'alt-utils/lib/connectToStores';
 import UserStore from '../../../Stores/UserStore';
-import PostStore from '../../../Stores/PostStore';
 import AppStore from '../../../Stores/AppStore';
 
 import {
@@ -29,13 +28,12 @@ let Header = React.createClass({
   statics: {
     getStores() {
       // this will handle the listening/unlistening for you
-      return [PostStore, UserStore, AppStore];
+      return [UserStore, AppStore];
     },
 
     getPropsFromStores() {
       // this is the data that gets passed down as props
       return {
-        PostStore: PostStore.getState(),
         UserStore: UserStore.getState(),
         AppStore: AppStore.getState()
       };

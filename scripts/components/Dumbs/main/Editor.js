@@ -3,71 +3,56 @@
  */
 import React from 'react';
 import Radium from 'radium';
-import {Input} from 'react-bootstrap';
+import Select from 'react-select';
 
 import {editor as styles} from '../../Style/style_editor';
 import PostActions from '../../../Actions/PostActions';
-import alt from '../../../alt';
+
 import HeadLine from './HeadLine';
 
+if (!process.env.NODE) {
+  require('react-select/dist/react-select.css');
+}
 let SubscribeClubs = React.createClass({
   displayName: 'SubscribeClubs',
   getInitialState() {
     return {
-      value: ''
+      subscribedClubIds: []
     };
   },
 
-  handleChange() {
+  handleSelectCheckbox(val) {
     this.setState({
-      value: this.getValue()
+      subscribedClubIds: val
     }, function () {
-      PostActions.setSubscribeClubList(this.getValue());
+      PostActions.setSubscribeClubList(this.state.subscribedClubIds);
     });
   },
-  getValue() {
-    let result;
-    // convert HTMLCollection  to Array
-    let inputs = this.getButtonGroupNode().querySelectorAll('input[type=checkbox]');
-    let children = Array.prototype.slice.call(inputs);
-    // find out the radio which was checked
-    result = children.filter(item => {
-      return item.checked;
-    });
-    result = result.map(function (i) {
-      return i.value;
-    });
 
+  getOptions(list) {
+    let result = [];
+    if (Array.isArray(list)) {
+      list.map(function (val) {
+        result.push({value: val.id, label: val.name});
+      });
+    }
     return result;
-  },
-  getButtonGroupNode() {
-    return this.refs.subscribedClubList;
   },
 
   render() {
     let {ClubStore} = this.props;
-    let createItem = function (val, index) {
-      return (
-        <div className="checkbox-inline" key={val.url + index}>
-          <label >
-            <input
-              label={val.name}
-              name="subscribedClubList"
-              onClick={this.handleChange}
-              readOnly
-              type="checkbox"
-              value={val.id} />
-            <span >{val.name}</span>
-          </label>
-        </div>
-      );
-    }.bind(this);
     return (
-      <div ref="subscribedClubList" style={styles.widget.clubSelectOption}>
+      <div ref="subscribedClubList" >
         <h4>{'가입한 클럽(최대 3개)'}</h4>
         {
           ClubStore.userHas &&
-          ClubStore.userHas.subscribedClubList.map(createItem)
+          <Select
+            clearable
+            multi
+            name="subscribed-club-select"
+            onChange={this.handleSelectCheckbox}
+            options={this.getOptions(ClubStore.userHas.subscribedClubList)}
+            value={this.state.subscribedClubIds} />
         }
       </div>
     );
@@ -79,55 +64,39 @@ let MainClubs = React.createClass({
   displayName: 'MainClubs',
   getInitialState() {
     return {
-      value: ''
+      defaultClubId: 1
     };
   },
 
-  handleChange() {
-    // This could also be done using ReactLink:
-    // http://facebook.github.io/react/docs/two-way-binding-helpers.html
+  handleSelectCheckbox(val) {
     this.setState({
-      value: this.getValue()
+      defaultClubId: val.value
     }, function () {
-      PostActions.setDefaultClubList(this.getValue());
+      PostActions.setDefaultClubList(this.state.defaultClubId);
     });
   },
-  getValue() {
-    let result;
-    // convert HTMLCollection  to Array
-    let inputs = this.getButtonGroupNode().querySelectorAll('input[type=radio]');
-    let children = Array.prototype.slice.call(inputs);
-    // find out the radio which was checked
-    result = children.filter(item => {
-      return item.checked;
-    });
-    // checkbox group only one can be checked.
-    return result[0].value;
-  },
-  getButtonGroupNode() {
-    return this.refs.defaultClubList;
+
+  getOptions(list) {
+    let result = [];
+    if (Array.isArray(list)) {
+      list.map(function (val) {
+        result.push({value: val.id, label: val.name});
+      });
+    }
+    return result;
   },
 
   render() {
     let {ClubStore} = this.props;
-    let createItem = function (val) {
-      return (
-        <Input
-          key={val.url}
-          label={val.name}
-          name="defaultClubList"
-          onClick={this.handleChange}
-          readOnly
-          type="radio"
-          value={val.id} />
-      );
-    }.bind(this);
     return (
-      <div ref="defaultClubList" style={styles.widget.clubSelect}>
+      <div ref="defaultClubList" >
         <h4>{'메인 클럽(필수)'}</h4>
-        {
-          ClubStore.defaultClubList.map(createItem)
-        }
+        <Select
+          clearable={false}
+          name="default-club-select"
+          onChange={this.handleSelectCheckbox}
+          options={this.getOptions(ClubStore.defaultClubList)}
+          value={this.state.defaultClubId} />
       </div>
     );
   }
@@ -156,7 +125,7 @@ let Editor = React.createClass({
   },
   componentWillReceiveProps(nextProps) {
     let PostStore = nextProps.PostStore;
-    if (PostStore.writingPost.success) {
+    if (PostStore.writingPost && PostStore.writingPost.success) {
       this.props.history.pushState(
         null,
         '/club/' + PostStore.readingPost.clubs[0].url + '/' + PostStore.readingPost.uid
