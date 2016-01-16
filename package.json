@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "front-build": "webpack --colors --progress --watch",
-    "redis": "redis-server",
+    "redis": "redis-server ./redis.conf",
     "mysql": "mysql.server start",
     "kibana": "./debug/kibana-4.3.0-darwin-x64/bin/kibana",
     "elastic": "./debug/elasticsearch-2.1.1/bin/elasticsearch",

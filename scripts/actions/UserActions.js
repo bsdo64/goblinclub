@@ -21,26 +21,29 @@ class UserActions {
           .post('/login', user)
           .then(function (res) {
             slf.success(res);
+            return null;
           })
           .catch(function (error) {
             if (error) {
               slf.serverFail(error);
+              return null;
             }
             if (error.error) {
               error.error.type = 'loginUser';
               slf.serverValidateFail(error.error);
+              return null;
             }
           });
       } else {
         slf.uiValidateFail(result);
+        return null;
       }
     });
   }
 
   signinUser(newUser) {
     let uiValidator = new Validator();
-    let slf = this;
-
+    let Apis = new Api();
     uiValidator.signinUser(newUser, (err, result) => {
       if (err) {
         return (err);
@@ -50,19 +53,22 @@ class UserActions {
         Apis
           .post('/signin', newUser)
           .then(function (res) {
-            slf.success(res);
-          })
+            this.success(res);
+          }.bind(this))
           .catch(function (error) {
             if (error) {
-              slf.serverFail(error);
+              this.serverFail(error);
+              return null;
             }
             if (error.error) {
               error.error.type = 'loginUser';
-              slf.serverValidateFail(error.error);
+              this.serverValidateFail(error.error);
+              return null;
             }
-          });
+          }.bind(this));
       } else {
-        slf.uiValidateFail(result);
+        this.uiValidateFail(result);
+        return null;
       }
     });
   }

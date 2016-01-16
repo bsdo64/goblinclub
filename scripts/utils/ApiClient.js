@@ -15,6 +15,8 @@ Req.prototype.get = function (url, params) {
       .set('Accept', 'application/json')
       .end(function (xhrErr, xhrRes) {
         if (xhrErr) {
+          console.log(xhrErr);
+          console.log(xhrRes);
           reject(xhrErr);
         } else if (xhrRes.error) {
           reject(xhrRes);

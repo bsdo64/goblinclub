@@ -64,12 +64,14 @@ class PostActions {
     return null;
   }
 
-  redirectToNotFound() {
-    return null;
+  redirectToNotFound(err) {
+    console.log(err);
+    return err;
   }
 
-  resetNotFound() {
-    return null;
+  resetNotFound(err) {
+    console.log(err);
+    return err;
   }
 }
 

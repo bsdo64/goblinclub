@@ -38,7 +38,14 @@
     "error_file" : "/Users/dobyeongsu/projects/log/api-server/err.log",
     "out_file"   : "/Users/dobyeongsu/projects/log/api-server/out.log",
     "pid_file"   : "/Users/dobyeongsu/projects/log/api-server/pid.pid",
-    "ignore_watch" : ["[\\/\\\\]\\./", "node_modules"],
+    "ignore_watch" : [
+      "[\\/\\\\]\\./",
+      "node_modules",
+      "debug/*",
+      "npm-debug.log",
+      ".idea/*",
+      ".git/*"
+    ],
     "env" : {
       "NODE": "4.2.1"
     }
@@ -51,7 +58,7 @@
     "error_file" : "/Users/dobyeongsu/projects/log/image-server/err.log",
     "out_file"   : "/Users/dobyeongsu/projects/log/image-server/out.log",
     "pid_file"   : "/Users/dobyeongsu/projects/log/image-server/pid.pid",
-    "ignore_watch" : ["[\\/\\\\]\\./", "node_modules", "public/", "tmp"],
+    "ignore_watch" : ["[\\/\\\\]\\./", "node_modules", "public/", "tmp",".idea/*", ".git/*"],
     "env" : {
       "NODE": "4.2.1"
     }
