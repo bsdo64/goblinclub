@@ -16,6 +16,7 @@ let Login = React.createClass({
       serverValidate: React.PropTypes.bool
     })
   },
+
   statics: {
     getStores() {
       return [UserStore];

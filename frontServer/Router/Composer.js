@@ -1,9 +1,9 @@
-import express from 'express';
-import jsonWebToken from 'jsonwebtoken';
-import Api from '../lib/Api';
+var express = require('express');
+var jsonWebToken = require('jsonwebtoken');
+var Api = require('../lib/Api');
 var Composer = express.Router();
 
-Composer.use((req, res, next) => {
+Composer.use(function (req, res, next) {
   var userToken = req.cookies.token;
   Api.setToken(userToken);
 
@@ -25,7 +25,7 @@ Composer.use((req, res, next) => {
     }
   };
 
-  const token = req.cookies.token;
+  var token = req.cookies.token;
   if (token) {
     jsonWebToken.verify(token, 'secret', function (err, decoded) {
       if (err) {
@@ -44,7 +44,7 @@ Composer.use((req, res, next) => {
   }
 });
 
-Composer.get('/', (req, res, next) => {
+Composer.get('/', function (req, res, next) {
   Api.get(req.url)
     .end((errXHR, resXHR) => {
       if (errXHR) {
@@ -52,7 +52,7 @@ Composer.get('/', (req, res, next) => {
         res.storeState['Error'] = errXHR;
         next();
       } else if (resXHR && resXHR.ok) {
-        let apiResult = resXHR.body;
+        var apiResult = resXHR.body;
         res.storeState.PostStore = apiResult.PostStore;
         res.storeState.ClubStore = apiResult.ClubStore;
         res.storeState.UserStore = apiResult.UserStore;
@@ -62,7 +62,7 @@ Composer.get('/', (req, res, next) => {
     });
 });
 
-Composer.get('/submit', (req, res, next) => {
+Composer.get('/submit', function (req, res, next) {
   Api.get(req.url)
     .query({user: res.storeState.UserStore.user})
     .end((errXHR, resXHR) => {
@@ -74,7 +74,7 @@ Composer.get('/submit', (req, res, next) => {
         }
         res.redirect('/');
       } else if (resXHR && resXHR.ok) {
-        let apiResult = resXHR.body;
+        var apiResult = resXHR.body;
         res.storeState.ClubStore = apiResult.ClubStore;
 
         next();
@@ -82,7 +82,7 @@ Composer.get('/submit', (req, res, next) => {
     });
 });
 
-Composer.get('/club/:clubName', (req, res, next) => {
+Composer.get('/club/:clubName', function (req, res, next) {
   Api.get(req.url)
     .query({user: res.storeState.UserStore.user})
     .end((errXHR, resXHR) => {
@@ -94,7 +94,7 @@ Composer.get('/club/:clubName', (req, res, next) => {
         }
         res.redirect('/');
       } else if (resXHR && resXHR.ok) {
-        let apiResult = resXHR.body;
+        var apiResult = resXHR.body;
         res.storeState.ClubStore = apiResult.ClubStore;
         res.storeState.PostStore = apiResult.PostStore;
 
@@ -103,7 +103,7 @@ Composer.get('/club/:clubName', (req, res, next) => {
     });
 });
 
-Composer.get('/club/:clubName/:postName', (req, res, next) => {
+Composer.get('/club/:clubName/:postName', function (req, res, next) {
   Api
     .get(req.url)
     .end((errXHR, resXHR) => {
@@ -116,7 +116,7 @@ Composer.get('/club/:clubName/:postName', (req, res, next) => {
         res.redirect('/');
 
       } else if (resXHR && resXHR.ok) {
-        let apiResult = resXHR.body;
+        var apiResult = resXHR.body;
         res.storeState.ClubStore = apiResult.ClubStore;
         res.storeState.PostStore = apiResult.PostStore;
 
@@ -125,7 +125,7 @@ Composer.get('/club/:clubName/:postName', (req, res, next) => {
     });
 });
 
-Composer.get('/notFound', (req, res, next) => {
+Composer.get('/notFound', function (req, res, next) {
   Api
     .get(req.url)
     .end((errXHR, resXHR) => {
@@ -133,7 +133,7 @@ Composer.get('/notFound', (req, res, next) => {
 
         next();
       } else if (resXHR && resXHR.ok) {
-        let apiResult = resXHR.body;
+        var apiResult = resXHR.body;
         res.storeState.ClubStore = apiResult.ClubStore;
         res.storeState.PostStore = apiResult.PostStore;
 
@@ -142,5 +142,4 @@ Composer.get('/notFound', (req, res, next) => {
     });
 });
 
-
-export default Composer;
+module.exports = Composer;

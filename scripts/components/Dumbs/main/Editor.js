@@ -11,6 +11,7 @@ import PostActions from '../../../Actions/PostActions';
 import HeadLine from './HeadLine';
 
 if (!process.env.NODE) {
+  console.log(process.env);
   require('react-select/dist/react-select.css');
 }
 let SubscribeClubs = React.createClass({

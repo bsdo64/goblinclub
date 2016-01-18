@@ -6,5 +6,6 @@ dump.rdb
 .idea/
 npm-debug.*
 debug/
+log/
 
 _dist/bundle.js.map

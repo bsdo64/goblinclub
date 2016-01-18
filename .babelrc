@@ -3,5 +3,8 @@
   "ignore": [
     "node_modules/**",
     "bower_components/**"
-  ]
+  ],
+  "env": {
+    "NODE": '4.2.1'
+  }
 }

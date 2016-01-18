@@ -22,7 +22,6 @@ let WritePost = React.createClass({
       this.props.history.pushState(null, '/');
     }
   },
-
   render() {
     return (
       <div>

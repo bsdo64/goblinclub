@@ -82,7 +82,6 @@ let Post = React.createClass({
             </li>
           </ul>
         }
-
         {
           !_.isEmpty(postList) &&
           <ThreadPostList {...this.props} hasHeadLine={true}/>

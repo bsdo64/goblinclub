@@ -1,14 +1,14 @@
 /**
  * Created by dobyeongsu on 2016. 1. 11..
  */
-import express from 'express';
-import Log from '../lib/Log';
+var express = require('express');
+var Log = require('../lib/Log');
 
 var Logger = express.Router();
 var ElasticLog = Log.ElasticLog;
 var AppLog = Log.AppLog;
 
-Logger.use((req, res, next) => {
+Logger.use(function (req, res, next) {
   // Request Logger
   AppLog.info('%s %s %s %s %s', req.method, req.url, req.ip, req.hostname, req.get('User-Agent'));
 
@@ -37,4 +37,4 @@ Logger.errorLogger = (function () {
   }
 })();
 
-export default Logger;
+module.exports = Logger;
