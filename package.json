@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "front-build": "webpack --colors --progress --watch",
+    "start": "npm run redis | npm run mysql | npm run front-build | npm run elastic | npm run kibana | DEBUG='pm2' pm2 start GoblinclubSystem.json --no-daemon",
     "redis": "redis-server ./redis.conf",
     "mysql": "mysql.server start",
     "kibana": "./debug/kibana-4.3.0-darwin-x64/bin/kibana",
     "elastic": "./debug/elasticsearch-2.1.1/bin/elasticsearch",
+    "front-build": "webpack --colors --progress --watch",
     "test": "./node_modules/.bin/babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha -- --recursive",
     "test1": "jest --testRunner='<rootDir>/node_modules/jest-cli/src/testRunners/jasmine/jasmine2.js' --coverage",
     "jest": {

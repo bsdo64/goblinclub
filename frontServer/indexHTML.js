@@ -1,7 +1,7 @@
 /**
  * Created by dobyeongsu on 2015. 10. 15..
  */
-import React, { Component } from 'react';
+import React, { Component } from 'react/dist/react.min.js';
 import path from 'path';
 
 export default class HTML extends Component {
@@ -12,7 +12,6 @@ export default class HTML extends Component {
         <link rel="stylesheet" href="/statics/font-awesome/css/font-awesome.min.css"/>
         <link rel="stylesheet" href="/statics/bootstrap/dist/css/bootstrap.css"/>
         <link rel="stylesheet" href="/statics/non-responsive.css"/>
-        <link rel="stylesheet" href="/statics/codes/github.css"/>
         <link rel="stylesheet" href="/statics/nanoscroller.css"/>
         <link rel="stylesheet" href="/statics/blueimp-gallery/css/blueimp-gallery.min.css"/>
 

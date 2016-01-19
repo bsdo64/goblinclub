@@ -7,7 +7,7 @@ import fetch                        from 'superagent';
 import connectRedis                 from 'connect-redis'
 import session                      from 'express-session';
 
-import React                        from 'react';
+import React                        from 'react/dist/react.min.js';
 import routes                       from '../universalRouter/routes'
 import ReactDOM                     from 'react-dom/server';
 import { RoutingContext, match }    from 'react-router'

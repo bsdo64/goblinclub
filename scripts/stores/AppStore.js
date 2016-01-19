@@ -6,7 +6,7 @@ class AppStore {
     this.state = {
       serverRendered: true,
       openLoginModal: false,
-      initData:{}
+      initData: {}
     };
 
     this.bindActions(AppActions);

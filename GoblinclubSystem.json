@@ -2,7 +2,9 @@
   "apps" : [{
     "name"        : "Front-Server",
     "script"      : "bin/frontServer.js",
-    "watch"       : true,
+    "watch"       : [
+      "*/bundle\.js"
+    ],
     "max_restarts": 5,
     "autorestart" : false,
     "node_args"   : "--harmony",
@@ -11,55 +13,31 @@
     "error_file" : "log/front-server/err.log",
     "out_file"   : "log/front-server/out.log",
     "pid_file"   : "log/front-server/pid.pid",
-    "ignore_watch" : [
-      "[\\/\\\\]\\./",
-      "\.idea",
-      "\.git",
-      "debug",
-      "bower_components",
-      "node_modules",
-      "log",
-      "scripts\/**\/*\.js",
-      "imageServer",
-      "document",
-      "apiServer",
-      "dump\.rdb",
-      "npm-debug\.log"
-    ],
     "env" : {
       "NODE": "4.2.1"
     }
   },{
     "name"        : "Api-Server",
-    "script"      : "server.js",
-    "watch"       : true,
+    "script"      : "apiServer/server.js",
+    "watch"       : ["apiServer/*.js"],
     "node_args"   : "--harmony",
     "max_memory_restart": "3G",
-    "cwd"         : "/Users/dobyeongsu/projects/goblin-alt/apiServer",
-    "error_file" : "/Users/dobyeongsu/projects/log/api-server/err.log",
-    "out_file"   : "/Users/dobyeongsu/projects/log/api-server/out.log",
-    "pid_file"   : "/Users/dobyeongsu/projects/log/api-server/pid.pid",
-    "ignore_watch" : [
-      "[\\/\\\\]\\./",
-      "node_modules",
-      "debug/*",
-      "npm-debug.log",
-      ".idea/*",
-      ".git/*"
-    ],
+    "cwd"         : ".",
+    "error_file" : "log/api-server/err.log",
+    "out_file"   : "log/api-server/out.log",
+    "pid_file"   : "log/api-server/pid.pid",
     "env" : {
       "NODE": "4.2.1"
     }
   },{
     "name"        : "Image-Server",
-    "script"      : "server.js",
-    "watch"       : false,
+    "script"      : "imageServer/server.js",
+    "watch"       : ["imageServer/*.js"],
     "node_args"   : "--harmony",
-    "cwd"         : "/Users/dobyeongsu/projects/goblin-alt/imageServer",
-    "error_file" : "/Users/dobyeongsu/projects/log/image-server/err.log",
-    "out_file"   : "/Users/dobyeongsu/projects/log/image-server/out.log",
-    "pid_file"   : "/Users/dobyeongsu/projects/log/image-server/pid.pid",
-    "ignore_watch" : ["[\\/\\\\]\\./", "node_modules", "public/", "tmp",".idea/*", ".git/*"],
+    "cwd"         : ".",
+    "error_file" : "log/image-server/err.log",
+    "out_file"   : "log/image-server/out.log",
+    "pid_file"   : "log/image-server/pid.pid",
     "env" : {
       "NODE": "4.2.1"
     }
