@@ -6,14 +6,14 @@ import Radium from 'radium';
 import Select from 'react-select';
 
 import {editor as styles} from '../../Style/style_editor';
-import PostActions from '../../../Actions/PostActions';
+import PostActions from '../../../Flux/Actions/PostActions';
 
 import HeadLine from './HeadLine';
 
 if (!process.env.NODE) {
   console.log(process.env);
   require('react-select/dist/react-select.css');
-}
+};
 let SubscribeClubs = React.createClass({
   displayName: 'SubscribeClubs',
   getInitialState() {
@@ -59,7 +59,6 @@ let SubscribeClubs = React.createClass({
     );
   }
 });
-
 
 let MainClubs = React.createClass({
   displayName: 'MainClubs',

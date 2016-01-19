@@ -6,8 +6,8 @@ import Radium from 'radium';
 import _ from 'lodash';
 
 import connectToStores from 'alt-utils/lib/connectToStores';
-import PostStore from '../../../Stores/PostStore';
-import PostActions from '../../../Actions/PostActions';
+import PostStore from '../../../Flux/Stores/PostStore';
+import PostActions from '../../../Flux/Actions/PostActions';
 
 import {ThreadPostList, ClubPagination} from '../../../Components/Dumbs/index';
 

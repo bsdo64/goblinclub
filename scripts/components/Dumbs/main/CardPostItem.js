@@ -5,18 +5,35 @@ import {Link} from 'react-router';
 import styles from '../../Style/style_post';
 import {CommentList} from '../index';
 
+import PostActions from '../../../Flux/Actions/PostActions';
+
 let BtnArea = React.createClass({
   displayName: 'BtnArea',
+  propTypes: {
+    uid: React.PropTypes.string
+  },
+  handleLike(uid) {
+    PostActions.like(uid);
+  },
+  handleDisLike(uid) {
+    PostActions.dislike(uid);
+  },
   render() {
+    const uid = this.props.uid;
     return (
       <div className="btn_area" style={styles.posts.postButtons}>
-        <a key={'thumbUp'} style={styles.posts.thumbUp}>
+        <a key={'thumbUp' + uid}
+           onClick={this.handleLike.bind(null, uid)}
+           style={styles.posts.thumbUp}>
           <i className="fa fa-thumbs-o-up" />
         </a>
-        <a key={'thumbDown'} style={styles.posts.thumbDown}>
+        <a key={'thumbDown' + uid}
+           onClick={this.handleDisLike.bind(null, uid)}
+           style={styles.posts.thumbDown}>
           <i className="fa fa-thumbs-o-down" />
         </a>
-        <a key={'commentButton'} style={styles.posts.commentButton}>
+        <a key={'commentButton' + uid}
+           style={styles.posts.commentButton}>
           <i className="fa fa-commenting-o" />
         </a>
       </div>
@@ -94,7 +111,7 @@ let CardPostItem = React.createClass({
           }
         </div>
 
-        <BtnArea />
+        <BtnArea uid={uid} />
 
         {
           hasComment &&

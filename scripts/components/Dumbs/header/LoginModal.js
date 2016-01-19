@@ -8,7 +8,7 @@ import {Modal} from 'react-bootstrap';
 import styles from '../../Style/style_modal';
 import ModalAuthForm from './ModalAuthForm';
 
-import AppActions from '../../../Actions/AppActions';
+import AppActions from '../../../Flux/Actions/AppActions';
 
 let LoginModal = React.createClass({
   displayName: 'LoginModal',

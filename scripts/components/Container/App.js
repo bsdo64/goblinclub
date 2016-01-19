@@ -4,7 +4,7 @@
 import React from 'react';
 import Radium, {Style, StyleRoot} from 'radium';
 
-import AppActions from '../../Actions/AppActions';
+import AppActions from '../../Flux/Actions/AppActions';
 
 let App = React.createClass({
   displayName: 'App',

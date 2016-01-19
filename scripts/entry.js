@@ -2,7 +2,7 @@
  * Created by dobyeongsu on 2015. 10. 15..
  */
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/dist/react-dom.min.js';
 import Iso from 'iso';
 import alt from './alt';
 import {Router} from 'react-router';
