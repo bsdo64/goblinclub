@@ -11,7 +11,7 @@ import UserStore from '../../../Flux/Stores/UserStore';
 import PostStore from '../../../Flux/Stores/PostStore';
 import PostActions from '../../../Flux/Actions/PostActions';
 
-import {CardPostItem, ThreadPostList} from '../../../Components/Dumbs/index';
+import {CardPostItem, ThreadPostList, ClubPagination} from '../../../Components/Dumbs/index';
 
 import styles from '../../../Components/Style/style_post';
 
@@ -84,7 +84,11 @@ let Post = React.createClass({
         }
         {
           !_.isEmpty(postList) &&
-          <ThreadPostList {...this.props} hasHeadLine={true}/>
+          <div>
+            <ThreadPostList hasHeadLine={true} {...this.props}/>
+
+            <ClubPagination />
+          </div>
         }
       </div>
     );
