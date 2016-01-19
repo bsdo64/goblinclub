@@ -39,5 +39,10 @@ export default {
   },
   listActive: {
     backgroundColor: '#f4f4f4'
+  },
+  pager: {
+    ':hover': {
+      backgroundColor: '#f4f4f4'
+    }
   }
 };

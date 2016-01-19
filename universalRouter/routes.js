@@ -65,7 +65,7 @@ export default (
     <Route path="/search" components={{header: Header, main: Main, sidebar: Sidebar}}/>
 
     <Route path="*" component={App}>
-      <IndexRoute components={{header: Header, main: NotFound}}/>
+      <IndexRoute components={{header: Header, main: NotFound, sidebar: Sidebar}}/>
     </Route>
   </Router>
 )
