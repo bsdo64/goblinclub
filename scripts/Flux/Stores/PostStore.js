@@ -1,8 +1,8 @@
-import alt from '../alt';
+import alt from '../../alt';
 import AppActions from '../Actions/AppActions';
 import PostActions from '../Actions/PostActions';
 
-import AppStore from '../Stores/AppStore';
+import AppStore from './AppStore';
 
 class PostStore {
   constructor() {
@@ -15,7 +15,7 @@ class PostStore {
       post: '',
       writingPost: {
         defaultClubList : 0,
-        subscribeClubList : []
+        subscribeClubLisCt : []
       },
       bestList: []
 
@@ -106,6 +106,14 @@ class PostStore {
 
 
     this.setState(state);
+  }
+
+  onLike() {
+
+  }
+
+  onDislike() {
+
   }
 }
 

@@ -5,8 +5,8 @@ import React from 'react';
 import Radium from 'radium';
 
 import connectToStores from 'alt-utils/lib/connectToStores';
-import PostStore from '../../../Stores/PostStore';
-import ClubStore from '../../../Stores/ClubStore';
+import PostStore from '../../../Flux/Stores/PostStore';
+import ClubStore from '../../../Flux/Stores/ClubStore';
 
 import {Editor} from '../../../Components/Dumbs/index';
 

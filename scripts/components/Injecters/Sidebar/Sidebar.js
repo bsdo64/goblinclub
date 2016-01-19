@@ -5,8 +5,8 @@ import React from 'react';
 import Radium from 'radium';
 
 import connectToStores from 'alt-utils/lib/connectToStores';
-import UserStore from '../../../Stores/UserStore';
-import ClubStore from '../../../Stores/ClubStore';
+import UserStore from '../../../Flux/Stores/UserStore';
+import ClubStore from '../../../Flux/Stores/ClubStore';
 
 import styles from '../../Style/style_sidebar';
 import {ClubList} from '../../../Components/Dumbs/index';

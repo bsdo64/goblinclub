@@ -5,7 +5,7 @@ import React from 'react';
 import Radium from 'radium';
 import {Nav} from 'react-bootstrap';
 
-import AppActions from '../../../Actions/AppActions';
+import AppActions from '../../../Flux/Actions/AppActions';
 
 import {LoginModal} from '../../../Components/Dumbs/index';
 import styles from '../../Style/style_header';

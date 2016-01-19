@@ -6,7 +6,7 @@ import Radium from 'radium';
 import Select from 'react-select';
 
 import {editor as styles} from '../../Style/style_editor';
-import PostActions from '../../../Actions/PostActions';
+import PostActions from '../../../Flux/Actions/PostActions';
 
 import HeadLine from './HeadLine';
 

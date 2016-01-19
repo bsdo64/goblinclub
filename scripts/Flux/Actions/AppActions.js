@@ -1,8 +1,8 @@
 /**
  * Created by dobyeongsu on 2015. 10. 17..
  */
-import alt from '../alt';
-import Api from '../Utils/ApiClient';
+import alt from '../../alt';
+import Api from '../../Utils/ApiClient';
 const Apis = new Api();
 
 class AppActions {

@@ -2,8 +2,8 @@ import React from 'react';
 import {Tab, Tabs} from 'react-bootstrap';
 
 import connectToStores from 'alt-utils/lib/connectToStores';
-import UserStore from '../../../Stores/UserStore';
-import UserActions from '../../../Actions/UserActions';
+import UserStore from '../../../Flux/Stores/UserStore';
+import UserActions from '../../../Flux/Actions/UserActions';
 
 let Login = React.createClass({
   displayName: 'Login',

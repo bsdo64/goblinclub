@@ -1,4 +1,4 @@
-import alt from '../alt';
+import alt from '../../alt';
 import UserActions from '../Actions/UserActions';
 
 class UserStore {

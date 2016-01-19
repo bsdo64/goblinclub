@@ -6,8 +6,8 @@ import Radium, {Style} from 'radium';
 import {Navbar} from 'react-bootstrap';
 
 import connectToStores from 'alt-utils/lib/connectToStores';
-import UserStore from '../../../Stores/UserStore';
-import AppStore from '../../../Stores/AppStore';
+import UserStore from '../../../Flux/Stores/UserStore';
+import AppStore from '../../../Flux/Stores/AppStore';
 
 import {
   HeaderLogo,
