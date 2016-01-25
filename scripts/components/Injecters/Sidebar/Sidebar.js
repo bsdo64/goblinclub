@@ -31,6 +31,7 @@ let Sidebar = React.createClass({
     }
   },
   componentDidMount() {
+    $('#Sidebar').nanoScroller();
     console.log('Sidebar, componentDidMount');
   },
   componentWillReceiveProps(nextProps) {

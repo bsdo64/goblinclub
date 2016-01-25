@@ -19,7 +19,7 @@
   },{
     "name"        : "Api-Server",
     "script"      : "apiServer/server.js",
-    "watch"       : ["apiServer/**/*.js"],
+    "watch"       : ["apiServer/**/*\.js"],
     "node_args"   : "--harmony",
     "max_memory_restart": "3G",
     "cwd"         : ".",

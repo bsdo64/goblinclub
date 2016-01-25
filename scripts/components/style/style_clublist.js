@@ -1,6 +1,8 @@
 /**
  * Created by dobyeongsu on 2015. 11. 13..
  */
+import common from './common';
+
 export default {
   container: {
     fontSize: 14
@@ -14,7 +16,7 @@ export default {
     fontSize: 14,
     paddingLeft: 17,
     color: '#fff',
-    backgroundColor: '#2B5F5B',
+    backgroundColor: common.MAIN_COLOR,
     height: '26px',
     lineHeight: '26px'
   },
@@ -26,7 +28,7 @@ export default {
   },
   listElement: {
     paddingLeft: 25,
-    color: '#2B5F5B',
+    color: common.MAIN_COLOR,
     margin: '2px 0 2px 0',
     height: '22px',
     lineHeight: '22px',
@@ -34,11 +36,11 @@ export default {
     fontSize: 12,
     backgroundColor: '#fff',
     ':hover': {
-      backgroundColor: '#f4f4f4'
+      backgroundColor: common.BACKGROUND_GRAY
     }
   },
   listActive: {
-    backgroundColor: '#f4f4f4'
+    backgroundColor: common.BACKGROUND_GRAY
   },
   pager: {
     padding: '0 15px'

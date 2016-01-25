@@ -1,37 +1,37 @@
 @font-face {
     font-family: 'source-han-sans-korean';
-    font-weight: 250;
-    src: local("NotoSansCJKkr-Thin"), url(/statics/NotoSansCJKkr-Thin.otf) format('opentype');
+    font-weight: 100;
+    src: url(/statics/SourceHanSansK-ExtraLight.woff) format('woff');
+}
+@font-face {
+    font-family: 'source-han-sans-korean';
+    font-weight: 200;
+    src: url(/statics/SourceHanSansK-Light.woff) format('woff');
 }
 @font-face {
     font-family: 'source-han-sans-korean';
     font-weight: 300;
-    src: local("NotoSansCJKkr-Light"), url(/statics/NotoSansCJKkr-Light.otf) format('opentype');
-}
-@font-face {
-    font-family: 'source-han-sans-korean';
-    font-weight: 350;
-    src: local("NotoSansCJKkr-DemiLight"), url(/statics/NotoSansCJKkr-DemiLight.otf) format('opentype');
+    src: url(/statics/SourceHanSansK-Normal.woff) format('woff');
 }
 @font-face {
     font-family: 'source-han-sans-korean';
     font-weight: 400;
-    src: local("NotoSansCJKkr-Regular"), url(/statics/NotoSansCJKkr-Regular.otf) format('opentype');
+    src: url(/statics/SourceHanSansK-Regular.woff) format('woff');
 }
 @font-face {
     font-family: 'source-han-sans-korean';
     font-weight: 500;
-    src: local("NotoSansCJKkr-Medium"), url(/statics/NotoSansCJKkr-Medium.otf) format('opentype');
+    src: url(/statics/SourceHanSansK-Medium.woff) format('woff');
 }
 @font-face {
     font-family: 'source-han-sans-korean';
     font-weight: 700;
-    src: local("NotoSansCJKkr-Bold"), url(/statics/NotoSansCJKkr-Bold.otf) format('opentype');
+    src: url(/statics/SourceHanSansK-Bold.woff) format('woff');
 }
 @font-face {
     font-family: 'source-han-sans-korean';
     font-weight: 900;
-    src: local("NotoSansCJKkr-Black"), url(/statics/NotoSansCJKkr-Black.otf) format('opentype');
+    src: url(/statics/SourceHanSansK-Heavy.woff) format('woff');
 }
 
 body {
