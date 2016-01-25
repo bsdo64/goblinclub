@@ -3,8 +3,16 @@
  */
 import React from 'react';
 import Radium from 'radium';
+import Textarea from 'react-textarea-autosize';
+
+import HeadLine from './HeadLine';
+
+import AppActions from '../../../Flux/Actions/AppActions';
 
 let comment = {
+  comment: {
+    marginTop: 10
+  },
   top: {
     padding: '10px 0'
   },
@@ -29,7 +37,7 @@ let comment = {
     margin: '0 0 10px'
   },
   writeBox: {
-    margin: '10px 0',
+    marginBottom: 10,
     backgroundColor: 'rgba(231, 239, 239, 0.61)',
     borderRadius: 1,
     boxShadow: '1px 1px #b0c2c0',
@@ -58,7 +66,10 @@ let comment = {
   input: {
     width: 'calc(100% - 40px)',
     padding: 5,
-    fontSize: 12
+    fontSize: 12,
+    minHeight: 27,
+    resize: 'none',
+    border: 'none'
   },
   pictureBox: {
     position: 'absolute',
@@ -136,29 +147,53 @@ let comment = {
 
 let WriteBox = React.createClass({
   displayName: 'WriteBox',
+  getInitialState: function () {
+    return {
+      comment: 0
+    };
+  },
+  checkLogin() {
+    const {authSuccess} = this.props;
+    if (!authSuccess) {
+      AppActions.toggleLoginModal();
+    }
+  },
+  handleUploadPic() {
+    console.log('Upload Picture');
+  },
+  handleChange() {
+    console.log(this.refs.commentBox.value);
+    this.setState({comment: this.refs.commentBox.value.length});
+  },
   render() {
-    return (<div style={comment.writeBox}>
-      <div style={comment.writeBoxLeft}>
-        <div style={comment.writeBoxName}>
-          {'TEST'}
-        </div>
-      </div>
-      <div style={comment.writeBoxRight}>
-        <div style={comment.inputBox}>
-          <div contentEditable="true" style={comment.input}>
-
+    return (
+      <div style={comment.writeBox}>
+        <div style={comment.writeBoxLeft}>
+          <div style={comment.writeBoxName}>
+            {'TEST'}
           </div>
         </div>
-        <div style={comment.pictureBox}>
-          <div style={comment.picture}>
-            <i className="fa fa-camera" />
+        <div style={comment.writeBoxRight}>
+          <div style={comment.inputBox}>
+            <Textarea
+              style={comment.input}
+              rows={1}
+              ref="commentBox"
+              onChange={this.handleChange}
+              onFocus={this.checkLogin}
+              defaultValue="Just a single line..."
+            />
+          </div>
+          <div style={comment.pictureBox}>
+            <div style={comment.picture} onClick={this.handleUploadPic}>
+              <i className="fa fa-camera" />
+            </div>
           </div>
         </div>
-      </div>
-      <div style={comment.remainText}>
-        {'(300/300)'}
-      </div>
-    </div>);
+        <div style={comment.remainText}>
+          {'(' + this.state.comment + '/300)'}
+        </div>
+      </div>);
   }
 });
 
@@ -167,25 +202,7 @@ let CommentHead = React.createClass({
   render() {
     return (
       <div >
-        <div id="sortComboBox" style={comment.top}>
-          <h2 style={comment.boxHeadLine}>
-            <strong style={comment.red}>{'203'}</strong><span>{'개의 댓글'}</span>
-            <a href="#" title="새로 고침">{'새로 고침'}</a>
-          </h2>
-          <ul id="sortlist" style={comment.selectBox}>
-            <li style={comment.inlineBlock}>
-              <input name="sort" type="radio"/>
-              <label htmlFor="like" id="likability">{'호감순'}</label>
-            </li>
-            <li style={comment.inlineBlock}>
-              <input name="sort" type="radio"/>
-              <label htmlFor="latest" id="newest">{'최신순'}</label>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <hr style={comment.hr}/>
-        </div>
+        <HeadLine title="댓글" />
       </div>
     );
   }
@@ -209,6 +226,7 @@ let CommentBox = React.createClass({
   },
   render() {
     const {oneComment} = this.props;
+    console.log(oneComment);
     return (
     <div style={comment.box}>
       <div style={comment.rightButtonBox}>
@@ -256,7 +274,7 @@ let CommentList = React.createClass({
     commentList: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
   },
   render() {
-    const {commentList} = this.props;
+    const {authSuccess, commentList} = this.props;
 
     let listing = function (oneComment) {
       return (
@@ -274,11 +292,11 @@ let CommentList = React.createClass({
       </li>);
     };
     return (<div>
-      <div id="sc_comment_box">
+      <div id="sc_comment_box" style={comment.comment}>
 
         <CommentHead />
 
-        <WriteBox />
+        <WriteBox authSuccess={authSuccess} />
 
         <div>
           <ul id="main-comment" style={comment.listBox}>

@@ -21,7 +21,8 @@ let Best = React.createClass({
   },
   getInitialState: function () {
     return {
-      initialized: false
+      initialized: false,
+      page: 1
     };
   },
 
@@ -38,6 +39,12 @@ let Best = React.createClass({
     }
   },
 
+  getPageState() {
+    return this.state.page;
+  },
+  updatePage() {
+    this.setState({page: this.state.page + 1});
+  },
   /**
    * 컴포넌트가 처음으로 마운트 되고 난 후에 실행된다. 데이터 업데이트와는 관계없다
    * 따라서 마운트때, 렌더링 후에 단 한번만 실행된다.
@@ -49,10 +56,11 @@ let Best = React.createClass({
     scrollContent.onscroll = function () {
       let bottomGap = scrollContent.scrollHeight - (scrollContent.offsetHeight + scrollContent.scrollTop);
       if (bottomGap <= 0) {
-        PostActions.moreBest();
-        $('.nano').nanoScroller();
+        PostActions.moreBest(this.getPageState());
+        this.updatePage();
+        $('#Section').nanoScroller();
       }
-    };
+    }.bind(this);
   },
 
   /**
@@ -64,7 +72,6 @@ let Best = React.createClass({
   componentWillReceiveProps() {
     if (!AppStore.getState().serverRendered && !this.state.initialized) {
       this.setState({initialized: true});
-      AppActions.initBest();
     }
   },
 
@@ -92,6 +99,8 @@ let Best = React.createClass({
    * @returns {void}
    */
   componentWillUnmount() {
+    let scrollContent = document.getElementsByClassName('nano-content')[0];
+    scrollContent.onscroll = null;
   },
 
   render() {

@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import _ from 'lodash';
-import { Router, Route, IndexRoute } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import {
   App,
@@ -14,18 +14,19 @@ import {
   Post,
   Login,
   WritePost,
+  WriteClub,
   NotFound,
   Sidebar
 } from '../scripts/Components/Injecters/index';
 
 
 export default (
-  <Router>
+  <Router history={browserHistory}>
     <Route path='' component={App}>
       <Route path='/' components={{header: Header, main: Main, sidebar: Sidebar}}>
         <IndexRoute components={{mainSection: Best}}/>
         <Route path="submit" components={{mainSection: WritePost}}/>
-        <Route path="submit/club" components={{mainSection: WritePost}}/>
+        <Route path="submit/club" components={{mainSection: WriteClub}}/>
 
         <Route path="login" components={{mainSection: Login}}/>
         <Route path="login/emailverify" components={{mainSection: Login}}/>
@@ -52,7 +53,6 @@ export default (
     <Route path="/user/:id/favorated" components={{header: Header, main: Main, sidebar: Sidebar}}/>
     <Route path="/user/:id/saved" components={{header: Header, main: Main, sidebar: Sidebar}}/>
 
-    <Route path="/submit/club" components={{header: Header, main: Main, sidebar: Sidebar}}/>
     <Route path="club" components={{header: Header, main: Main, sidebar: Sidebar}}/>
 
     <Route path="/club/:clubName/:article/comments" components={{header: Header, main: Main, sidebar: Sidebar}}/>

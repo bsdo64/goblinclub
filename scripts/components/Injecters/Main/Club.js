@@ -7,6 +7,7 @@ import _ from 'lodash';
 
 import connectToStores from 'alt-utils/lib/connectToStores';
 import PostStore from '../../../Flux/Stores/PostStore';
+import UserStore from '../../../Flux/Stores/UserStore';
 import PostActions from '../../../Flux/Actions/PostActions';
 
 import {ThreadPostList, ClubPagination} from '../../../Components/Dumbs/index';
@@ -19,13 +20,14 @@ let Club = React.createClass({
   statics: {
     getStores() {
       // this will handle the listening/unlistening for you
-      return [PostStore];
+      return [PostStore, UserStore];
     },
 
     getPropsFromStores() {
       // this is the data that gets passed down as props
       return {
-        PostStore: PostStore.getState()
+        PostStore: PostStore.getState(),
+        UserStore: UserStore.getState()
       };
     }
   },
@@ -35,13 +37,13 @@ let Club = React.createClass({
   },
   componentDidMount() {
     console.log('Club, componentDidMount');
-    $('.nano-content').scrollTop(0);
+    $('#Section .nano-content').scrollTop(0);
   },
   componentWillReceiveProps(nextProps) {
     if (this.props.params.clubName !== nextProps.params.clubName) {
       const params = nextProps.params;
       PostActions.getPostsByClub(params);
-      $('.nano-content').scrollTop(0);
+      $('#Section .nano-content').scrollTop(0);
     }
   },
   render() {
@@ -53,7 +55,7 @@ let Club = React.createClass({
           <ThreadPostList hasHeadLine={false} {...this.props}/>
         }
 
-        <ClubPagination />
+        <ClubPagination {...this.props}/>
       </div>
     );
   }

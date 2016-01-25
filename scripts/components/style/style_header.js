@@ -89,6 +89,19 @@ export default {
         textDecoration: 'none'
       }
     },
+    leftItem: {
+      borderRadius: 1,
+      boxShadow: '1px 1px 0 #000000',
+      color: '#fff',
+      backgroundColor: '#01403c',
+      padding: '3px 7px',
+      borderTop: 'solid #3b6b68 1px',
+      borderLeft: 'solid #000000 1px',
+      borderBottom: 'none',
+      borderRight: 'none',
+      height: 25,
+      fontSize: 13
+    },
     marginLeft: {
       marginLeft: 5
     }

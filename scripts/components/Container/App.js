@@ -16,6 +16,9 @@ let App = React.createClass({
   componentDidMount() {
     // 모든 하위 컴포넌트 마운트 완료 -> AppStore.serverRendered: false
     AppActions.disableServerRender();
+
+    // 모든 하위 컴포넌트 마운트 완료 -> AppStore.serverRendered: false
+    $('script.states').remove();
   },
   render() {
     const {header, main, sidebar} = this.props;
@@ -24,11 +27,6 @@ let App = React.createClass({
         color: '#2b5f5b',
         textDecoration: 'none',
         cursor: 'pointer'
-      },
-      pre: {
-        backgroundColor: 'rgba(255, 255, 255, 0)',
-        border: 'none',
-        borderRadius: 0
       },
       'html, body': {
         height: '100%',

@@ -8,4 +8,4 @@ class UserSubscribedClubStore {
   }
 }
 
-export default UserSubscribedClubStore = alt.createStore(UserSubscribedClubStore, 'UserSubscribedClubStore');
+export default UserSubscribedClubStore = alt.createStore(UserSubscribedClubStore);

@@ -5,6 +5,7 @@
 import React from 'react';
 import Radium from 'radium';
 import _ from 'lodash';
+import {browserHistory} from 'react-router';
 
 import connectToStores from 'alt-utils/lib/connectToStores';
 import UserStore from '../../../Flux/Stores/UserStore';
@@ -47,28 +48,25 @@ let Post = React.createClass({
 
   componentDidMount() {
     console.log('Post, componentDidMount');
-    $('.nano-content').scrollTop(0);
+    $('#Section .nano-content').scrollTop(0);
   },
 
   componentWillReceiveProps(nextProps) {
     if (this.props.params.article !== nextProps.params.article) {
       const params = nextProps.params;
       PostActions.getClubPostLists(params);
-      $('.nano-content').scrollTop(0);
+      $('#Section .nano-content').scrollTop(0);
     }
 
     console.log('Post, componentWillReceiveProps');
     if (nextProps.PostStore.status === 404) {
-      this.props.history.pushState(
-        null,
-        nextProps.PostStore.redirectTo
-      );
+      browserHistory.push(nextProps.PostStore.redirectTo);
     }
   },
 
   render() {
     const {readingPost, postList, commentList} = this.props.PostStore;
-    const {auth} = this.props.UserStore;
+    const {auth, authSuccess} = this.props.UserStore;
 
     return (
       <div>
@@ -76,7 +74,8 @@ let Post = React.createClass({
           !_.isEmpty(readingPost) &&
           <ul style={styles.posts.container}>
             <li style={styles.posts.post}>
-              <CardPostItem auth={auth} commentList={commentList}
+              <CardPostItem auth={auth} authSuccess={authSuccess}
+                            commentList={commentList}
                             hasComment={true}
                             key={readingPost.uid} post={readingPost}/>
             </li>
@@ -87,7 +86,7 @@ let Post = React.createClass({
           <div>
             <ThreadPostList hasHeadLine={true} {...this.props}/>
 
-            <ClubPagination />
+            <ClubPagination {...this.props}/>
           </div>
         }
       </div>

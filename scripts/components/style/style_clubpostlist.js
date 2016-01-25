@@ -37,13 +37,11 @@ export default {
   },
   postTitleItem: {
     color: '#000',
-    fontSize: '14px',
-    fontWeight: 'bold'
+    fontSize: '14px'
   },
   postTitleClub: {
     color: '#00A99E',
-    fontSize: 11,
-    fontWeight: 'bold'
+    fontSize: 11
   },
   postContentMeta: {
     float: 'right',
@@ -64,7 +62,7 @@ export default {
     padding: '0 5px'
   },
   commentCount: {
-    fontSize: 12,
+    fontSize: 11,
     color: '#aaa'
   },
   deleteButton: {
@@ -73,11 +71,11 @@ export default {
     display: 'inline-block'
   },
   deleteButtonText: {
-    fontSize: 12,
+    fontSize: 11,
     color: '#aaa'
   },
   thumbUp: {
-    fontSize: 12,
+    fontSize: 11,
     color: '#aaa',
     padding: '5px 10px',
     ':hover': {

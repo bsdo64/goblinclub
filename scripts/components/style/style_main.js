@@ -23,7 +23,7 @@ export default {
     overflow: 'hidden'
   },
   contents: {
-    height: 'calc(100vh - 78px)'
+    height: 'calc(100vh - 76px)'
   },
   scrollContent: {
     right: 0,

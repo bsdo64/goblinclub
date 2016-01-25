@@ -47,9 +47,6 @@ let Header = React.createClass({
           rules={styles.INLINE_STYLE['#header']}
           scopeSelector="#header" />
         <Style
-          rules={styles.INLINE_STYLE.body}
-          scopeSelector="body" />
-        <Style
           rules={styles.INLINE_STYLE['.nano']}
           scopeSelector=".nano" />
         <Style
@@ -68,7 +65,7 @@ let Header = React.createClass({
 
             {
               authSuccess &&
-              <HeaderUserButtons />
+              <HeaderUserButtons {...this.props} />
             }
           </div>
         </Navbar>

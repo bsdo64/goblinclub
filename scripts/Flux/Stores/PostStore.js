@@ -1,4 +1,6 @@
 import alt from '../../alt';
+import assign from 'object-assign';
+
 import AppActions from '../Actions/AppActions';
 import PostActions from '../Actions/PostActions';
 
@@ -14,11 +16,10 @@ class PostStore {
     this.state = {
       post: '',
       writingPost: {
-        defaultClubList : 0,
-        subscribeClubLisCt : []
+        defaultClubList : 1,
+        subscribeClubList : []
       },
       bestList: []
-
     };
   }
 
@@ -33,7 +34,7 @@ class PostStore {
 
   onSetDefaultClubList(club) {
     let state = this.state;
-    state.writingPost.defaultClubList = club;
+    assign(state, {writingPost: {defaultClubList: club}});
 
     this.setState(state);
   }
@@ -52,6 +53,15 @@ class PostStore {
     state.readingPost = post;
 
     this.setState(state);
+  }
+
+  onResetWritingPost() {
+    let writingPost = {
+      defaultClubList: 1,
+      subscribeClubList: []
+    }
+
+    this.setState({writingPost: writingPost});
   }
 
   onGetClubPostLists(data) {
@@ -74,13 +84,12 @@ class PostStore {
     this.setState(state);
   }
 
-  onResetNotFound() {
-    let state = this.state;
-    state = {
-      post: '',
+  onResetNotFound(err) {
+    let state = {
+      post: null,
       writingPost: {
-        defaultClubList : [],
-        subscribeClubList : []
+        defaultClubList: null,
+        subscribeClubList: []
       },
       bestList: []
     };
@@ -96,14 +105,12 @@ class PostStore {
     this.setState(state);
   }
 
-  onMoreBest() {
+  onMoreBest(StoreData) {
+    let posts = StoreData.PostStore.bestList;
     let state = this.state;
-    let test = [];
-
-    for (let i = 0; i < test.length; i += 1) {
-      state.bestList.push(test[i]);
+    for (let i = 0; i < posts.length; i += 1) {
+      state.bestList.push(posts[i]);
     }
-
 
     this.setState(state);
   }

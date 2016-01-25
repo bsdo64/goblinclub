@@ -31,18 +31,25 @@ let Sidebar = React.createClass({
     }
   },
   componentDidMount() {
-
+    console.log('Sidebar, componentDidMount');
   },
   componentWillReceiveProps(nextProps) {
+    $('#Sidebar').nanoScroller();
+    console.log('Sidebar, componentWillReceiveProps');
+  },
+  componentWillUnmount() {
 
+  },
+  handleScroll(event) {
+    this.setState({scrollTop: event.target.scrollTop});
   },
   render() {
     const {authSuccess} = this.props.UserStore;
     const {defaultClubList, userHas} = this.props.ClubStore;
 
     return (
-      <div className="nano" style={styles.base} >
-        <div className="nano-content" id="clubs">
+      <div id="Sidebar" className="nano" style={styles.base} >
+        <div className="nano-content" id="clubs" ref="clubs">
           <div id="clubsContainer" style={styles.clubs.container} >
             {
               defaultClubList &&

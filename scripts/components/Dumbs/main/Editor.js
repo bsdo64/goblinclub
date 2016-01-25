@@ -4,6 +4,8 @@
 import React from 'react';
 import Radium from 'radium';
 import Select from 'react-select';
+import _ from 'lodash';
+import {browserHistory} from 'react-router';
 
 import {editor as styles} from '../../Style/style_editor';
 import PostActions from '../../../Flux/Actions/PostActions';
@@ -11,9 +13,8 @@ import PostActions from '../../../Flux/Actions/PostActions';
 import HeadLine from './HeadLine';
 
 if (!process.env.NODE) {
-  console.log(process.env);
   require('react-select/dist/react-select.css');
-};
+}
 let SubscribeClubs = React.createClass({
   displayName: 'SubscribeClubs',
   getInitialState() {
@@ -23,11 +24,13 @@ let SubscribeClubs = React.createClass({
   },
 
   handleSelectCheckbox(val) {
-    this.setState({
-      subscribedClubIds: val
-    }, function () {
-      PostActions.setSubscribeClubList(this.state.subscribedClubIds);
-    });
+    if (val.length <= 3) {
+      this.setState({
+        subscribedClubIds: val
+      }, function () {
+        PostActions.setSubscribeClubList(this.state.subscribedClubIds);
+      });
+    }
   },
 
   getOptions(list) {
@@ -63,8 +66,14 @@ let SubscribeClubs = React.createClass({
 let MainClubs = React.createClass({
   displayName: 'MainClubs',
   getInitialState() {
+    let defaultClub = (function (props) {
+      if (_.has(props, 'PostStore.writingPost.defaultClubList')) {
+        return props.PostStore.writingPost.defaultClubList;
+      }
+      return null;
+    })(this.props);
     return {
-      defaultClubId: 1
+      defaultClubId: defaultClub ? defaultClub : 1
     };
   },
 
@@ -105,7 +114,37 @@ let MainClubs = React.createClass({
 let Editor = React.createClass({
   displayName: 'Editor',
   componentDidMount() {
-    this.editor = new MediumEditor('.editable', {imageDragging: false});
+    this.editor = new MediumEditor('.editable', {
+      imageDragging: false,
+      autoLink: true,
+      toolbar: {
+        buttons: [
+          'bold',
+          'italic',
+          'underline',
+          'anchor',
+          'h2',
+          'h3',
+          'quote',
+          {
+            name: 'justifyFull',
+            contentDefault: '<i class="fa fa-align-justify"></i>'
+          },
+          {
+            name: 'justifyLeft',
+            contentDefault: '<i class="fa fa-align-left"></i>'
+          },
+          {
+            name: 'justifyCenter',
+            contentDefault: '<i class="fa fa-align-center"></i>'
+          },
+          {
+            name: 'justifyRight',
+            contentDefault: '<i class="fa fa-align-right"></i>'
+          }
+        ]
+      }
+    });
     $('.editable').mediumInsert({
       editor: this.editor,
       addons: {
@@ -122,25 +161,35 @@ let Editor = React.createClass({
         }
       }
     });
+    if (_.has(this.props, 'PostStore.writingPost.success')) {
+      if (this.props.PostStore.writingPost.success) {
+        PostActions.resetWritingPost();
+      }
+    }
   },
   componentWillReceiveProps(nextProps) {
     let PostStore = nextProps.PostStore;
     if (PostStore.writingPost && PostStore.writingPost.success) {
-      this.props.history.pushState(
-        null,
-        '/club/' + PostStore.readingPost.clubs[0].url + '/' + PostStore.readingPost.uid
+      browserHistory.push(
+        '/club/' + PostStore.readingPost.belongingClubs[0].url + '/' + PostStore.readingPost.uid
       );
+      console.log('subsscse');
     }
   },
 
   submit() {
     let allContents = this.editor.serialize();
     let el = allContents['element-0'].value;
+    let writingPost = this.props.PostStore.writingPost;
+    let subscribeClubList = _.map(writingPost.subscribeClubList, 'value');
 
-    PostActions.submitPost({
-      title: this.refs.title.value.trim(),
-      content: el
-    });
+    let newPost = {
+      content: el,
+      defaultClubList: writingPost.defaultClubList,
+      subscribeClubList: subscribeClubList,
+      title: this.refs.title.value.trim()
+    };
+    PostActions.submitPost(newPost);
   },
   render() {
     return (
@@ -154,8 +203,8 @@ let Editor = React.createClass({
 
         <HeadLine title="클럽 선택하기" rightMenu={false}/>
         <div style={styles.widget.listObj1}>
-          <MainClubs ClubStore={this.props.ClubStore} />
-          <SubscribeClubs ClubStore={this.props.ClubStore} />
+          <MainClubs {...this.props} />
+          <SubscribeClubs {...this.props} />
         </div>
 
         <div>

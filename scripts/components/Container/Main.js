@@ -12,9 +12,6 @@ let Main = React.createClass({
   propTypes: {
     mainSection: React.PropTypes.element.isRequired
   },
-  componentDidMount() {
-    $('.nano').nanoScroller();
-  },
 
   render() {
     return (
@@ -23,7 +20,7 @@ let Main = React.createClass({
         <div id="bestPosts" style={styles.mainBox}>
           <HeadLine />
 
-          <div className="nano" style={styles.contents}>
+          <div id="Section" className="nano" style={styles.contents}>
             <div className="nano-content" style={styles.scrollContent}>
               {this.props.mainSection}
             </div>

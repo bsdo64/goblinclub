@@ -6,36 +6,47 @@ import styles from '../../Style/style_post';
 import {CommentList} from '../index';
 
 import PostActions from '../../../Flux/Actions/PostActions';
+import AppActions from '../../../Flux/Actions/AppActions';
 
+const LinkR = Radium(Link);
 let BtnArea = React.createClass({
   displayName: 'BtnArea',
   propTypes: {
     uid: React.PropTypes.string
   },
-  handleLike(uid) {
-    PostActions.like(uid);
+  handleLike(uid, auth) {
+    if (auth) {
+      PostActions.like(uid);
+    } else {
+      AppActions.toggleLoginModal();
+    }
   },
-  handleDisLike(uid) {
-    PostActions.dislike(uid);
+  handleDisLike(uid, auth) {
+    if (auth) {
+      PostActions.dislike(uid);
+    } else {
+      AppActions.toggleLoginModal();
+    }
   },
   render() {
-    const uid = this.props.uid;
+    const {authSuccess, uid, postUrl} = this.props;
     return (
       <div className="btn_area" style={styles.posts.postButtons}>
         <a key={'thumbUp' + uid}
-           onClick={this.handleLike.bind(null, uid)}
+           onClick={this.handleLike.bind(null, uid, authSuccess)}
            style={styles.posts.thumbUp}>
           <i className="fa fa-thumbs-o-up" />
         </a>
         <a key={'thumbDown' + uid}
-           onClick={this.handleDisLike.bind(null, uid)}
+           onClick={this.handleDisLike.bind(null, uid, authSuccess)}
            style={styles.posts.thumbDown}>
           <i className="fa fa-thumbs-o-down" />
         </a>
-        <a key={'commentButton' + uid}
-           style={styles.posts.commentButton}>
+        <LinkR key={'commentButton' + uid}
+              style={styles.posts.commentButton}
+              to={postUrl}>
           <i className="fa fa-commenting-o" />
-        </a>
+        </LinkR>
       </div>
     );
   }
@@ -67,18 +78,16 @@ let CardPostItem = React.createClass({
       commentCount
     } = this.props.post;
     const {hasComment, commentList} = this.props;
-    const {auth} = this.props;
-
+    const {auth, authSuccess} = this.props;
+    const postUrl = '/club/' + belongingClubs[0].url + '/' + uid;
     return (
       <div className="lst_obj" style={styles.posts.listObj}>
         <div className="con_desc">
           <h4 style={styles.posts.postTitle}>
             <Link style={styles.posts.postTitleItem}
-                  to={'/club/' + belongingClubs[0].url + '/' + uid}>{title}</Link>
+                  to={postUrl}>{title}</Link>
           </h4>
-          <p className="frm_svc" style={styles.posts.postContentMeta}>
-            <Link to="#">{user.nick} </Link>
-            <span className="wrt_time">{createdAt} </span>
+          <p style={styles.posts.defaultClubMeta}>
             {
               belongingClubs.map(function (val, index) {
                 return (
@@ -89,6 +98,10 @@ let CardPostItem = React.createClass({
                 );
               })
             }
+          </p>
+          <p className="frm_svc" style={styles.posts.postContentMeta}>
+            <span className="wrt_time">{createdAt} </span>
+            <Link to="#">{user.nick} </Link>
           </p>
           <div className="lst_type2">
             <div className="rgt_dsc" style={styles.posts.postContents}>
@@ -111,13 +124,11 @@ let CardPostItem = React.createClass({
           }
         </div>
 
-        <BtnArea uid={uid} />
+        <BtnArea uid={uid} authSuccess={authSuccess} postUrl={postUrl}/>
 
         {
-          hasComment &&
-          <div className="comments">
-            <CommentList commentList={commentList}/>
-          </div>
+          hasComment && commentList &&
+          <CommentList authSuccess={authSuccess} commentList={commentList}/>
         }
       </div>
     );

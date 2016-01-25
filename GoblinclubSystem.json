@@ -19,7 +19,7 @@
   },{
     "name"        : "Api-Server",
     "script"      : "apiServer/server.js",
-    "watch"       : ["apiServer/*.js"],
+    "watch"       : ["apiServer/**/*.js"],
     "node_args"   : "--harmony",
     "max_memory_restart": "3G",
     "cwd"         : ".",
@@ -32,7 +32,7 @@
   },{
     "name"        : "Image-Server",
     "script"      : "imageServer/server.js",
-    "watch"       : ["imageServer/*.js"],
+    "watch"       : ["imageServer/*\.js"],
     "node_args"   : "--harmony",
     "cwd"         : ".",
     "error_file" : "log/image-server/err.log",

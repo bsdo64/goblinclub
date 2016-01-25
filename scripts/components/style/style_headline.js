@@ -18,7 +18,8 @@ export default {
   title: {
     margin: 0,
     padding: '5px 0 0 15px',
-    fontSize: 15,
+    fontSize: 14,
+    fontWeight: 'normal',
     color: '#fff'
   }
 };

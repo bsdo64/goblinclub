@@ -65,8 +65,7 @@ export const editor =
         width: '100%',
         height: 20,
         border: 'none',
-        fontSize: 15,
-        fontWeight: 'bold'
+        fontSize: 15
       },
       textarea2: {
         width: '100%',
@@ -98,7 +97,7 @@ export const editor =
       overflow: 'hidden'
     },
     contents: {
-      height: 'calc(100vh - 78px)'
+      height: 'calc(100vh - 76px)'
     },
     scrollContent: {
       right: 0,

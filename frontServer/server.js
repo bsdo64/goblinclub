@@ -10,7 +10,7 @@ import session                      from 'express-session';
 import React                        from 'react/dist/react.min.js';
 import routes                       from '../universalRouter/routes'
 import ReactDOM                     from 'react-dom/server';
-import { RoutingContext, match }    from 'react-router'
+import { RouterContext, match }    from 'react-router'
 import CreateLocation               from 'history/lib/createLocation';
 import alt                          from '../scripts/alt';
 import Iso                          from 'iso';
@@ -135,7 +135,7 @@ function renderServersideReact(renderProps, req, res, callback) {
 
     alt.bootstrap(state);
     content = ReactDOM.renderToString(
-      <RoutingContext
+      <RouterContext
         {...renderProps}
         radiumConfig={{userAgent: req.headers['user-agent']}} />
     );

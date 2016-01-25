@@ -1,6 +1,6 @@
 import alt from '../../alt';
 
-class ClubPostsStore {
+class DefaultClubListStore {
   constructor() {
     this.state = {
       userHas: {}
@@ -8,4 +8,4 @@ class ClubPostsStore {
   }
 }
 
-export default ClubPostsStore = alt.createStore(ClubPostsStore, 'ClubPostsStore');
+export default DefaultClubListStore = alt.createStore(DefaultClubListStore);

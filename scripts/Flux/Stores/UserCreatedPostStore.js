@@ -8,4 +8,4 @@ class UserCreatedPostStore {
   }
 }
 
-export default UserCreatedPostStore = alt.createStore(UserCreatedPostStore, 'UserCreatedPostStore');
+export default UserCreatedPostStore = alt.createStore(UserCreatedPostStore);

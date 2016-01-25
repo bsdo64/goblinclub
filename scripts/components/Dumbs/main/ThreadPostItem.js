@@ -2,24 +2,53 @@ import React from 'react';
 import Radium from 'radium';
 import {Link} from 'react-router';
 
+import PostActions from '../../../Flux/Actions/PostActions';
+import AppActions from '../../../Flux/Actions/AppActions';
+
 import styles from '../../Style/style_clubpostlist';
+
+const LinkR = Radium(Link);
 
 let BtnArea = React.createClass({
   displayName: 'BtnArea',
   propTypes: {
-    commentCount: React.PropTypes.number
+    commentCount: React.PropTypes.number,
+    uid: React.PropTypes.string
+  },
+  handleLike(uid, authSuccess) {
+    if (authSuccess) {
+      PostActions.like(uid);
+    } else {
+      AppActions.toggleLoginModal();
+    }
+  },
+  handleDisLike(uid, authSuccess) {
+    if (authSuccess) {
+      PostActions.dislike(uid);
+    } else {
+      AppActions.toggleLoginModal();
+    }
   },
   render() {
-    const {commentCount} = this.props;
+    const {auth, authSuccess, commentCount, postUrl, uid} = this.props;
     return (
       <div className="btn_area" style={styles.btnArea}>
-        <a key="up" style={styles.thumbUp}>
+        <a key="up"
+           onClick={this.handleLike.bind(null, uid, authSuccess)}
+           style={styles.thumbUp}>
           <i className="fa fa-thumbs-o-up" />
         </a>
-        <a key="down" style={styles.thumbDown}>
+        <a key="down"
+           onClick={this.handleDisLike.bind(null, uid, authSuccess)}
+           style={styles.thumbDown}>
           <i className="fa fa-thumbs-o-down" />
         </a>
-        <a href="#" style={styles.commentCount}>{'댓글 ' + commentCount + ' 개'}</a>
+        <LinkR key={'commentButton' + uid}
+               style={styles.commentButton}
+               to={postUrl}>
+          <i className="fa fa-commenting-o" />
+          {' ' + commentCount + ' 개'}
+        </LinkR>
       </div>
     );
   }
@@ -40,8 +69,8 @@ let ClubPostList = React.createClass({
   },
   render() {
     const {title, createdAt, belongingClubs, user, voteCount, commentCount, uid} = this.props.post;
-    const {params} = this.props;
-
+    const {auth, authSuccess, params} = this.props;
+    const postUrl = '/club/' + params.clubName + '/' + uid;
     return (
         <div className="lst_obj" style={styles.listObj}>
           <div style={styles.thumbNail}>
@@ -49,7 +78,7 @@ let ClubPostList = React.createClass({
                  style={styles.thumbNailImg}/>
           </div>
           <div style={styles.textBody}>
-            <Link style={styles.postTitleItem} to={'/club/' + params.clubName + '/' + uid}>
+            <Link style={styles.postTitleItem} to={postUrl}>
               {title}
             </Link>
             <div style={styles.postTitle}>
@@ -70,7 +99,12 @@ let ClubPostList = React.createClass({
                 <a href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article"
                    target="_blank">{user.nick} </a>
                 <span className="wrt_time">{createdAt}</span>
-                <BtnArea commentCount={commentCount}/>
+                <BtnArea
+                  auth={auth}
+                  authSuccess={authSuccess}
+                  postUrl={postUrl}
+                  uid={uid}
+                  commentCount={commentCount}/>
               </div>
             </div>
           </div>

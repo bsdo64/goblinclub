@@ -29,23 +29,25 @@ export default {
     },
     postTitleItem: {
       color: '#000',
-      fontSize: '18px',
-      fontWeight: 'bold'
+      fontSize: '18px'
     },
     postTitleClub: {
       color: '#00A99E',
-      fontSize: 11,
-      fontWeight: 'bold'
+      fontSize: 11
     },
     postContentMeta: {
-      margin: '9px 0',
+      margin: '0',
+      fontSize: 10
+    },
+    defaultClubMeta: {
+      margin: '5px 0',
       fontSize: 10
     },
     postContents: {
-      margin: '5px 0'
+      margin: '20px 0'
     },
     countInfo: {
-      fontSize: 13,
+      fontSize: 11,
       color: '#2b5f5b'
     },
     paddingLeft10: {

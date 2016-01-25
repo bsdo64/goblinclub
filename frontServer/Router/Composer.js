@@ -48,7 +48,6 @@ Composer.get('/', function (req, res, next) {
   Api.get(req.url)
     .end((errXHR, resXHR) => {
       if (errXHR) {
-
         res.storeState['Error'] = errXHR;
         next();
       } else if (resXHR && resXHR.ok) {
@@ -104,6 +103,28 @@ Composer.get('/club/:clubName', function (req, res, next) {
 });
 
 Composer.get('/club/:clubName/:postName', function (req, res, next) {
+  Api
+    .get(req.url)
+    .end((errXHR, resXHR) => {
+      if (errXHR) {
+        var error = errXHR.response.error;
+        if (error.status === 404) {
+          res.redirect('/notFound');
+          return;
+        }
+        res.redirect('/');
+
+      } else if (resXHR && resXHR.ok) {
+        var apiResult = resXHR.body;
+        res.storeState.ClubStore = apiResult.ClubStore;
+        res.storeState.PostStore = apiResult.PostStore;
+
+        next();
+      }
+    });
+});
+
+Composer.get('/submit/club', function (req, res, next) {
   Api
     .get(req.url)
     .end((errXHR, resXHR) => {

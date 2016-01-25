@@ -14,7 +14,7 @@ alt.dispatcher.register((state) => {
     console.group('Action : ' + state.action);
     console.log('All Current Stores\t', JSON.parse(snapshot));
     /* Debug - Current Dispatch Payload */
-    console.log('Dispatched\t\t', state);
+    console.log('Dispatched\t\t', state.payload);
   }
 });
 

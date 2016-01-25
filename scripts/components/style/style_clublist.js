@@ -30,7 +30,7 @@ export default {
     margin: '2px 0 2px 0',
     height: '22px',
     lineHeight: '22px',
-    fontWeight: 'bold',
+    fontWeight: 500,
     fontSize: 12,
     backgroundColor: '#fff',
     ':hover': {
@@ -41,8 +41,12 @@ export default {
     backgroundColor: '#f4f4f4'
   },
   pager: {
+    padding: '0 15px'
+  },
+  pagerButton: {
+    borderRadius: 2,
     ':hover': {
-      backgroundColor: '#f4f4f4'
+      backgroundColor: '#abc'
     }
   }
 };

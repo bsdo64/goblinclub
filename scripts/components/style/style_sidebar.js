@@ -10,6 +10,7 @@ export default {
     backgroundColor: '#F4F4F4',
     width: 340,
     minHeight: 600,
+    height: 'calc(100vh - 50px)',
     '@media (max-width: 1145px)': {
       width: 'calc(100% - 805px)'
     }
@@ -52,7 +53,7 @@ export default {
       margin: '2px 0 2px 0',
       height: '22px',
       lineHeight: '22px',
-      fontWeight: 'bold',
+      fontWeight: 500,
       fontSize: 12,
       backgroundColor: '#fff',
       ':hover': {

@@ -15,35 +15,34 @@ class PostActions {
   }
 
   submitPost(post) {
-    let writingPost = post;
-    let newPost = {
-      ...post,
-      defaultClubList: writingPost.defaultClubList,
-      subscribeClubList: writingPost.subscribeClubList
-    };
+    let newPost = post;
 
-    return function (dispatch) {
+    return (dispatch) => {
       Apis
         .post('/submit', newPost)
-        .then(function (res) {
+        .then((res) => {
           dispatch(res);
         })
-        .catch(function (err) {
+        .catch((err) => {
           return err;
         });
     };
+  }
+
+  resetWritingPost() {
+    return null;
   }
 
   getClubPostLists(params) {
     return (dispatch) => {
       Apis
         .get('/club/' + params.clubName + '/' + params.article)
-        .then(function (res) {
+        .then((res) => {
           dispatch(res);
         })
-        .catch(function (err) {
+        .catch((err) => {
           this.redirectToNotFound(err);
-        }.bind(this));
+        });
     };
   }
 
@@ -51,26 +50,35 @@ class PostActions {
     return (dispatch) => {
       Apis
         .get('/club/' + params.clubName)
-        .then(function (res) {
+        .then((res) => {
           dispatch(res);
         })
-        .catch(function (err) {
+        .catch((err) => {
           this.redirectToNotFound(err);
-        }.bind(this));
+        });
     };
   }
 
-  moreBest() {
-    return null;
+  moreBest(p) {
+    return (dispatch) => {
+      Apis
+        .get('/best?p=' + p)
+        .then((res) => {
+          dispatch(res);
+        })
+        .catch((err) => {
+          if (err) {
+            return err;
+          }
+        });
+    };
   }
 
   redirectToNotFound(err) {
-    console.log(err);
     return err;
   }
 
   resetNotFound(err) {
-    console.log(err);
     return err;
   }
 

@@ -17,19 +17,13 @@ let WritePost = React.createClass({
     history: React.PropTypes.object.isRequired
   },
   componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps');
-    if (nextProps.PostStore.writeSuccess) {
-      this.props.history.pushState(null, '/');
-    }
+    console.log('WritePost, componentWillReceiveProps');
   },
   render() {
     return (
-      <div>
         <Editor
           {...this.props}
           ClubStore={this.props.ClubStore} />
-
-      </div>
     );
   }
 });

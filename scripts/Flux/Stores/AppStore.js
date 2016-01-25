@@ -28,4 +28,4 @@ class AppStore {
   }
 }
 
-export default alt.createStore(AppStore, 'AppStore');
+export default alt.createStore(AppStore);

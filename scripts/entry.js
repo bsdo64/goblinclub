@@ -5,8 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/dist/react-dom.min.js';
 import Iso from 'iso';
 import alt from './alt';
-import {Router} from 'react-router';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
+import {Router, browserHistory} from 'react-router';
 import zip from 'lz-string';
 
 import routes from '../universalRouter/routes';
@@ -37,7 +36,7 @@ Iso.bootstrap((state, _, container) => {
   }
 
   ReactDOM.render(
-    <Router children={routes} history={createBrowserHistory()} />,
+    <Router children={routes} history={browserHistory} />,
     container
   );
 }, isoConfig);

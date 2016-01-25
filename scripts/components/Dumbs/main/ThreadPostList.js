@@ -23,7 +23,12 @@ let ClubPostList = React.createClass({
     return list.map((item) => {
       return (
         <li key={item.uid} style={styles.post}>
-          <ThreadPostItem key={item.uid} post={item} params={this.props.params}/>
+          <ThreadPostItem
+            key={item.uid}
+            post={item}
+            params={this.props.params}
+            auth={this.props.UserStore.auth}
+            authSuccess={this.props.UserStore.authSuccess}/>
         </li>
       );
     });

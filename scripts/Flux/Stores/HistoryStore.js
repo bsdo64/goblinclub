@@ -8,4 +8,4 @@ class HistoryStore {
   }
 }
 
-export default HistoryStore = alt.createStore(HistoryStore, 'HistoryStore');
+export default HistoryStore = alt.createStore(HistoryStore);
