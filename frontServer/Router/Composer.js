@@ -63,7 +63,6 @@ Composer.get('/', function (req, res, next) {
 
 Composer.get('/submit', function (req, res, next) {
   Api.get(req.url)
-    .query({user: res.storeState.UserStore.user})
     .end((errXHR, resXHR) => {
       if (errXHR) {
         var error = errXHR.response.error;
@@ -83,7 +82,6 @@ Composer.get('/submit', function (req, res, next) {
 
 Composer.get('/club/:clubName', function (req, res, next) {
   Api.get(req.url)
-    .query({user: res.storeState.UserStore.user})
     .end((errXHR, resXHR) => {
       if (errXHR) {
         var error = errXHR.response.error;

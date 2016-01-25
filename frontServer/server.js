@@ -77,30 +77,6 @@ app.use(function (req, res, next) {
     }
 });
 
-var authenticate  = jwt({
-    secret: "secret",
-    getToken: function fromHeaderOrCookie(req) {
-        if(req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
-            return req.headers.authorization.split(' ')[1];
-        } else if(req.cookies && req.cookies.token) {
-            return req.cookies.token;
-        }
-        return null;
-    }
-});
-app.use(['/user', '/post'], authenticate, (err, req, res, next) => {
-
-    if(!req.cookies.token) {
-        res.redirect('/login');
-    } else {
-        if (err.name === 'UnauthorizedError') {
-            res.status(401).send('invalid token...');
-        } else {
-            next();
-        }
-    }
-});
-
 // app.use(CSRF);
 app.use(Composer);
 
