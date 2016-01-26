@@ -5,6 +5,7 @@ import React from 'react';
 import Radium from 'radium';
 import Select from 'react-select';
 import _ from 'lodash';
+import {Button} from 'react-bootstrap';
 import {browserHistory} from 'react-router';
 
 import {editor as styles} from '../../Style/style_editor';
@@ -46,8 +47,9 @@ let SubscribeClubs = React.createClass({
   render() {
     let {ClubStore} = this.props;
     return (
-      <div ref="subscribedClubList" >
-        <h4>{'가입한 클럽(최대 3개)'}</h4>
+    <div className="form-group" ref="subscribedClubList" >
+      <label className="control-label col-xs-2">{'가입 클럽 (최대 3)'}</label>
+      <div className="col-xs-10">
         {
           ClubStore.userHas &&
           <Select
@@ -59,6 +61,7 @@ let SubscribeClubs = React.createClass({
             value={this.state.subscribedClubIds} />
         }
       </div>
+    </div>
     );
   }
 });
@@ -98,14 +101,16 @@ let MainClubs = React.createClass({
   render() {
     let {ClubStore} = this.props;
     return (
-      <div ref="defaultClubList" >
-        <h4>{'메인 클럽(필수)'}</h4>
-        <Select
-          clearable={false}
-          name="default-club-select"
-          onChange={this.handleSelectCheckbox}
-          options={this.getOptions(ClubStore.defaultClubList)}
-          value={this.state.defaultClubId} />
+      <div className="form-group" ref="defaultClubList" >
+          <label className="control-label col-xs-2">{'메인 클럽 (필수)'}</label>
+          <div className="col-xs-10">
+            <Select
+              clearable={false}
+              name="default-club-select"
+              onChange={this.handleSelectCheckbox}
+              options={this.getOptions(ClubStore.defaultClubList)}
+              value={this.state.defaultClubId} />
+          </div>
       </div>
     );
   }
@@ -202,13 +207,15 @@ let Editor = React.createClass({
         </div>
 
         <HeadLine title="클럽 선택하기" rightMenu={false}/>
-        <div style={styles.widget.listObj1}>
+        <form className="form-horizontal" style={styles.widget.listObj1}>
           <MainClubs {...this.props} />
           <SubscribeClubs {...this.props} />
-        </div>
+        </form>
 
-        <div>
-          <button onClick={this.submit}>{'저장하기'}</button>
+        <div className="form-group">
+          <div className="col-xs-offset-2 col-xs-10">
+            <Button onClick={this.submit} label="Checkbox">{'저장하기'}</Button>
+          </div>
         </div>
       </div>
     );
