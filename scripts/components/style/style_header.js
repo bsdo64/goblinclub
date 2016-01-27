@@ -39,18 +39,20 @@ export default {
   },
   logo: {
     color: '#fff',
-    fontSize: '30px',
+    fontSize: 30,
     fontWeight: 'bold',
-    letterSpacing: 1
+    letterSpacing: 1,
+    width: 240,
+    lineHeight: '30px',
+    padding: 13
   },
   search: {
     layout: {
-      marginLeft: 0,
-      marginRight: 0,
-      float: 'left'
+      overflow: 'hidden',
+      position: 'relative',
+      maxWidth: 800
     },
     container: {
-      marginLeft: 35,
       padding: '12px 0',
       height: 50
     },
@@ -58,14 +60,14 @@ export default {
       margin: 'auto',
       position: 'relative',
       height: 26,
-      width: 565,
       borderRadius: 2
     }
   },
 
   menu: {
     layout: {
-      float: 'right'
+      float: 'right',
+      width: 210
     },
     container: {
       height: 50,

@@ -50,5 +50,31 @@ export default {
     ':hover': {
       backgroundColor: '#abc'
     }
+  },
+  addClubButton: {
+    width: '100%',
+    fontSize: 14,
+    padding: 5,
+    margin: 0,
+    color: '#ffffff',
+    backgroundColor: '#F4F4F4',
+    borderStyle: 'dotted',
+    borderColor: '#ffffff',
+    borderWidth: 3,
+    textDecoration: 'none',
+    ':hover': {
+      color: common.MAIN_COLOR,
+      borderColor: '#F2F2F2'
+    }
+  },
+  addClubHelp: {
+    position: 'absolute',
+    backgroundColor: '#EEE',
+    boxShadow: '0 5px 10px rgba(0, 0, 0, 0.2)',
+    border: '1px solid #CCC',
+    borderRadius: 3,
+    marginLeft: -5,
+    marginTop: 5,
+    padding: 10
   }
 };

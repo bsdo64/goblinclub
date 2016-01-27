@@ -11,14 +11,16 @@ let SearchBar = React.createClass({
   },
   render() {
     return (
-      <div id="searchBar" style={styles.search.layout}>
-        <div style={styles.search.container}>
-          <Input
-            placeholder="Enter text"
-            ref="input"
-            standalone
-            style={styles.search.bar}
-            type="text" />
+      <div>
+        <div id="searchBar" style={styles.search.layout}>
+          <div style={styles.search.container}>
+            <Input
+              placeholder="Enter text"
+              ref="input"
+              standalone
+              style={styles.search.bar}
+              type="text" />
+          </div>
         </div>
       </div>
     );

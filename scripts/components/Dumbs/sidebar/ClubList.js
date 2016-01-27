@@ -7,6 +7,7 @@
 import React from 'react';
 import Radium from 'radium';
 import {Link} from 'react-router';
+import {Overlay} from 'react-bootstrap';
 
 import styles from '../../Style/style_clublist';
 
@@ -45,24 +46,30 @@ let Club = React.createClass({
 let ClubList = React.createClass({
   displayName: 'ClubList',
   propTypes: {
-    clubList: React.PropTypes.array,
     best: React.PropTypes.bool,
+    clubList: React.PropTypes.array,
     title: React.PropTypes.string.isRequired
   },
-  render() {
-    let clubList = this.props.clubList;
-    let title = this.props.title;
+  getInitialState() {
+    return { show: false };
+  },
 
-    let createItem = function (val, index) {
+  toggleAddClubHelp() {
+    this.setState({ show: !this.state.show });
+  },
+  render() {
+    let {clubList, title, location, best} = this.props;
+
+    function createItem(val, index) {
       return (
         <li key={val.url + index}>
           <Club
-            location={this.props.location}
+            location={location}
             link={val.url}
             name={val.name}
             type={'club'} />
         </li>);
-    }.bind(this);
+    }
 
     return (
       <div style={styles.element}>
@@ -71,17 +78,42 @@ let ClubList = React.createClass({
           {/* 검색 입력 */}
         </div>
         {
-          this.props.best &&
+          best &&
           <li >
             <Club
-              location={this.props.location}
+              location={location}
               link={'/'}
               name={'베스트'}
               type={'best'} />
           </li>
         }
-        { clubList &&
-          clubList.map(createItem)
+        {
+          clubList &&
+          clubList.map(createItem.bind(this))
+        }
+
+        {
+          !clubList.length &&
+          <div style={{position: 'relative'}}>
+            <button
+              onClick={this.toggleAddClubHelp}
+              style={styles.addClubButton}>
+              {'클럽을 추가하세요 + '}
+            </button>
+
+            <Overlay
+              rootClose
+              show={this.state.show}
+              onHide={() => this.setState({ show: false })}
+              placement="bottom"
+              container={this}
+              target={() => this.refs.target} >
+
+              <div style={styles.addClubHelp}>
+                <strong>Holy guacamole!</strong> Check this info.
+              </div>
+            </Overlay>
+          </div>
         }
       </div>
     );

@@ -55,8 +55,6 @@ let Header = React.createClass({
         <Navbar fixedTop style={styles.header}>
           <HeaderLogo />
 
-          <SearchBar />
-
           <div id="menu" style={styles.menu.layout}>
             {
               !authSuccess &&
@@ -68,6 +66,8 @@ let Header = React.createClass({
               <HeaderUserButtons {...this.props} />
             }
           </div>
+
+          <SearchBar />
         </Navbar>
       </div>
     );
