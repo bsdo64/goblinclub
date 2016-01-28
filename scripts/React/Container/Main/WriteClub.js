@@ -5,13 +5,13 @@ import React from 'react';
 import Radium from 'radium';
 import {Input, Button} from 'react-bootstrap';
 
-import connectToStores from 'alt-utils/lib/connectToStores';
+import connectToStores from '../../../../node_modules/alt-utils/lib/connectToStores';
 import PostStore from '../../../Flux/Stores/PostStore';
 import ClubStore from '../../../Flux/Stores/ClubStore';
 
 import ClubActions from '../../../Flux/Actions/ClubActions';
 
-import {editor as style} from '../../Style/style_editor';
+import {editor as style} from '../../style/style_editor';
 
 let WriteClub = React.createClass({
   displayName: 'WriteClub',

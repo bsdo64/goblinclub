@@ -5,7 +5,7 @@ import React from 'react';
 import Radium, {Style} from 'radium';
 import {Navbar} from 'react-bootstrap';
 
-import connectToStores from 'alt-utils/lib/connectToStores';
+import connectToStores from '../../../../node_modules/alt-utils/lib/connectToStores';
 import UserStore from '../../../Flux/Stores/UserStore';
 import AppStore from '../../../Flux/Stores/AppStore';
 
@@ -14,9 +14,9 @@ import {
   HeaderLoginButton,
   HeaderUserButtons,
   SearchBar
-} from '../../../Components/Dumbs/index';
+} from '../../Dumbs/index';
 
-import styles from '../../Style/style_header';
+import styles from '../../style/style_header';
 
 let Header = React.createClass({
   displayName: 'Header',

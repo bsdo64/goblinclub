@@ -9,21 +9,25 @@ function Req() {
 }
 
 Req.prototype = {
+  _done: function (resolve, reject) {
+    return function (xhrErr, xhrRes) {
+      if (xhrErr) {
+        reject(xhrErr);
+      } else if (xhrRes.error) {
+        reject(xhrRes);
+      } else {
+        resolve(xhrRes.body);
+      }
+    };
+  },
+
   get: function (url, params) {
     return new Promise((resolve, reject) => {
       request
         .get(this.ajaxEndPoint + url)
         .query(params)
         .set('Accept', 'application/json')
-        .end(function (xhrErr, xhrRes) {
-          if (xhrErr) {
-            reject(xhrErr);
-          } else if (xhrRes.error) {
-            reject(xhrRes);
-          } else {
-            resolve(xhrRes.body);
-          }
-        });
+        .end(this._done(resolve, reject));
     });
   },
 
@@ -34,15 +38,7 @@ Req.prototype = {
         .send(params)
         .set('Accept', 'application/json')
         .withCredentials()
-        .end(function (xhrErr, xhrRes) {
-          if (xhrErr) {
-            reject(xhrErr);
-          } else if (xhrRes.error) {
-            reject(xhrRes.error);
-          } else {
-            resolve(xhrRes.body);
-          }
-        });
+        .end(this._done(resolve, reject));
     });
   }
 };

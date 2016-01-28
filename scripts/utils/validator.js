@@ -27,6 +27,11 @@ class validateRules {
     return result;
   }
 
+  returnCallback(result, callback) {
+    let res = this.checkError(result);
+    return callback(null, res);
+  }
+
   loginUser(user, callback) {
     let result = {};
     result.type = 'loginUser';
@@ -49,8 +54,7 @@ class validateRules {
       result.errors.password.push(['비밀번호는 영어와 숫자, _, -만 허용됩니다']);
     }
 
-    result = this.checkError(result);
-    return callback(null, result);
+    this.returnCallback(result, callback);
   }
 
   signinUser(user, callback) {
@@ -78,8 +82,7 @@ class validateRules {
       result.errors.password.push(['비밀번호가 일치하지 않습니다']);
     }
 
-    result = this.checkError(result);
-    return callback(null, result);
+    this.returnCallback(result, callback);
   }
 }
 

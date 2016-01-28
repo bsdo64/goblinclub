@@ -5,12 +5,12 @@ import React from 'react';
 import Radium from 'radium';
 import _ from 'lodash';
 
-import connectToStores from 'alt-utils/lib/connectToStores';
+import connectToStores from '../../../../node_modules/alt-utils/lib/connectToStores';
 import PostStore from '../../../Flux/Stores/PostStore';
 import UserStore from '../../../Flux/Stores/UserStore';
 import PostActions from '../../../Flux/Actions/PostActions';
 
-import {ThreadPostList, ClubPagination} from '../../../Components/Dumbs/index';
+import {ThreadPostList, ClubPagination} from '../../Dumbs/index';
 
 let Club = React.createClass({
   displayName: 'Club',

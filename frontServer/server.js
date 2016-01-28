@@ -8,11 +8,11 @@ import connectRedis                 from 'connect-redis'
 import session                      from 'express-session';
 
 import React                        from 'react/dist/react.min.js';
-import routes                       from '../universalRouter/routes'
+import routes                       from '../scripts/utils/routes'
 import ReactDOM                     from 'react-dom/server';
 import { RouterContext, match }    from 'react-router'
 import CreateLocation               from 'history/lib/createLocation';
-import alt                          from '../scripts/alt';
+import alt                          from '../scripts/utils/alt';
 import Iso                          from 'iso';
 import zip                          from 'lz-string';
 

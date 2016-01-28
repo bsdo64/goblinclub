@@ -7,14 +7,14 @@ import Radium from 'radium';
 import _ from 'lodash';
 import {browserHistory} from 'react-router';
 
-import connectToStores from 'alt-utils/lib/connectToStores';
+import connectToStores from '../../../../node_modules/alt-utils/lib/connectToStores';
 import UserStore from '../../../Flux/Stores/UserStore';
 import PostStore from '../../../Flux/Stores/PostStore';
 import PostActions from '../../../Flux/Actions/PostActions';
 
-import {CardPostItem, ThreadPostList, ClubPagination} from '../../../Components/Dumbs/index';
+import {CardPostItem, ThreadPostList, ClubPagination} from '../../Dumbs/index';
 
-import styles from '../../../Components/Style/style_post';
+import styles from '../../style/style_post';
 
 let Post = React.createClass({
   displayName: 'Post',

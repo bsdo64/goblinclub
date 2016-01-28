@@ -1,7 +1,7 @@
 /**
  * Created by dobyeongsu on 2015. 10. 17..
  */
-import alt from '../../alt';
+import alt from '../../utils/alt';
 import Api from '../../Utils/ApiClient';
 const Apis = new Api();
 

@@ -4,11 +4,11 @@
 import React from 'react';
 import Radium from 'radium';
 
-import connectToStores from 'alt-utils/lib/connectToStores';
+import connectToStores from '../../../../node_modules/alt-utils/lib/connectToStores';
 import PostStore from '../../../Flux/Stores/PostStore';
 import ClubStore from '../../../Flux/Stores/ClubStore';
 
-import {Editor} from '../../../Components/Dumbs/index';
+import {Editor} from '../../Dumbs/index';
 
 let WritePost = React.createClass({
   displayName: 'WritePost',

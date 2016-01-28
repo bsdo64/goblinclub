@@ -1,5 +1,5 @@
 import Alt from 'alt';
-import chromeDebug from 'alt-utils/lib/chromeDebug';
+import chromeDebug from '../../node_modules/alt-utils/lib/chromeDebug';
 
 const alt = new Alt({});
 

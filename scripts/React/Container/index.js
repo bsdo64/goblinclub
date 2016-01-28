@@ -1,6 +1,6 @@
 // Routes
-export {default as App} from '../Container/App';
-export {default as Main} from '../Container/Main';
+export {default as App} from './App';
+export {default as Main} from './Main';
 
 // Injecters
 export {default as Header} from './Header/Header';

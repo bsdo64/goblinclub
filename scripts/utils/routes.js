@@ -17,7 +17,7 @@ import {
   WriteClub,
   NotFound,
   Sidebar
-} from '../scripts/Components/Injecters/index';
+} from '../React/Container/index';
 
 
 export default (

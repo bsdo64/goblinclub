@@ -4,12 +4,12 @@
 import React from 'react';
 import Radium from 'radium';
 
-import connectToStores from 'alt-utils/lib/connectToStores';
+import connectToStores from '../../../../node_modules/alt-utils/lib/connectToStores';
 import UserStore from '../../../Flux/Stores/UserStore';
 import ClubStore from '../../../Flux/Stores/ClubStore';
 
-import styles from '../../Style/style_sidebar';
-import {ClubList} from '../../../Components/Dumbs/index';
+import styles from '../../style/style_sidebar';
+import {ClubList} from '../../Dumbs/index';
 
 let Sidebar = React.createClass({
   displayName: 'Sidebar',

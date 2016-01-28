@@ -6,7 +6,7 @@ import Radium from 'radium';
 import {Link} from 'react-router';
 
 import PostActions from '../../../Flux/Actions/PostActions';
-import styles from '../../../Components/Style/style_post';
+import styles from '../../style/style_post';
 
 let NotFound = React.createClass({
   displayName: 'NotFound',

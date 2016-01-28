@@ -1,7 +1,7 @@
 import React from 'react';
 import {Tab, Tabs} from 'react-bootstrap';
 
-import connectToStores from 'alt-utils/lib/connectToStores';
+import connectToStores from '../../../../node_modules/alt-utils/lib/connectToStores';
 import UserStore from '../../../Flux/Stores/UserStore';
 import UserActions from '../../../Flux/Actions/UserActions';
 
