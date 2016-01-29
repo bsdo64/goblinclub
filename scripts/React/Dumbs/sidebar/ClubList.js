@@ -18,8 +18,8 @@ let Popup = React.createClass({
       '100%': {opacity: 1}
     });
     let popup_style = {
-      height: 'auto',
-      width: 200,
+      height: this.props.height || 300,
+      width: this.props.width || 200,
       backgroundColor: '#fff',
       boxShadow: '1px 1px 1px 1px #aaa',
       // Use a placeholder animation name in `animation`
@@ -55,7 +55,7 @@ let PopupLink = React.createClass({
       color: '#2b5f5b'
     };
     return (
-      <span data={this.props.data} style={link_style}>
+      <span data={this.props.data} data-width={200} data-height={300} style={link_style}>
         {this.props.children}
       </span>
     );

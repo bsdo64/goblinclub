@@ -66,20 +66,33 @@ const Popups = React.createClass({
     }
 
     let popups = this.state.popups;
+    let dataWidth = e.target.attributes['data-width'];
+    let dataHeight = e.target.attributes['data-height'];
 
-    let halfWidth = 0.5 * window.innerWidth;
-    let halfHeight = 0.5 * window.innerHeight;
+    let width = dataWidth ?
+      parseInt(dataWidth.nodeValue, 10) : 0.5 * window.innerWidth;
+    let height = dataHeight ?
+      parseInt(dataHeight.nodeValue, 10) : 0.5 * window.innerHeight;
+
+    let limitWidth = window.innerWidth - width;
+    let limitHeight = window.innerHeight - height;
+
     let x = e.pageX;
     let y = e.pageY;
 
+    console.log(e);
+
     let translateXY = '(-100%, 0%)';
-    if (x < halfWidth && y < halfHeight) {
+    if (x < limitWidth && y < limitHeight) {
       translateXY = '(0%, 0%)';
-    } else if (x < halfWidth && y > halfHeight) {
+    } else if (x < limitWidth && y > limitHeight) {
       translateXY = '(0%, -100%)';
-    } else if (x > halfWidth && y > halfHeight) {
+    } else if (x > limitWidth && y > limitHeight) {
       translateXY = '(-100%, -100%)';
     }
+
+    width = dataWidth ? parseInt(dataWidth.nodeValue, 10) : undefined;
+    height = dataHeight ? parseInt(dataHeight.nodeValue, 10) : undefined;
 
     let s = {
       position: 'fixed',
@@ -91,6 +104,8 @@ const Popups = React.createClass({
     popups.push(
       <div data-popupkey={id} key={id} style={s}>
         <this.props.handler data={data.nodeValue}
+                            width={width}
+                            height={height}
                             popupProps={this.props.popupProps} />
       </div>
     );
