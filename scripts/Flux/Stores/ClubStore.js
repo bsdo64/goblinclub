@@ -36,4 +36,4 @@ class ClubStore {
   }
 }
 
-export default ClubStore = alt.createStore(ClubStore);
+export default alt.createStore(ClubStore, 'ClubStore');

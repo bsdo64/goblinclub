@@ -8,4 +8,4 @@ class UserAuthStore {
   }
 }
 
-export default UserAuthStore = alt.createStore(UserAuthStore);
+export default alt.createStore(UserAuthStore, 'UserAuthStore');

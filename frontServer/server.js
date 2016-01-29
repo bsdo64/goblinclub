@@ -20,6 +20,7 @@ import Log                          from './lib/Log';
 import CSRF                         from './middleware/Csrf';
 import Logger                       from './middleware/Logger';
 import Composer                     from './Router/Composer';
+import compress from 'compression';
 
 import HTML                         from './indexHTML'
 
@@ -33,6 +34,7 @@ var ElasticLog = Log.ElasticLog;
 
 app.locals.settings['x-powered-by'] = false;
 
+app.use(compress());
 app.use(Logger);
 app.use(cookieParser());
 app.use('/favicon.ico', express.static(dist+'/favicon.ico'));

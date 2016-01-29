@@ -5,7 +5,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require('webpack');
 
 module.exports = {
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   entry: {
     'main': [
       __dirname + "/scripts/entry.js"
@@ -50,7 +50,7 @@ module.exports = {
     //  }
     //}),
     //new webpack.optimize.UglifyJsPlugin(),
-    new webpack.OldWatchingPlugin(),
+    //new webpack.OldWatchingPlugin(),
     //new webpack.optimize.OccurenceOrderPlugin(),
     //new webpack.optimize.DedupePlugin(),
     //new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),

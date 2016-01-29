@@ -6,10 +6,61 @@
  */
 import React from 'react';
 import Radium from 'radium';
+import Popups from '../main/Popups';
 import {Link} from 'react-router';
-import {Overlay} from 'react-bootstrap';
 
 import styles from '../../Style/style_clublist';
+
+let Popup = React.createClass({
+  render: function () {
+    let fadeIn = Radium.keyframes({
+      '0%': {opacity: 0},
+      '100%': {opacity: 1}
+    });
+    let popup_style = {
+      height: 'auto',
+      width: 200,
+      backgroundColor: '#fff',
+      boxShadow: '1px 1px 1px 1px #aaa',
+      // Use a placeholder animation name in `animation`
+      animation: 'fadeIn 200ms',
+      // Assign the result of `keyframes` to `animationName`
+      animationName: fadeIn
+    };
+    return (
+      <div>
+        <div style={popup_style}>
+          <div>info: {this.props.data}</div>
+          <div>other:</div>
+          <ul>
+            <li><PopupLink data="universe">Univesrse</PopupLink></li>
+            <li><PopupLink data="planets">planets</PopupLink></li>
+            <li><PopupLink data="stars">stars</PopupLink></li>
+            <li><PopupLink data="galaxies">galaxies</PopupLink></li>
+            <li><PopupLink data="intergalactic space">intergalactic space</PopupLink></li>
+            <li><PopupLink data="dark matter">dark matter</PopupLink></li>
+            <li><PopupLink data="dark energy">dark energy</PopupLink></li>
+          </ul>
+        </div>
+      </div>
+    );
+  }
+});
+Popup = Radium(Popup);
+
+let PopupLink = React.createClass({
+  render() {
+    let link_style = {
+      cursor: 'pointer',
+      color: '#2b5f5b'
+    };
+    return (
+      <span data={this.props.data} style={link_style}>
+        {this.props.children}
+      </span>
+    );
+  }
+});
 
 let Club = React.createClass({
   displayName: 'Club',
@@ -50,13 +101,6 @@ let ClubList = React.createClass({
     clubList: React.PropTypes.array,
     title: React.PropTypes.string.isRequired
   },
-  getInitialState() {
-    return { show: false };
-  },
-
-  toggleAddClubHelp() {
-    this.setState({ show: !this.state.show });
-  },
   render() {
     let {clubList, title, location, best} = this.props;
 
@@ -94,25 +138,13 @@ let ClubList = React.createClass({
 
         {
           !clubList.length &&
-          <div style={{position: 'relative'}}>
-            <button
-              onClick={this.toggleAddClubHelp}
-              style={styles.addClubButton}>
-              {'클럽을 추가하세요 + '}
+          <div>
+            <button style={styles.addClubButton}>
+              <PopupLink data={'universe'}>
+                {'클럽을 추가하세요 + '}
+              </PopupLink>
             </button>
-
-            <Overlay
-              rootClose
-              show={this.state.show}
-              onHide={() => this.setState({ show: false })}
-              placement="bottom"
-              container={this}
-              target={() => this.refs.target} >
-
-              <div style={styles.addClubHelp}>
-                <strong>Holy guacamole!</strong> Check this info.
-              </div>
-            </Overlay>
+            <Popups handler={Popup} clickButtons={[0]} />
           </div>
         }
       </div>

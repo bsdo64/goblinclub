@@ -8,4 +8,4 @@ class BestPostStore {
   }
 }
 
-export default BestPostStore = alt.createStore(BestPostStore);
+export default alt.createStore(BestPostStore, 'BestPostStore');

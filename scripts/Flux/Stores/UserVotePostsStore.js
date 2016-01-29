@@ -8,4 +8,4 @@ class UserVotePostsStore {
   }
 }
 
-export default UserVotePostsStore = alt.createStore(UserVotePostsStore);
+export default alt.createStore(UserVotePostsStore, 'UserVotePostsStore');

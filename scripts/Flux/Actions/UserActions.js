@@ -8,7 +8,7 @@ import Validator from '../../Utils/validator';
 class UserActions {
   loginUser(user) {
     let uiValidator = new Validator();
-    let Apis = new Api();
+    let api = new Api();
     let slf = this;
 
     uiValidator.loginUser(user, (err, result) => {
@@ -17,7 +17,7 @@ class UserActions {
       }
 
       if (result.result) {
-        Apis
+        api
           .post('/login', user)
           .then(function (res) {
             slf.success(res);

@@ -59,12 +59,12 @@ export default {
     color: '#ffffff',
     backgroundColor: '#F4F4F4',
     borderStyle: 'dotted',
-    borderColor: '#ffffff',
+    borderColor: '#f4f4f4',
     borderWidth: 3,
     textDecoration: 'none',
     ':hover': {
       color: common.MAIN_COLOR,
-      borderColor: '#F2F2F2'
+      borderColor: '#ffffff'
     }
   },
   addClubHelp: {

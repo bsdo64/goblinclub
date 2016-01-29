@@ -25,7 +25,7 @@ let ClubPagination = React.createClass({
       }
     }
   },
-
+  
   handleNextPage() {
     this.setState({activePage: this.state.activePage + 1});
   },
