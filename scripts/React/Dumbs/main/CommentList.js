@@ -181,7 +181,7 @@ let WriteBox = React.createClass({
               ref="commentBox"
               onChange={this.handleChange}
               onFocus={this.checkLogin}
-              defaultValue="Just a single line..."
+              placeholder="댓글을 입력하세요"
             />
           </div>
           <div style={comment.pictureBox}>

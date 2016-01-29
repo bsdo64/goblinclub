@@ -1,7 +1,7 @@
 /**
  * Created by dobyeongsu on 2015. 10. 15..
  */
-import React, { Component } from 'react/dist/react.min.js';
+import React, { Component } from 'react';
 import path from 'path';
 
 export default class HTML extends Component {

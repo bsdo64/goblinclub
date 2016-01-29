@@ -32,7 +32,6 @@ export default {
     borderBottom: '1px solid #DFE9E8'
   },
   postTitleContainer: {
-    width: 'calc(100% - 320px)',
     display: 'inline-block'
   },
   postTitleItem: {
