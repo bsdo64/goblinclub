@@ -8,11 +8,11 @@ import connectRedis                 from 'connect-redis'
 import session                      from 'express-session';
 
 import React                        from 'react/dist/react.min.js';
-import routes                       from '../scripts/utils/routes'
+import routes                       from '../scripts/Utils/routes'
 import ReactDOM                     from 'react-dom/server';
 import { RouterContext, match }    from 'react-router'
 import CreateLocation               from 'history/lib/createLocation';
-import alt                          from '../scripts/utils/alt';
+import alt                          from '../scripts/Utils/alt';
 import Iso                          from 'iso';
 import zip                          from 'lz-string';
 
@@ -30,7 +30,6 @@ var bowerPath = path.join(__dirname, "../bower_components");
 var dist = path.join(__dirname, "../_dist");
 var proxy = httpProxy.createProxyServer();
 var RedisStore = connectRedis(session);
-var ElasticLog = Log.ElasticLog;
 
 app.locals.settings['x-powered-by'] = false;
 
@@ -134,26 +133,6 @@ function renderServersideReact(renderProps, req, res, callback) {
 }
 
 app.use(Logger.errorLogger);
-
-setInterval(function () {
-    var startTime = Date.now();
-    setImmediate(function () {
-        var data = process.memoryUsage();
-        data.uptime = process.uptime();
-        data.pid = process.pid;
-        data.tags = ['process-metrics'];
-        data.lag = Date.now()-startTime;
-        ElasticLog.info(data,
-            'process.pid: %d heapUsed: %d heapTotal: %d rss: %d uptime %d lag: %d',
-            data.pid,
-            data.heapUsed,
-            data.heapTotal,
-            data.rss,
-            data.uptime,
-            data.lag
-        );
-    });
-}, 5000);
 
 app.listen(process.env.PORT || 3000, function () {
     Log.AppLog.warn('Start Front Server');

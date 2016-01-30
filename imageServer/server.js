@@ -22,7 +22,7 @@
         formidable = require('formidable'),
         nodeStatic = require('node-static'),
         imageMagick = require('imagemagick'),
-        shortId = require('shortId'),
+        shortId = require('shortid'),
         options = {
             tmpDir: __dirname + '/tmp',
             publicDir: __dirname + '/public',

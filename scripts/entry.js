@@ -4,11 +4,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Iso from 'iso';
-import alt from './utils/alt';
+import alt from './Utils/alt';
 import {Router, browserHistory} from 'react-router';
 import zip from 'lz-string';
 
-import routes from './utils/routes';
+import routes from './Utils/routes';
 
 const isoConfig = {
   markupClassName: 'app-main',

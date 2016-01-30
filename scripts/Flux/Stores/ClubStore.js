@@ -1,4 +1,4 @@
-import alt from '../../utils/alt';
+import alt from '../../Utils/alt';
 
 import AppActions from '../Actions/AppActions';
 import ClubActions from '../Actions/ClubActions';

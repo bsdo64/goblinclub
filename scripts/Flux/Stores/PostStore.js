@@ -1,4 +1,4 @@
-import alt from '../../utils/alt';
+import alt from '../../Utils/alt';
 import assign from 'object-assign';
 
 import AppActions from '../Actions/AppActions';
