@@ -5,6 +5,7 @@
 dump.rdb
 .idea/
 npm-debug.*
+debug/
 debug/kibana*/*
 debug/elasticsearch*/*
 log/
