@@ -1,7 +1,8 @@
 /**
  * Created by dobyeongsu on 2015. 11. 13..
  */
-export default {
+function ClubPostList() {}
+ClubPostList.prototype = {
   post: {
     listStyle: 'none',
     borderBottom: '1px solid #B0C2C0'
@@ -98,3 +99,5 @@ export default {
     }
   }
 };
+
+export default new ClubPostList();

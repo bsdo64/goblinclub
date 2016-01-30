@@ -7,6 +7,7 @@ import Radium from 'radium';
 import url from 'url';
 
 import style from '../../Style/style_clublist';
+import style2 from '../../Style/style_post';
 
 let ClubPagination = React.createClass({
   displayName: 'ClubPagination',
@@ -41,27 +42,25 @@ let ClubPagination = React.createClass({
     let removePreviousButton = thisPage > 0;
 
     return (
-      <div>
-        <ul className="pager" style={style.pager}>
-          {
-            removePreviousButton &&
-            <li className="previous">
-              <a onClick={this.handlePreviousPage}
-                 ref="previousPage"
-                 style={style.pagerButton}>
-                {'← 이전 페이지'}
-              </a>
-            </li>
-          }
-          <li className="next" >
-            <a onClick={this.handleNextPage}
-               ref="nextPage"
+      <ul className="pager" style={style2.container}>
+        {
+          removePreviousButton &&
+          <li className="previous">
+            <a onClick={this.handlePreviousPage}
+               ref="previousPage"
                style={style.pagerButton}>
-              {'다음페이지 →'}
+              {'← 이전 페이지'}
             </a>
           </li>
-        </ul>
-      </div>
+        }
+        <li className="next" >
+          <a onClick={this.handleNextPage}
+             ref="nextPage"
+             style={style.pagerButton}>
+            {'다음페이지 →'}
+          </a>
+        </li>
+      </ul>
     );
   }
 });

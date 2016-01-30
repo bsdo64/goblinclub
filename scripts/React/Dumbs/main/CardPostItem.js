@@ -31,19 +31,19 @@ let BtnArea = React.createClass({
   render() {
     const {authSuccess, uid, postUrl} = this.props;
     return (
-      <div className="btn_area" style={styles.posts.postButtons}>
+      <div className="btn_area" style={styles.postButtons}>
         <a key={'thumbUp' + uid}
            onClick={this.handleLike.bind(null, uid, authSuccess)}
-           style={styles.posts.thumbUp}>
+           style={styles.thumbUp}>
           <i className="fa fa-thumbs-o-up" />
         </a>
         <a key={'thumbDown' + uid}
            onClick={this.handleDisLike.bind(null, uid, authSuccess)}
-           style={styles.posts.thumbDown}>
+           style={styles.thumbDown}>
           <i className="fa fa-thumbs-o-down" />
         </a>
         <LinkR key={'commentButton' + uid}
-              style={styles.posts.commentButton}
+              style={styles.commentButton}
               to={postUrl}>
           <i className="fa fa-commenting-o" />
         </LinkR>
@@ -81,17 +81,17 @@ let CardPostItem = React.createClass({
     const {auth, authSuccess} = this.props;
     const postUrl = '/club/' + belongingClubs[0].url + '/' + uid;
     return (
-      <div className="lst_obj" style={styles.posts.listObj}>
+      <div className="lst_obj" style={styles.listObj}>
         <div className="con_desc">
-          <h4 style={styles.posts.postTitle}>
-            <Link style={styles.posts.postTitleItem}
+          <h4 style={styles.postTitle}>
+            <Link style={styles.postTitleItem}
                   to={postUrl}>{title}</Link>
           </h4>
-          <p style={styles.posts.defaultClubMeta}>
+          <p style={styles.defaultClubMeta}>
             {
               belongingClubs.map(function (val, index) {
                 return (
-                  <Link key={index} style={styles.posts.postTitleClub}
+                  <Link key={index} style={styles.postTitleClub}
                         to={'/club/' + val.url} >
                     {val.name + ' '}
                   </Link>
@@ -99,28 +99,28 @@ let CardPostItem = React.createClass({
               })
             }
           </p>
-          <p className="frm_svc" style={styles.posts.postContentMeta}>
+          <p className="frm_svc" style={styles.postContentMeta}>
             <span className="wrt_time">{createdAt} </span>
             <Link to="#">{user.nick} </Link>
           </p>
           <div className="lst_type2">
-            <div className="rgt_dsc" style={styles.posts.postContents}>
+            <div className="rgt_dsc" style={styles.postContents}>
               <div dangerouslySetInnerHTML={{__html: content}} id="fd_cont"></div>
             </div>
           </div>
         </div>
-        <div className="ic_bookmark" style={styles.posts.countInfo}>
-          <span style={styles.posts.voteCount}>{voteCount + ' '}</span>
+        <div className="ic_bookmark" style={styles.countInfo}>
+          <span style={styles.voteCount}>{voteCount + ' '}</span>
           {'점'}
 
-          <a href="#" style={styles.posts.paddingLeft10}>
+          <a href="#" style={styles.paddingLeft10}>
             {'답글'}
-            <span style={styles.posts.commentCount}>{' ' + commentCount + ' '}</span>
+            <span style={styles.commentCount}>{' ' + commentCount + ' '}</span>
             {'개'}
           </a>
           {
             auth.user && auth.user.nick === user.nick &&
-            <a style={styles.posts.deleteButton}>{'삭제하기'}</a>
+            <a style={styles.deleteButton}>{'삭제하기'}</a>
           }
         </div>
 

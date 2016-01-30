@@ -1,7 +1,8 @@
 /**
  * Created by dobyeongsu on 2015. 11. 13..
  */
-export default {
+function Header() {}
+Header.prototype = {
   INLINE_STYLE: {
     '#header': {
       '.container': {
@@ -109,3 +110,4 @@ export default {
     }
   }
 };
+export default new Header();

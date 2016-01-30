@@ -21,7 +21,7 @@ let CardPostList = React.createClass({
   printListItem(list, auth, authSuccess) {
     return list.map((item) => {
       return (
-        <li key={item.uid} style={styles.posts.post}>
+        <li key={item.uid} style={styles.post}>
           <CardPostItem hasComment={false}
                         post={item}
                         auth={auth}
@@ -30,12 +30,12 @@ let CardPostList = React.createClass({
       );
     });
   },
+
   render() {
     const {bestList} = this.props.PostStore;
     const {auth, authSuccess} = this.props.UserStore;
-
     return (
-      <ul style={styles.posts.container}>
+      <ul style={styles.container}>
         {
           bestList &&
           this.printListItem(bestList, auth, authSuccess)

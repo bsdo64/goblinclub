@@ -38,7 +38,7 @@ let ClubPostList = React.createClass({
     const {hasHeadLine} = this.props;
 
     return (
-      <ul style={styles2.posts.container}>
+      <ul style={styles2.container}>
         {
           hasHeadLine &&
           <li><HeadLine /></li>

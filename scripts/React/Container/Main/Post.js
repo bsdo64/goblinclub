@@ -72,8 +72,8 @@ let Post = React.createClass({
       <div>
         {
           !_.isEmpty(readingPost) &&
-          <ul style={styles.posts.container}>
-            <li style={styles.posts.post}>
+          <ul style={styles.container}>
+            <li style={styles.post}>
               <CardPostItem auth={auth} authSuccess={authSuccess}
                             commentList={commentList}
                             hasComment={true}

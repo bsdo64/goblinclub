@@ -1,9 +1,11 @@
 /**
  * Created by dobyeongsu on 2015. 11. 13..
  */
-export default {
+function Modal() {}
+
+Modal.prototype = {
   header: {
-    borderBottom:'none'
+    borderBottom: 'none'
   },
   logo: {
     fontSize: 35,
@@ -14,3 +16,4 @@ export default {
     marginBottom: 30
   }
 };
+export default new Modal();

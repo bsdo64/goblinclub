@@ -3,7 +3,10 @@
  */
 import common from './common';
 
-export default {
+const COLOR = common.COLOR;
+
+function ClubList() {}
+ClubList.prototype = {
   container: {
     fontSize: 14
   },
@@ -15,8 +18,8 @@ export default {
   title: {
     fontSize: 14,
     paddingLeft: 17,
-    color: '#fff',
-    backgroundColor: common.MAIN_COLOR,
+    color: COLOR.WHITE,
+    backgroundColor: COLOR.MAIN_COLOR_NORMAL,
     height: '26px',
     lineHeight: '26px'
   },
@@ -24,11 +27,11 @@ export default {
     listStyle: 'none',
     margin: 0,
     padding: 0,
-    color: '#2b5f5b'
+    color: COLOR.MAIN_COLOR_NORMAL
   },
   listElement: {
     paddingLeft: 25,
-    color: common.MAIN_COLOR,
+    color: COLOR.MAIN_COLOR_NORMAL,
     margin: '2px 0 2px 0',
     height: '22px',
     lineHeight: '22px',
@@ -36,11 +39,11 @@ export default {
     fontSize: 12,
     backgroundColor: '#fff',
     ':hover': {
-      backgroundColor: common.BACKGROUND_GRAY
+      backgroundColor: COLOR.BACKGROUND_GRAY
     }
   },
   listActive: {
-    backgroundColor: common.BACKGROUND_GRAY
+    backgroundColor: COLOR.BACKGROUND_GRAY
   },
   pager: {
     padding: '0 15px'
@@ -56,15 +59,15 @@ export default {
     fontSize: 14,
     padding: 5,
     margin: 0,
-    color: '#ffffff',
-    backgroundColor: '#F4F4F4',
+    color: COLOR.WHITE,
+    backgroundColor: COLOR.BACKGROUND_GRAY,
     borderStyle: 'dotted',
-    borderColor: '#f4f4f4',
+    borderColor: COLOR.BACKGROUND_GRAY,
     borderWidth: 3,
     textDecoration: 'none',
     ':hover': {
-      color: common.MAIN_COLOR,
-      borderColor: '#ffffff'
+      color: COLOR.MAIN_COLOR_NORMAL,
+      borderColor: COLOR.WHITE
     }
   },
   addClubHelp: {
@@ -78,3 +81,5 @@ export default {
     padding: 10
   }
 };
+
+export default new ClubList();

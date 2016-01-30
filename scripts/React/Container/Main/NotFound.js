@@ -18,8 +18,8 @@ let NotFound = React.createClass({
   },
   render() {
     return (
-      <div style={styles.posts.container}>
-        <div style={[styles.posts.listObj, styles.posts.textCenter]}>
+      <div style={styles.container}>
+        <div style={[styles.listObj, styles.textCenter]}>
           <div>
             <img alt="Error: 404" src="//www.dropbox.com/static/images/psychobox.png" />
           </div>

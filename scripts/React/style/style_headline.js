@@ -1,7 +1,5 @@
-/**
- * Created by dobyeongsu on 2015. 11. 13..
- */
-export default {
+function HeadLine() {}
+HeadLine.prototype = {
   container: {
     background: '#2b5f5b',
     height: 26
@@ -23,3 +21,5 @@ export default {
     color: '#fff'
   }
 };
+
+export default new HeadLine();

@@ -1,7 +1,9 @@
 /**
  * Created by dobyeongsu on 2015. 11. 13..
  */
-export default {
+function SideBar() {}
+SideBar.prototype = {
+
   base: {
     position: 'absolute',
     right: 0,
@@ -65,3 +67,5 @@ export default {
     }
   }
 };
+
+export default new SideBar();
