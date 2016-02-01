@@ -3,13 +3,13 @@
     "name"        : "Front-Server",
     "script"      : "bin/frontServer.js",
     "watch"       : [
-      "*/bundle\.js"
+      "frontServer/**",
+      "_dist/bundle\.js"
     ],
     "max_restarts": 5,
     "autorestart" : false,
     "node_args"   : "--harmony",
     "max_memory_restart": "1024M",
-    "cwd"         : ".",
     "error_file" : "log/front-server/err.log",
     "out_file"   : "log/front-server/out.log",
     "pid_file"   : "log/front-server/pid.pid",

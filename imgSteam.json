@@ -1,7 +1,0 @@
-{
-  "http": { "port": 3002 },
-  "storage": {
-    "driver": "fs",
-    "path": "/Users/dobyeongsu/Dev/app/goblin-alt/images"
-  }
-}

@@ -6,8 +6,6 @@ dump.rdb
 .idea/
 npm-debug.*
 debug/
-debug/kibana*/*
-debug/elasticsearch*/*
 log/
-*.swp
+
 _dist/bundle.js.map

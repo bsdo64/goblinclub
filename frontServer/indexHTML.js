@@ -9,6 +9,8 @@ export default class HTML extends Component {
     return (
       <html>
       <head>
+
+        <title>고블린 클럽</title>
         <link rel="stylesheet" href="/statics/font-awesome/css/font-awesome.min.css"/>
         <link rel="stylesheet" href="/statics/bootstrap/dist/css/bootstrap.css"/>
         <link rel="stylesheet" href="/statics/non-responsive.css"/>

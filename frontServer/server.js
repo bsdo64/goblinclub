@@ -11,7 +11,6 @@ import React                        from 'react/dist/react.min.js';
 import routes                       from '../scripts/Utils/routes'
 import ReactDOM                     from 'react-dom/server';
 import { RouterContext, match }    from 'react-router'
-import CreateLocation               from 'history/lib/createLocation';
 import alt                          from '../scripts/Utils/alt';
 import Iso                          from 'iso';
 import zip                          from 'lz-string';
@@ -82,9 +81,7 @@ app.use(function (req, res, next) {
 app.use(Composer);
 
 app.use((req, res) => {
-    let location = new CreateLocation(req.url);
-
-    match({ routes, location }, (error, redirectLocation, renderProps) => {
+    match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
 
         if (redirectLocation)
             res.redirect(301, redirectLocation.pathname + redirectLocation.search);
