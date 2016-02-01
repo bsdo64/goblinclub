@@ -6,8 +6,8 @@ import Radium from 'radium';
 
 import url from 'url';
 
-import style from '../../Style/style_clublist';
-import style2 from '../../Style/style_post';
+import style from '../../Style/ClubList';
+import style2 from '../../Style/Post';
 
 let ClubPagination = React.createClass({
   displayName: 'ClubPagination',

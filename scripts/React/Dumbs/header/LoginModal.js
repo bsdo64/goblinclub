@@ -5,7 +5,7 @@ import React from 'react';
 import Radium from 'radium';
 import {Modal} from 'react-bootstrap';
 
-import styles from '../../Style/style_modal';
+import styles from '../../Style/Modal';
 import ModalAuthForm from './ModalAuthForm';
 
 import AppActions from '../../../Flux/Actions/AppActions';

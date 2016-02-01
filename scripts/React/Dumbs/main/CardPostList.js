@@ -2,7 +2,7 @@ import React from 'react';
 import Radium from 'radium';
 
 import {CardPostItem} from '../index';
-import styles from '../../Style/style_post';
+import styles from '../../Style/Post';
 
 let CardPostList = React.createClass({
   displayName: 'CardPostList',

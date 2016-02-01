@@ -11,7 +11,7 @@ import ClubStore from '../../../Flux/Stores/ClubStore';
 
 import ClubActions from '../../../Flux/Actions/ClubActions';
 
-import style from '../../Style/style_editor';
+import style from '../../Style/Editor';
 
 let WriteClub = React.createClass({
   displayName: 'WriteClub',

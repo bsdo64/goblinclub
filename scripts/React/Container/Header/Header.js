@@ -16,7 +16,7 @@ import {
   SearchBar
 } from '../../Dumbs/index';
 
-import styles from '../../Style/style_header';
+import styles from '../../Style/Header';
 
 let Header = React.createClass({
   displayName: 'Header',

@@ -5,7 +5,7 @@ import {Link} from 'react-router';
 import PostActions from '../../../Flux/Actions/PostActions';
 import AppActions from '../../../Flux/Actions/AppActions';
 
-import styles from '../../Style/style_clubpostlist';
+import styles from '../../Style/ClubPostList';
 
 const LinkR = Radium(Link);
 

@@ -6,7 +6,7 @@ import Radium from 'radium';
 import {Link} from 'react-router';
 import {NavbarBrand} from 'react-bootstrap';
 
-import styles from '../../Style/style_header';
+import styles from '../../Style/Header';
 
 let HeaderLogo = React.createClass({
   displayName: 'HeaderLogo',

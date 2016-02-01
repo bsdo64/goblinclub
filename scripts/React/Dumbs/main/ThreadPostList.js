@@ -1,8 +1,8 @@
 import React from 'react';
 import Radium from 'radium';
 
-import styles from '../../Style/style_clubpostlist';
-import styles2 from '../../Style/style_post';
+import styles from '../../Style/ClubPostList';
+import styles2 from '../../Style/Post';
 
 import {ThreadPostItem, HeadLine} from '../index';
 

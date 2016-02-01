@@ -9,7 +9,7 @@ import Radium from 'radium';
 import Popups from '../main/Popups';
 import {Link} from 'react-router';
 
-import styles from '../../Style/style_clublist';
+import styles from '../../Style/ClubList';
 
 let Popup = React.createClass({
   render: function () {

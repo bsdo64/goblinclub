@@ -8,7 +8,7 @@ import {Nav} from 'react-bootstrap';
 import AppActions from '../../../Flux/Actions/AppActions';
 
 import {LoginModal} from '../..//Dumbs/index';
-import styles from '../../Style/style_header';
+import styles from '../../Style/Header';
 
 let LoginButton = React.createClass({
   displayName: 'LoginButton',

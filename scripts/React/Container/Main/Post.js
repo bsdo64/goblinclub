@@ -14,7 +14,7 @@ import PostActions from '../../../Flux/Actions/PostActions';
 
 import {CardPostItem, ThreadPostList, ClubPagination} from '../../Dumbs/index';
 
-import styles from '../../Style/style_post';
+import styles from '../../Style/Post';
 
 let Post = React.createClass({
   displayName: 'Post',

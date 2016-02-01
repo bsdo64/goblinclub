@@ -2,7 +2,7 @@ import React from 'react';
 import Radium from 'radium';
 import {Link} from 'react-router';
 
-import styles from '../../Style/style_post';
+import styles from '../../Style/Post';
 import {CommentList} from '../index';
 
 import PostActions from '../../../Flux/Actions/PostActions';

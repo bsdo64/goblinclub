@@ -14,7 +14,7 @@ import {
   SplitButton
 } from 'react-bootstrap';
 
-import styles from '../../Style/style_header';
+import styles from '../../Style/Header';
 
 const ButtonR = Radium(Button);
 const SplitButtonR = Radium(SplitButton);

@@ -8,7 +8,7 @@ import connectToStores from '../../../../node_modules/alt-utils/lib/connectToSto
 import UserStore from '../../../Flux/Stores/UserStore';
 import ClubStore from '../../../Flux/Stores/ClubStore';
 
-import styles from '../../Style/style_sidebar';
+import styles from '../../Style/Sidebar';
 import {ClubList} from '../../Dumbs/index';
 
 let Sidebar = React.createClass({

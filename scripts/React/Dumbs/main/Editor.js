@@ -8,7 +8,7 @@ import _ from 'lodash';
 import {Button} from 'react-bootstrap';
 import {browserHistory} from 'react-router';
 
-import styles from '../../Style/style_editor';
+import styles from '../../Style/Editor';
 import PostActions from '../../../Flux/Actions/PostActions';
 
 import HeadLine from './HeadLine';

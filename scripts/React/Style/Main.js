@@ -1,9 +1,8 @@
 /**
  * Created by dobyeongsu on 2015. 11. 13..
  */
-
-
-export default {
+function Main() {}
+Main.prototype = {
   main: {
     position: 'relative',
     overflow: 'hidden',
@@ -38,3 +37,5 @@ export default {
     top: 0
   }
 };
+
+export default new Main();

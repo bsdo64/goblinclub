@@ -2,7 +2,7 @@ import React from 'react';
 import Radium from 'radium';
 import {Input} from 'react-bootstrap';
 
-import styles from '../../Style/style_header';
+import styles from '../../Style/Header';
 
 let SearchBar = React.createClass({
   displayName: 'SearchBar',

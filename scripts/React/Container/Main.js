@@ -5,7 +5,7 @@ import React from 'react';
 import Radium from 'radium';
 
 import {HeadLine} from '../Dumbs/index';
-import styles from '../Style/style_main';
+import styles from '../Style/Main';
 
 let Main = React.createClass({
   displayName: 'Main',

@@ -4,7 +4,7 @@
 import React from 'react';
 import Radium from 'radium';
 
-import styles from '../../Style/style_headline';
+import styles from '../../Style/HeadLine';
 
 let HeadLine = React.createClass({
   displayName: 'HeadLine',
