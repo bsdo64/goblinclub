@@ -105,7 +105,8 @@ function renderServersideReact(renderProps, req, res, callback) {
 
     let markup,
         content,
-        state = JSON.stringify(res.storeState || {});
+        state = JSON.stringify(res.storeState || {}),
+        iso = new Iso();
 
     alt.bootstrap(state);
     content = ReactDOM.renderToString(
@@ -114,12 +115,8 @@ function renderServersideReact(renderProps, req, res, callback) {
         radiumConfig={{userAgent: req.headers['user-agent']}} />
     );
 
-    markup = Iso.render(content, zip.compressToBase64(alt.flush()), {}, {
-        markupClassName: 'app-main',
-        markupElement: 'main',
-        dataClassName: 'states',
-        dataElement: 'script'
-    });
+    iso.add(content, zip.compressToBase64(alt.flush()));
+    markup = iso.render();
 
     let html = ReactDOM.renderToString(<HTML />);
     html = html.replace('CONTENT', function(match) {

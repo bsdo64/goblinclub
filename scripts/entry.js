@@ -17,7 +17,7 @@ const isoConfig = {
   dataElement: 'script'
 };
 
-Iso.bootstrap((state, _, container) => {
+Iso.bootstrap((state, node) => {
   let decodeState = zip.decompressFromBase64(state);
   alt.bootstrap(decodeState);
 
@@ -37,6 +37,6 @@ Iso.bootstrap((state, _, container) => {
 
   ReactDOM.render(
     <Router children={routes} history={browserHistory} />,
-    container
+    node
   );
-}, isoConfig);
+});

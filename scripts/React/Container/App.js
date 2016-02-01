@@ -18,7 +18,7 @@ let App = React.createClass({
     AppActions.disableServerRender();
 
     // 모든 하위 컴포넌트 마운트 완료 -> AppStore.serverRendered: false
-    $('script.states').remove();
+    $('script[data-iso-key="_0"]').remove();
   },
   render() {
     const {header, main, sidebar} = this.props;
