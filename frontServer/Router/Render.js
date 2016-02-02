@@ -15,27 +15,24 @@ import HTML from '../indexHTML'
 const Render = express.Router();
 
 function renderContentWithDataToString(Content) {
-  let iso = new Iso();
+  const iso = new Iso();
 
   iso.add(Content, zip.compressToBase64(alt.flush()));
   return iso.render();
 }
 
 function renderServersideReact(renderProps, req, res, callback) {
-  let ContentDOM,
-      Content,
+  let Content,
       state = JSON.stringify(res.storeState || {}),
-      html = ReactDOM.renderToString(<HTML />);
+      html = ReactDOM.renderToString(<HTML radiumConfig={{userAgent: 'all'}} />);
 
   alt.bootstrap(state);
 
   Content = ReactDOM.renderToString(
-    <RouterContext {...renderProps} radiumConfig={{userAgent: req.headers['user-agent']}} />
+    <RouterContext {...renderProps} radiumConfig={{userAgent: 'all'}} />
   );
 
-  ContentDOM = renderContentWithDataToString(Content);
-
-  html = html.replace('CONTENT', ContentDOM);
+  html = html.replace('CONTENT', renderContentWithDataToString(Content));
 
   callback(req, res, html);
 }
