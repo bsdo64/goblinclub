@@ -1,26 +1,25 @@
 /**
  * Created by dobyeongsu on 2015. 12. 12..
  */
-var request = require('superagent');
+import request from 'superagent';
 
-var Api = (function(req) {
-  var token = null;
-  var ApiEndPoint = 'http://localhost:3001/compose';
+class Api {
+  constructor() {
+    this.token = null;
+    this.ApiEndPoint = 'http://localhost:3001/compose';
+  }
 
-  var setToken = function (userToken) {
-    token = userToken || null;
-  };
-  var get = function (url) {
-    var requester = req.get(ApiEndPoint + url);
-    if (token) {
-      requester.set({token: token})
+  setToken(userToken) {
+    this.token = userToken;
+  }
+
+  get(url) {
+    const requester = request.get(this.ApiEndPoint + url);
+    if (this.token) {
+      requester.set({token: this.token})
     }
     return requester
-  };
-  return {
-    setToken : setToken,
-    get: get
   }
-})(request);
+}
 
-module.exports = Api;
+export default new Api();

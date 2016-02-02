@@ -1,6 +1,7 @@
-var express = require('express');
-var Api = require('../lib/Api');
-var Composer = express.Router();
+import express from 'express';
+import Api from '../lib/Api';
+
+const Composer = express.Router();
 
 Composer.use(function (req, res, next) {
   var userToken = req.cookies.token;
@@ -25,14 +26,14 @@ function errorHandler(errXHR, res, next) {
     res.redirect('/login');
     return;
   }
-  next();
+  next(errXHR);
 }
 
 function sendResponse(req, res, next) {
   Api.get(req.url)
     .end((errXHR, resXHR) => {
         if (errXHR) {
-          errorHandler(resXHR, res, next);
+          errorHandler(errXHR, res, next);
         } else if (resXHR && resXHR.ok) {
           sendOK(resXHR, res, next);
         }
@@ -42,4 +43,4 @@ function sendResponse(req, res, next) {
 
 Composer.get('*', sendResponse);
 
-module.exports = Composer;
+export default Composer;

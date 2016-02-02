@@ -4,13 +4,13 @@
 import request from 'superagent';
 import Promise from 'bluebird';
 
-function Req() {
-  this.ajaxEndPoint = 'http://localhost:3000/ajax';
-}
+class AjaxApiClient {
+  constructor() {
+    this.ajaxEndPoint = '/ajax';
+  }
 
-Req.prototype = {
-  _done: function (resolve, reject) {
-    return function (xhrErr, xhrRes) {
+  _done(resolve, reject) {
+    return (xhrErr, xhrRes) => {
       if (xhrErr) {
         reject(xhrErr);
       } else if (xhrRes.error) {
@@ -19,9 +19,9 @@ Req.prototype = {
         resolve(xhrRes.body);
       }
     };
-  },
+  }
 
-  get: function (url, params) {
+  get(url, params) {
     return new Promise((resolve, reject) => {
       request
         .get(this.ajaxEndPoint + url)
@@ -29,9 +29,9 @@ Req.prototype = {
         .set('Accept', 'application/json')
         .end(this._done(resolve, reject));
     });
-  },
+  }
 
-  post: function (url, params) {
+  post(url, params) {
     return new Promise((resolve, reject) => {
       request
         .post(this.ajaxEndPoint + url)
@@ -41,6 +41,6 @@ Req.prototype = {
         .end(this._done(resolve, reject));
     });
   }
-};
+}
 
-export default Req;
+export default new AjaxApiClient();

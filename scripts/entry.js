@@ -10,13 +10,6 @@ import zip from 'lz-string';
 
 import routes from './Utils/routes';
 
-const isoConfig = {
-  markupClassName: 'app-main',
-  markupElement: 'main',
-  dataClassName: 'states',
-  dataElement: 'script'
-};
-
 Iso.bootstrap((state, node) => {
   let decodeState = zip.decompressFromBase64(state);
   alt.bootstrap(decodeState);

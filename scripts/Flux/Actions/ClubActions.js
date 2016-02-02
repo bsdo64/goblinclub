@@ -3,12 +3,11 @@
  */
 import alt from '../../Utils/alt';
 import Api from '../../Utils/ApiClient';
-const api = new Api();
 
 class ClubActions {
   submitClub(club) {
     return (dispatch) => {
-      api
+      Api
         .post('/submit/club', club)
         .then((res) => {
           dispatch(res);

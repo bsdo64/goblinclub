@@ -3,7 +3,6 @@
  */
 import alt from '../../Utils/alt';
 import Api from '../../Utils/ApiClient';
-const api = new Api();
 
 class AppActions {
   disableServerRender() {
@@ -19,7 +18,7 @@ class AppActions {
 
   initBest() {
     return function (dispatch) {
-      api
+      Api
         .get('/best')
         .then(function (res) {
           dispatch(res);
@@ -34,7 +33,7 @@ class AppActions {
 
   initClub() {
     return function (dispatch) {
-      api
+      Api
         .get('/best')
         .then(function (res) {
           dispatch(res);
@@ -49,7 +48,7 @@ class AppActions {
 
   initPost() {
     return function (dispatch) {
-      api
+      Api
         .get('/best')
         .then(function (res) {
           dispatch(res);
@@ -64,7 +63,7 @@ class AppActions {
 
   initWritePost() {
     return function (dispatch) {
-      api
+      Api
         .get('/best')
         .then(function (res) {
           dispatch(res);

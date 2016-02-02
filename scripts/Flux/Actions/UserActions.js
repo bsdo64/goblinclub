@@ -7,9 +7,7 @@ import Validator from '../../Utils/validator';
 
 class UserActions {
   loginUser(user) {
-    let uiValidator = new Validator();
-    let api = new Api();
-    let slf = this;
+    const uiValidator = new Validator();
 
     uiValidator.loginUser(user, (err, result) => {
       if (err) {
@@ -17,53 +15,46 @@ class UserActions {
       }
 
       if (result.result) {
-        api
+        Api
           .post('/login', user)
           .then(function (res) {
-            slf.success(res);
-            return null;
-          })
+            return this.success(res);
+          }.bind(this))
           .catch(function (error) {
             if (error) {
-              slf.serverFail(error);
-              return null;
+              return this.serverFail(error);
             }
             if (error.error) {
               error.error.type = 'loginUser';
-              slf.serverValidateFail(error.error);
-              return null;
+              return this.serverValidateFail(error.error);
             }
-          });
+          }.bind(this));
       } else {
-        slf.uiValidateFail(result);
-        return null;
+        return this.uiValidateFail(result);
       }
     });
   }
 
   signinUser(newUser) {
     let uiValidator = new Validator();
-    let Apis = new Api();
     uiValidator.signinUser(newUser, (err, result) => {
       if (err) {
         return (err);
       }
 
       if (result.result) {
-        Apis
+        Api
           .post('/signin', newUser)
           .then(function (res) {
             this.success(res);
           }.bind(this))
           .catch(function (error) {
             if (error) {
-              this.serverFail(error);
-              return null;
+              return this.serverFail(error);
             }
             if (error.error) {
               error.error.type = 'loginUser';
-              this.serverValidateFail(error.error);
-              return null;
+              return this.serverValidateFail(error.error);
             }
           }.bind(this));
       } else {

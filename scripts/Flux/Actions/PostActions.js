@@ -3,7 +3,6 @@
  */
 import alt from '../../Utils/alt';
 import Api from '../../Utils/ApiClient';
-const api = new Api();
 
 class PostActions {
   setDefaultClubList(clubId) {
@@ -18,7 +17,7 @@ class PostActions {
     let newPost = post;
 
     return (dispatch) => {
-      api
+      Api
         .post('/submit', newPost)
         .then((res) => {
           dispatch(res);
@@ -35,7 +34,7 @@ class PostActions {
 
   getClubPostLists(params) {
     return (dispatch) => {
-      api
+      Api
         .get('/club/' + params.clubName + '/' + params.article)
         .then((res) => {
           dispatch(res);
@@ -48,7 +47,7 @@ class PostActions {
 
   getPostsByClub(params) {
     return (dispatch) => {
-      api
+      Api
         .get('/club/' + params.clubName)
         .then((res) => {
           dispatch(res);
@@ -61,7 +60,7 @@ class PostActions {
 
   moreBest(p) {
     return (dispatch) => {
-      api
+      Api
         .get('/best?p=' + p)
         .then((res) => {
           dispatch(res);

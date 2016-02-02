@@ -1,13 +1,14 @@
-var bunyan = require('bunyan');
+import bunyan from 'bunyan';
 
-var AppLog = bunyan.createLogger({
-  name: "AppLog",
-  streams: [
-    { stream: process.stdout }
-  ],
-  serializers: bunyan.stdSerializers
-});
-
-module.exports = {
-  AppLog: AppLog
-};
+class Log {
+  constructor() {
+    this.AppLog = bunyan.createLogger({
+      name: "AppLog",
+      streams: [
+        { stream: process.stdout }
+      ],
+      serializers: bunyan.stdSerializers
+    });
+  }
+}
+export default new Log();
