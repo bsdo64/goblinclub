@@ -1,8 +1,8 @@
 /**
  * Created by dobyeongsu on 2015. 11. 13..
  */
-function Main() {}
-Main.prototype = {
+function MainSectionStyle() {}
+MainSectionStyle.prototype = {
   main: {
     position: 'relative',
     overflow: 'hidden',
@@ -12,7 +12,6 @@ Main.prototype = {
     boxSizing: 'border-box',
     backgroundColor: '#aaa',
     height: '100%',
-    minHeight: 600,
     minWidth: 565,
     borderLeft: '1px solid #111',
     borderRight: '1px solid #111',
@@ -38,4 +37,4 @@ Main.prototype = {
   }
 };
 
-export default new Main();
+export default new MainSectionStyle();
