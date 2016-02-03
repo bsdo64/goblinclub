@@ -5,25 +5,24 @@ import React from 'react';
 import _ from 'lodash';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
-import {
-  App,
-  Header,
-  Main,
-  Best,
-  Club,
-  Post,
-  Login,
-  WritePost,
-  WriteClub,
-  NotFound,
-  Sidebar
-} from '../React/Container/index';
+import App from './../Components/App/App';
+import Main from './../Components/MainSection/Main';
 
+// Injecters
+import Header from './../Components/MainHeader/Header';
+import Best from './../Components/PostsOfBest/Best';
+import Club from './../Components/PostsByClub/Club';
+import Post from './../Components/PostPage/Post';
+import Login from './../Components/Login/Login';
+import WritePost from './../Components/PostEditor/WritePost';
+import WriteClub from './../Components/ClubEditor/WriteClub';
+import NotFound from './../Components/NotFound/NotFound';
+import Sidebar from './../Components/SidebarClubList/Sidebar';
 
 export default (
   <Router history={browserHistory}>
-    <Route path='' component={App}>
-      <Route path='/' components={{header: Header, main: Main, sidebar: Sidebar}}>
+    <Route path="" component={App}>
+      <Route path="/" components={{header: Header, main: Main, sidebar: Sidebar}}>
         <IndexRoute components={{mainSection: Best}}/>
         <Route path="submit" components={{mainSection: WritePost}}/>
         <Route path="submit/club" components={{mainSection: WriteClub}}/>
