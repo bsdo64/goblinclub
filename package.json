@@ -77,7 +77,6 @@
     "react-select": "^1.0.0-beta8",
     "react-textarea-autosize": "^3.3.0",
     "sequelize": "^3.13.0",
-    "sequelize-cli": "^2.2.1",
     "sequelize-hierarchy": "^0.5.8",
     "shortid": "^2.2.4",
     "style-loader": "^0.13.0",

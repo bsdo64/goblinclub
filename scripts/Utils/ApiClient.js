@@ -23,7 +23,7 @@ class AjaxApiClient {
 
   get(url, params) {
     return new Promise((resolve, reject) => {
-      request
+      return request
         .get(this.ajaxEndPoint + url)
         .query(params)
         .set('Accept', 'application/json')
@@ -33,7 +33,7 @@ class AjaxApiClient {
 
   post(url, params) {
     return new Promise((resolve, reject) => {
-      request
+      return request
         .post(this.ajaxEndPoint + url)
         .send(params)
         .set('Accept', 'application/json')

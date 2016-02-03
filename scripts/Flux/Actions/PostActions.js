@@ -20,7 +20,7 @@ class PostActions {
       Api
         .post('/submit', newPost)
         .then((res) => {
-          dispatch(res);
+          return dispatch(res);
         })
         .catch((err) => {
           return err;
@@ -37,7 +37,7 @@ class PostActions {
       Api
         .get('/club/' + params.clubName + '/' + params.article)
         .then((res) => {
-          dispatch(res);
+          return dispatch(res);
         })
         .catch((err) => {
           this.redirectToNotFound(err);
@@ -50,7 +50,7 @@ class PostActions {
       Api
         .get('/club/' + params.clubName)
         .then((res) => {
-          dispatch(res);
+          return dispatch(res);
         })
         .catch((err) => {
           this.redirectToNotFound(err);
@@ -63,7 +63,7 @@ class PostActions {
       Api
         .get('/best?p=' + p)
         .then((res) => {
-          dispatch(res);
+          return dispatch(res);
         })
         .catch((err) => {
           if (err) {

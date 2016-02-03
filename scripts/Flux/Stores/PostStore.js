@@ -1,5 +1,6 @@
 import alt from '../../Utils/alt';
 import assign from 'object-assign';
+import _ from 'lodash';
 
 import AppActions from '../Actions/AppActions';
 import PostActions from '../Actions/PostActions';
@@ -115,12 +116,24 @@ class PostStore {
     this.setState(state);
   }
 
-  onLike() {
+  onLike(uid) {
+    let bestList = this.state.bestList;
+    let postIndex = _.findIndex(bestList, {uid: uid});
 
+    bestList[postIndex].voteCount = bestList[postIndex].voteCount + 1;
+    bestList[postIndex].likeCount = bestList[postIndex].likeCount + 1;
+
+    this.setState({bestList: bestList});
   }
 
-  onDislike() {
+  onDislike(uid) {
+    let bestList = this.state.bestList;
+    let postIndex = _.findIndex(bestList, {uid: uid});
 
+    bestList[postIndex].voteCount = bestList[postIndex].voteCount - 1;
+    bestList[postIndex].dislikeCount = bestList[postIndex].dislikeCount - 1;
+
+    this.setState({bestList: bestList});
   }
 }
 

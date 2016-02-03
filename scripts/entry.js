@@ -17,7 +17,7 @@ Iso.bootstrap((state, node) => {
   /* Debug - Final Dispatched Store's State */
   function finalState(payload) {
     if (!process.env.NODE) {
-      console.log('Final.toJS()\t', payload);
+      console.log('Final \t\t', payload);
       console.groupEnd('Action');
     }
   }
