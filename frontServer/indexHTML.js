@@ -13,16 +13,16 @@ export default class HTML extends Component {
         <title>고블린 클럽</title>
         <link rel="stylesheet" href="/statics/font-awesome/css/font-awesome.min.css"/>
         <link rel="stylesheet" href="/statics/bootstrap/dist/css/bootstrap.css"/>
-        <link rel="stylesheet" href="/statics/non-responsive.css"/>
-        <link rel="stylesheet" href="/statics/nanoscroller.css"/>
         <link rel="stylesheet" href="/statics/blueimp-gallery/css/blueimp-gallery.min.css"/>
-
         <link rel="stylesheet" href="/statics/medium-editor/dist/css/medium-editor.min.css"/>
         <link rel="stylesheet" href="/statics/medium-editor/dist/css/themes/default.css" id="medium-editor-theme"/>
         <link rel="stylesheet"
               href="/statics/medium-editor-insert-plugin/dist/css/medium-editor-insert-plugin.min.css"/>
 
-        <link rel="stylesheet" href="/statics/style.css"/>
+        <link rel="stylesheet" href="/statics/css/vendor/react-select.min.css"/>
+        <link rel="stylesheet" href="/statics/css/vendor/non-responsive.css"/>
+        <link rel="stylesheet" href="/statics/css/vendor/nanoscroller.css"/>
+        <link rel="stylesheet" href="/statics/css/style.css"/>
         <script src='https://www.google.com/recaptcha/api.js' async defer></script>
       </head>
 

@@ -17,7 +17,8 @@ const Render = express.Router();
 function renderContentWithDataToString(Content) {
   const iso = new Iso();
 
-  iso.add(Content, zip.compressToBase64(alt.flush()));
+  //iso.add(Content, zip.compressToBase64(alt.flush()));
+  iso.add(Content, alt.flush());
   return iso.render();
 }
 

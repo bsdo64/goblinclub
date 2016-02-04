@@ -1,10 +1,9 @@
 import Alt from 'alt';
-import chromeDebug from '../../node_modules/alt-utils/lib/chromeDebug';
 
 const alt = new Alt({});
 
 // Debug
-chromeDebug(alt);
+Alt.debug('alt', alt);
 
 alt.dispatcher.register((state) => {
   if (!process.env.NODE) {

@@ -13,9 +13,6 @@ import PostActions from '../../Flux/Actions/PostActions';
 
 import HeadLine from './../HeadLine/HeadLine';
 
-if (!process.env.NODE) {
-  require('react-select/dist/react-select.css');
-}
 let SubscribeClubs = React.createClass({
   displayName: 'SubscribeClubs',
   getInitialState() {
