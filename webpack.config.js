@@ -42,7 +42,7 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin("bundle.css", {
       allChunks: true
-    }),
+    })
     //new webpack.DefinePlugin({
     //  'process.env': {
     //    // This has effect on the react lib size

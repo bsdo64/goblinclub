@@ -70,13 +70,14 @@ let MainClubs = React.createClass({
       if (_.has(props, 'PostStore.writingPost.defaultClubList')) {
         return props.PostStore.writingPost.defaultClubList;
       }
-      return null;
+
+      PostActions.setDefaultClubList(1);
+      return 1;
     })(this.props);
     return {
       defaultClubId: defaultClub ? defaultClub : 1
     };
   },
-
   handleSelectCheckbox(val) {
     this.setState({
       defaultClubId: val.value
@@ -182,8 +183,11 @@ let Editor = React.createClass({
   submit() {
     let allContents = this.editor.serialize();
     let el = allContents['element-0'].value;
-    let writingPost = this.props.PostStore.writingPost;
-    let subscribeClubList = _.map(writingPost.subscribeClubList, 'value');
+    let writingPost =
+      this.props.PostStore.writingPost ? this.props.PostStore.writingPost : {defaultClubList: 1};
+
+    let subscribeClubList =
+      writingPost ? _.map(writingPost.subscribeClubList, 'value') : [];
 
     let newPost = {
       content: el,
