@@ -52,6 +52,8 @@ let Best = React.createClass({
    * @returns {void}
    */
   componentDidMount() {
+    $('#Section').nanoScroller();
+
     let scrollContent = document.getElementsByClassName('nano-content')[0];
     scrollContent.onscroll = function () {
       let bottomGap = scrollContent.scrollHeight - (scrollContent.offsetHeight + scrollContent.scrollTop);
