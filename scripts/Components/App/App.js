@@ -17,7 +17,6 @@ let App = React.createClass({
     // 모든 하위 컴포넌트 마운트 완료 -> AppStore.serverRendered: false
     AppActions.disableServerRender();
 
-    // 모든 하위 컴포넌트 마운트 완료 -> AppStore.serverRendered: false
     $('script[data-iso-key="_0"]').remove();
   },
   render() {
@@ -61,4 +60,4 @@ let RootApp = React.createClass({
   }
 });
 
-export default RootApp;
+export default Radium(RootApp);
