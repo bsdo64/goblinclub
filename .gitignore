@@ -12,4 +12,4 @@ dump.rdb
 
 _dist/bundle.js
 _dist/bundle.css
-_dist/bundle.js.map
+_dist/*.map

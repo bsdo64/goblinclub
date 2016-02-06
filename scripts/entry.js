@@ -11,8 +11,8 @@ import zip from 'lz-string';
 import routes from './Utils/routes';
 
 Iso.bootstrap((state, node) => {
-  // let decodeState = zip.decompressFromBase64(state);
-  let decodeState = state;
+   let decodeState = zip.decompressFromBase64(state);
+  //let decodeState = state;
   alt.bootstrap(decodeState);
 
   /* Debug - Final Dispatched Store's State */

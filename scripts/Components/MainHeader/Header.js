@@ -16,6 +16,10 @@ import SearchBar from './HeaderSearchBar';
 
 import styles from './HeaderStyle';
 
+if (process.env.BROWSER) {
+  require('./hello.css');
+}
+
 let Header = React.createClass({
   displayName: 'Header',
   propTypes: {
@@ -57,6 +61,18 @@ let Header = React.createClass({
             {
               !authSuccess &&
               <HeaderLoginButton AppStore={this.props.AppStore} />
+            }
+
+            {
+              authSuccess &&
+              <div style={{float: 'left', color: '#fff'}}>
+                <ul style={{height: 50, margin: 0, padding: 18}}>
+                  <li style={{display: 'inline-block', paddingRight: 10}}>Nick
+                  </li>
+                  <li style={{display: 'inline-block'}}>100,200 P
+                  </li>
+                </ul>
+              </div>
             }
 
             {

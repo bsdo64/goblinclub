@@ -12,6 +12,7 @@ import styles from './PostEditorStyle';
 import PostActions from '../../Flux/Actions/PostActions';
 
 import HeadLine from './../HeadLine/HeadLine';
+import {medium, mediumInsertConfig} from './config';
 
 let SubscribeClubs = React.createClass({
   displayName: 'SubscribeClubs',
@@ -117,53 +118,8 @@ let MainClubs = React.createClass({
 let Editor = React.createClass({
   displayName: 'Editor',
   componentDidMount() {
-    this.editor = new MediumEditor('.editable', {
-      imageDragging: false,
-      autoLink: true,
-      toolbar: {
-        buttons: [
-          'bold',
-          'italic',
-          'underline',
-          'anchor',
-          'h2',
-          'h3',
-          'quote',
-          {
-            name: 'justifyFull',
-            contentDefault: '<i class="fa fa-align-justify"></i>'
-          },
-          {
-            name: 'justifyLeft',
-            contentDefault: '<i class="fa fa-align-left"></i>'
-          },
-          {
-            name: 'justifyCenter',
-            contentDefault: '<i class="fa fa-align-center"></i>'
-          },
-          {
-            name: 'justifyRight',
-            contentDefault: '<i class="fa fa-align-right"></i>'
-          }
-        ]
-      }
-    });
-    $('.editable').mediumInsert({
-      editor: this.editor,
-      addons: {
-        images: {
-          deleteScript: '/image/image/files/',
-          deleteMethod: 'DELETE',
-          preview: true,
-          captions: true,
-          captionPlaceholder: '이미지 캡션을 입력하세요(옵션)',
-          fileUploadOptions: {
-            url: 'http://localhost:3000/image',
-            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-          }
-        }
-      }
-    });
+    this.editor = new MediumEditor('.editable', medium);
+    $('.editable').mediumInsert(mediumInsertConfig(this.editor));
     if (_.has(this.props, 'PostStore.writingPost.success')) {
       if (this.props.PostStore.writingPost.success) {
         PostActions.resetWritingPost();
