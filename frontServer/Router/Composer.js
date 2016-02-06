@@ -23,7 +23,7 @@ function sendOK(resXHR, res, next) {
 
 function errorHandler(errXHR, res, next) {
   if (errXHR.status === 404) {
-    res.redirect('/login');
+    res.redirect('/');
     return;
   }
   next(errXHR);
