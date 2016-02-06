@@ -4,11 +4,19 @@
 var babel = require('babel-core');
 
 module.exports = {
-    process: function (src, filename) {
-        if ((filename.indexOf('node_modules') === -1 || filename.indexOf('admin-config')) && babel.canCompile(filename)) {
-            return babel.transform(src, { filename: filename, stage: 1, retainLines: true, compact: false }).code;
-        }
+  process: function (src, filename) {
+    var stage = process.env.BABEL_JEST_STAGE || 2;
 
-        return src;
+    if (filename.indexOf('node_modules') === -1 || babel.canCompile(filename)) {
+      return babel.transform(src, {
+        filename   : filename,
+        stage      : stage,
+        retainLines: true,
+        auxiliaryCommentBefore: "istanbul ignore next",
+        compact    : true
+
+      }).code;
     }
+    return src;
+  }
 };
