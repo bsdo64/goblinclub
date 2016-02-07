@@ -11,4 +11,5 @@ PostPage.prototype = {
     marginBottom: 10
   }
 };
+
 export default new PostPage();

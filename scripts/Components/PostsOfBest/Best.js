@@ -25,6 +25,20 @@ let Best = React.createClass({
       page: 1
     };
   },
+  statics: {
+    getStores() {
+      // this will handle the listening/unlistening for you
+      return [PostStore, UserStore];
+    },
+
+    getPropsFromStores() {
+      // this is the data that gets passed down as props
+      return {
+        PostStore: PostStore.getState(),
+        UserStore: UserStore.getState()
+      };
+    }
+  },
 
   /**
    * 컴포넌트가 처음으로 마운트 되고 난 후에 실행된다. 데이터 업데이트와는 관계없다.
@@ -110,18 +124,4 @@ let Best = React.createClass({
   }
 });
 
-Best = connectToStores({
-  getStores() {
-    // this will handle the listening/unlistening for you
-    return [PostStore, UserStore];
-  },
-
-  getPropsFromStores() {
-    // this is the data that gets passed down as props
-    return {
-      PostStore: PostStore.getState(),
-      UserStore: UserStore.getState()
-    };
-  }
-}, Radium(Best));
-export default Best;
+export default connectToStores(Radium(Best));

@@ -10,22 +10,24 @@ import alt from '../../scripts/Utils/alt';
 import Iso from 'iso';
 import zip from 'lz-string';
 
-import HTML from '../indexHTML'
+import fs from 'fs';
+import path from 'path';
 
 const Render = express.Router();
+const dist = path.resolve(__dirname, "../../_dist");
 
 function renderContentWithDataToString(Content) {
   const iso = new Iso();
 
-  //iso.add(Content, zip.compressToBase64(alt.flush()));
-  iso.add(Content, alt.flush());
+  iso.add(Content, zip.compressToBase64(alt.flush()));
+  //iso.add(Content, alt.flush());
   return iso.render();
 }
 
 function renderServersideReact(renderProps, req, res, callback) {
   let Content,
       state = JSON.stringify(res.storeState || {}),
-      html = ReactDOM.renderToString(<HTML radiumConfig={{userAgent: 'all'}} />);
+      html;
 
   alt.bootstrap(state);
 
@@ -33,9 +35,10 @@ function renderServersideReact(renderProps, req, res, callback) {
     <RouterContext {...renderProps} radiumConfig={{userAgent: 'all'}} />
   );
 
-  html = html.replace('CONTENT', renderContentWithDataToString(Content));
-
-  callback(req, res, html);
+  fs.readFile(path.join(dist, '/index.html'), 'utf8', function (err, data){
+    html = data.replace('CONTENT', renderContentWithDataToString(Content));
+    callback(req, res, html);
+  });
 }
 
 Render.use((req, res) => {
