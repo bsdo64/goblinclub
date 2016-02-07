@@ -17,7 +17,8 @@ import SearchBar from './HeaderSearchBar';
 import styles from './HeaderStyle';
 
 if (process.env.BROWSER) {
-  require('./hello.css');
+  var a = require('./hello.scss');
+  console.log(a.nav);
 }
 
 let Header = React.createClass({

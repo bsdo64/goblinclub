@@ -5,6 +5,9 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 
+// multiple extract instances
+var extractCSS = new ExtractTextPlugin('bundle.css');
+
 module.exports = {
   devtool: 'cheap-source-map',
   entry: {
@@ -34,8 +37,16 @@ module.exports = {
         },
         exclude: [/node_modules/, /bower_components/]
       },
-      {test: /\.scss$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader", "sass-loader")},
-      {test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")}
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+      },
+      // Optionally extract less files
+      // or any other compile-to-css language
+      {
+        test: /\.scss/,
+        loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
+      }
     ],
     noParse: [/autoit\.js$/]
   },
@@ -43,6 +54,7 @@ module.exports = {
     fs: "empty"
   },
   plugins: [
+
     //new ExtractTextPlugin("[name]-[chunkhash].css"),
     new ExtractTextPlugin("bundle.css"),
 

@@ -6,12 +6,13 @@
   "scripts": {
     "start": "npm run redis & npm run front-build & DEBUG='pm2' pm2 start GoblinclubSystem.json --no-daemon",
     "redis": "redis-server ./redis.conf",
+    "mysql": "mysql.server start",
     "kibana": "./debug/kibana-4.3.1-linux-x64/bin/kibana",
     "elastic": "./debug/elasticsearch-2.1.1/bin/elasticsearch",
     "debugs": "npm run elastic && npm run kibana",
     "front-build": "webpack --colors --progress --watch",
     "test": "./node_modules/.bin/babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha -- --recursive",
-    "test1": "BABEL_JEST_STAGE=0 jest --testRunner='<rootDir>/node_modules/jest-cli/src/testRunners/jasmine/jasmine2.js' --coverage",
+    "test1": "BABEL_JEST_STAGE=0 jest bin --testRunner='<rootDir>/node_modules/jest-cli/src/testRunners/jasmine/jasmine2.js' --coverage",
     "jest": {
       "scriptPreprocessor": "<rootDir>/jest/preprocessor.js",
       "testFileExtensions": [
@@ -97,6 +98,7 @@
     "eslint": "^1.7.3",
     "eslint-plugin-react": "^3.11.3",
     "extract-text-webpack-plugin": "^0.9.1",
+    "html-webpack-plugin": "^2.8.1",
     "imports-loader": "^0.6.5",
     "isparta": "^4.0.0",
     "istanbul": "^0.4.1",

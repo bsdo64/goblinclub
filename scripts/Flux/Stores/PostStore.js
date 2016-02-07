@@ -75,11 +75,12 @@ class PostStore {
     this.setState(state);
   }
 
-  onRedirectToNotFound() {
+  onRedirectToNotFound(err) {
     let state = this.state;
     state = {
       redirectTo : '/notFound',
-      status : 404
+      status : 404,
+      error: err
     };
 
     this.setState(state);
