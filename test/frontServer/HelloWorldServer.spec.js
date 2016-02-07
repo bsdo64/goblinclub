@@ -4,7 +4,7 @@ let sinon = require('sinon');
 
 chai.should();
 
-let Rectangle = require(path.join(__dirname, '../..', 'rectangle'));
+let Rectangle = require(path.join(__dirname, '../../testExample', 'rectangle'));
 
 describe('Rectangle', () => {
     describe('#constructor()', () => {

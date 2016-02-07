@@ -82,8 +82,9 @@ describe('Rectangle', () => {
 
     it('can not be changed', () => {
       var input = 1000;
-      rectangle.area = input;
-      expect(rectangle.area).not.toEqual(input);
+      expect(() => {
+        rectangle.area = input;
+      }).toThrow();
     });
   });
 
@@ -100,8 +101,9 @@ describe('Rectangle', () => {
 
     it('can not be changed', () => {
       var input = 1000;
-      rectangle.circumference = input;
-      expect(rectangle.circumference).not.toEqual(input);
+      expect(() => {
+        rectangle.circumference = input;
+      }).toThrow();
     });
   });
 });
