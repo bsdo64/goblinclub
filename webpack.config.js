@@ -1,6 +1,7 @@
 /**
  * Created by dobyeongsu on 2015. 10. 15..
  */
+var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
@@ -33,7 +34,7 @@ module.exports = {
         test: /\.jsx?$/,
         loader: "babel-loader",
         query: {
-          presets: ['es2015', 'stage-0', 'react']
+          presets: ['es2015', 'react', 'stage-0']
         },
         exclude: [/node_modules/, /bower_components/]
       },

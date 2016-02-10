@@ -4,7 +4,8 @@
     "script"      : "bin/frontServer.js",
     "watch"       : [
       "frontServer/**",
-      "_dist/bundle\.js"
+      "_dist/bundle\.js",
+      "webpack\.config\.js",
     ],
     "max_restarts": 5,
     "autorestart" : false,
