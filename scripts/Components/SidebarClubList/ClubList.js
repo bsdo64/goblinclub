@@ -62,6 +62,28 @@ let PopupLink = React.createClass({
   }
 });
 
+let SearchBar = React.createClass({
+  handleChange: function () {
+    this.props.onUserInput(
+      this.refs.filterTextInput.value
+    );
+  },
+  render() {
+    return (
+      <div style={{paddingLeft: 5, margin: '2px 0', backgroundColor: '#F4F4F4'}}>
+        <i className="fa fa-search" />
+        <input
+          ref="filterTextInput"
+          placeholder="검색하기"
+          value={this.props.filterText}
+          onChange={this.handleChange}
+          style={{border: 'none', width: 'calc(100% - 14px)', fontSize: 13, padding: '3px 8px', background: 'none'}}
+        />
+      </div>
+    );
+  }
+});
+
 let Club = React.createClass({
   displayName: 'Club',
   propTypes: {
@@ -101,8 +123,20 @@ let ClubList = React.createClass({
     clubList: React.PropTypes.array,
     title: React.PropTypes.string.isRequired
   },
+  getInitialState: function() {
+    return {
+      filterText: ''
+    };
+  },
+
+  handleUserInput: function (filterText) {
+    this.setState({
+      filterText: filterText
+    });
+  },
+
   render() {
-    let {clubList, title, location, best} = this.props;
+    let {clubList, title, location, best, searchClub} = this.props;
 
     function createItem(val, index) {
       return (
@@ -115,12 +149,22 @@ let ClubList = React.createClass({
         </li>);
     }
 
+    clubList = clubList.filter(function (club) {
+      return !(club.name.indexOf(this.state.filterText) === -1);
+    }.bind(this));
+
     return (
       <div style={styles.element}>
         <div style={styles.title}>
           {title}
-          {/* 검색 입력 */}
         </div>
+        {
+          searchClub &&
+          <SearchBar
+            filterText={this.state.filterText}
+            onUserInput={this.handleUserInput}
+          />
+        }
         {
           best &&
           <li >
