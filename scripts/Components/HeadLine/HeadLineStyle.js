@@ -13,9 +13,14 @@ HeadLine.prototype = {
     margin: '0 5px',
     fontSize: 12
   },
-  title: {
-    margin: 0,
+  subs: {
     padding: '5px 0 0 15px',
+    color: '#10D5B0'
+  },
+  title: {
+    display: 'inline-block',
+    margin: 0,
+    paddingLeft: 15,
     fontSize: 14,
     fontWeight: 'normal',
     color: '#fff'

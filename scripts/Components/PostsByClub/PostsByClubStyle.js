@@ -20,12 +20,14 @@ PostsByClubStyle.prototype = {
   },
   thumbNail: {
     position: 'absolute',
+    textAlign: 'center',
     width: 30,
-    height: 20,
+    height: 45,
     paddingTop: 3
   },
   thumbNailImg: {
-    width: 'inherit'
+    maxHeight: '100%',
+    maxWidth: '100%'
   },
   textBody: {
     marginLeft: 45

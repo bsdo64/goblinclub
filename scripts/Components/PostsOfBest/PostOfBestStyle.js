@@ -57,39 +57,42 @@ PostOfBestStyle.prototype = {
   },
   deleteButton: {
     float: 'right',
-    color: '#aaa'
+    color: '#aaa',
+    fontSize: 13
   },
   postButtons: {
     margin: '5px 5px 5px 0px',
     fontSize: 15
   },
+  fontSize13: {
+    fontSize: 13
+  },
   thumbUp: {
     color: '#aaa',
-    padding: '2px 18px',
-    border: '1px solid rgb(221, 221, 221)',
+    padding: '2px 12px',
     ':hover': {
       color: 'red'
     }
   },
   thumbDown: {
     color: '#aaa',
-    padding: '2px 18px',
-    border: '1px solid rgb(221, 221, 221)',
-    margin: '0px -1px',
+    padding: '2px 12px',
     ':hover': {
       color: 'red'
     }
   },
   commentButton: {
     color: '#aaa',
-    padding: '2px 18px',
-    border: '1px solid rgb(221, 221, 221)',
+    padding: '2px 12px',
     ':hover': {
       color: 'red'
     }
   },
   textCenter: {
     textAlign: 'center'
+  },
+  buttonHrBottom: {
+    marginBottom: 0
   }
 };
 export default new PostOfBestStyle();

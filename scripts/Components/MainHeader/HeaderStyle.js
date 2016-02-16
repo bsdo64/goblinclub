@@ -68,7 +68,7 @@ Header.prototype = {
   menu: {
     layout: {
       float: 'right',
-      width: 320
+      width: 500
     },
     container: {
       height: 50,

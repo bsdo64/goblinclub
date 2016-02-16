@@ -4,154 +4,15 @@
 import React from 'react';
 import Radium from 'radium';
 import Textarea from 'react-textarea-autosize';
+import {Button} from 'react-bootstrap';
 
 import HeadLine from '../HeadLine/HeadLine';
 
 import AppActions from '../App/AppActions';
-
-let comment = {
-  comment: {
-    marginTop: 10
-  },
-  top: {
-    padding: '10px 0'
-  },
-  red: {
-    color: 'red'
-  },
-  boxHeadLine: {
-    fontSize: 14,
-    display: 'inline-block',
-    margin: 0
-  },
-  selectBox: {
-    margin: 0,
-    padding: 0,
-    display: 'inline-block',
-    float: 'right'
-  },
-  inlineBlock: {
-    display: 'inline-block'
-  },
-  hr: {
-    margin: '0 0 10px'
-  },
-  writeBox: {
-    marginBottom: 10,
-    backgroundColor: 'rgba(231, 239, 239, 0.61)',
-    borderRadius: 1,
-    boxShadow: '1px 1px #b0c2c0',
-    padding: '10px 6px 10px 6px',
-    minHeight: 40
-  },
-  writeBoxLeft: {
-    position: 'absolute',
-    padding: 6
-  },
-  writeBoxName: {
-    fontSize: 10,
-    color: '#01403C',
-    fontWeight: 'bold'
-  },
-  writeBoxRight: {
-    marginLeft: 44,
-    position: 'relative',
-    background: '#fff',
-    display: 'inline-block',
-    width: 'calc(100% - 110px)'
-  },
-  inputBox: {
-    width: '100%'
-  },
-  input: {
-    width: 'calc(100% - 40px)',
-    padding: 5,
-    fontSize: 12,
-    minHeight: 27,
-    resize: 'none',
-    border: 'none'
-  },
-  pictureBox: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0
-  },
-  picture: {
-    margin: 7
-  },
-  remainText: {
-    display: 'inline-block',
-    fontSize: 11,
-    paddingLeft: 5
-  },
-
-  marginLeft50: {
-    marginLeft: 50
-  },
-  listBox: {
-    padding: 0,
-    listStyle: 'none'
-  },
-  box: {
-    backgroundColor: '#F6F9F9',
-    borderRadius: 1,
-    boxShadow: '1px 1px #b0c2c0',
-    padding: '10 10 6 10',
-    minHeight: 40,
-    borderBottom: '1px solid #B0C2C0',
-    borderLeft: '3px solid #2B5F5B'
-  },
-  rightButtonBox: {
-    fontSize: 10,
-    display: 'inline-block',
-    float: 'right'
-  },
-  voteButton: {
-    fontSize: 12,
-    color: 'rgb(170, 170, 170)',
-    padding: '5px 10px'
-  },
-  replayCount: {
-    fontSize: 11,
-    color: '#aaa'
-  },
-  paddingLeft10: {
-    paddingLeft: 10
-  },
-  contentLeft: {
-    position: 'absolute',
-    textAlign: 'center'
-  },
-  author: {
-    fontSize: 12,
-    fontWeight: 'bold'
-  },
-  point: {
-    fontSize: 10,
-    color: '#FF5711',
-    fontWeight: 'bold'
-  },
-  contentRight: {
-    marginLeft: 44,
-    paddingTop: 0
-  },
-  content: {
-    width: 'calc(100% - 200px)',
-    display: 'inline-block'
-  },
-  p: {
-    fontSize: 12,
-    marginBottom: 3
-  }
-};
+import styles from './styles';
 
 let WriteBox = React.createClass({
   displayName: 'WriteBox',
-  getInitialState: function () {
-    return {
-      comment: 0
-    };
-  },
   checkLogin() {
     const {authSuccess} = this.props;
     if (!authSuccess) {
@@ -166,17 +27,18 @@ let WriteBox = React.createClass({
     this.setState({comment: this.refs.commentBox.value.length});
   },
   render() {
+    const {auth} = this.props;
     return (
-      <div style={comment.writeBox}>
-        <div style={comment.writeBoxLeft}>
-          <div style={comment.writeBoxName}>
-            {'TEST'}
+      <div style={styles.writeBox}>
+        <div style={styles.writeBoxLeft}>
+          <div style={styles.writeBoxName}>
+            {auth.user.nick}
           </div>
         </div>
-        <div style={comment.writeBoxRight}>
-          <div style={comment.inputBox}>
+        <div style={styles.writeBoxRight}>
+          <div style={styles.inputBox}>
             <Textarea
-              style={comment.input}
+              style={styles.input}
               rows={1}
               ref="commentBox"
               onChange={this.handleChange}
@@ -184,15 +46,13 @@ let WriteBox = React.createClass({
               placeholder="댓글을 입력하세요"
             />
           </div>
-          <div style={comment.pictureBox}>
-            <div style={comment.picture} onClick={this.handleUploadPic}>
+          <div style={styles.pictureBox}>
+            <div style={styles.picture} onClick={this.handleUploadPic}>
               <i className="fa fa-camera" />
             </div>
           </div>
         </div>
-        <div style={comment.remainText}>
-          {'(' + this.state.comment + '/300)'}
-        </div>
+        <Button style={styles.submitCommentBtn} bsStyle="default">등록</Button>
       </div>);
   }
 });
@@ -228,38 +88,38 @@ let CommentBox = React.createClass({
     const {oneComment} = this.props;
     console.log(oneComment);
     return (
-    <div style={comment.box}>
-      <div style={comment.rightButtonBox}>
+    <div style={styles.box}>
+      <div style={styles.rightButtonBox}>
         {'하루 전 '}
-        <div style={comment.inlineBlock}>
-          <a style={comment.voteButton}>
+        <div style={styles.inlineBlock}>
+          <a style={styles.voteButton}>
             <i className="fa fa-thumbs-o-up" />
           </a>
-          <a style={comment.voteButton}>
+          <a style={styles.voteButton}>
             <i className="fa fa-thumbs-o-down" />
           </a>
-          <a href="#" style={comment.replayCount}>
+          <a href="#" style={styles.replayCount}>
             {'댓글 ' + (oneComment.children ? oneComment.children.length : 0) + ' 개'}
           </a>
-          <a onClick={this.handleOpenWriteBox} style={[comment.replayCount, comment.paddingLeft10]}>
+          <a onClick={this.handleOpenWriteBox} style={[styles.replayCount, styles.paddingLeft10]}>
             {'댓글달기'}
           </a>
         </div>
       </div>
-      <div style={comment.contentLeft}>
-                <span style={comment.author}>
+      <div style={styles.contentLeft}>
+                <span style={styles.author}>
                     <a href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article"
                        target="_blank">{oneComment.user.nick}</a>
                 </span>
-        <div style={comment.point}>{'0 점'}</div>
+        <div style={styles.point}>{'0 점'}</div>
       </div>
-      <div style={comment.contentRight}>
-        <div style={comment.content}>
+      <div style={styles.contentRight}>
+        <div style={styles.content}>
           {
             oneComment.content
           }
         </div>
-        <hr style={comment.hr}/>
+        <hr style={styles.hr}/>
       </div>
       {
         this.state.openWriteBox && <WriteBox />
@@ -274,7 +134,7 @@ let CommentList = React.createClass({
     commentList: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
   },
   render() {
-    const {authSuccess, commentList} = this.props;
+    const {auth, authSuccess, commentList} = this.props;
 
     let listing = function (oneComment) {
       return (
@@ -283,7 +143,7 @@ let CommentList = React.createClass({
 
         {
           oneComment.children && oneComment.children.length > 0 &&
-          <ul style={[comment.listBox, comment.marginLeft50]}>
+          <ul style={[styles.listBox, styles.marginLeft50]}>
             {
               oneComment.children.map(listing)
             }
@@ -292,14 +152,14 @@ let CommentList = React.createClass({
       </li>);
     };
     return (<div>
-      <div id="sc_comment_box" style={comment.comment}>
+      <div id="sc_comment_box" style={styles.comment}>
 
         <CommentHead />
 
-        <WriteBox authSuccess={authSuccess} />
+        <WriteBox auth={auth} authSuccess={authSuccess} />
 
         <div>
-          <ul id="main-comment" style={comment.listBox}>
+          <ul id="main-comment" style={styles.listBox}>
             {commentList.map(listing)}
           </ul>
         </div>

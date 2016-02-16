@@ -14,39 +14,68 @@ let BtnArea = React.createClass({
   propTypes: {
     uid: React.PropTypes.string
   },
+  getInitialState: function () {
+    return {
+      voted: false
+    };
+  },
+
   handleLike(uid, auth) {
     if (auth) {
-      PostActions.like(uid);
+      if (!this.state.voted) {
+        PostActions.like(uid);
+        this.setState({voted: 'like'});
+      }
+      if (this.state.voted === 'dislike') {
+        PostActions.likeFromDislike(uid);
+        this.setState({voted: 'like'});
+      }
     } else {
       AppActions.toggleLoginModal();
     }
   },
   handleDisLike(uid, auth) {
     if (auth) {
-      PostActions.dislike(uid);
+      if (!this.state.voted) {
+        PostActions.dislike(uid);
+        this.setState({voted: 'dislike'});
+      }
+      if (this.state.voted === 'like') {
+        PostActions.dislikeFromLike(uid);
+        this.setState({voted: 'dislike'});
+      }
     } else {
       AppActions.toggleLoginModal();
     }
   },
   render() {
-    const {authSuccess, uid, postUrl} = this.props;
+    const {authSuccess, uid, postUrl, voteCount, auth, commentCount, author} = this.props;
     return (
       <div className="btn_area" style={styles.postButtons}>
-        <a key={'thumbUp' + uid}
+        <a href="#" style={[styles.thumbUp, styles.fontSize13]}>
+          <span style={styles.voteCount}>{voteCount + ' '}</span>
+          {'P'}
+        </a>
+        <a key="up"
            onClick={this.handleLike.bind(null, uid, authSuccess)}
            style={styles.thumbUp}>
-          <i className="fa fa-thumbs-o-up" />
+          <i className={'fa' + (this.state.voted === 'like' ? ' fa-thumbs-up' : ' fa-thumbs-o-up')} />
         </a>
-        <a key={'thumbDown' + uid}
+        <a key="down"
            onClick={this.handleDisLike.bind(null, uid, authSuccess)}
            style={styles.thumbDown}>
-          <i className="fa fa-thumbs-o-down" />
+          <i className={'fa' + (this.state.voted === 'dislike' ? ' fa-thumbs-down' : ' fa-thumbs-o-down')} />
         </a>
         <LinkR key={'commentButton' + uid}
               style={styles.commentButton}
               to={postUrl}>
           <i className="fa fa-commenting-o" />
+          {' ' + commentCount}
         </LinkR>
+        {
+          auth.user && auth.user.nick === author.nick &&
+          <a style={styles.deleteButton}>{'삭제하기'}</a>
+        }
       </div>
     );
   }
@@ -109,26 +138,21 @@ let CardPostItem = React.createClass({
             </div>
           </div>
         </div>
-        <div className="ic_bookmark" style={styles.countInfo}>
-          <span style={styles.voteCount}>{voteCount + ' '}</span>
-          {'점'}
 
-          <a href="#" style={styles.paddingLeft10}>
-            {'답글'}
-            <span style={styles.commentCount}>{' ' + commentCount + ' '}</span>
-            {'개'}
-          </a>
-          {
-            auth.user && auth.user.nick === user.nick &&
-            <a style={styles.deleteButton}>{'삭제하기'}</a>
-          }
-        </div>
-
-        <BtnArea uid={uid} authSuccess={authSuccess} postUrl={postUrl}/>
+        <hr />
+        <BtnArea
+          author={user}
+          auth={auth}
+          commentCount={commentCount}
+          voteCount={voteCount}
+          uid={uid}
+          authSuccess={authSuccess}
+          postUrl={postUrl}/>
+        <hr style={styles.buttonHrBottom} />
 
         {
           hasComment && commentList &&
-          <CommentList authSuccess={authSuccess} commentList={commentList}/>
+          <CommentList auth={auth} authSuccess={authSuccess} commentList={commentList}/>
         }
       </div>
     );

@@ -43,7 +43,7 @@ let Header = React.createClass({
     }
   },
   render() {
-    const {authSuccess} = this.props.UserStore;
+    const {authSuccess, auth} = this.props.UserStore;
     return (
       <div id="header">
         <Style
@@ -66,19 +66,19 @@ let Header = React.createClass({
 
             {
               authSuccess &&
-              <div style={{float: 'left', color: '#fff'}}>
+              <HeaderUserButtons {...this.props} />
+            }
+
+            {
+              authSuccess &&
+              <div style={{float: 'right', color: '#fff'}}>
                 <ul style={{height: 50, margin: 0, padding: 18}}>
-                  <li style={{display: 'inline-block', paddingRight: 10}}>Nick
+                  <li style={{display: 'inline-block', paddingRight: 10}}>{auth.user.nick}
                   </li>
                   <li style={{display: 'inline-block'}}>100,200 P
                   </li>
                 </ul>
               </div>
-            }
-
-            {
-              authSuccess &&
-              <HeaderUserButtons {...this.props} />
             }
           </div>
 

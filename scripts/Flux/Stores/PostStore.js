@@ -118,23 +118,123 @@ class PostStore {
   }
 
   onLike(uid) {
+    let readingPost = this.state.readingPost;
+    if (readingPost && readingPost.uid === uid) {
+      readingPost.voteCount = readingPost.voteCount + 1;
+      readingPost.likeCount = readingPost.likeCount + 1;
+
+      this.setState({readingPost: readingPost});
+    }
+
     let bestList = this.state.bestList;
-    let postIndex = _.findIndex(bestList, {uid: uid});
+    let bestIndex = _.findIndex(bestList, {uid: uid});
 
-    bestList[postIndex].voteCount = bestList[postIndex].voteCount + 1;
-    bestList[postIndex].likeCount = bestList[postIndex].likeCount + 1;
+    if (bestIndex > -1) {
+      bestList[bestIndex].voteCount = bestList[bestIndex].voteCount + 1;
+      bestList[bestIndex].likeCount = bestList[bestIndex].likeCount + 1;
 
-    this.setState({bestList: bestList});
+      this.setState({bestList: bestList});
+    }
+
+    let postList = this.state.postList;
+    let postIndex = _.findIndex(postList, {uid: uid});
+
+    if (postIndex > -1) {
+      postList[postIndex].voteCount = postList[postIndex].voteCount + 1;
+      postList[postIndex].likeCount = postList[postIndex].likeCount + 1;
+
+      this.setState({postList: postList});
+    }
   }
 
   onDislike(uid) {
+    let readingPost = this.state.readingPost;
+    if (readingPost && readingPost.uid === uid) {
+      readingPost.voteCount = readingPost.voteCount - 1;
+      readingPost.likeCount = readingPost.likeCount - 1;
+
+      this.setState({readingPost: readingPost});
+    }
+
     let bestList = this.state.bestList;
-    let postIndex = _.findIndex(bestList, {uid: uid});
+    let bestIndex = _.findIndex(bestList, {uid: uid});
 
-    bestList[postIndex].voteCount = bestList[postIndex].voteCount - 1;
-    bestList[postIndex].dislikeCount = bestList[postIndex].dislikeCount - 1;
+    if (bestIndex > -1) {
+      bestList[bestIndex].voteCount = bestList[bestIndex].voteCount - 1;
+      bestList[bestIndex].likeCount = bestList[bestIndex].likeCount - 1;
 
-    this.setState({bestList: bestList});
+      this.setState({bestList: bestList});
+    }
+
+    let postList = this.state.postList;
+    let postIndex = _.findIndex(postList, {uid: uid});
+
+    if (postIndex > -1) {
+      postList[postIndex].voteCount = postList[postIndex].voteCount - 1;
+      postList[postIndex].likeCount = postList[postIndex].likeCount - 1;
+
+      this.setState({postList: postList});
+    }
+  }
+
+  onLikeFromDislike(uid) {
+    let readingPost = this.state.readingPost;
+    if (readingPost && readingPost.uid === uid) {
+      readingPost.voteCount = readingPost.voteCount + 2;
+      readingPost.likeCount = readingPost.likeCount + 2;
+
+      this.setState({readingPost: readingPost});
+    }
+
+    let bestList = this.state.bestList;
+    let bestIndex = _.findIndex(bestList, {uid: uid});
+
+    if (bestIndex > -1) {
+      bestList[bestIndex].voteCount = bestList[bestIndex].voteCount + 2;
+      bestList[bestIndex].likeCount = bestList[bestIndex].likeCount + 2;
+
+      this.setState({bestList: bestList});
+    }
+
+    let postList = this.state.postList;
+    let postIndex = _.findIndex(postList, {uid: uid});
+
+    if (postIndex > -1) {
+      postList[postIndex].voteCount = postList[postIndex].voteCount + 2;
+      postList[postIndex].likeCount = postList[postIndex].likeCount + 2;
+
+      this.setState({postList: postList});
+    }
+  }
+
+  onDislikeFromLike(uid) {
+    let readingPost = this.state.readingPost;
+    if (readingPost && readingPost.uid === uid) {
+      readingPost.voteCount = readingPost.voteCount - 2;
+      readingPost.likeCount = readingPost.likeCount - 2;
+
+      this.setState({readingPost: readingPost});
+    }
+
+    let bestList = this.state.bestList;
+    let bestIndex = _.findIndex(bestList, {uid: uid});
+
+    if (bestIndex > -1) {
+      bestList[bestIndex].voteCount = bestList[bestIndex].voteCount - 2;
+      bestList[bestIndex].likeCount = bestList[bestIndex].likeCount - 2;
+
+      this.setState({bestList: bestList});
+    }
+
+    let postList = this.state.postList;
+    let postIndex = _.findIndex(postList, {uid: uid});
+
+    if (postIndex > -1) {
+      postList[postIndex].voteCount = postList[postIndex].voteCount - 2;
+      postList[postIndex].likeCount = postList[postIndex].likeCount - 2;
+
+      this.setState({postList: postList});
+    }
   }
 }
 

@@ -88,6 +88,14 @@ class PostActions {
   dislike(uid) {
     return uid;
   }
+
+  likeFromDislike(uid) {
+    return uid;
+  }
+
+  dislikeFromLike(uid) {
+    return uid;
+  }
 }
 
 export default alt.createActions(PostActions);

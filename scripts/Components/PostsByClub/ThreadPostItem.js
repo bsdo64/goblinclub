@@ -1,6 +1,7 @@
 import React from 'react';
 import Radium from 'radium';
 import {Link} from 'react-router';
+import cheerio from 'cheerio';
 
 import PostActions from '../../Flux/Actions/PostActions';
 import AppActions from '../App/AppActions';
@@ -15,33 +16,53 @@ let BtnArea = React.createClass({
     commentCount: React.PropTypes.number,
     uid: React.PropTypes.string
   },
-  handleLike(uid, authSuccess) {
-    if (authSuccess) {
-      PostActions.like(uid);
+  getInitialState: function () {
+    return {
+      voted: false
+    };
+  },
+
+  handleLike(uid, auth) {
+    if (auth) {
+      if (!this.state.voted) {
+        PostActions.like(uid);
+        this.setState({voted: 'like'});
+      }
+      if (this.state.voted === 'dislike') {
+        PostActions.likeFromDislike(uid);
+        this.setState({voted: 'like'});
+      }
     } else {
       AppActions.toggleLoginModal();
     }
   },
-  handleDisLike(uid, authSuccess) {
-    if (authSuccess) {
-      PostActions.dislike(uid);
+  handleDisLike(uid, auth) {
+    if (auth) {
+      if (!this.state.voted) {
+        PostActions.dislike(uid);
+        this.setState({voted: 'dislike'});
+      }
+      if (this.state.voted === 'like') {
+        PostActions.dislikeFromLike(uid);
+        this.setState({voted: 'dislike'});
+      }
     } else {
       AppActions.toggleLoginModal();
     }
   },
   render() {
-    const {auth, authSuccess, commentCount, postUrl, uid} = this.props;
+    const {authSuccess, commentCount, postUrl, uid} = this.props;
     return (
       <div className="btn_area" style={styles.btnArea}>
         <a key="up"
            onClick={this.handleLike.bind(null, uid, authSuccess)}
            style={styles.thumbUp}>
-          <i className="fa fa-thumbs-o-up" />
+          <i className={'fa' + (this.state.voted === 'like' ? ' fa-thumbs-up' : ' fa-thumbs-o-up')} />
         </a>
         <a key="down"
            onClick={this.handleDisLike.bind(null, uid, authSuccess)}
            style={styles.thumbDown}>
-          <i className="fa fa-thumbs-o-down" />
+          <i className={'fa' + (this.state.voted === 'dislike' ? ' fa-thumbs-down' : ' fa-thumbs-o-down')} />
         </a>
         <LinkR key={'commentButton' + uid}
                style={styles.commentButton}
@@ -68,13 +89,17 @@ let ClubPostList = React.createClass({
     })
   },
   render() {
-    const {title, createdAt, belongingClubs, user, voteCount, commentCount, uid} = this.props.post;
-    const {auth, authSuccess, params} = this.props;
+    const {title, createdAt, belongingClubs, user, voteCount, commentCount, uid, content} = this.props.post;
+    const {authSuccess, params} = this.props;
     const postUrl = '/club/' + params.clubName + '/' + uid;
+
+    let $ = cheerio.load(content);
+    let firstImgSrc = $('img').attr('src');
+
     return (
         <div className="lst_obj" style={styles.listObj}>
           <div style={styles.thumbNail}>
-            <img src="//b.thumbs.redditmedia.com/fUE7ZBvN3clcZKU0CKag35Rc3zNc1LQtJPculHyxjxY.jpg"
+            <img src={firstImgSrc ? firstImgSrc : ''}
                  style={styles.thumbNailImg}/>
           </div>
           <div style={styles.textBody}>
@@ -100,7 +125,6 @@ let ClubPostList = React.createClass({
                    target="_blank">{user.nick} </a>
                 <span className="wrt_time">{createdAt}</span>
                 <BtnArea
-                  auth={auth}
                   authSuccess={authSuccess}
                   postUrl={postUrl}
                   uid={uid}
