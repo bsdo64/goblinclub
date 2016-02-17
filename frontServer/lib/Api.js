@@ -6,7 +6,8 @@ import request from 'superagent';
 class Api {
   constructor() {
     this.token = null;
-    this.ApiEndPoint = 'http://localhost:3001/compose';
+    this.ApiEndPoint = (process.env.NODE_ENV === 'production' ?
+      'http://www.gobblinclub.com/compose' : 'http://localhost:3001/compose');
   }
 
   setToken(userToken) {

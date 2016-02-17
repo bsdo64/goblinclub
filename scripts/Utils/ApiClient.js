@@ -6,7 +6,7 @@ import Promise from 'bluebird';
 
 class AjaxApiClient {
   constructor() {
-    this.ajaxEndPoint = 'http://localhost:3000/ajax';
+    this.ajaxEndPoint = '/ajax';
   }
 
   _done(resolve, reject) {
