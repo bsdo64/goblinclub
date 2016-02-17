@@ -48,6 +48,10 @@ let Post = React.createClass({
     PostActions.getClubPostLists(params);
   },
 
+  componentWillUnmount() {
+    PostActions.removeClubPostLists();
+  },
+
   componentDidMount() {
     console.log('Post, componentDidMount');
     $('#Section .nano-content').scrollTop(0);

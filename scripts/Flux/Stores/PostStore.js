@@ -75,6 +75,14 @@ class PostStore {
     this.setState(state);
   }
 
+  onRemoveClubPostLists() {
+    this.setState({
+      readingPost: [],
+      postList: [],
+      commentList: []
+    });
+  }
+
   onRedirectToNotFound(err) {
     let state = this.state;
     state = {
@@ -107,10 +115,16 @@ class PostStore {
     this.setState(state);
   }
 
+  onRemovePostsByClub() {
+    this.setState({
+      postList: []
+    });
+  }
+
   onMoreBest(StoreData) {
     let posts = StoreData.PostStore.bestList;
     let state = this.state;
-    for (let i = 0; i < posts.length; i += 1) {
+    for (let i = 0; i < posts.length; i = i + 1) {
       state.bestList.push(posts[i]);
     }
 

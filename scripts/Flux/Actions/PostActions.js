@@ -45,6 +45,10 @@ class PostActions {
     };
   }
 
+  removeClubPostLists() {
+    return null;
+  }
+
   getPostsByClub(params) {
     return (dispatch) => {
       Api
@@ -56,6 +60,10 @@ class PostActions {
           this.redirectToNotFound(err);
         });
     };
+  }
+
+  removePostsByClub() {
+    return null;
   }
 
   moreBest(p) {

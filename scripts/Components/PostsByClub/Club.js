@@ -36,6 +36,9 @@ let Club = React.createClass({
     const params = this.props.params;
     PostActions.getPostsByClub(params);
   },
+  componentWillUnmount() {
+    PostActions.removePostsByClub();
+  },
   componentDidMount() {
     console.log('Club, componentDidMount');
     $('#Section .nano-content').scrollTop(0);

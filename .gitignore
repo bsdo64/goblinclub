@@ -1,16 +1,13 @@
+/bower_components
+/node_modules
+/_dist/bundle.js
+/_dist/bundle.css
+dump.rdb
 .idea/
-.vscode/
-
-bower_components/
-node_modules/
-
-coverage/
+!.keep
+npm-debug.*
 debug/
 log/
-npm-debug.*
-*.log
-dump.rdb
 
-_dist/bundle.js
-_dist/bundle.css
 _dist/*.map
+require.cache.json

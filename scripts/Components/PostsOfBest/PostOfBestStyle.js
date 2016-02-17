@@ -23,7 +23,8 @@ PostOfBestStyle.prototype = {
   },
   postTitleItem: {
     color: '#000',
-    fontSize: '18px'
+    fontSize: '18px',
+    fontWeight: 600
   },
   postTitleClub: {
     color: '#00A99E',
