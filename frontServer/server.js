@@ -10,6 +10,7 @@ import {configSession, initSession} from './middleware/Session';
 import Logger, {errorLogger} from './middleware/Logger';
 import {AjaxProxy, ImageProxy} from './middleware/Proxy';
 
+import Embeds from './Router/Embeds';
 import Composer from './Router/Composer';
 import Render from './Router/Render';
 
@@ -36,6 +37,7 @@ app.use('/ajax', AjaxProxy);
 app.use('/image', ImageProxy);
 
 // app.use(CSRF);
+app.use('/api', Embeds);
 app.use(Composer);
 
 app.use(Render);

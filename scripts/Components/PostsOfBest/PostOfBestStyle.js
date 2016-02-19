@@ -94,6 +94,9 @@ PostOfBestStyle.prototype = {
   },
   buttonHrBottom: {
     marginBottom: 0
+  },
+  red: {
+    color: 'red'
   }
 };
 export default new PostOfBestStyle();

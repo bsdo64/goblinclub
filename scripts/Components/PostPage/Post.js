@@ -55,6 +55,7 @@ let Post = React.createClass({
   componentDidMount() {
     console.log('Post, componentDidMount');
     $('#Section .nano-content').scrollTop(0);
+    this.setScroller();
   },
 
   componentWillReceiveProps(nextProps) {
@@ -68,6 +69,13 @@ let Post = React.createClass({
     if (nextProps.PostStore.status === 404) {
       browserHistory.push(nextProps.PostStore.redirectTo);
     }
+    this.setScroller();
+  },
+
+  setScroller() {
+    setTimeout(function () {
+      $('#Section').nanoScroller();
+    }, 200);
   },
 
   render() {

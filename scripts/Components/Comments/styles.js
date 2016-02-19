@@ -22,11 +22,8 @@ let styles = {
   inlineBlock: {
     display: 'inline-block'
   },
-  hr: {
-    margin: '0 0 10px'
-  },
   writeBox: {
-    marginBottom: 10,
+    marginBottom: 1,
     backgroundColor: 'rgba(231, 239, 239, 0.61)',
     borderRadius: 1,
     boxShadow: '1px 1px #b0c2c0',
@@ -83,10 +80,10 @@ let styles = {
     backgroundColor: '#F6F9F9',
     borderRadius: 1,
     boxShadow: '1px 1px #b0c2c0',
-    padding: '10 10 6 10',
+    padding: '10px 10px 6px 10px',
     minHeight: 40,
     borderBottom: '1px solid #B0C2C0',
-    borderLeft: '3px solid #2B5F5B'
+    borderLeft: '2px solid #2B5F5B'
   },
   rightButtonBox: {
     fontSize: 10,
@@ -95,32 +92,33 @@ let styles = {
   },
   voteButton: {
     fontSize: 12,
-    color: 'rgb(170, 170, 170)',
-    padding: '5px 10px'
+    color: 'rgb(170, 170, 170)'
   },
   replayCount: {
     fontSize: 11,
     color: '#aaa'
   },
-  paddingLeft10: {
-    paddingLeft: 10
+  paddingRight15: {
+    paddingRight: 15
   },
   contentLeft: {
     position: 'absolute',
     textAlign: 'center'
   },
   author: {
-    fontSize: 12,
+    fontSize: 10,
     fontWeight: 'bold'
   },
   point: {
     fontSize: 10,
     color: '#FF5711',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    display: 'inline-block'
   },
   contentRight: {
-    marginLeft: 44,
-    paddingTop: 0
+    marginLeft: 50,
+    paddingTop: 0,
+    fontSize: 12
   },
   content: {
     width: 'calc(100% - 200px)',

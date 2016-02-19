@@ -15,8 +15,19 @@ let BtnArea = React.createClass({
     uid: React.PropTypes.string
   },
   getInitialState: function () {
+    let userVoted = this.props.userVoted;
+    let voteKind;
+    if (userVoted && userVoted.length === 1) {
+      if (userVoted[0].kind) {
+        voteKind = 'like';
+      } else if (!userVoted[0].kind) {
+        voteKind = 'dislike';
+      }
+    } else {
+      voteKind = false;
+    }
     return {
-      voted: false
+      voted: voteKind
     };
   },
 
@@ -59,12 +70,14 @@ let BtnArea = React.createClass({
         <a key="up"
            onClick={this.handleLike.bind(null, uid, authSuccess)}
            style={styles.thumbUp}>
-          <i className={'fa' + (this.state.voted === 'like' ? ' fa-thumbs-up' : ' fa-thumbs-o-up')} />
+          <i className={'fa' + (this.state.voted === 'like' ? ' fa-thumbs-up' : ' fa-thumbs-o-up')}
+             style={this.state.voted === 'like' ? styles.red : {}} />
         </a>
         <a key="down"
            onClick={this.handleDisLike.bind(null, uid, authSuccess)}
            style={styles.thumbDown}>
-          <i className={'fa' + (this.state.voted === 'dislike' ? ' fa-thumbs-down' : ' fa-thumbs-o-down')} />
+          <i className={'fa' + (this.state.voted === 'dislike' ? ' fa-thumbs-down' : ' fa-thumbs-o-down')}
+             style={this.state.voted === 'dislike' ? styles.red : {}} />
         </a>
         <LinkR key={'commentButton' + uid}
               style={styles.commentButton}
@@ -92,9 +105,38 @@ let CardPostItem = React.createClass({
       content: React.PropTypes.string.isRequired,
       user: React.PropTypes.object.isRequired,
       voteCount: React.PropTypes.number.isRequired,
-      commentCount: React.PropTypes.number.isRequired
+      commentCount: React.PropTypes.number.isRequired,
+      userVoted: React.PropTypes.Array
     })
   },
+  componentDidMount() {
+    var post = document.getElementById("content-" + this.props.post.uid);
+    var videos = post.getElementsByClassName("youtube-embed");
+
+    var nb_videos = videos.length;
+    for (var i=0; i<nb_videos; i++) {
+      // Based on the YouTube ID, we can easily find the thumbnail image
+      videos[i].style.backgroundImage = 'url(http://i.ytimg.com/vi/' + videos[i].id + '/sddefault.jpg)';
+
+      // Overlay the Play icon to make it look like a video player
+      var play = document.createElement("div");
+      play.setAttribute("class","play");
+      videos[i].appendChild(play);
+
+      videos[i].onclick = function() {
+        // Create an iFrame with autoplay set to true
+        var iframeString = '<iframe class="youtube-embed" src="https://www.youtube.com/embed/' + this.id + '?wmode=transparent&rel=0&autohide=1&autoplay=1&showinfo=0&enablejsapi=1" frameborder="0" allowfullscreen style="top:0; left: 0; width: 100%; height: 100%; position: absolute;"></iframe>';
+
+        var wrapper = document.createElement('div');
+        wrapper.innerHTML = iframeString;
+
+        var iframe = wrapper.firstChild;
+
+        this.parentNode.replaceChild(iframe, this);
+      };
+    }
+  },
+
   render() {
     const {
       uid,
@@ -104,7 +146,8 @@ let CardPostItem = React.createClass({
       content,
       user,
       voteCount,
-      commentCount
+      commentCount,
+      userVoted
     } = this.props.post;
     const {hasComment, commentList} = this.props;
     const {auth, authSuccess} = this.props;
@@ -134,7 +177,7 @@ let CardPostItem = React.createClass({
           </p>
           <div className="lst_type2">
             <div className="rgt_dsc" style={styles.postContents}>
-              <div dangerouslySetInnerHTML={{__html: content}} id="fd_cont"></div>
+              <div dangerouslySetInnerHTML={{__html: content}} id={"content-" + uid }></div>
             </div>
           </div>
         </div>
@@ -142,6 +185,7 @@ let CardPostItem = React.createClass({
         <hr />
         <BtnArea
           author={user}
+          userVoted={userVoted}
           auth={auth}
           commentCount={commentCount}
           voteCount={voteCount}
@@ -152,7 +196,7 @@ let CardPostItem = React.createClass({
 
         {
           hasComment && commentList &&
-          <CommentList auth={auth} authSuccess={authSuccess} commentList={commentList}/>
+          <CommentList {...this.props} uid={uid} auth={auth} authSuccess={authSuccess} commentList={commentList}/>
         }
       </div>
     );

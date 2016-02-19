@@ -42,6 +42,7 @@ let Club = React.createClass({
   componentDidMount() {
     console.log('Club, componentDidMount');
     $('#Section .nano-content').scrollTop(0);
+    this.setScroller();
   },
   componentWillReceiveProps(nextProps) {
     if (this.props.params.clubName !== nextProps.params.clubName) {
@@ -49,6 +50,12 @@ let Club = React.createClass({
       PostActions.getPostsByClub(params);
       $('#Section .nano-content').scrollTop(0);
     }
+    this.setScroller();
+  },
+  setScroller() {
+    setTimeout(function () {
+      $('#Section').nanoScroller();
+    }, 200);
   },
   render() {
     const {postList} = this.props.PostStore;

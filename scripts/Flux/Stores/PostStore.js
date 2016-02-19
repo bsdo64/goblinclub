@@ -4,13 +4,16 @@ import _ from 'lodash';
 
 import AppActions from '../../Components/App/AppActions';
 import PostActions from '../Actions/PostActions';
+import CommentActions from '../Actions/CommentActions';
 
 import AppStore from './../../Components/App/AppStore';
 
 class PostStore {
   constructor() {
     this.bindListeners({
-      initBest: AppActions.initBest
+      initBest: AppActions.initBest,
+      onSubmitComment: CommentActions.submitComment,
+      onSubmitInnerComment: CommentActions.submitInnerComment
     });
     this.bindActions(PostActions);
 
@@ -248,6 +251,28 @@ class PostStore {
       postList[postIndex].likeCount = postList[postIndex].likeCount - 2;
 
       this.setState({postList: postList});
+    }
+  }
+
+  onSubmitComment(comment) {
+    let state = this.state;
+
+    if (state.readingPost && state.commentList) {
+      state.readingPost.commentCount += 1;
+      state.commentList = comment;
+
+      this.setState(state);
+    }
+  }
+
+  onSubmitInnerComment(comment) {
+    let state = this.state;
+
+    if (state.readingPost && state.commentList) {
+      state.readingPost.commentCount += 1;
+      state.commentList = comment;
+
+      this.setState(state);
     }
   }
 }

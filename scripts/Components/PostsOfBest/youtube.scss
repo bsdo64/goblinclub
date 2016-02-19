@@ -1,0 +1,19 @@
+.youtube-embed {
+  .play {
+    background: url(/statics/img/playback-play.png) no-repeat center center;
+    background-size: 64px 64px;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: .8;
+    filter: alpha(opacity=80);
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+  }
+  .play:hover {
+    opacity: 1;
+    filter: alpha(opacity=100);
+  }
+}

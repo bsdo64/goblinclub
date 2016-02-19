@@ -94,7 +94,21 @@ let ClubPostList = React.createClass({
     const postUrl = '/club/' + params.clubName + '/' + uid;
 
     let $ = cheerio.load(content);
-    let firstImgSrc = $('img').attr('src');
+    let firstImgSrc = function () {
+      let imgSrc = $('img').attr('src');
+      let videoHas = $('div').hasClass('youtube-embed');
+      let result;
+
+      if (imgSrc) {
+        result = imgSrc;
+      }
+
+      if (!imgSrc && videoHas) {
+        result = $('.youtube-embed').css('background-image').split('url(')[1].slice(0, -1);
+      }
+
+      return result;
+    }();
 
     return (
         <div className="lst_obj" style={styles.listObj}>

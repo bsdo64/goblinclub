@@ -48,6 +48,9 @@ const mediumInsertConfig = function mediumInsertConfig(editor) {
           url: 'http://localhost:3000/image',
           acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
         }
+      },
+      embeds: {
+        oembedProxy: '/api/oembed?iframe=1'
       }
     }
   };

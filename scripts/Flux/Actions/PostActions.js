@@ -40,7 +40,7 @@ class PostActions {
           dispatch(res);
         })
         .catch((err) => {
-          this.redirectToNotFound(err);
+          return err;
         });
     };
   }
@@ -57,7 +57,7 @@ class PostActions {
           dispatch(res);
         })
         .catch((err) => {
-          this.redirectToNotFound(err);
+          return err;
         });
     };
   }
@@ -90,19 +90,71 @@ class PostActions {
   }
 
   like(uid) {
-    return uid;
+    return (dispatch) => {
+      Api
+        .post('/post/like/' + uid)
+        .then((res) => {
+          if (res.result === 'ok') {
+            dispatch(uid);
+          }
+        })
+        .catch((err) => {
+          if (err) {
+            return err;
+          }
+        });
+    };
   }
 
   dislike(uid) {
-    return uid;
+    return (dispatch) => {
+      Api
+        .post('/post/dislike/' + uid)
+        .then((res) => {
+          if (res.result === 'ok') {
+            dispatch(uid);
+          }
+        })
+        .catch((err) => {
+          if (err) {
+            return err;
+          }
+        });
+    };
   }
 
   likeFromDislike(uid) {
-    return uid;
+    return (dispatch) => {
+      Api
+        .post('/post/likeFromDislike/' + uid)
+        .then((res) => {
+          if (res.result === 'ok') {
+            dispatch(uid);
+          }
+        })
+        .catch((err) => {
+          if (err) {
+            return err;
+          }
+        });
+    };
   }
 
   dislikeFromLike(uid) {
-    return uid;
+    return (dispatch) => {
+      Api
+        .post('/post/dislikeFromLike/' + uid)
+        .then((res) => {
+          if (res.result === 'ok') {
+            dispatch(uid);
+          }
+        })
+        .catch((err) => {
+          if (err) {
+            return err;
+          }
+        });
+    };
   }
 }
 

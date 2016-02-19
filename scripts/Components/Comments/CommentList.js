@@ -9,7 +9,65 @@ import {Button} from 'react-bootstrap';
 import HeadLine from '../HeadLine/HeadLine';
 
 import AppActions from '../App/AppActions';
+import CommentActions from '../../Flux/Actions/CommentActions';
 import styles from './styles';
+
+let InnerWriteBox = React.createClass({
+  displayName: 'WriteBox',
+  checkLogin() {
+    const {authSuccess} = this.props;
+    if (!authSuccess) {
+      AppActions.toggleLoginModal();
+    }
+  },
+  handleUploadComment() {
+    const {uid, commentId} = this.props;
+    let params = {
+      commentId: commentId,
+      postId: uid,
+      content: this.refs.innerCommentBox.value
+    };
+    CommentActions.submitInnerComment(params);
+  },
+  handleUploadPic() {
+    console.log('Upload Picture');
+  },
+  handleChange() {
+    this.setState({comment: this.refs.innerCommentBox.value.length});
+  },
+  render() {
+    const {auth, authSuccess} = this.props;
+    return (
+      <div style={styles.writeBox}>
+        <div style={styles.writeBoxLeft}>
+          <div style={styles.writeBoxName}>
+            {authSuccess && auth.user.nick}
+          </div>
+        </div>
+        <div style={styles.writeBoxRight}>
+          <div style={styles.inputBox}>
+            <Textarea
+              style={styles.input}
+              rows={1}
+              ref="innerCommentBox"
+              onChange={this.handleChange}
+              onFocus={this.checkLogin}
+              placeholder="댓글을 입력하세요"
+            />
+          </div>
+          <div style={styles.pictureBox}>
+            <div style={styles.picture} onClick={this.handleUploadPic}>
+              <i className="fa fa-camera" />
+            </div>
+          </div>
+        </div>
+        <Button
+          onClick={this.handleUploadComment}
+          style={styles.submitCommentBtn}
+          bsStyle="default">등록</Button>
+      </div>);
+  }
+});
 
 let WriteBox = React.createClass({
   displayName: 'WriteBox',
@@ -19,20 +77,27 @@ let WriteBox = React.createClass({
       AppActions.toggleLoginModal();
     }
   },
+  handleUploadComment() {
+    const {uid} = this.props;
+    let params = {
+      postId: uid,
+      content: this.refs.commentBox.value
+    }
+    CommentActions.submitComment(params);
+  },
   handleUploadPic() {
     console.log('Upload Picture');
   },
   handleChange() {
-    console.log(this.refs.commentBox.value);
     this.setState({comment: this.refs.commentBox.value.length});
   },
   render() {
-    const {auth} = this.props;
+    const {auth, authSuccess} = this.props;
     return (
       <div style={styles.writeBox}>
         <div style={styles.writeBoxLeft}>
           <div style={styles.writeBoxName}>
-            {auth.user.nick}
+            {authSuccess && auth.user.nick}
           </div>
         </div>
         <div style={styles.writeBoxRight}>
@@ -52,7 +117,10 @@ let WriteBox = React.createClass({
             </div>
           </div>
         </div>
-        <Button style={styles.submitCommentBtn} bsStyle="default">등록</Button>
+        <Button
+          onClick={this.handleUploadComment}
+          style={styles.submitCommentBtn}
+          bsStyle="default">등록</Button>
       </div>);
   }
 });
@@ -86,82 +154,111 @@ let CommentBox = React.createClass({
   },
   render() {
     const {oneComment} = this.props;
-    console.log(oneComment);
+    let {auth, authSuccess, uid} = this.props;
+
     return (
     <div style={styles.box}>
       <div style={styles.rightButtonBox}>
         {'하루 전 '}
         <div style={styles.inlineBlock}>
-          <a style={styles.voteButton}>
+          <div style={[styles.point, styles.paddingRight15]}>{'0 P'}</div>
+          <a style={[styles.voteButton, styles.paddingRight15]}>
             <i className="fa fa-thumbs-o-up" />
           </a>
-          <a style={styles.voteButton}>
+          <a style={[styles.voteButton, styles.paddingRight15]}>
             <i className="fa fa-thumbs-o-down" />
           </a>
-          <a href="#" style={styles.replayCount}>
-            {'댓글 ' + (oneComment.children ? oneComment.children.length : 0) + ' 개'}
+          <a href="#" style={[styles.replayCount, styles.paddingRight15]}>
+            <i className="fa fa-commenting-o" />
+            {' ' + (oneComment.children ? oneComment.children.length : 0)}
           </a>
-          <a onClick={this.handleOpenWriteBox} style={[styles.replayCount, styles.paddingLeft10]}>
+          <a onClick={this.handleOpenWriteBox} style={styles.replayCount}>
             {'댓글달기'}
           </a>
         </div>
       </div>
       <div style={styles.contentLeft}>
-                <span style={styles.author}>
-                    <a href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article"
-                       target="_blank">{oneComment.user.nick}</a>
-                </span>
-        <div style={styles.point}>{'0 점'}</div>
+        <span style={styles.author}>
+            <a href="http://cafe.naver.com/joonggonara/member/qkrtlaud0647/article"
+               target="_blank">{oneComment.user.nick}</a>
+        </span>
       </div>
       <div style={styles.contentRight}>
-        <div style={styles.content}>
-          {
-            oneComment.content
-          }
+        <div style={styles.content} dangerouslySetInnerHTML={{__html: oneComment.content}}>
+
         </div>
-        <hr style={styles.hr}/>
       </div>
       {
-        this.state.openWriteBox && <WriteBox />
+        this.state.openWriteBox && <InnerWriteBox commentId={oneComment.commentId} uid={uid} auth={auth} authSuccess={authSuccess} />
       }
     </div>);
   }
 });
+CommentBox = Radium(CommentBox);
+
+let CommentListBox = React.createClass({
+  displayName: 'CommentListBox',
+  propTypes: {
+    commentList: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+  },
+  getInitialState: function () {
+    return {
+      hideChildComments: false
+    };
+  },
+  toggleChildComments(commentId) {
+    console.log(this.refs['childCommentBox' + commentId]);
+  },
+  render() {
+
+    function createItem(oneComment) {
+      return (
+        <li key={oneComment.commentId} onClick={this.toggleChildComments.bind(this, oneComment.commentId)} >
+          <CommentBox
+            {...this.props}
+            ref={"commentBox" + oneComment.commentId}
+            key={oneComment.commentId}
+            oneComment={oneComment} />
+
+          {
+            oneComment.children && oneComment.children.length > 0 &&
+            <ul ref={"childCommentBox" + oneComment.commentId} style={[styles.listBox, styles.marginLeft50]}>
+              {
+                oneComment.children.map(createItem.bind(this))
+              }
+            </ul>
+          }
+        </li>);
+    }
+
+    return (
+      <ul id="main-comment" style={styles.listBox}>
+        {this.props.commentList.map(createItem.bind(this))}
+      </ul>);
+  }
+});
+CommentListBox = Radium(CommentListBox);
 
 let CommentList = React.createClass({
   displayName: 'CommentList',
   propTypes: {
     commentList: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
   },
+  componentWillReceiveProps() {
+    console.log('CommentList, componentWillReceiveProps')
+  },
   render() {
-    const {auth, authSuccess, commentList} = this.props;
+    let {auth, authSuccess, uid} = this.props;
 
-    let listing = function (oneComment) {
-      return (
-        <li key={oneComment.commentId}>
-        <CommentBox key={oneComment.commentId} oneComment={oneComment}/>
-
-        {
-          oneComment.children && oneComment.children.length > 0 &&
-          <ul style={[styles.listBox, styles.marginLeft50]}>
-            {
-              oneComment.children.map(listing)
-            }
-          </ul>
-        }
-      </li>);
-    };
     return (<div>
       <div id="sc_comment_box" style={styles.comment}>
 
         <CommentHead />
 
-        <WriteBox auth={auth} authSuccess={authSuccess} />
+        <WriteBox uid={uid} auth={auth} authSuccess={authSuccess} />
 
         <div>
-          <ul id="main-comment" style={styles.listBox}>
-            {commentList.map(listing)}
-          </ul>
+          <CommentListBox {...this.props} />
         </div>
 
         <div >

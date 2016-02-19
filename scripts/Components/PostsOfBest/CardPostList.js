@@ -4,6 +4,9 @@ import Radium from 'radium';
 import CardPostItem from './CardPostItem';
 import styles from './PostOfBestStyle';
 
+if (!process.env.NODE) {
+  require('./youtube.scss');
+}
 let CardPostList = React.createClass({
   displayName: 'CardPostList',
   propTypes: {
@@ -18,6 +21,10 @@ let CardPostList = React.createClass({
       commentCount: React.PropTypes.number.isRequired
     })
   },
+  componentDidMount() {
+
+  },
+
   printListItem(list, auth, authSuccess) {
     return list.map((item) => {
       return (
