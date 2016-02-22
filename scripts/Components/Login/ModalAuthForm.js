@@ -133,7 +133,7 @@ let ModalAuthForm = React.createClass({
     };
     return (
       <div style={{margin:'auto', width: 250}}>
-        <Tabs defaultActiveKey={2} position="top"
+        <Tabs defaultActiveKey={1} position="top"
               tabWidth={3} style={{color:'#aaa'}}>
           <Tab eventKey={1} title="로그인" style={{color:'#bbb'}}>
             <form className="form" id="formLogin"

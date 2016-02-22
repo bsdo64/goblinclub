@@ -41,7 +41,7 @@ let ClubPostList = React.createClass({
       <ul style={styles.container}>
         {
           hasHeadLine &&
-          <li><HeadLine /></li>
+          <li><HeadLine rightMenu /></li>
         }
 
         {this.printListItem(postList)}

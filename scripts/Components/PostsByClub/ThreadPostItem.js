@@ -1,5 +1,6 @@
 import React from 'react';
 import Radium from 'radium';
+import _ from 'lodash';
 import {Link} from 'react-router';
 import cheerio from 'cheerio';
 
@@ -89,7 +90,16 @@ let ClubPostList = React.createClass({
     })
   },
   render() {
-    const {title, createdAt, belongingClubs, user, voteCount, commentCount, uid, content} = this.props.post;
+    const {
+      title,
+      createdAt,
+      belongingDefaultClub,
+      belongingSubClubs,
+      user,
+      voteCount,
+      commentCount,
+      uid,
+      content} = this.props.post;
     const {authSuccess, params} = this.props;
     const postUrl = '/club/' + params.clubName + '/' + uid;
 
@@ -125,8 +135,17 @@ let ClubPostList = React.createClass({
                 <a href="#" style={styles.voteCount}>{voteCount + ' 점'} </a>
               </div>
               <div style={styles.postContentMeta}>
+                <Link style={styles.postTitleClub}
+                      to={'/club/' + belongingDefaultClub[0].url}>
+                  {belongingDefaultClub[0].name + ' '}
+                </Link>
                 {
-                  belongingClubs.map(function (val, index) {
+                  !_.isEmpty(belongingSubClubs) &&
+                  <span>{' / '}</span>
+                }
+                {
+                  !_.isEmpty(belongingSubClubs) &&
+                  belongingSubClubs.map(function (val, index) {
                     return (
                       <Link key={index} style={styles.postTitleClub}
                             to={'/club/' + val.url}>

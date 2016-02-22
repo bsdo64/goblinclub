@@ -20,6 +20,7 @@ const app = express();
 
 app.locals.settings['x-powered-by'] = false;
 
+app.set('trust proxy', true);
 app.use(compress());
 app.use(Logger);
 app.use(cookieParser());

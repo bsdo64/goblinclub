@@ -23,6 +23,8 @@
     "blueimp-canvas-to-blob": "~2.2.0",
     "blueimp-gallery": "~2.16.0",
     "medium-editor-insert-plugin": "^2.2.1",
-    "medium-editor": "~5.13.0"
+    "medium-editor": "~5.13.0",
+    "nanoscroller": "^0.8.7",
+    "jquery-ui": "^1.11.4"
   }
 }

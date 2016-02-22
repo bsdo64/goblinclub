@@ -130,7 +130,7 @@ let CommentHead = React.createClass({
   render() {
     return (
       <div >
-        <HeadLine title="댓글" />
+        <HeadLine rightMenu title="댓글" />
       </div>
     );
   }

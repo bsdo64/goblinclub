@@ -130,12 +130,14 @@ let Editor = React.createClass({
     let PostStore = nextProps.PostStore;
     if (PostStore.writingPost && PostStore.writingPost.success) {
       browserHistory.push(
-        '/club/' + PostStore.readingPost.belongingClubs[0].url + '/' + PostStore.readingPost.uid
+        '/club/' + PostStore.readingPost.belongingDefaultClub[0].url + '/' + PostStore.readingPost.uid
       );
       console.log('subsscse');
     }
   },
-
+  componentWillUnmount() {
+    this.editor.destroy();
+  },
   submit() {
     let allContents = this.editor.serialize();
     let el = allContents['element-0'].value;
