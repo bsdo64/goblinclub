@@ -1,4 +1,4 @@
-import alt from '../../utils/alt';
+import alt from '../../Utils/alt';
 
 class UserSubscribedClubStore {
   constructor() {

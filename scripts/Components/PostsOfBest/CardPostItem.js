@@ -1,6 +1,7 @@
 import React from 'react';
 import Radium from 'radium';
 import {Link} from 'react-router';
+import _ from 'lodash';
 
 import styles from './PostOfBestStyle';
 import CommentList from '../Comments/CommentList';
@@ -17,7 +18,7 @@ let BtnArea = React.createClass({
   getInitialState: function () {
     let userVoted = this.props.userVoted;
     let voteKind;
-    if (userVoted && userVoted.length === 1) {
+    if (!_.isEmpty(userVoted)) {
       if (userVoted[0].kind) {
         voteKind = 'like';
       } else if (!userVoted[0].kind) {
@@ -142,7 +143,8 @@ let CardPostItem = React.createClass({
       uid,
       title,
       createdAt,
-      belongingClubs,
+      belongingDefaultClub,
+      belongingSubClubs,
       content,
       user,
       voteCount,
@@ -151,7 +153,7 @@ let CardPostItem = React.createClass({
     } = this.props.post;
     const {hasComment, commentList} = this.props;
     const {auth, authSuccess} = this.props;
-    const postUrl = '/club/' + belongingClubs[0].url + '/' + uid;
+    const postUrl = '/club/' + belongingDefaultClub[0].url + '/' + uid;
     return (
       <div className="lst_obj" style={styles.listObj}>
         <div className="con_desc">
@@ -160,11 +162,20 @@ let CardPostItem = React.createClass({
                   to={postUrl}>{title}</Link>
           </h4>
           <p style={styles.defaultClubMeta}>
+            <Link style={styles.postTitleClub}
+                  to={'/club/' + belongingDefaultClub[0].url}>
+              {belongingDefaultClub[0].name + ' '}
+            </Link>
             {
-              belongingClubs.map(function (val, index) {
+              !_.isEmpty(belongingSubClubs) &&
+              <span>{' / '}</span>
+            }
+            {
+              !_.isEmpty(belongingSubClubs) &&
+              belongingSubClubs.map(function (val, index) {
                 return (
                   <Link key={index} style={styles.postTitleClub}
-                        to={'/club/' + val.url} >
+                        to={'/club/' + val.url}>
                     {val.name + ' '}
                   </Link>
                 );

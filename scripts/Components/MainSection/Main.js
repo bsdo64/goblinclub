@@ -18,7 +18,7 @@ let Main = React.createClass({
       <div style={styles.main}>
 
         <div id="bestPosts" style={styles.mainBox}>
-          <HeadLine />
+          <HeadLine isClub />
 
           <div id="Section" className="nano" style={styles.contents}>
             <div className="nano-content" style={styles.scrollContent}>

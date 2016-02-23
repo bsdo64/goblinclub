@@ -11,4 +11,5 @@ debug/
 log/
 coverage/
 _dist/*.map
+_dist/js/vendor.js
 require.cache.json

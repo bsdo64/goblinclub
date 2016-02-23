@@ -10,7 +10,6 @@ var webpack = require('webpack');
 var extractCSS = new ExtractTextPlugin('bundle.css');
 
 module.exports = {
-  devtool: 'cheap-source-map',
   entry: {
     'main': [
       __dirname + "/scripts/entry.js"
@@ -25,7 +24,8 @@ module.exports = {
   },
   resolve: {
     modulesDirectories: ['node_modules', 'bower_components'],
-    extensions: ['', '.js', '.css', '.json']
+    extensions: ['', '.js', '.css', '.json'],
+    root: [path.join(__dirname, "bower_components")]
   },
   module: {
     loaders: [
@@ -56,7 +56,6 @@ module.exports = {
     net: "empty"
   },
   plugins: [
-
     //new ExtractTextPlugin("[name]-[chunkhash].css"),
     new ExtractTextPlugin("bundle.css"),
 
@@ -70,8 +69,8 @@ module.exports = {
 
         'BROWSER': JSON.stringify(true)
       }
-    }),
-    //new webpack.optimize.UglifyJsPlugin(),
+    })
+//new webpack.optimize.UglifyJsPlugin(),
     //new webpack.OldWatchingPlugin(),
     //new webpack.optimize.OccurenceOrderPlugin(),
     //new webpack.optimize.DedupePlugin(),
