@@ -73,6 +73,13 @@ ClubList.prototype = {
     marginLeft: -5,
     marginTop: 5,
     padding: 10
+  },
+  searchInput: {
+    border: 'none',
+    width: 'calc(100% - 14px)',
+    fontSize: 13,
+    padding: '3px 8px',
+    background: 'none'
   }
 };
 

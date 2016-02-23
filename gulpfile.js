@@ -12,7 +12,7 @@ var webpackConfig = require("./webpack.config.js");
 // Advantage: No server required, can run app from filesystem
 // Disadvantage: Requests are not blocked until bundle is available,
 //               can serve an old app on refresh
-gulp.task("build-dev", ["javascript:concat", "webpack:build-dev"], function() {
+gulp.task("default", ["javascript:concat", "webpack:build-dev"], function() {
   gulp.watch(["scripts/**/*", "frontServer/**/*"], ["javascript:concat", "webpack:build-dev"]);
 });
 

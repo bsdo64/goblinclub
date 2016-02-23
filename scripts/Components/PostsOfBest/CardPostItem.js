@@ -16,7 +16,13 @@ let BtnArea = React.createClass({
     uid: React.PropTypes.string
   },
   getInitialState: function () {
-    let userVoted = this.props.userVoted;
+    return {
+      voted: false
+    };
+  },
+
+  componentWillMount() {
+    let {userVoted} = this.props;
     let voteKind;
     if (!_.isEmpty(userVoted)) {
       if (userVoted[0].kind) {
@@ -24,14 +30,9 @@ let BtnArea = React.createClass({
       } else if (!userVoted[0].kind) {
         voteKind = 'dislike';
       }
-    } else {
-      voteKind = false;
+      this.setState({voted: voteKind});
     }
-    return {
-      voted: voteKind
-    };
   },
-
   handleLike(uid, auth) {
     if (auth) {
       if (!this.state.voted) {
@@ -98,11 +99,16 @@ let BtnArea = React.createClass({
 let CardPostItem = React.createClass({
   displayName: 'CardPostItem',
   propTypes: {
+    auth: React.PropTypes.object,
+    authSuccess: React.PropTypes.bool,
+    commentList: React.PropTypes.Array,
+    hasComment: React.PropTypes.bool,
     post: React.PropTypes.shape({
       uid: React.PropTypes.string.isRequired,
       title: React.PropTypes.string.isRequired,
       createdAt: React.PropTypes.string.isRequired,
-      belongingClubs: React.PropTypes.array.isRequired,
+      belongingDefaultClub: React.PropTypes.array.isRequired,
+      belongingSubClubs: React.PropTypes.array.isRequired,
       content: React.PropTypes.string.isRequired,
       user: React.PropTypes.object.isRequired,
       voteCount: React.PropTypes.number.isRequired,
@@ -111,30 +117,34 @@ let CardPostItem = React.createClass({
     })
   },
   componentDidMount() {
-    var post = document.getElementById("content-" + this.props.post.uid);
-    var videos = post.getElementsByClassName("youtube-embed");
+    let post = document.getElementById('content-' + this.props.post.uid);
+    let videos = post.getElementsByClassName('youtube-embed');
 
-    var nb_videos = videos.length;
-    for (var i=0; i<nb_videos; i++) {
+    function changeVideoEmbed() {
+      return function () {
+        // Create an iFrame with autoplay set to true
+        let iframeString = '<iframe class="youtube-embed" src="https://www.youtube.com/embed/' + this.id + '?wmode=transparent&rel=0&autohide=1&autoplay=1&showinfo=0&enablejsapi=1" frameborder="0" allowfullscreen style="top:0; left: 0; width: 100%; height: 100%; position: absolute;"></iframe>';
+
+        let wrapper = document.createElement('div');
+        wrapper.innerHTML = iframeString;
+
+        let iframe = wrapper.firstChild;
+
+        this.parentNode.replaceChild(iframe, this);
+      };
+    }
+
+    let videoLength = videos.length;
+    for (let i = 0; i < videoLength; i = i + 1) {
       // Based on the YouTube ID, we can easily find the thumbnail image
       videos[i].style.backgroundImage = 'url(http://i.ytimg.com/vi/' + videos[i].id + '/sddefault.jpg)';
 
       // Overlay the Play icon to make it look like a video player
-      var play = document.createElement("div");
-      play.setAttribute("class","play");
+      let play = document.createElement('div');
+      play.setAttribute('class', 'play');
       videos[i].appendChild(play);
 
-      videos[i].onclick = function() {
-        // Create an iFrame with autoplay set to true
-        var iframeString = '<iframe class="youtube-embed" src="https://www.youtube.com/embed/' + this.id + '?wmode=transparent&rel=0&autohide=1&autoplay=1&showinfo=0&enablejsapi=1" frameborder="0" allowfullscreen style="top:0; left: 0; width: 100%; height: 100%; position: absolute;"></iframe>';
-
-        var wrapper = document.createElement('div');
-        wrapper.innerHTML = iframeString;
-
-        var iframe = wrapper.firstChild;
-
-        this.parentNode.replaceChild(iframe, this);
-      };
+      videos[i].onclick = changeVideoEmbed();
     }
   },
 
@@ -188,7 +198,7 @@ let CardPostItem = React.createClass({
           </p>
           <div className="lst_type2">
             <div className="rgt_dsc" style={styles.postContents}>
-              <div dangerouslySetInnerHTML={{__html: content}} id={"content-" + uid }></div>
+              <div dangerouslySetInnerHTML={{__html: content}} id={'content-' + uid}></div>
             </div>
           </div>
         </div>
@@ -207,7 +217,12 @@ let CardPostItem = React.createClass({
 
         {
           hasComment && commentList &&
-          <CommentList {...this.props} uid={uid} auth={auth} authSuccess={authSuccess} commentList={commentList}/>
+          <CommentList
+            {...this.props}
+            auth={auth}
+            authSuccess={authSuccess}
+            commentList={commentList}
+            uid={uid} />
         }
       </div>
     );

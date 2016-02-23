@@ -39,7 +39,7 @@ const Popups = React.createClass({
         popups.map(function (x, i) {
           //TODO get popupkey instead of key
           if (x.key == popupkey)
-            ind = i
+            ind = i;
         });
         this.setState({popups: popups.slice(0, ind + 1)});
         return;
@@ -91,8 +91,8 @@ const Popups = React.createClass({
       translateXY = '(-100%, -100%)';
     }
 
-    width = dataWidth ? parseInt(dataWidth.nodeValue, 10) : undefined;
-    height = dataHeight ? parseInt(dataHeight.nodeValue, 10) : undefined;
+    width = dataWidth ? parseInt(dataWidth.nodeValue, 10) : null;
+    height = dataHeight ? parseInt(dataHeight.nodeValue, 10) : null;
 
     let s = {
       position: 'fixed',

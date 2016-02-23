@@ -67,38 +67,38 @@ let Login = React.createClass({
       };
 
       switch (uiValidate.type) {
-        case 'loginUser':
-          errorMessage.email = <ul>{uiValidate.errors.email.map(createItem)}</ul>;
-          errorMessage.password = <ul>{uiValidate.errors.password.map(createItem)}</ul>;
-          break;
-        case 'signinUser':
-          errorMessage.email = <ul>{uiValidate.errors.email.map(createItem)}</ul>;
-          errorMessage.password = <ul>{uiValidate.errors.password.map(createItem)}</ul>;
-          errorMessage.nick = <ul>{uiValidate.errors.nick.map(createItem)}</ul>;
-          break;
-        default:
-          break;
+      case 'loginUser':
+        errorMessage.email = <ul>{uiValidate.errors.email.map(createItem)}</ul>;
+        errorMessage.password = <ul>{uiValidate.errors.password.map(createItem)}</ul>;
+        break;
+      case 'signinUser':
+        errorMessage.email = <ul>{uiValidate.errors.email.map(createItem)}</ul>;
+        errorMessage.password = <ul>{uiValidate.errors.password.map(createItem)}</ul>;
+        errorMessage.nick = <ul>{uiValidate.errors.nick.map(createItem)}</ul>;
+        break;
+      default:
+        break;
       }
     }
 
     function printError(createItem) {
       switch (serverValidate.type) {
-        case 'loginUser':
-          for (let prop in serverValidate.fields) {
-            if (serverValidate.fields.hasOwnProperty(prop)) {
-              errorMessage[prop] = <ul>{serverValidate.errors.map(createItem)}</ul>;
-            }
+      case 'loginUser':
+        for (let prop in serverValidate.fields) {
+          if (serverValidate.fields.hasOwnProperty(prop)) {
+            errorMessage[prop] = <ul>{serverValidate.errors.map(createItem)}</ul>;
           }
-          break;
-        case 'signinUser':
-          for (let prop in serverValidate.fields) {
-            if (serverValidate.fields.hasOwnProperty(prop)) {
-              errorMessage[prop] = <ul>{serverValidate.errors.map(createItem)}</ul>;
-            }
+        }
+        break;
+      case 'signinUser':
+        for (let prop in serverValidate.fields) {
+          if (serverValidate.fields.hasOwnProperty(prop)) {
+            errorMessage[prop] = <ul>{serverValidate.errors.map(createItem)}</ul>;
           }
-          break;
-        default:
-          break;
+        }
+        break;
+      default:
+        break;
       }
     }
     if (loadedAuth && authFail && serverValidate) {
@@ -130,10 +130,12 @@ let Login = React.createClass({
       }
     };
     return (
-      <div style={{margin:'auto', width: 250}}>
+      <div style={{margin: 'auto', width: 250}}>
         <Tabs defaultActiveKey={2} position="top"
-              tabWidth={3} style={{color:'#aaa'}}>
-          <Tab eventKey={1} title="로그인" style={{color:'#bbb'}}>
+              tabWidth={3} style={{color: '#aaa'}}>
+          <Tab eventKey={1}
+               title="로그인"
+               style={{color: '#bbb'}} >
             <form className="form" id="formLogin"
                   onSubmit={this.handleLoginRequest}>
               <div style={styles.inputElement}>
@@ -160,7 +162,7 @@ let Login = React.createClass({
               </button>
             </form>
           </Tab>
-          <Tab eventKey={2} title="회원가입" style={{color:'#ccc'}}>
+          <Tab eventKey={2} title="회원가입" style={{color: '#ccc'}}>
             <form className="form" id="formRegister"
                   onSubmit={this.handleSigninRequest}>
               <div style={styles.inputElement}>
