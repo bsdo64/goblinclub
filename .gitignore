@@ -4,10 +4,11 @@
 /_dist/bundle.css
 dump.rdb
 .idea/
+.vscode/
 !.keep
 npm-debug.*
 debug/
 log/
-
+coverage/
 _dist/*.map
 require.cache.json
