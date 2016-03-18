@@ -18,7 +18,7 @@ let WriteClub = React.createClass({
   propTypes: {
 
   },
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps() {
     console.log('componentWillReceiveProps');
   },
   handleSubmitClub() {
@@ -55,7 +55,7 @@ let WriteClub = React.createClass({
 
             <div className="form-group">
               <div className="col-xs-offset-2 col-xs-10">
-                <Button onClick={this.handleSubmitClub} label="Checkbox">클럽 만들기</Button>
+                <Button onClick={this.handleSubmitClub} label="Checkbox">{'클럽 만들기'}</Button>
               </div>
             </div>
           </div>

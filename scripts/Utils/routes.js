@@ -2,8 +2,7 @@
  * Created by dobyeongsu on 2015. 10. 15..
  */
 import React from 'react';
-import _ from 'lodash';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 
 import App from './../Components/App/App';
 import Main from './../Components/MainSection/Main';
@@ -37,7 +36,7 @@ export default (
       </Route>
     </Route>
 
-    <Route path='/notFound' components={App}>
+    <Route path="/notFound" components={App}>
       <IndexRoute components={{header: Header, main: NotFound, sidebar: Sidebar}}/>
     </Route>
 
@@ -54,12 +53,15 @@ export default (
 
     <Route path="club" components={{header: Header, main: Main, sidebar: Sidebar}}/>
 
-    <Route path="/club/:clubName/:article/comments" components={{header: Header, main: Main, sidebar: Sidebar}}/>
+    <Route path="/club/:clubName/:article/comments"
+           components={{header: Header, main: Main, sidebar: Sidebar}}/>
     <Route path="/club/:clubName/:article/comments/:comment"
            components={{header: Header, main: Main, sidebar: Sidebar}}/>
 
-    <Route path="/user/:id/multiclub/:name" components={{header: Header, main: Main, sidebar: Sidebar}}/>
-    <Route path="/user/:id/multiclub/:name/search" components={{header: Header, main: Main, sidebar: Sidebar}}/>
+    <Route path="/user/:id/multiclub/:name"
+           components={{header: Header, main: Main, sidebar: Sidebar}}/>
+    <Route path="/user/:id/multiclub/:name/search"
+           components={{header: Header, main: Main, sidebar: Sidebar}}/>
 
     <Route path="/search" components={{header: Header, main: Main, sidebar: Sidebar}}/>
 
@@ -67,4 +69,4 @@ export default (
       <IndexRoute components={{header: Header, main: NotFound, sidebar: Sidebar}}/>
     </Route>
   </Router>
-)
+);

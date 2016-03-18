@@ -30,8 +30,8 @@ let Popup = React.createClass({
     return (
       <div>
         <div style={popup_style}>
-          <div>info: {this.props.data}</div>
-          <div>other:</div>
+          <div>{'info: ' + this.props.data}</div>
+          <div>{'other:'}</div>
           <ul>
             <li><PopupLink data="universe">Univesrse</PopupLink></li>
             <li><PopupLink data="planets">planets</PopupLink></li>
@@ -77,7 +77,7 @@ let SearchBar = React.createClass({
           placeholder="검색하기"
           value={this.props.filterText}
           onChange={this.handleChange}
-          style={{border: 'none', width: 'calc(100% - 14px)', fontSize: 13, padding: '3px 8px', background: 'none'}}
+          style={styles.searchInput}
         />
       </div>
     );
@@ -88,7 +88,8 @@ let Club = React.createClass({
   displayName: 'Club',
   propTypes: {
     link: React.PropTypes.string.isRequired,
-    name: React.PropTypes.string.isRequired
+    name: React.PropTypes.string.isRequired,
+    type: React.PropTypes.string.isRequired
   },
   render() {
     let {link, name, type} = this.props;
@@ -123,7 +124,7 @@ let ClubList = React.createClass({
     clubList: React.PropTypes.array,
     title: React.PropTypes.string.isRequired
   },
-  getInitialState: function() {
+  getInitialState: function () {
     return {
       filterText: ''
     };
@@ -162,8 +163,7 @@ let ClubList = React.createClass({
           searchClub &&
           <SearchBar
             filterText={this.state.filterText}
-            onUserInput={this.handleUserInput}
-          />
+            onUserInput={this.handleUserInput} />
         }
         {
           best &&

@@ -14,7 +14,13 @@ import styles from './styles';
 
 let InnerWriteBox = React.createClass({
   displayName: 'WriteBox',
-  checkLogin() {
+  propTypes: {
+    auth: React.PropTypes.object,
+    authSuccess: React.PropTypes.bool,
+    commentId: React.PropTypes.string,
+    uid: React.PropTypes.string
+  },
+  handleCheckLogin() {
     const {authSuccess} = this.props;
     if (!authSuccess) {
       AppActions.toggleLoginModal();
@@ -51,9 +57,8 @@ let InnerWriteBox = React.createClass({
               rows={1}
               ref="innerCommentBox"
               onChange={this.handleChange}
-              onFocus={this.checkLogin}
-              placeholder="댓글을 입력하세요"
-            />
+              onFocus={this.handleCheckLogin}
+              placeholder="댓글을 입력하세요" />
           </div>
           <div style={styles.pictureBox}>
             <div style={styles.picture} onClick={this.handleUploadPic}>
@@ -64,14 +69,19 @@ let InnerWriteBox = React.createClass({
         <Button
           onClick={this.handleUploadComment}
           style={styles.submitCommentBtn}
-          bsStyle="default">등록</Button>
+          bsStyle="default">{'등록'}</Button>
       </div>);
   }
 });
 
 let WriteBox = React.createClass({
   displayName: 'WriteBox',
-  checkLogin() {
+  propTypes: {
+    auth: React.PropTypes.object,
+    authSuccess: React.PropTypes.bool,
+    uid: React.PropTypes.string.isRequired
+  },
+  handleCheckLogin() {
     const {authSuccess} = this.props;
     if (!authSuccess) {
       AppActions.toggleLoginModal();
@@ -82,7 +92,7 @@ let WriteBox = React.createClass({
     let params = {
       postId: uid,
       content: this.refs.commentBox.value
-    }
+    };
     CommentActions.submitComment(params);
   },
   handleUploadPic() {
@@ -107,9 +117,8 @@ let WriteBox = React.createClass({
               rows={1}
               ref="commentBox"
               onChange={this.handleChange}
-              onFocus={this.checkLogin}
-              placeholder="댓글을 입력하세요"
-            />
+              onFocus={this.handleCheckLogin}
+              placeholder="댓글을 입력하세요" />
           </div>
           <div style={styles.pictureBox}>
             <div style={styles.picture} onClick={this.handleUploadPic}>
@@ -120,7 +129,7 @@ let WriteBox = React.createClass({
         <Button
           onClick={this.handleUploadComment}
           style={styles.submitCommentBtn}
-          bsStyle="default">등록</Button>
+          bsStyle="default">{'등록'}</Button>
       </div>);
   }
 });
@@ -139,10 +148,13 @@ let CommentHead = React.createClass({
 let CommentBox = React.createClass({
   displayName: 'CommentBox',
   propTypes: {
+    auth: React.PropTypes.object,
+    authSuccess: React.PropTypes.bool,
     oneComment: React.PropTypes.shape({
       nick: React.PropTypes.string.isRequired,
       children: React.PropTypes.object
-    })
+    }),
+    uid: React.PropTypes.string
   },
   getInitialState: function () {
     return {
@@ -189,7 +201,12 @@ let CommentBox = React.createClass({
         </div>
       </div>
       {
-        this.state.openWriteBox && <InnerWriteBox commentId={oneComment.commentId} uid={uid} auth={auth} authSuccess={authSuccess} />
+        this.state.openWriteBox &&
+        <InnerWriteBox
+          commentId={oneComment.commentId}
+          uid={uid}
+          auth={auth}
+          authSuccess={authSuccess} />
       }
     </div>);
   }
@@ -210,19 +227,21 @@ let CommentListBox = React.createClass({
     console.log(this.refs['childCommentBox' + commentId]);
   },
   render() {
-
     function createItem(oneComment) {
       return (
-        <li key={oneComment.commentId} onClick={this.toggleChildComments.bind(this, oneComment.commentId)} >
+        <li key={oneComment.commentId}
+            onClick={this.toggleChildComments.bind(this, oneComment.commentId)} >
           <CommentBox
             {...this.props}
-            ref={"commentBox" + oneComment.commentId}
+            ref={'commentBox' + oneComment.commentId}
             key={oneComment.commentId}
             oneComment={oneComment} />
 
           {
             oneComment.children && oneComment.children.length > 0 &&
-            <ul ref={"childCommentBox" + oneComment.commentId} style={[styles.listBox, styles.marginLeft50]}>
+            <ul ref={'childCommentBox' + oneComment.commentId}
+                style={[styles.listBox,
+                styles.marginLeft50]} >
               {
                 oneComment.children.map(createItem.bind(this))
               }
@@ -242,10 +261,16 @@ CommentListBox = Radium(CommentListBox);
 let CommentList = React.createClass({
   displayName: 'CommentList',
   propTypes: {
-    commentList: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+    auth: React.PropTypes.object,
+    authSuccess: React.PropTypes.bool,
+    oneComment: React.PropTypes.shape({
+      nick: React.PropTypes.string.isRequired,
+      children: React.PropTypes.object
+    }),
+    uid: React.PropTypes.string
   },
   componentWillReceiveProps() {
-    console.log('CommentList, componentWillReceiveProps')
+    console.log('CommentList, componentWillReceiveProps');
   },
   render() {
     let {auth, authSuccess, uid} = this.props;
@@ -255,7 +280,9 @@ let CommentList = React.createClass({
 
         <CommentHead />
 
-        <WriteBox uid={uid} auth={auth} authSuccess={authSuccess} />
+        <WriteBox auth={auth}
+                  authSuccess={authSuccess}
+                  uid={uid} />
 
         <div>
           <CommentListBox {...this.props} />
@@ -270,6 +297,5 @@ let CommentList = React.createClass({
     </div>);
   }
 });
-
 
 export default Radium(CommentList);
