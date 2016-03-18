@@ -205,7 +205,7 @@ A:hover {
 }
 
 ._contents {
-    height: 2757px;
+    height: 100%;
 }
 
 .info_bg {
@@ -346,6 +346,7 @@ A:hover {
 /* --- message.css --- */
 .message
 {
+    border-top: 1px solid #eee;
     padding: 15px;
 }
 
@@ -684,7 +685,6 @@ a.postsRemaining
 
 .messageUserBlock
 {
-    background-color: #032A46;
     -webkit-border-radius: 10px; -moz-border-radius: 10px; -khtml-border-radius: 10px; border-radius: 10px;
     text-align:center;
 
@@ -694,12 +694,10 @@ a.postsRemaining
 
 .messageUserBlock div.avatarHolder
 {
-    background-color: #032A46;
     padding-top: 15px;
     padding-bottom: 0px;
     -webkit-border-top-left-radius: 3px; -moz-border-radius-topleft: 3px; -khtml-border-top-left-radius: 3px; border-top-left-radius: 3px;
     -webkit-border-top-right-radius: 3px; -moz-border-radius-topright: 3px; -khtml-border-top-right-radius: 3px; border-top-right-radius: 3px;
-
 
     position: relative;
 }
@@ -727,9 +725,7 @@ a.postsRemaining
 
 .messageUserBlock h3.userText
 {
-    background-color: #032A46;
-    margin-top: -10px;
-
+    margin-top: 0px;
 }
 
 .messageUserBlock .userBanner
@@ -751,40 +747,19 @@ a.postsRemaining
     font-size: 18px;
     color: rgb(204, 153, 0);
     text-decoration: underline;
-    background-color: rgb(47, 65, 96);
-    padding-top: 20px;
-    padding-bottom: 0px;
+    background-color: rgb(43, 95, 91);
+    padding-top: 7px;
     margin: 0px 13px;
-    border: 1px solid rgb(100,100,100);
     border-bottom-style: none;
     display:block;
     line-height: 24px;
-    /* IE10 Consumer Preview */
-    background-image: -ms-radial-gradient(center, circle farthest-corner, #2362A1 0%, #3A383B 100%);
-
-    /* Mozilla Firefox */
-    background-image: -moz-radial-gradient(center, circle farthest-corner, #2362A1 0%, #3A383B 100%);
-
-    /* Opera */
-    background-image: -o-radial-gradient(center, circle farthest-corner, #2362A1 0%, #3A383B 100%);
-
-    /* Webkit (Safari/Chrome 10) */
-    background-image: -webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, #2362A1), color-stop(1, #3A383B));
-
-    /* Webkit (Chrome 11+) */
-    background-image: -webkit-radial-gradient(center, circle farthest-corner, #2362A1 0%, #3A383B 100%);
-
-    /* W3C Markup, IE10 Release Preview */
-    background-image: radial-gradient(circle farthest-corner at center, #2362A1 0%, #3A383B 100%);
-
-
 }
 
 .messageUserBlock .userTitle
 {
     font-size: 15px;
     color: rgb(225, 223, 217);
-    background-color: rgb(47, 65, 96);
+    background-color: rgb(43, 95, 91);
     padding-top: 0px;
     padding-bottom: 8px;
     margin: 0 13px 15px;
@@ -796,24 +771,6 @@ a.postsRemaining
     -webkit-border-bottom-right-radius: 15px; -moz-border-radius-bottomright: 15px; -khtml-border-bottom-right-radius: 15px; border-bottom-right-radius: 15px;
     -webkit-border-bottom-left-radius: 15px; -moz-border-radius-bottomleft: 15px; -khtml-border-bottom-left-radius: 15px; border-bottom-left-radius: 15px;
     display:block;
-    /* IE10 Consumer Preview */
-    background-image: -ms-radial-gradient(center, circle farthest-corner, #2362A1 0%, #3A383B 100%);
-
-    /* Mozilla Firefox */
-    background-image: -moz-radial-gradient(center, circle farthest-corner, #2362A1 0%, #3A383B 100%);
-
-    /* Opera */
-    background-image: -o-radial-gradient(center, circle farthest-corner, #2362A1 0%, #3A383B 100%);
-
-    /* Webkit (Safari/Chrome 10) */
-    background-image: -webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, #2362A1), color-stop(1, #3A383B));
-
-    /* Webkit (Chrome 11+) */
-    background-image: -webkit-radial-gradient(center, circle farthest-corner, #2362A1 0%, #3A383B 100%);
-
-    /* W3C Markup, IE10 Release Preview */
-    background-image: radial-gradient(circle farthest-corner at center, #2362A1 0%, #3A383B 100%);
-
 }
 
 .messageUserBlock .extraUserInfo
@@ -1029,3 +986,124 @@ a.transferSpeed  {color:#ffffff !important;}
 .creditsMobile dd {font-size:12px;float:right;color:#cc9900;}
 
 .bank {border-bottom:1px solid #cc9900;text-align:left;float:left;}
+
+.CS3.comments {
+    margin-bottom: 10px;
+}
+
+.CS3 .tab-bar {
+    height: 43px;
+    padding: 0 15px;
+}
+
+.club_list .tab-bar {
+    border-bottom: 1px solid #ddd;
+}
+
+.CS3 .tab-bar-left {
+    float: left;
+}
+.CS3 .tab-bar h3 {
+    font-size: 16px;
+    line-height: 20px;
+    padding: 12px 0;
+}
+
+.CS3 .tab-bar-right {
+    float: right;
+}
+
+.CS3 .tab-bar ul.tab {
+    list-style-type: none;
+    overflow: hidden;
+}
+
+.CS3 .tab-bar .tab li {
+    float: left;
+}
+
+.CS3 .tab-bar ul.tab li.active a {
+    color: #000;
+    border-bottom: 2px solid #09f;
+    padding-bottom: 10px;
+}
+
+.CS3 .tab-bar ul.tab a {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #999;
+    line-height: 20px;
+    padding: 12px;
+}
+
+.CS3 a {
+    color: #09f;
+    text-decoration: none;
+}
+
+.CS3 .tab-bar ul.tab a {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #999;
+    line-height: 20px;
+    padding: 12px;
+}
+
+ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    list-style-position: outside;
+}
+
+.searchBottom {
+    padding: 0 15px;
+}
+
+.searchBottom .lst {
+    margin-top: 12px;
+}
+
+.compPagination {
+    overflow: hidden;
+}
+
+.compPagination a {
+    border: 1px solid #fafafc;
+    float: left;
+    margin: 0 5px 0 0;
+    padding: 2px 8px;
+    text-align: center;
+}
+
+.compPagination strong {
+    color: #3f3f3f;
+    font-weight: bold;
+    float: left;
+    margin: 0 5px 0 0;
+    padding: 2px 6px;
+    border: 1px solid #e2e2e6;
+    background-color: #fff;
+}
+
+.compPagination span {
+    float: right;
+    color: #757575;
+    font-size: 11px;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+.ui_header {
+    border-bottom: 1px solid #eee;
+    margin: 15px 15px 0px 15px;
+    padding-bottom: 15px;
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    font-weight: 700;
+    line-height: 1.2857em;
+    text-transform: none;
+    font-size: 20px;
+    color: rgba(0,0,0,.87);
+}
