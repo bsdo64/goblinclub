@@ -6,16 +6,13 @@ SideBar.prototype = {
 
   base: {
     position: 'absolute',
-    right: 0,
+    left: 0,
     top: 50,
     bottom: 0,
     backgroundColor: '#F4F4F4',
-    width: 340,
+    width: 240,
     minHeight: 600,
-    height: 'calc(100vh - 50px)',
-    '@media (max-width: 1145px)': {
-      width: 'calc(100% - 805px)'
-    }
+    height: 'calc(100vh - 50px)'
   },
   searchClub: {
     base: {
