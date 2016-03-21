@@ -21,7 +21,7 @@ import Sidebar from './../Components/SidebarClubList/Sidebar';
 export default (
   <Router history={browserHistory}>
     <Route path="" component={App}>
-      <Route path="/" components={{header: Header, main: Main, sidebar: Sidebar}}>
+      <Route path="/hello" components={{header: Header, main: Main, sidebar: Sidebar}}>
         <IndexRoute components={{mainSection: Best}}/>
         <Route path="submit" components={{mainSection: WritePost}}/>
         <Route path="submit/club" components={{mainSection: WriteClub}}/>
@@ -34,6 +34,24 @@ export default (
         <Route path="club/:clubName/search" components={{mainSection: WritePost}}/>
         <Route path="club/:clubName/:article" components={{mainSection: Post}}/>
       </Route>
+    </Route>
+
+    <Route path="" component={App}>
+      <Route path="/" components={{header: Header, main: Main, sidebar: Sidebar}}>
+        <IndexRoute components={{mainSection: Best}}/>
+        <Route path="submit" components={{mainSection: WritePost}}/>
+        <Route path="submit/club" components={{mainSection: WriteClub}}/>
+
+        <Route path="login" components={{mainSection: Login}}/>
+        <Route path="login/emailverify" components={{mainSection: Login}}/>
+
+        <Route path="club/:clubName" components={{mainSection: Club}}/>
+        <Route path="club/:clubName/submit" components={{mainSection: WritePost}}/>
+        <Route path="club/:clubName/search" components={{mainSection: WritePost}}/>
+        <Route path="club/:clubName/:article" components={{mainSection: Post}}/>
+
+      </Route>
+
     </Route>
 
     <Route path="/notFound" components={App}>
