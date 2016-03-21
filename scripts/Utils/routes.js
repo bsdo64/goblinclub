@@ -33,6 +33,8 @@ export default (
         <Route path="club/:clubName/submit" components={{mainSection: WritePost}}/>
         <Route path="club/:clubName/search" components={{mainSection: WritePost}}/>
         <Route path="club/:clubName/:article" components={{mainSection: Post}}/>
+
+        <Route path="new" components={{mainSection: Post}}/>
       </Route>
     </Route>
 

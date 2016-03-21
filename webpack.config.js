@@ -22,6 +22,11 @@ module.exports = {
     filename: "bundle.js",
     publicPath: '/statics/'
   },
+  externals: {
+    // require("jquery") is external and available
+    //  on the global var jQuery
+    "jquery": "jQuery"
+  },
   resolve: {
     modulesDirectories: ['node_modules', 'bower_components'],
     extensions: ['', '.js', '.css', '.json'],

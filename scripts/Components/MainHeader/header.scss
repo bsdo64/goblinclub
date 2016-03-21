@@ -1,0 +1,58 @@
+#header {
+  height: 50px;
+
+  .head_contents {
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: fixed;
+    height: 50px;
+    z-index: 100;
+
+    .top_area {
+      height: 49px;
+      background: #2b5f5b;
+      border-bottom: 1px solid #419490;
+
+      .top_contents {
+        position: relative;
+        width: 1230px;
+        height: 50px;
+        margin: 0 auto;
+
+        .top_logo {
+          overflow: hidden;
+          float: left;
+          height: 42px;
+          padding-top: 10px;
+          margin-left: 26px;
+
+          span.logo_ci {
+            width: 150px;
+            margin-right: 4px;
+          }
+
+          span a {
+            display: inline-block;
+            width: 100%;
+            font-size: 27px;
+            color: #fff;
+          }
+        }
+        .top_menu {
+          line-height: 50px;
+          position: relative;
+          margin-left: 180px;
+          float: none;
+          width: 580px;
+        }
+        .my_area {
+          position: absolute;
+          right: 81px;
+          top: 13px;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

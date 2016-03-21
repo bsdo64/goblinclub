@@ -6,6 +6,10 @@ import Radium, {Style, StyleRoot} from 'radium';
 
 import AppActions from './AppActions';
 
+if (process.env.BROWSER) {
+  require('./App.scss');
+}
+
 let App = React.createClass({
   displayName: 'App',
   propTypes: {
@@ -26,14 +30,10 @@ let App = React.createClass({
         color: '#2b5f5b',
         textDecoration: 'none',
         cursor: 'pointer'
-      },
-      'html, body': {
-        height: '100%',
-        overflow: 'hidden'
       }
     };
     return (
-      <div>
+      <div id="wrap">
         <Style rules={style} />
 
         {header}
