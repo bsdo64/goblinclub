@@ -38,11 +38,9 @@ let App = React.createClass({
 
         {header}
 
-        <div>
-          {main}
+        {main}
 
-          {sidebar}
-        </div>
+        {sidebar}
       </div>
     );
   }

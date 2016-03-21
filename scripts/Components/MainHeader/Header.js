@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import Radium, {Style} from 'radium';
+import {Link} from 'react-router';
 import {Navbar} from 'react-bootstrap';
 
 import connectToStores from '../../../node_modules/alt-utils/lib/connectToStores';
@@ -80,7 +81,7 @@ let Header = React.createClass({
                     </li>
                     <li className="gnb_my_li" id="gnb_my_layer" style="display: inline-block;">
                       <div className="gnb_my_namebox" id="gnb_my_namebox" style="background-image: url(&quot;http://static.naver.net/common/gnb/2014/ico_arrow_wh.gif&quot;);">
-                        <a href="javascript:;" className="gnb_my" onclick="gnbUserLayer.clickToggle(); return false;"><img id="gnb_profile_img" src="http://static.naver.net/common/myarea/myInfo.gif" width="26" height="26" alt="" style="display: inline-block;"/> <span className="gnb_name" id="gnb_name1">bsdo</span><em className="blind">내정보 보기</em><span className="ico_arrow"></span></a><a href="#" className="gnb_emp" id="gnb_emp" style="display: none;">(임직원혜택)</a>
+                        <Link to="/hello" className="gnb_my" onclick="gnbUserLayer.clickToggle(); return false;"><img id="gnb_profile_img" src="http://static.naver.net/common/myarea/myInfo.gif" width="26" height="26" alt="" style="display: inline-block;"/> <span className="gnb_name" id="gnb_name1">bsdo</span><em className="blind">내정보 보기</em><span className="ico_arrow"></span></Link><a href="#" className="gnb_emp" id="gnb_emp" style="display: none;">(임직원혜택)</a>
                       </div>
                       <div className="gnb_my_lyr" id="gnb_my_lyr">
                         <div className="gnb_my_content">
