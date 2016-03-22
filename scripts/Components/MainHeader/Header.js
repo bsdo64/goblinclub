@@ -46,6 +46,12 @@ let Header = React.createClass({
   componentDidMount() {
 
   },
+  clickHandler() {
+    $('.ui.modal').modal('setting', {
+      detachable: true,
+      duration:	100
+    }).modal('show');
+  },
   render() {
     const {authSuccess, auth} = this.props.UserStore;
     return (
@@ -73,11 +79,19 @@ let Header = React.createClass({
                 <div id="gnb" className="gnb_dark_type2" style="right: -72px">
                   <ul className="gnb_lst" id="gnb_lst" style="display: block;">
                     <li className="gnb_login_li" id="gnb_login_layer">
-                      <a className="gnb_btn_login" id="gnb_login_button">
+                      <a className="gnb_btn_login" id="gnb_login_button" onClick={this.clickHandler}>
                         <span className="gnb_bg"></span>
                         <span className="gnb_bdr"></span>
                         <span className="gnb_txt">로그인</span>
                       </a>
+                      {/* Modal */}
+                      <div className="ui modal">
+                        <i className="close icon"></i>
+                        <div className="content">
+                          Hello world
+                        </div>
+                      </div>
+
                     </li>
                     <li className="gnb_my_li" id="gnb_my_layer" style="display: inline-block;">
                       <div className="gnb_my_namebox" id="gnb_my_namebox" style="background-image: url(&quot;http://static.naver.net/common/gnb/2014/ico_arrow_wh.gif&quot;);">
