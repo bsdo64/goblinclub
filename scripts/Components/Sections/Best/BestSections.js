@@ -30,15 +30,18 @@ const BestSection = React.createClass({
                     제품명구입시기년,월 기재희망가격정확히 기재: (3만~4만등의 경매 유도글 삭제)거래방법직거래, 택배, 안전거래상세설명사진 및
                     상세내..</p></div>
                 <div className="ui extra">
-                  <div className="ui tiny labels">
-                    <a className="ui label">
-                      Smart
+                  <div className="ui horizontal bulleted link list">
+                    <a className="item ">
+                      <i className="fa fa-hashtag" />
                     </a>
-                    <a className="ui label">
-                      Insane
+                    <a className="item">
+                      Privacy Policy
                     </a>
-                    <a className="ui label">
-                      Exciting
+                    <a className="item">
+                      Contact Us
+                    </a>
+                    <a className="item">
+                      Terms and Conditions
                     </a>
                   </div>
                 </div>

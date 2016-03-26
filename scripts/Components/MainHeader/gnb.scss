@@ -365,21 +365,7 @@ a {
     cursor: pointer;
   }
   a {
-    cursor: pointer;
-    color: $color_tundora_approx;
-    &:visited {
-      color: $color_tundora_approx;
-    }
-    &:active {
-      color: $color_tundora_approx;
-    }
-    &:focus {
-      color: $color_tundora_approx;
-    }
-    &:hover {
-      color: $color_tundora_approx;
-      text-decoration: underline;
-    }
+    color: $white;
   }
   input::-ms-clear {
     display: none;

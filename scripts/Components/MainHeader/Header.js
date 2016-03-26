@@ -149,7 +149,7 @@ let Header = React.createClass({
                     <div className="item gnb_my_namebox">
                       <img className="gnb_my ui avatar image" src="http://placehold.it/40x40"/>
                       <div className="gnb_my content" >
-                        <a className="header" style="font-size: 13px;">닉네임</a>
+                        <a className="" >닉네임</a>
                       </div>
 
                       <div className="gnb_my_lyr ui custom popup top left transition hidden" id="gnb_my_lyr">
