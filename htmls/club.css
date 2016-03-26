@@ -61,16 +61,6 @@ A:hover {
     padding: 3px
 }
 
-.submit {
-    border: 0px solid #606060;
-    font-size: 12px;
-    color: #ffffff;
-    background-color: #afafaf;
-    height: 22px;
-    padding: 2px 0 0 0;
-    line-height: 16px
-}
-
 .submit_w {
     border: 1px solid #606060;
     font-size: 12px;
@@ -85,15 +75,6 @@ A:hover {
     font-size: 12px;
     color: #585858;
     background-color: #e5e5e5
-}
-
-.button {
-    border: 1px solid #606060;
-    font-size: 12px;
-    color: #dfdfdf;
-    background-color: #909090;
-    height: 40px;
-    line-height: 16px
 }
 
 .line_separator {

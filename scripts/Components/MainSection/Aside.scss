@@ -6281,3 +6281,21 @@ html > body .round {
     }
   }
 }
+
+
+// Goblin Club
+
+#section_signin {
+  .signin_button {
+    text-align: center;
+  }
+  #signin_button {
+    border: none;
+    color: #fff;
+    background: #2B5F5B;
+    width: 100%;
+    height: 25px;
+    display: block;
+    line-height: 25px;
+  }
+}

@@ -14,12 +14,13 @@ import HeaderLogo from './HeaderLogo';
 import HeaderLoginButton from './HeaderLoginButton';
 import HeaderUserButtons from './HeaderUserButtons';
 import SearchBar from './HeaderSearchBar';
-
+import LoginModal from '../Login/LoginModal';
 import styles from './HeaderStyle';
 
 if (process.env.BROWSER) {
   require('./header.scss');
   require('./gnb.scss');
+  require('./loginModal.scss');
 }
 
 let Header = React.createClass({
@@ -44,12 +45,19 @@ let Header = React.createClass({
     }
   },
   componentDidMount() {
-
+    $('.gnb_my_namebox .gnb_my')
+      .popup({
+        popup : $('.custom.popup'),
+        on    : 'click'
+      });
+  },
+  handleOpenPopup() {
+    $('.gnb_my_namebox .gnb_my').popup({ popup : $('.custom.popup') }).popup('toggle');
   },
   clickHandler() {
-    $('.ui.modal').modal('setting', {
+    $('.ui.small.modal').modal('setting', {
       detachable: true,
-      duration:	100
+      duration:	400
     }).modal('show');
   },
   render() {
@@ -76,28 +84,75 @@ let Header = React.createClass({
               </div>
 
               <div className="my_area">
-                <div id="gnb" className="gnb_dark_type2" style="right: -72px">
-                  <ul className="gnb_lst" id="gnb_lst" style="display: block;">
-                    <li className="gnb_login_li" id="gnb_login_layer">
-                      <a className="gnb_btn_login" id="gnb_login_button" onClick={this.clickHandler}>
-                        <span className="gnb_bg"></span>
-                        <span className="gnb_bdr"></span>
-                        <span className="gnb_txt">로그인</span>
-                      </a>
+                <div id="gnb" className="gnb_dark_type2" style={{right: '20px'}}>
+                  <div className="ui horizontal list" style={{color: '#fff'}}>
+                    <div className="item">
+                      <div className="ui mini button green"
+                           style={{padding: '5px 10px', borderRadius: '2px', backgroundColor: '#154945'}}
+                           onClick={this.clickHandler}>
+                        로그인
+                      </div>
+
                       {/* Modal */}
-                      <div className="ui modal">
+                      <div className="ui small modal gb_login">
                         <i className="close icon"></i>
                         <div className="content">
-                          Hello world
+
+                          <div id="daumHead" role="banner">
+                            <h1>
+                              <a href="/" id="daumServiceLogo"><span
+                                className="ir_wa">Goblin Club</span></a>
+                            </h1>
+                          </div>
+
+                          <div id="daumContent" role="main">
+                            <div id="mArticle">
+                              <form className="ui form">
+                                <div className="field">
+                                  <label>아이디</label>
+                                  <input type="text" name="first-name" placeholder="아이디" />
+                                </div>
+                                <div className="field">
+                                  <label>비밀번호</label>
+                                  <input type="password" name="last-name" placeholder="비밀번호"/>
+                                </div>
+                                <div className="inline field">
+                                  <div className="ui checkbox">
+                                    <input type="checkbox" id="agreement-checkbox" />
+                                    <label htmlFor="agreement-checkbox">약관에 동의하고 가입합니다</label>
+                                  </div>
+                                </div>
+                                <button id="login-button" className="ui button" type="submit">로그인</button>
+                                <div className="login_append">
+                                  <a href="/member/find/loginId" className="link_find">아이디</a>
+                                  <span> / </span>
+                                  <a href="/member/find/password" className="link_find">비밀번호찾기</a>
+                                  <span className="txt_bar">|</span>
+                                  <Link to="/signin" className="ico_comm link_join">회원 가입하기</Link>
+                                </div>
+                              </form>
+                            </div>
+                            <div id="daumFoot" className="footer_tistory" role="contentinfo">
+                              <div className="inner_footer">
+                                <address className="txt_copyright">Copyright © <a
+                                  href="http://www.kakaocorp.com/" className="link_daum">Kakao Corp.</a>
+                                  All rights reserved.
+                                </address>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
 
-                    </li>
-                    <li className="gnb_my_li" id="gnb_my_layer" style="display: inline-block;">
-                      <div className="gnb_my_namebox" id="gnb_my_namebox" style="background-image: url(&quot;http://static.naver.net/common/gnb/2014/ico_arrow_wh.gif&quot;);">
-                        <Link to="/hello" className="gnb_my" onclick="gnbUserLayer.clickToggle(); return false;"><img id="gnb_profile_img" src="http://static.naver.net/common/myarea/myInfo.gif" width="26" height="26" alt="" style="display: inline-block;"/> <span className="gnb_name" id="gnb_name1">bsdo</span><em className="blind">내정보 보기</em><span className="ico_arrow"></span></Link><a href="#" className="gnb_emp" id="gnb_emp" style="display: none;">(임직원혜택)</a>
+                    </div>
+
+                    <div className="item gnb_my_namebox">
+                      <img className="gnb_my ui avatar image" src="http://placehold.it/40x40"/>
+                      <div className="gnb_my content" >
+                        <a className="header" style="font-size: 13px;">닉네임</a>
                       </div>
-                      <div className="gnb_my_lyr" id="gnb_my_lyr">
+
+                      <div className="gnb_my_lyr ui custom popup top left transition hidden" id="gnb_my_lyr">
                         <div className="gnb_my_content">
                           <div className="gnb_img_area"><span className="gnb_mask"></span><img src="http://static.naver.net/common/myarea/myInfo.gif" width="80" height="80" alt="" /><a href="http://me.naver.com/profile.nhn" className="gnb_change"><span className="blind">프로필 사진 변경</span></a></div>
                           <div className="gnb_txt_area"><p className="gnb_account"><span className="gnb_name" id="gnb_name2"><a className="gnb_nick" href="http://me.naver.com/profile.nhn">bsdo</a>님</span><a className="gnb_btn_login" href="https://nid.naver.com/nidlogin.logout?returl=http://me.naver.com" id="gnb_logout_button"><span className="gnb_bg"></span><span className="gnb_bdr"></span><span className="gnb_txt">로그아웃</span></a>
@@ -110,15 +165,19 @@ let Header = React.createClass({
                             </ul>
                             <p className="gnb_pay_check" id="gnb_pay_check"><em>N
                               Pay</em><a href="http://pay.naver.com" id="gnb_pay_point"><span>내 페이포인트</span></a>
-                            </p></div>
+                            </p>
+                          </div>
                         </div>
                         <div className="gnb_my_community"><a href="http://blog.naver.com/MyBlog.nhn" className="gnb_blog">내 블로그</a><a href="http://section.cafe.naver.com" className="gnb_cafe">가입한 카페</a><a href="http://pay.naver.com" className="gnb_pay"><span>N Pay</span></a>
                         </div>
                         <a href="#" className="gnb_my_interface" style="display:none"><span className="blind">환경설정</span></a>
                       </div>
-                    </li>
-                    <li className="gnb_notice_li" id="gnb_notice_layer" style="display:none"><a href="javascript:;" className="gnb_notice" onclick="gnbNaverMeLayer.clickToggle(); return false;"><span className="blind">알림</span><span className="gnb_icon"></span><em className="gnb_ico_num" id="gnb_me_menu" style="display:none"><span className="gnb_ico_new"><span className="gnb_count" id="gnb_me_count" style="display: inline-block;"></span></span></em><span className="ico_arrow"></span></a>
-                      <div className="gnb_notice_lyr" id="gnb_notice_lyr">
+                    </div>
+
+                    <div className="item">
+                      <i className="large mail icon" />
+
+                      <div className="gnb_notice_lyr transition hidden" id="gnb_notice_lyr">
                         <div className="svc_noti svc_panel">
                           <div className="svc_scroll">
                             <div className="svc_head"><strong className="gnb_tit">전체
@@ -147,10 +206,14 @@ let Header = React.createClass({
                           </div>
                           <a href="http://me.naver.com/box/noti.nhn" className="gnb_notice_all">내 알림 전체보기</a></div>
                       </div>
-                    </li>
-                    <li className="mail_li" id="gnb_mail_layer" style="display: inline-block;"><a href="http://mail.naver.com" className="gnb_mail"><span className="blind">메일</span><span className="gnb_icon"></span><em className="gnb_ico_num" id="gnb_mail_menu" style="display:none"><span className="gnb_ico_new"><span className="gnb_count" id="gnb_mail_count" style="display: inline-block;"></span></span></em></a>
-                    </li>
-                  </ul>
+                    </div>
+
+
+                    <div className="item">
+                      <i className="large alarm icon"/>
+                    </div>
+
+                  </div>
                 </div>
               </div>
             </div>

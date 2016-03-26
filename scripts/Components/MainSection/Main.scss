@@ -10,38 +10,6 @@
   }
 }
 
-.lft_area {
-  width: 130px;
-  float: left;
-  padding: 23px 25px;
-
-  .snb {
-    padding-left: 2px;
-
-    & > li ul li a {
-      padding-top: 15px;
-    }
-    & > li a {
-      color: #888;
-    }
-
-    li a {
-      display: block;
-    }
-  }
-
-  h3 {
-    font-size: 12px;
-    color: #333;
-    padding-left: 2px;
-    border-bottom: 1px solid #eaeaea;
-    padding-bottom: 13px;
-  }
-
-
-}
-
-
 .section {
   float: none;
   margin-left: 180px;

@@ -1,0 +1,15 @@
+@import '../Default';
+
+#container {
+  .lft_area .ui.list>.item {
+    padding: 10px 0;
+
+    & > :first-child {
+      font-weight: bold;
+    }
+
+    & > .list> .item {
+      padding-bottom: 5px;
+    }
+  }
+}

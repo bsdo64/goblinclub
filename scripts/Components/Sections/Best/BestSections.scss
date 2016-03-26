@@ -1,0 +1,20 @@
+.thrd_contents {
+  li {
+
+  }
+
+  #item_list {
+    .ui.item {
+      border-top: 1px solid #eaeaea;
+      padding: 25px;
+
+      &:first-child {
+        border-top: 0;
+      }
+
+      .content {
+        padding-right: 35px;
+      }
+    }
+  }
+}

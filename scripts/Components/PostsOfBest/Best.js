@@ -66,7 +66,7 @@ let Best = React.createClass({
    * @returns {void}
    */
   componentDidMount() {
-    $('#Section').nanoScroller();
+    /*$('#Section').nanoScroller();
 
     let scrollContent = document.getElementsByClassName('nano-content')[0];
     scrollContent.onscroll = function () {
@@ -76,7 +76,7 @@ let Best = React.createClass({
         this.updatePage();
         $('#Section').nanoScroller();
       }
-    }.bind(this);
+    }.bind(this);*/
   },
 
   /**

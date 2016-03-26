@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import Radium from 'radium';
+import {Link} from 'react-router';
 
 import HeadLine from '../HeadLine/HeadLine';
 import styles from './MainSectionStyle';
@@ -116,6 +117,14 @@ let Main = React.createClass({
               </ul>
 
               <div id="section_cldmm">
+
+                <div className="section_signin widget" id="section_signin">
+                  <div className="signin_button">
+                    <Link to="signin" id="signin_button">
+                      지금 가입하세요!
+                    </Link>
+                  </div>
+                </div>
 
                 <div className="section_mail widget" id="section_mail" >
                   <ul className="lst_ma">

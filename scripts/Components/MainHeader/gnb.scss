@@ -786,7 +786,6 @@ a {
 
 .gnb_my_lyr {
   background: $url_0 no-repeat -999px -999px;
-  display: none;
   position: absolute;
   top: 26px;
   right: -8px;
@@ -1986,3 +1985,32 @@ a {
   top: 0;
   *overflow: visible;
 }
+
+.dir_svc .ico_num {
+  display: inline-block;
+  position: absolute;
+  top: -4px;
+  right: -15px;
+  height: 18px;
+  margin-left: 6px;
+  padding: 0 18px 0 2px;
+  font-size: 10px;
+  font-family: tahoma, sans-serif;
+  line-height: 14px;
+  color: #fff;
+  letter-spacing: 0;
+  cursor: pointer;
+  background: url(http://static.naver.net/me/new/sp_high_151117.png) no-repeat 100% 0;
+
+  .num_lft {
+    display: inline-block;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: -4px;
+    width: 6px;
+    height: 17px;
+    background: url(http://static.naver.net/me/new/sp_high_151117.png) no-repeat -840px 0;
+  }
+}
+

@@ -10,9 +10,9 @@
     z-index: 100;
 
     .top_area {
-      height: 49px;
+      height: 50px;
       background: #2b5f5b;
-      border-bottom: 1px solid #419490;
+      border-bottom: 1px solid #015450;
 
       .top_contents {
         position: relative;
@@ -48,8 +48,8 @@
         }
         .my_area {
           position: absolute;
-          right: 81px;
-          top: 13px;
+          right: 0px;
+          top: 10px;
           display: inline-block;
         }
       }
