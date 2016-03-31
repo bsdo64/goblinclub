@@ -35,7 +35,7 @@ let HeaderLogo = React.createClass({
   }, render() {
     const { agree } = this.state;
     return (
-      <div className="contents _contents">
+      <div id="signing">
         {
           agree && <SigninFormContents />
         }

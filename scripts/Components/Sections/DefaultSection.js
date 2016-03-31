@@ -12,7 +12,9 @@ const DefaultSection = React.createClass({
     return (
       <div className="section _section">
         
-        {Section}
+        <div className="contents">
+          {Section}
+        </div>
         
         <Aside />
       </div>
