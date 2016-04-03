@@ -82,7 +82,7 @@ let ClubSections = React.createClass({
 
 
         <div className="ui right aligned container">
-          <div>글쓰기</div>
+          <a className="ui button primary tiny" href="/club/it/submit">글쓰기</a>
         </div>
         <div className="ui divider"></div>
 

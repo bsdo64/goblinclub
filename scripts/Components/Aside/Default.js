@@ -14,40 +14,24 @@ const Aside = React.createClass({
     return (
       <div className="aside">
         <div className="widget_area _widget_area">
-          <ul className="dir_svc">
-            <li className="mail">
-              <a href="/" className=""
-                 title="메일" id="acs1">
-                <span className="">베스트</span>
-                <span className="ico_num" style={{display:'block'}}><span className="num_lft"></span>2</span>
-              </a>
-            </li>
-            <li className="calendar">
-              <a href="/club" className="" title="클럽">
-                <span className="">클럽</span>
-                                <span className="" style={{display:'block'}}>
-                                    <span className="num_lft"></span>
-                                </span>
-              </a>
-            </li>
-            <li className="address">
-              <a href="http://contact.naver.com/" className="" title="주소록">
-                <span className="">글쓰기</span>
-                                <span className="" style={{display:'block'}}>
-                                    <span className="num_lft"></span>
-                                </span>
-              </a>
-            </li>
-          </ul>
-
+          <div className="ui menu secondary three item list dir_svc" style={{marginBottom: 10}}>
+            <a href="/" className="item active">
+              베스트
+              <div className="floating ui teal mini label" style={{zIndex: 'inherit'}}>22</div>
+            </a>
+            <a href="/club" className="item">
+              클럽
+            </a>
+            <a href="/profile" className="item">
+              내 정보
+            </a>
+          </div>
           <div id="section_cldmm">
 
             <div id="section_signin" className="section_signin widget">
-              <div className="signin_button">
-                <Link to="signin" id="signin_button">
-                  지금 가입하세요!
-                </Link>
-              </div>
+              <Link to="signin" className="ui submit primary button fluid small">
+                지금 가입하세요!
+              </Link>
             </div>
 
             <div id="section_userinfo" className="widget">

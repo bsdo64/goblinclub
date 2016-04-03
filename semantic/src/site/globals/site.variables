@@ -17,3 +17,23 @@
 --------------------*/
 
 @linkColor           : #348E87;
+
+/*-------------------
+    Border Radius
+--------------------*/
+
+/* See Power-user section below
+   for explanation of @px variables
+*/
+@relativeBorderRadius: @relative2px;
+@absoluteBorderRadius: @2px;
+
+/*-------------------
+    Brand Colors
+--------------------*/
+
+@primaryColor        : #2B5F5B;
+@secondaryColor      : #154945;
+
+@lightPrimaryColor   : #348E87;
+@lightSecondaryColor : #348E87;

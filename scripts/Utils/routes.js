@@ -25,6 +25,7 @@ import Sidebar from './../Components/SidebarClubList/Sidebar';
 import SigninLeft from './../Components/LeftMenu/Signin/SigninLeft';
 import MainLeft from './../Components/LeftMenu/Main/MainLeft';
 import ClubLeft from '../Components/LeftMenu/Club/ClubLeft';
+import ProfileLeft from '../Components/LeftMenu/Profile/ProfileLeft';
 
 import DefaultSection from '../Components/Sections/DefaultSection';
 
@@ -32,8 +33,10 @@ import SigninSection from '../Components/Sections/Signin/Signin';
 import BestSection from '../Components/Sections/Best/BestSections';
 import ClubMainSection from '../Components/Sections/Club/MainSections';
 import ClubSection from '../Components/Sections/Club/ClubSections';
+import SubmitSection from '../Components/Sections/Submit/Submit';
 
 import PostSection from '../Components/Sections/Post/Post';
+import ProfileSection from '../Components/Sections/Profile/Profile';
 
 export default (
   <Router history={browserHistory}>
@@ -51,12 +54,14 @@ export default (
         <Route path="club" components={{LeftMenu: ClubLeft, SectionLayout: DefaultSection}} >
           <IndexRoute components={{Section: ClubMainSection}}/>
           <Route path=":clubUrl" components={{Section: ClubSection}} />
+          <Route path=":clubUrl/submit" components={{Section: SubmitSection}} />
           <Route path=":clubUrl/:postId" components={{Section: PostSection}} />
         </Route>
 
-        <Route path="submit" components={{LeftMenu: ClubLeft, SectionLayout: DefaultSection}}>
-          <Route path=":clubUrl" />
+        <Route path="profile" components={{LeftMenu: ProfileLeft, SectionLayout: DefaultSection}} >
+          <IndexRoute components={{Section: ProfileSection}}/>
         </Route>
+        
       </Route>
     </Route>
     <Route path="" component={App}>

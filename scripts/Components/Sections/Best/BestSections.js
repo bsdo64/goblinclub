@@ -16,10 +16,19 @@ const BestSection = React.createClass({
               <img src="http://placehold.it/40x40" />
             </div>
             <div className="ui content">
-              <h2 className="ui header">중고 팩스, 삼성 팩스, 분당지역</h2>
-              <div className="ui meta">
-                <span>닉네임</span><span>|</span><span>클럽 &gt;
-                모발샴푸</span><span>|</span><span>15초전</span>
+              <h2 className="header">중고 팩스, 삼성 팩스, 분당지역</h2>
+              <div className="meta">
+                <div className="ui mini horizontal divided list">
+                  <div className="item primary">
+                      닉네임
+                  </div>
+                  <div className="item">
+                    클럽 > 모발샴푸
+                  </div>
+                  <div className="item">
+                    15 초전
+                  </div>
+                </div>
               </div>
               <div className="ui description">
                 <p>
@@ -27,7 +36,8 @@ const BestSection = React.createClass({
                   제품명구입시기년,월 기재희망가격정확히 기재: (3만~4만등의 경매 유도글 삭제)거래방법직거래, 택배, 안전거래상세설명사진 및 상세내 중고나라
                   공식 앱 다운받기 판 매 양 식아이디이메일싸이,블로그,타카페,타사이트 링크시 삭제 및 강퇴거주지역도,시,동까지 정확히 기재판매
                   제품명구입시기년,월 기재희망가격정확히 기재: (3만~4만등의 경매 유도글 삭제)거래방법직거래, 택배, 안전거래상세설명사진 및
-                  상세내..</p></div>
+                  상세내..
+                </p></div>
               <div className="ui extra">
                 <div className="ui horizontal bulleted link list">
                   <a className="item ">
@@ -61,7 +71,7 @@ const BestSection = React.createClass({
               <div className="ui hidden divider"></div>
               <div className="ui extra">
                 <div className="ui comments">
-                  <h3 className="ui dividing header">댓글 2개</h3>
+                  <h5 className="ui dividing header">댓글 2개</h5>
                   <div className="comment">
                     <a className="avatar">
                       <img src="http://placehold.it/40x40"/></a>
