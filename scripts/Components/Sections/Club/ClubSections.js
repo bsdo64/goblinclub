@@ -6,7 +6,10 @@
  */
 import React from 'react';
 
-import Aside from '../../Aside/Default';
+import connectToStores from 'alt-utils/lib/connectToStores';
+import ClubSectionActions from './ClubSectionActions';
+import ClubSectionStore from './ClubSectionStore';
+
 
 if (process.env.BROWSER) {
   require('./ClubSections.scss');
@@ -14,7 +17,22 @@ if (process.env.BROWSER) {
 
 let ClubSections = React.createClass({
   displayName: 'ClubSections',
+  statics: {
+    getStores() {
+      // this will handle the listening/unlistening for you
+      return [ClubSectionStore]
+    },
+
+    getPropsFromStores() {
+      // this is the data that gets passed down as props
+      return {
+        ClubSectionStore: ClubSectionStore.getState()
+      };
+    }
+  },
   render() {
+    const { data } = this.props.ClubSectionStore;
+    console.log(data);
     return (
       <div id="club_section">
         <div className="ui small breadcrumb">
@@ -120,4 +138,4 @@ let ClubSections = React.createClass({
   }
 });
 
-export default ClubSections;
+export default connectToStores(ClubSections);

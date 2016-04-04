@@ -31,7 +31,7 @@ const SigninFormContents = React.createClass({
         on: 'blur',
         fields: {
           email : {
-            identifier  : 'email',
+            identifier  : 'signinEmail',
             rules: [
               {
                 type   : 'empty',
@@ -62,7 +62,7 @@ const SigninFormContents = React.createClass({
             ]
           },
           nick : {
-            identifier  : 'nick',
+            identifier  : 'signinNick',
             rules: [
               {
                 type   : 'empty',
@@ -114,10 +114,10 @@ const SigninFormContents = React.createClass({
       });
   },
   handleEmail() {
-    SigninActions.checkEmail({signinEmail: this.refs.email.value});
+    SigninActions.checkEmail({signinEmail: this.refs.signinEmail.value});
   },
   handleNick() {
-    SigninActions.checkNick({signinNick: this.refs.nick.value});
+    SigninActions.checkNick({signinNick: this.refs.signinNick.value});
   },
   handleSubmit() {
     const {emailDup, nickDup, emailVerifyFail ,emailVerifySuccess} = this.props.SigninStore;
@@ -126,7 +126,7 @@ const SigninFormContents = React.createClass({
       return;
     }
 
-    if (!emailDup && !nickDup && !emailVerifySuccess) {
+    if ((emailDup === false) && (nickDup === false) && (emailVerifySuccess === false)) {
       this.setState({emailVerifyFormOpen: true});
       this.handleSendEmailVerify();
     }
@@ -140,7 +140,7 @@ const SigninFormContents = React.createClass({
     
     SigninActions.emailVerify({
       verifyCode: verifyCode,
-      email: this.refs.email.value
+      email: this.refs.signinEmail.value
     });
   },
   handleCheckEmailVerify() {
@@ -192,7 +192,7 @@ const SigninFormContents = React.createClass({
             <h4>로그인 정보</h4>
             <div className="field">
               <label>이메일</label>
-              <input ref="email" type="text" name="email" placeholder="이메일을 입력하세요" onBlur={this.handleEmail} />
+              <input ref="signinEmail" type="text" name="signinEmail" placeholder="이메일을 입력하세요" onBlur={this.handleEmail} />
             </div>
             <div className="field">
               <label>비밀번호</label>
@@ -209,7 +209,7 @@ const SigninFormContents = React.createClass({
           <div className="ui basic segment">
             <div className="field">
               <label>닉네임</label>
-              <input ref="nick" type="text" name="nick" placeholder="닉네임을 입력하세요" onBlur={this.handleNick}/>
+              <input ref="signinNick" type="text" name="signinNick" placeholder="닉네임을 입력하세요" onBlur={this.handleNick}/>
             </div>
             <div className="field">
               <label>성별</label>
