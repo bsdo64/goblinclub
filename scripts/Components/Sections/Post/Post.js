@@ -64,7 +64,11 @@ let Post = React.createClass({
               <img src="http://placehold.it/40x40"/>
             </div>
             <div className="ui content">
+
+              { /* Title */}
               <h2 className="ui header">{title}</h2>
+
+              { /* Metas */}
               <div className="ui meta">
                 <div className="ui horizontal divided list">
                   <div className="item primary">
@@ -78,10 +82,14 @@ let Post = React.createClass({
                   </div>
                 </div>
               </div>
+
+              { /* Content */}
               <div className="ui description" dangerouslySetInnerHTML={{ __html: content }}></div>
 
+              { /* Tags */}
               <TagList items={Tags} />
 
+              { /* Buttons */}
               <div className="ui extra">
                 <div className="ui mini labeled button">
                   <div className="ui mini button red">
@@ -96,10 +104,11 @@ let Post = React.createClass({
                   <a className="ui mini basic label">{comment_count}</a>
                 </div>
               </div>
-              <div className="ui hidden divider"></div>
-              <div className="ui extra">
+
+              { /* Comment */}
+              <div className="ui extra" id="comment_section">
                 <div className="ui comments">
-                  <h3 className="ui dividing header">댓글 {comment_count}개</h3>
+                  <h5 className="ui dividing header">댓글 {comment_count}개</h5>
                   <div className="comment">
                     <a className="avatar">
                       <img src="http://placehold.it/40x40"/></a>
