@@ -43,7 +43,7 @@ const BestSection = React.createClass({
 
     var createPostItem = function(item) {
       const {
-              title, content, like_count, comment_count, deleted, has_img, has_video, created_at,
+              id, title, content, like_count, comment_count, deleted, has_img, has_video, created_at,
               ClubGroup, Club, User, Tags
             } = item;
 
@@ -52,23 +52,21 @@ const BestSection = React.createClass({
           <img src="http://placehold.it/40x40" />
         </div>
         <div className="ui content">
-          <h2 className="header">{title}</h2>
+          <h2 className="ui header"><a href={"/club/" + Club.url + "/" + id}>{title}</a></h2>
           <div className="meta">
-            <div className="ui mini horizontal divided list">
+            <div className="ui horizontal divided list">
               <div className="item primary">
                 {User.nick}
               </div>
               <div className="item">
-                {Club.ClubGroup.title} > {Club.title}
+                {Club.ClubGroup.title} > <a href={"/club/" + Club.url}>{Club.title}</a>
               </div>
               <div className="item">
                 {created_at}
               </div>
             </div>
           </div>
-          <div className="ui description">
-            {content}
-          </div>
+          <div className="ui description" dangerouslySetInnerHTML={{ __html: content }}></div>
           <TagList items={Tags} />
           <div className="ui extra">
             <div className="ui mini labeled button">
@@ -151,22 +149,29 @@ const BestSection = React.createClass({
                 </div>
               </form>
               <div className="ui center aligned container">
-                <div className="ui pagination menu">
-                  <a className="active item">1</a>
+                <div className="ui pagination menu small">
+                  <a className="active item">
+                    1
+                  </a>
                   <div className="disabled item">
                     ...
                   </div>
-                  <a className="item">10</a>
-                  <a className="item">11</a>
-                  <a className="item">12</a>
+                  <a className="item">
+                    10
+                  </a>
+                  <a className="item">
+                    11
+                  </a>
+                  <a className="item">
+                    12
+                  </a>
                 </div>
-                <div className="ui search" style={{padding:'15px'}}>
+                <div className="ui search mini" style={{padding: '15px'}}>
                   <div className="ui icon input">
-                    <input className="prompt" type="text" placeholder="Search animals..."/>
+                    <input className="prompt" type="text" placeholder="Search animals..." />
                     <i className="search icon"></i>
                   </div>
-                  <div className="results"
-                  ></div>
+                  <div className="results"></div>
                 </div>
               </div>
             </div>

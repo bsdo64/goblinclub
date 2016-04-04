@@ -77,7 +77,7 @@ const Aside = React.createClass({
             <div className="notice_ftr">
               <ul>
                 <li><a href="#" className="" onclick="openNoticeList(); return false;">공지사항</a><span id="newNoticeIcon" className="ico_new"><span className="blind">New</span></span></li>
-                <li><a target="_blank" href="https://help.naver.com/support/service/main.nhn?serviceNo=984" className="">네이버me 고객센터</a></li>
+                <li><a target="_blank" href="https://help.naver.com/support/service/main.nhn?serviceNo=984" className="">고객센터</a></li>
               </ul>
             </div>
             <div className="btn_top" style={{top: '50%'}}>

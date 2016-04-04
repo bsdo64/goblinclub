@@ -4,6 +4,7 @@ import Api from '../lib/Api';
 const Composer = express.Router();
 
 Composer.use(function (req, res, next) {
+  console.log(req.headers['referer']);
   var userToken = req.cookies.token;
   Api.setToken(userToken);
 

@@ -15,6 +15,21 @@ if (process.env.BROWSER) {
   require('./ClubSections.scss');
 }
 
+const PostList = React.createClass({
+  render: function() {
+    const { title, Prefix, User, created_at, view_count, like_count, comment_count } = this.props.item;
+    return <tr >
+        <td className="center aligned collapsing">{Prefix}</td>
+        <td className="center aligned collapsing">{like_count}</td>
+        <td className="center aligned collapsing">{view_count}</td>
+        <td className="right aligned collapsing">{comment_count}</td>
+        <td className="left aligned">{title}</td>
+        <td className="right aligned collapsing">{User.nick}</td>
+        <td className="center aligned collapsing">{created_at}</td>
+      </tr>
+  }
+});
+
 let ClubSections = React.createClass({
   displayName: 'ClubSections',
   statics: {
@@ -31,8 +46,10 @@ let ClubSections = React.createClass({
     }
   },
   render() {
-    const { data } = this.props.ClubSectionStore;
-    console.log(data);
+    const { list, club } = this.props.ClubSectionStore;
+    const { title, description } = club;
+    const { page, limit, total, data } = list;
+
     return (
       <div id="club_section">
         <div className="ui small breadcrumb">
@@ -43,9 +60,8 @@ let ClubSections = React.createClass({
           <div className="active section">Personal Information</div>
         </div>
         <h3 className="ui header">
-          탈모 게시판
-          <div className="sub header">탈모에관한 이야기를 나눠봅시다
-          </div>
+          {title}
+          <div className="sub header">{description}</div>
         </h3>
         <div className="ui divider"></div>
         <div className="ui horizontal celled list">
@@ -66,8 +82,8 @@ let ClubSections = React.createClass({
           <thead>
           <tr>
             <th className="center aligned collapsing">말머리</th>
-            <th className="center aligned collapsing">조회</th>
             <th className="center aligned collapsing">좋아요</th>
+            <th className="center aligned collapsing">조회</th>
             <th className="center aligned collapsing">댓글</th>
             <th className="center aligned">제목</th>
             <th className="center aligned collapsing">글쓴이</th>
@@ -75,6 +91,14 @@ let ClubSections = React.createClass({
           </tr>
           </thead>
           <tbody>
+
+          {
+            data &&
+            data.map(function (item) {
+              return <PostList item={item} />
+            })
+          }
+
           <tr>
             <td className="center aligned collapsing">샴푸나라</td>
             <td className="center aligned collapsing">10</td>
@@ -106,7 +130,7 @@ let ClubSections = React.createClass({
 
 
         <div className="ui center aligned container">
-          <div className="ui pagination menu">
+          <div className="ui pagination menu small">
             <a className="active item">
               1
             </a>
@@ -123,7 +147,7 @@ let ClubSections = React.createClass({
               12
             </a>
           </div>
-          <div className="ui search" style={{padding: '15px'}}>
+          <div className="ui search mini" style={{padding: '15px'}}>
             <div className="ui icon input">
               <input className="prompt" type="text" placeholder="Search animals..." />
               <i className="search icon"></i>

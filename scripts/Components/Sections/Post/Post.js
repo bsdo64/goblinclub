@@ -5,6 +5,10 @@
  * Created by dobyeongsu on 2016. 3. 23..
  */
 import React from 'react';
+import ClubSections from '../Club/ClubSections';
+
+import connectToStores from 'alt-utils/lib/connectToStores';
+import PostSectionStore from './PostSectionStore';
 
 import Aside from '../../Aside/Default';
 
@@ -12,16 +16,47 @@ if (process.env.BROWSER) {
   require('./Post.scss');
 }
 
+const TagList = React.createClass({
+  render: function() {
+    var createItem = function(item) {
+      return <a className="item" key={item.name}>{item.name}</a>;
+    };
+    return <div className="ui extra">
+      <div className="ui horizontal bulleted link list">
+        <a className="item ">
+          <i className="fa fa-hashtag" />
+        </a>
+        {this.props.items.map(createItem)}
+      </div>
+    </div>
+  }
+});
+
 let Post = React.createClass({
-  displayName: 'Post', render() {
+  displayName: 'Post',
+  statics: {
+    getStores() {
+      // this will handle the listening/unlistening for you
+      return [PostSectionStore]
+    },
+
+    getPropsFromStores() {
+      // this is the data that gets passed down as props
+      return {
+        PostSectionStore: PostSectionStore.getState()
+      };
+    }
+  },
+  render() {
+    const { id, title, content, comment_count, User, Tags, created_at, Club, like_count} = this.props.PostSectionStore;
     return (
       <div style={{padding: '25px'}} id="post_view">
         <div className="ui breadcrumb">
-          <a className="section">Home</a>
+          <a className="section">고블린 클럽</a>
           <i className="right chevron icon divider"></i>
-          <a className="section">Registration</a>
+          <a className="section">{Club.ClubGroup.title}</a>
           <i className="right arrow icon divider"></i>
-          <div className="active section">Personal Information</div>
+          <div className="active section">{Club.title}</div>
         </div>
         <div id="" className="ui items">
           <div className="ui item">
@@ -29,49 +64,42 @@ let Post = React.createClass({
               <img src="http://placehold.it/40x40"/>
             </div>
             <div className="ui content">
-              <h2 className="ui header">중고 팩스, 삼성 팩스, 분당지역</h2>
+              <h2 className="ui header">{title}</h2>
               <div className="ui meta">
-                <span>닉네임</span><span>|</span><span>클럽 &gt;
-                모발샴푸</span><span>|</span><span>15초전</span>
-              </div>
-              <div className="ui description">
-                <p>
-                  중고나라 공식 앱 다운받기 판 매 양 식아이디이메일싸이,블로그,타카페,타사이트 링크시 삭제 및 강퇴거주지역도,시,동까지 정확히 기재판매
-                  제품명구입시기년,월 기재희망가격정확히 기재: (3만~4만등의 경매 유도글 삭제)거래방법직거래, 택배, 안전거래상세설명사진 및 상세내 중고나라
-                  공식 앱 다운받기 판 매 양 식아이디이메일싸이,블로그,타카페,타사이트 링크시 삭제 및 강퇴거주지역도,시,동까지 정확히 기재판매
-                  제품명구입시기년,월 기재희망가격정확히 기재: (3만~4만등의 경매 유도글 삭제)거래방법직거래, 택배, 안전거래상세설명사진 및
-                  상세내..</p></div>
-              <div className="ui extra">
-                <div className="ui tiny labels">
-                  <a className="ui label">
-                    Smart
-                  </a>
-                  <a className="ui label">
-                    Insane
-                  </a>
-                  <a className="ui label">
-                    Exciting
-                  </a>
+                <div className="ui horizontal divided list">
+                  <div className="item primary">
+                    {User.nick}
+                  </div>
+                  <div className="item">
+                    {Club.ClubGroup.title} > <a href={"/club/" + Club.url}>{Club.title}</a>
+                  </div>
+                  <div className="item">
+                    {created_at}
+                  </div>
                 </div>
               </div>
+              <div className="ui description" dangerouslySetInnerHTML={{ __html: content }}></div>
+
+              <TagList items={Tags} />
+
               <div className="ui extra">
                 <div className="ui mini labeled button">
                   <div className="ui mini button red">
                     <i className="heart icon"></i><span> 좋아요</span>
                   </div>
-                  <a className="ui mini basic label">2,048</a>
+                  <a className="ui mini basic label">{like_count}</a>
                 </div>
                 <div className="ui mini labeled button">
                   <div className="ui mini button">
                     <i className="comment outline icon"></i><span> 댓글</span>
                   </div>
-                  <a className="ui mini basic label">2,048</a>
+                  <a className="ui mini basic label">{comment_count}</a>
                 </div>
               </div>
               <div className="ui hidden divider"></div>
               <div className="ui extra">
                 <div className="ui comments">
-                  <h3 className="ui dividing header">댓글 2개</h3>
+                  <h3 className="ui dividing header">댓글 {comment_count}개</h3>
                   <div className="comment">
                     <a className="avatar">
                       <img src="http://placehold.it/40x40"/></a>
@@ -160,137 +188,10 @@ let Post = React.createClass({
 
         </div>
 
-        <div id="club_section">
-          <h3 className="ui header">
-            <span>탈모 게시판</span>
-            <div className="sub header">탈모에관한 이야기를 나눠봅시다</div>
-          </h3>
-          <div className="ui divider"
-          ></div>
-          <div className="ui horizontal celled list">
-            <div className="item" style={{fontWeight:'bold'}}>
-              <div className="middle aligned content bold">
-                전체
-              </div>
-            </div>
-            <div className="item">
-              <div className="middle aligned content">
-                샴푸 (150)
-              </div>
-            </div>
-            <div className="item">
-              <div className="middle aligned content">
-                샴푸 (150)
-              </div>
-            </div>
-            <div className="item">
-              <div className="middle aligned content">
-                샴푸 (150)
-              </div>
-            </div>
-          </div>
-          <table className="ui table very compact">
-            <thead>
-            <tr>
-              <th className="center aligned collapsing">
-                말머리
-              </th>
-              <th className="center aligned collapsing">
-                조회
-              </th>
-              <th className="center aligned collapsing">
-                좋아요
-              </th>
-              <th className="center aligned collapsing">
-                댓글
-              </th>
-              <th className="center aligned">
-                제목
-              </th>
-              <th className="center aligned collapsing">
-                글쓴이
-              </th>
-              <th className="center aligned collapsing">
-                등록일
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td className="center aligned collapsing">
-                샴푸나라
-              </td>
-              <td className="center aligned collapsing">
-                10
-              </td>
-              <td className="center aligned collapsing">
-                120
-              </td>
-              <td className="right aligned collapsing">
-                120
-              </td>
-              <td className="left aligned">
-                스마트폰 액정필름, 케이스 제공 (중앙광장 T월드)
-              </td>
-              <td className="right aligned collapsing">
-                닉네임
-              </td>
-              <td className="center aligned collapsing">
-                2012.11.11
-              </td>
-            </tr>
-            <tr>
-              <td className="center aligned collapsing">
-                샴푸나라
-              </td>
-              <td className="center aligned collapsing">
-                10
-              </td>
-              <td className="center aligned collapsing">
-                1200
-              </td>
-              <td className="right aligned collapsing">
-                12012
-              </td>
-              <td className="left aligned">
-                스마트폰 액정필름, 케이스 제공 (중앙광장 T월드)
-              </td>
-              <td className="right aligned collapsing">
-                닉네임
-              </td>
-              <td className="center aligned collapsing">
-                2012.11.11
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <div className="ui right aligned container">
-            <div>글쓰기</div>
-          </div>
-          <div className="ui divider"></div>
-          <div className="ui center aligned container">
-            <div className="ui pagination menu">
-              <a className="active item">1</a>
-              <div className="disabled item">
-                ...
-              </div>
-              <a className="item">10</a>
-              <a className="item">11</a>
-              <a className="item">12</a>
-            </div>
-            <div className="ui search" style={{padding:'15px'}}>
-              <div className="ui icon input">
-                <input className="prompt" type="text" placeholder="Search animals..."/>
-                <i className="search icon"></i>
-              </div>
-              <div className="results"
-              ></div>
-            </div>
-          </div>
-        </div>
+        <ClubSections />
     </div>
     );
   }
 });
 
-export default Post;
+export default connectToStores(Post);

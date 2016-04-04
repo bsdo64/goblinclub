@@ -10,8 +10,7 @@ export function configSession() {
     store: new RedisStore({
       host: 'localhost',
       port: 6379,
-      db: 2,
-      pass: 'RedisPASS'
+      db: 0
     }),
     secret: '1234567890QWERTY',
     resave: false,
