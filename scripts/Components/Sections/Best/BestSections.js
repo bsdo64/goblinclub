@@ -39,7 +39,7 @@ const BestSection = React.createClass({
     }
   },
   render() {
-    const { data } = this.props.BestSectionStore;
+    const { data } = this.props.BestSectionStore.postsData;
 
     var createPostItem = function(item) {
       const {

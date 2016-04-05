@@ -5,8 +5,11 @@ const Composer = express.Router();
 
 Composer.use(function (req, res, next) {
   console.log(req.headers['referer']);
+  console.log(req.sessionID);
   var userToken = req.cookies.token;
+  var userSession = req.sessionID;
   Api.setToken(userToken);
+  Api.setSession(userSession);
 
   res.storeState = {};
   next();

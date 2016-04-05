@@ -13,6 +13,7 @@ export function configSession() {
       db: 0
     }),
     secret: '1234567890QWERTY',
+    name: 'sessionId',
     resave: false,
     saveUninitialized: false
   });

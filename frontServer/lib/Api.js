@@ -6,6 +6,7 @@ import request from 'superagent';
 class Api {
   constructor() {
     this.token = null;
+    this.sessionId = null;
     this.ApiEndPoint = (process.env.NODE_ENV === 'production' ?
       'http://www.gobblinclub.com/compose' : 'http://localhost:3001/compose');
   }
@@ -14,11 +15,17 @@ class Api {
     this.token = userToken;
   }
 
+  setSession(userSessionId) {
+    this.sessionId = userSessionId;
+  }
+
   get(url) {
     const requester = request.get(this.ApiEndPoint + url);
     if (this.token) {
       requester.set({token: this.token})
     }
+    
+    requester.set({sessionId: this.sessionId});
     return requester
   }
 }
