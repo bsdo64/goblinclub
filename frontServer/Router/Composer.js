@@ -26,7 +26,19 @@ function sendOK(resXHR, res, next) {
 }
 
 function errorHandler(errXHR, res, next) {
+  // API Server Auth Error
+  if (errXHR.status === 403) {
+    res.clearCookie('token');
+    delete req.session.token;
+
+    res.redirect('/');
+    return;
+  }
+
+  // API Server Not found
   if (errXHR.status === 404) {
+    console.log('-----------------', errXHR.body);
+
     res.redirect('/');
     return;
   }

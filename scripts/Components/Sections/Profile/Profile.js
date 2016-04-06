@@ -141,7 +141,7 @@ let Profile = React.createClass({
                 <div className="ui feed">
                   <div className="event">
                     <div className="label">
-                      <img src="/images/avatar/small/elliot.jpg"/>
+                      <img src="http://placehold.it/40x40"/>
                     </div>
                     <div className="content">
                       <div className="summary">
@@ -161,7 +161,7 @@ let Profile = React.createClass({
                   </div>
                   <div className="event">
                     <div className="label">
-                      <img src="/images/avatar/small/helen.jpg"/>
+                      <img src="http://placehold.it/40x40"/>
                     </div>
                     <div className="content">
                       <div className="summary">
@@ -171,8 +171,8 @@ let Profile = React.createClass({
                         </div>
                       </div>
                       <div className="extra images">
-                        <a><img src="/images/wireframe/image.png"/></a>
-                        <a><img src="/images/wireframe/image.png"/></a>
+                        <a><img src="http://placehold.it/40x40"/></a>
+                        <a><img src="http://placehold.it/40x40"/></a>
                       </div>
                       <div className="meta">
                         <a className="like">
@@ -183,7 +183,7 @@ let Profile = React.createClass({
                   </div>
                   <div className="event">
                     <div className="label">
-                      <img src="/images/avatar/small/jenny.jpg"/>
+                      <img src="http://placehold.it/40x40"/>
                     </div>
                     <div className="content">
                       <div className="summary">
@@ -203,7 +203,7 @@ let Profile = React.createClass({
                   </div>
                   <div className="event">
                     <div className="label">
-                      <img src="/images/avatar/small/joe.jpg"/>
+                      <img src="http://placehold.it/40x40"/>
                     </div>
                     <div className="content">
                       <div className="summary">
@@ -224,7 +224,7 @@ let Profile = React.createClass({
                   </div>
                   <div className="event">
                     <div className="label">
-                      <img src="/images/avatar/small/justen.jpg"/>
+                      <img src="http://placehold.it/40x40"/>
                     </div>
                     <div className="content">
                       <div className="summary">
@@ -234,8 +234,8 @@ let Profile = React.createClass({
                         </div>
                       </div>
                       <div className="extra images">
-                        <a><img src="/images/wireframe/image.png"/></a>
-                        <a><img src="/images/wireframe/image.png"/></a>
+                        <a><img src="http://placehold.it/40x40"/></a>
+                        <a><img src="http://placehold.it/40x40"/></a>
                       </div>
                       <div className="meta">
                         <a className="like">

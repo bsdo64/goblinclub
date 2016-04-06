@@ -16,17 +16,22 @@ if (process.env.BROWSER) {
 }
 
 const PostList = React.createClass({
-  render: function() {
-    const { title, Prefix, User, created_at, view_count, like_count, comment_count } = this.props.item;
-    return <tr >
+  displayName: 'PostList',
+  render: function () {
+    const { id, title, Prefix, User, created_at, view_count, like_count, comment_count } = this.props.item;
+    const { defaultPageUrl } = this.props;
+
+    return (
+      <tr >
         <td className="center aligned collapsing">{Prefix}</td>
         <td className="center aligned collapsing">{like_count}</td>
         <td className="center aligned collapsing">{view_count}</td>
         <td className="right aligned collapsing">{comment_count}</td>
-        <td className="left aligned">{title}</td>
+        <td className="left aligned"><a href={defaultPageUrl + id}>{title}</a></td>
         <td className="right aligned collapsing">{User.nick}</td>
         <td className="center aligned collapsing">{created_at}</td>
       </tr>
+    );
   }
 });
 
@@ -35,7 +40,7 @@ let ClubSections = React.createClass({
   statics: {
     getStores() {
       // this will handle the listening/unlistening for you
-      return [ClubSectionStore]
+      return [ClubSectionStore];
     },
 
     getPropsFromStores() {
@@ -47,9 +52,10 @@ let ClubSections = React.createClass({
   },
   render() {
     const { list, club } = this.props.ClubSectionStore;
-    const { title, description } = club;
+    const { title, description, url } = club;
     const { page, limit, total, data } = list;
 
+    const defaultPageUrl = '/club/' + url + '/';
     return (
       <div id="club_section">
         <div className="ui small breadcrumb">
@@ -95,7 +101,7 @@ let ClubSections = React.createClass({
           {
             data &&
             data.map(function (item) {
-              return <PostList item={item} />
+              return (<PostList item={item} defaultPageUrl={defaultPageUrl} />);
             })
           }
 
