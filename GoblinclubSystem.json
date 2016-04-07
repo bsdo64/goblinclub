@@ -42,5 +42,17 @@
     "env" : {
       "NODE": "4.2.1"
     }
+  },{
+    "name"        : "Document-Server",
+    "script"      : "document/server.js",
+    "watch"       : ["document/*\.js"],
+    "node_args"   : "--harmony",
+    "cwd"         : ".",
+    "error_file" : "log/document-server/err.log",
+    "out_file"   : "log/document-server/out.log",
+    "pid_file"   : "log/document-server/pid.pid",
+    "env" : {
+      "NODE": "4.2.1"
+    }
   }]
 }

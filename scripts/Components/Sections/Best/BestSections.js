@@ -106,6 +106,23 @@ const BestSection = React.createClass({
       };
     }
   },
+  componentDidMount() {
+    $('#item_list')
+      .visibility({
+        once: false,
+        // update size when new content loads
+        observeChanges: true,
+        // load content on bottom edge visible
+        onTopVisible: function () {
+          console.log('top visible');
+        },
+        onBottomVisible: function() {
+          // loads a max of 5 times
+          console.log('bottom');
+        }
+      });
+
+  },
   render() {
     const { data } = this.props.BestSectionStore.postsData;
 
@@ -119,8 +136,11 @@ const BestSection = React.createClass({
           {data.map(createPostItem)}
         </div>
 
-        <div className="err_load _more_show" style={{display: 'block'}}>
-          <p className="_more_show"><span className="_more_show">더보기</span></p>
+        <div className="ui items">
+          <div className="ui item ">
+            <div className="ui text active loader inline centered"></div>
+          </div>
+
         </div>
       </div>
     );

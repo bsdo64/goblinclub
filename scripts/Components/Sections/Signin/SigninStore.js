@@ -8,8 +8,8 @@ class SigninStore {
     this.state = {
       emailDup: null,
       nickDup: null,
+      emailRequested: null,
       submitResult: false,
-      verifyCode: null,
       emailVerifySuccess: false,
       emailVerifyFail: false
     };
@@ -37,8 +37,19 @@ class SigninStore {
       });
     }
   }
+  onRequestEmailVerify(result) {
+    if (result.result === 'ok') {
+      this.setState({
+        emailRequested: true
+      });
+    } else {
+      this.setState({
+        emailRequested: false
+      });
+    }
+  }
   onSubmit(result) {
-    if (result === 'ok') {
+    if (result.result === 'ok') {
       this.setState({
         submitResult: true
       });
@@ -48,17 +59,18 @@ class SigninStore {
       });
     }
   }
-  onEmailVerify(result) {
-    this.setState({verifyCode: result.verifyCode});
-  }
-  onEmailVerifySuccess(result) {
-    this.setState({
-      emailVerifySuccess: true,
-      emailVerifyFail: false
-    });
-  }
-  onEmailVerifyFail(result) {
-    this.setState({emailVerifyFail: result});
+  checkVerifyCode(result) {
+    if (result.result === 'ok') {
+      this.setState({
+        emailVerifySuccess: true,
+        emailVerifyFail: false
+      });
+    } else {
+      this.setState({
+        emailVerifySuccess: false,
+        emailVerifyFail: true
+      });
+    }
   }
 }
 

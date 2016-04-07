@@ -46,10 +46,10 @@ class SigninActions {
     };
   }
   
-  emailVerify(params) {
+  requestEmailVerify(params) {
     return (dispatch) => {
       Api
-        .post('/signin/emailVerify', params)
+        .post('/signin/requestEmailVerify', params)
         .then((res) => {
           dispatch(res);
         })
@@ -58,11 +58,18 @@ class SigninActions {
         });
     };
   }
-  emailVerifySuccess() {
-    return true;
-  }
-  emailVerifyFail() {
-    return true;
+
+  checkVerifyCode(params) {
+    return (dispatch) => {
+      Api
+        .post('/signin/checkEmailVerify', params)
+        .then((res) => {
+          dispatch(res);
+        })
+        .catch((err) => {
+          return err;
+        });
+    };
   }
 }
 

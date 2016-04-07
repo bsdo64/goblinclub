@@ -67,6 +67,10 @@ const SigninFormContents = React.createClass({
               {
                 type   : 'empty',
                 prompt : '닉네임을 입력해주세요'
+              },
+              {
+                type   : 'regExp[/^[a-z가-힣A-Z0-9_]+( [a-z가-힣A-Z0-9_]+)*$/]',
+                prompt : '한칸 이상 공백은 허용하지 않습니다'
               }
             ]
           },
@@ -120,35 +124,30 @@ const SigninFormContents = React.createClass({
     SigninActions.checkNick({signinNick: this.refs.signinNick.value});
   },
   handleSubmit() {
-    const {emailDup, nickDup, emailVerifyFail ,emailVerifySuccess} = this.props.SigninStore;
+    const {emailDup, nickDup, emailVerifyFail ,emailVerifySuccess, emailRequested} = this.props.SigninStore;
 
     if (emailVerifyFail) {
       return;
     }
 
-    if ((emailDup === false) && (nickDup === false) && (emailVerifySuccess === false)) {
+    if ((emailDup === false) && (nickDup === false) &&
+        (emailVerifySuccess === false) && (emailVerifyFail === false) &&
+        (!emailRequested)) {
       this.setState({emailVerifyFormOpen: true});
-      this.handleSendEmailVerify();
+      this._sendEmailVerify();
     }
 
-    if (!emailDup && !nickDup && !emailVerifyFail && emailVerifySuccess) {
+    if (!emailDup && !nickDup && !emailVerifyFail && emailVerifySuccess && emailRequested) {
       $(this.refs.signinform).form('validate form');
     }
   },
-  handleSendEmailVerify() {
-    const verifyCode = Math.floor(Math.random() * 900000) + 100000;
-    
-    SigninActions.emailVerify({
-      verifyCode: verifyCode,
-      email: this.refs.signinEmail.value
+  _sendEmailVerify() {
+    SigninActions.requestEmailVerify({
+      signinEmail: this.refs.signinEmail.value
     });
   },
   handleCheckEmailVerify() {
-    if (this.refs.emailVerify.value == this.props.SigninStore.verifyCode) {
-      SigninActions.emailVerifySuccess();
-    } else {
-      SigninActions.emailVerifyFail();
-    }
+    SigninActions.checkVerifyCode({verifyCode: this.refs.emailVerify.value});
   },
   render() {
     const {emailDup, nickDup, submitResult, emailVerifyFail, emailVerifySuccess} = this.props.SigninStore;
