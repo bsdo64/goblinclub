@@ -4,13 +4,50 @@
 import React from 'react';
 import {Link} from 'react-router';
 
+import connectToStores from 'alt-utils/lib/connectToStores';
+import UserStore from '../../Flux/Stores/UserStore';
+import LoginStore from '../MainHeader/LoginStore';
+import _ from 'lodash';
+import moment from 'moment';
+moment.locale('ko');
+
 if (process.env.BROWSER) {
   require('./Default.scss');
 }
 
 const Aside = React.createClass({
   displayName: 'Aside',
+  statics: {
+    getStores() {
+      // this will handle the listening/unlistening for you
+      return [UserStore, LoginStore];
+    },
+
+    getPropsFromStores() {
+      // this is the data that gets passed down as props
+      return {
+        UserStore: UserStore.getState(),
+        LoginStore: LoginStore.getState()
+      };
+    }
+  },
   render() {
+    const { login, user } = this.props.UserStore;
+
+    _.reduce(user, (result, value, key) => {
+      if (value.joined_at) {
+        value.joined_at = moment(value.joined_at, moment.ISO_8601).format('YYYY-MM-DD');
+      }
+      if (value.created_at) {
+        value.created_at = moment(value.created_at, moment.ISO_8601).format('YYYY-MM-DD');
+      }
+      if (value.updated_at) {
+        value.updated_at = moment(value.updated_at, moment.ISO_8601).format('YYYY-MM-DD');
+      }
+      result[key] = value;
+      return result;
+    }, {});
+
     return (
       <div className="aside">
         <div className="widget_area _widget_area">
@@ -22,48 +59,61 @@ const Aside = React.createClass({
             <a href="/club" className="item">
               클럽
             </a>
-            <a href="/profile" className="item">
-              내 정보
-            </a>
+            {
+              login &&
+              <a href="/profile" className="item">
+                내 정보
+              </a>
+            }
           </div>
+
           <div id="section_cldmm">
 
-            <div id="section_signin" className="section_signin widget">
-              <Link to="signin" className="ui submit primary button fluid small">
-                지금 가입하세요!
-              </Link>
-            </div>
+            {
+              !login &&
+              <div id="section_signin" className="section_signin widget">
+                <Link to="signin" className="ui submit primary button fluid small">
+                  지금 가입하세요!
+                </Link>
+              </div>
+            }
 
-            <div id="section_userinfo" className="widget">
-              <div className="ui cards">
-                <div className="card">
-                  <div className="content userinfo_header" >
-                    <div className="ui description" >회원 정보</div>
-                  </div>
-                  <div className="content">
-                    <div className="ui items">
-                      <div className="ui item">
-                        <a className="ui tiny image">
-                          <img src="http://placehold.it/100x100" />
-                        </a>
-                        <div className="content">
-                          <a className="header">닉네임</a>
-                          <div className="description">
-                            <div className="item">
-                              등급 :  
-                              <div className="ui right floated bold"><b>일반 회원</b></div>
-                            </div>
-                            <div className="item">
-                              명성 :
-                              <div className="ui right floated">1032 점</div>
-                            </div>
-                            <div className="item">
-                              포인트 : 
-                              <div className="ui right floated">120 P</div>
-                            </div>
-                            <div className="item">
-                              가입일: 
-                            <div className="ui right floated">2015.11.11</div>
+            <div id="section_info" className="widget">
+              {
+                login && user &&
+                <div id="widget_user_info" className="ui cards">
+                  <div className="card">
+                    <div className="content userinfo_header" >
+                      <div className="ui description" >회원 정보</div>
+                    </div>
+                    <div className="content">
+                      <div className="ui items">
+                        <div className="ui item">
+                          <a className="ui tiny image">
+                            {
+                              !user.UserProfile.avatar_img &&
+                              <img src="/statics/img/default-male.png" />
+                            }
+                          </a>
+                          <div className="content">
+                            <a className="header">{user.nick}</a>
+                            <div className="description">
+                              <div className="item">
+                                랭크 :
+                                <div className="ui right floated bold"><b>{user.UserGrade.Grade.name}</b></div>
+                              </div>
+                              <div className="item">
+                                명성 :
+                                <div className="ui right floated">{user.UserReputation.amount + ' R'}</div>
+                              </div>
+                              <div className="item">
+                                활동점수 :
+                                <div className="ui right floated">{user.UserPoint.amount + ' P'}</div>
+                              </div>
+                              <div className="item">
+                                가입일:
+                                <div className="ui right floated">{user.UserProfile.joined_at}</div>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -71,7 +121,7 @@ const Aside = React.createClass({
                     </div>
                   </div>
                 </div>
-              </div>
+              }
             </div>
 
             <div className="notice_ftr">
@@ -80,15 +130,11 @@ const Aside = React.createClass({
                 <li><a target="_blank" href="https://help.naver.com/support/service/main.nhn?serviceNo=984" className="">고객센터</a></li>
               </ul>
             </div>
-            <div className="btn_top" style={{top: '50%'}}>
-              <a href="#" title="맨위로"><em className="blind">맨위로</em></a>
-            </div>
           </div>
         </div>
       </div>
-
-    )
+    );
   }
 });
 
-export default Aside;
+export default connectToStores(Aside);

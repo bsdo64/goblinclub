@@ -6,8 +6,8 @@ if (process.env.BROWSER) {
 }
 
 const tmpCommentconf = {
-  commentLength: 25,
-  subCommentLength: 25
+  commentLength: 100,
+  subCommentLength: 100
 };
 
 let tempData = {
@@ -167,6 +167,9 @@ const CommentList = React.createClass({
 
 const PostComment = React.createClass({
   displayName: 'PostComment',
+  handleSetPage(pagination) {
+    console.log(pagination);
+  },
   render() {
     const { page, limit, total, data } = tempData; // = this.props.comments;
     return (
@@ -175,7 +178,7 @@ const PostComment = React.createClass({
 
         <div className="ui extra">
           <div className="ui comments">
-            <h5 className="ui dividing header">{'댓글 ' + data.length + '개'}</h5>
+            <h5 className="ui dividing header">{'댓글 ' + total + '개'}</h5>
 
             <CommentList comments={data} />
 
@@ -194,6 +197,7 @@ const PostComment = React.createClass({
                 total={total}
                 limit={limit}
                 page={page}
+                handleSetPage={this.handleSetPage}
               />
             </div>
 

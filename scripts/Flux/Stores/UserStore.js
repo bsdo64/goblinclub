@@ -5,16 +5,13 @@ class UserStore {
   constructor() {
     this.bindActions(UserActions);
 
-    this.state = {
-      auth: {
-        token: null,
-        user: {}
-      },
-      loadingAuth: false,
-      loadedAuth: false,
-      authFail: false,
-      authSuccess: false
-    };
+    this.state = {};
+  }
+
+  onRequestLogout(res) {
+    if (res.result === 'ok') {
+      this.setState({login: false, logout: true});
+    }
   }
 
   onLoginUser() {

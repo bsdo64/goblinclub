@@ -5,6 +5,7 @@ import React from 'react';
 import Radium, {StyleRoot} from 'radium';
 
 import AppActions from '../App/AppActions';
+import LoginModalBox from '../MainHeader/LoginModalBox';
 
 if (process.env.BROWSER) {
   require('./Default.scss');
@@ -29,6 +30,8 @@ let Default = React.createClass({
         {Header}
 
         {Container}
+
+        <LoginModalBox />
       </div>
     );
   }

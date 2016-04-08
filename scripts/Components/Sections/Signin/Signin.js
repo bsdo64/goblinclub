@@ -3,18 +3,17 @@
  */
 import React from 'react';
 
-import {Link} from 'react-router';
-
 if (process.env.BROWSER) {
   require('./Signin.scss');
 }
 
 import SigninContents from './SigninContents';
 import SigninFormContents from './SigninFormContents';
-import Aside from '../../Aside/Default';
 
 let HeaderLogo = React.createClass({
-  displayName: 'HeaderLogo', propTypes: {}, contextTypes: {
+  displayName: 'HeaderLogo',
+  propTypes: {},
+  contextTypes: {
     router: React.PropTypes.object.isRequired
   },
 
@@ -22,18 +21,22 @@ let HeaderLogo = React.createClass({
     return {
       term: false, privacy: false, agree: false
     };
-  }, submitAgreement() {
-    const { term, privacy } = this.state;
+  },
+  submitAgreement() {
+    const {term, privacy} = this.state;
 
     if (term && privacy) {
-      this.setState({ agree: true });
+      this.setState({agree: true});
     }
-  }, handleCheckTerms() {
-    this.setState({ term: !this.state.term });
-  }, handleCheckPrivacy() {
-    this.setState({ privacy: !this.state.privacy });
-  }, render() {
-    const { agree } = this.state;
+  },
+  handleCheckTerms() {
+    this.setState({term: !this.state.term});
+  },
+  handleCheckPrivacy() {
+    this.setState({privacy: !this.state.privacy});
+  },
+  render() {
+    const {agree} = this.state;
     return (
       <div id="signing">
         {

@@ -8,20 +8,41 @@ import {Navbar} from 'react-bootstrap';
 
 import connectToStores from '../../../node_modules/alt-utils/lib/connectToStores';
 import UserStore from '../../Flux/Stores/UserStore';
-import AppStore from '../App/AppStore';
+import LoginStore from './LoginStore';
+import LoginActions from './LoginActions';
+import UserActions from '../../Flux/Actions/UserActions';
 
 import HeaderLogo from './HeaderLogo';
 import HeaderLoginButton from './HeaderLoginButton';
 import HeaderUserButtons from './HeaderUserButtons';
 import SearchBar from './HeaderSearchBar';
-import LoginModal from '../Login/LoginModal';
 import styles from './HeaderStyle';
+
+import LoginModalBox from './LoginModalBox';
 
 if (process.env.BROWSER) {
   require('./header.scss');
   require('./gnb.scss');
   require('./loginModal.scss');
 }
+
+let LoginButton = React.createClass({
+  displayName: 'LoginButton',
+  handleOpenLoginModal() {
+    LoginActions.openLoginModal();
+  },
+  render() {
+    return (
+      <div className="item">
+        <div className="ui mini button green"
+             style={{padding: '5px 10px', borderRadius: '2px', backgroundColor: '#154945'}}
+             onClick={this.handleOpenLoginModal} >
+          {'로그인'}
+        </div>
+      </div>
+    );
+  }
+});
 
 let Header = React.createClass({
   displayName: 'Header',
@@ -33,14 +54,14 @@ let Header = React.createClass({
   statics: {
     getStores() {
       // this will handle the listening/unlistening for you
-      return [UserStore, AppStore];
+      return [UserStore, LoginStore];
     },
 
     getPropsFromStores() {
       // this is the data that gets passed down as props
       return {
         UserStore: UserStore.getState(),
-        AppStore: AppStore.getState()
+        LoginStore: LoginStore.getState()
       };
     }
   },
@@ -65,14 +86,90 @@ let Header = React.createClass({
   handleToggleProfilePopup() {
     $('#profile_id_button').popup({ popup : $('#profile_popup') }).popup('toggle');
   },
-  handleOpenLoginModal() {
-    $('.ui.small.modal').modal('setting', {
-      detachable: true,
-      duration:	400
-    }).modal('show');
+  handleLogout() {
+    UserActions.requestLogout();
+  },
+
+  handleSubmit() {
+    console.log('Hello world handleSubmit');
+    $(this.refs.loginform).form('validate form');
   },
   render() {
-    const {authSuccess, auth} = this.props.UserStore;
+    const {logout, login, user} = this.props.UserStore;
+
+    if (logout) {
+      location.href = '/';
+    }
+
+    let loginButton,
+        userButtons;
+
+    if (!login) {
+      loginButton = <LoginButton
+        LoginStore={this.props.LoginStore}
+        handleSubmit={this.handleSubmit}
+      />;
+    } else {
+      userButtons = [
+        <div className="item gnb_my_namebox">
+          {
+            !user.UserProfile.avatar_img &&
+            <img className="gnb_my ui avatar image" src="/statics/img/default-male.png"/>
+          }
+          <a id="profile_id_button" className="text" >닉네임</a>
+          <div id="profile_popup" className="ui popup">
+            <div className="ui vertical menu secondary">
+              <a className="active item">내 프로필</a>
+              <a className="item">내 활동</a>
+              <a className="item">도움말</a>
+              <div className="ui divider"></div>
+              <a href="http://www.google.com" className="item">
+                설정
+              </a>
+              <a className="item" onClick={this.handleLogout}>
+                로그아웃
+              </a>
+            </div>
+          </div>
+        </div>,
+
+        <div className="item">
+          <i className="large alarm icon" />
+          <div id="alarm_popup" className="ui segment popup"  style={{width: 250}}>
+            <div className="ui feed ">
+              <div className="event">
+                <div className="label">
+                  <img src="http://placehold.it/40x40" />
+                </div>
+                <div className="content">
+                  <div className="summary">
+                    You added <a>Jenny Hess</a> to your <a>coworker</a> group.
+                    <div className="date">
+                      3 days ago
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="event">
+                <div className="label">
+                  <img src="http://placehold.it/40x40" />
+                </div>
+                <div className="content">
+                  <div className="summary">
+                    You added <a>Jenny Hess</a> to your <a>coworker</a> group.
+                    <div className="date">
+                      3 days ago
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      ];
+    }
+
     return (
       <div id="header">
         <div className="head_contents">
@@ -94,119 +191,16 @@ let Header = React.createClass({
               <div className="my_area">
                 <div id="gnb" className="gnb_dark_type2" style={{right: '20px'}}>
                   <div className="ui horizontal list" style={{color: '#fff'}}>
-                    <div className="item">
-                      <div className="ui mini button green"
-                           style={{padding: '5px 10px', borderRadius: '2px', backgroundColor: '#154945'}}
-                           onClick={this.handleOpenLoginModal}>
-                        로그인
-                      </div>
 
-                      {/* Modal */}
-                      <div className="ui small modal gb_login">
-                        <i className="close icon"></i>
-                        <div className="content">
+                    {
+                      !login &&
+                      <LoginButton
+                        LoginStore={this.props.LoginStore}
+                        handleSubmit={this.handleSubmit}
+                      />
+                    }
 
-                          <div id="daumHead" role="banner">
-                            <h1>
-                              <a href="/" id="daumServiceLogo"><span
-                                className="ir_wa">Goblin Club</span></a>
-                            </h1>
-                          </div>
-
-                          <div id="daumContent" role="main">
-                            <div id="mArticle">
-                              <form className="ui form">
-                                <div className="field">
-                                  <label>아이디</label>
-                                  <input type="text" name="first-name" placeholder="아이디" />
-                                </div>
-                                <div className="field">
-                                  <label>비밀번호</label>
-                                  <input type="password" name="last-name" placeholder="비밀번호"/>
-                                </div>
-                                <div className="inline field">
-                                  <div className="ui checkbox">
-                                    <input type="checkbox" id="agreement-checkbox" />
-                                    <label htmlFor="agreement-checkbox">약관에 동의하고 가입합니다</label>
-                                  </div>
-                                </div>
-                                <button className="ui primary button fluid" type="submit">로그인</button>
-                                <div className="login_append">
-                                  <a href="/member/find/loginId" className="link_find">아이디</a>
-                                  <span> / </span>
-                                  <a href="/member/find/password" className="link_find">비밀번호찾기</a>
-                                  <span className="txt_bar">|</span>
-                                  <Link to="/signin" className="ico_comm link_join">회원 가입하기</Link>
-                                </div>
-                              </form>
-                            </div>
-                            <div id="daumFoot" className="footer_tistory" role="contentinfo">
-                              <div className="inner_footer">
-                                <address className="txt_copyright">Copyright © <a
-                                  href="http://www.kakaocorp.com/" className="link_daum">Kakao Corp.</a>
-                                  All rights reserved.
-                                </address>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-
-                    <div className="item gnb_my_namebox">
-                      <img className="gnb_my ui avatar image" src="http://placehold.it/40x40"/>
-                      <a id="profile_id_button" className="text" >닉네임</a>
-                      <div id="profile_popup" className="ui popup">
-                          <div className="ui vertical menu secondary">
-                            <a className="active item">내 프로필</a>
-                            <a className="item">내 활동</a>
-                            <a className="item">도움말</a>
-                            <div className="ui divider"></div>
-                            <a href="http://www.google.com" className="item">
-                              설정
-                            </a>
-                            <a href="http://www.google.com" className="item">
-                              로그아웃
-                            </a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="item">
-                      <i className="large alarm icon" />
-                      <div id="alarm_popup" className="ui segment popup"  style={{width: 250}}>
-                        <div className="ui feed ">
-                          <div className="event">
-                            <div className="label">
-                              <img src="http://placehold.it/40x40" />
-                            </div>
-                            <div className="content">
-                              <div className="summary">
-                                You added <a>Jenny Hess</a> to your <a>coworker</a> group.
-                                <div className="date">
-                                  3 days ago
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="event">
-                            <div className="label">
-                              <img src="http://placehold.it/40x40" />
-                            </div>
-                            <div className="content">
-                              <div className="summary">
-                                You added <a>Jenny Hess</a> to your <a>coworker</a> group.
-                                <div className="date">
-                                  3 days ago
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
+                    { userButtons }
 
                   </div>
                 </div>

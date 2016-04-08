@@ -11,6 +11,7 @@ export default class PaginatorApp extends React.Component {
   constructor(props) {
     super(props);
 
+    this.displayName = 'PaginatorApp';
     this.state = {
       dataLength: props.total || 0,
       pagination: {
@@ -30,9 +31,12 @@ export default class PaginatorApp extends React.Component {
 
     pagination.page = Math.min(Math.max(page, 1), pages);
 
+    console.log(page);
     this.setState({
       pagination: pagination
     });
+
+    this.props.handleSetPage(this.state.pagination);
   }
 
   onPerPage(event) {
@@ -74,13 +78,13 @@ export default class PaginatorApp extends React.Component {
             pages: pages,
             beginPages: 1,
             endPages: 1,
-            sidePages: 5
+            sidePages: 3
           })}
         onSelect={this.selectPage}
         ellipsis={'…'}
       >
         { /*<Paginator.Button page={pagination.page - 10} className="item">{'< 10'}</Paginator.Button>*/ }
-        <Paginator.Button page={pagination.page - 1} className="item">{'<'}</Paginator.Button>
+        <Paginator.Button page={pagination.page - 1} className="ui item">{'<'}</Paginator.Button>
 
         <Paginator.Segment field="beginPages" className="item"/>
 
@@ -88,7 +92,7 @@ export default class PaginatorApp extends React.Component {
                             previousField="beginPages" nextField="previousPages">...</Paginator.Ellipsis>
 
         <Paginator.Segment field="previousPages" className="previous_pages"/>
-        <Paginator.Segment field="centerPage" className="active item"/>
+        <Paginator.Segment field="centerPage" className="ui active item"/>
         <Paginator.Segment field="nextPages" className="next_pages"/>
 
         <Paginator.Ellipsis className="item disabled"
@@ -96,7 +100,7 @@ export default class PaginatorApp extends React.Component {
 
         <Paginator.Segment field="endPages" className="item"/>
 
-        <Paginator.Button page={pagination.page + 1} className="item">{'>'}</Paginator.Button>
+        <Paginator.Button page={pagination.page + 1} className="ui item">{'>'}</Paginator.Button>
         { /*<Paginator.Button page={pagination.page + 10} className="item">{'10 >'}</Paginator.Button>*/ }
       </Paginator.Context>
     );

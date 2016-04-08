@@ -8,7 +8,7 @@ class Api {
     this.token = null;
     this.sessionId = null;
     this.ApiEndPoint = (process.env.NODE_ENV === 'production' ?
-      'http://www.gobblinclub.com/compose' : 'http://localhost:3001/compose');
+      'http://localhost:3001/compose' : 'http://localhost:3001/compose');
   }
 
   setToken(userToken) {

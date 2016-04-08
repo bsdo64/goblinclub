@@ -133,7 +133,9 @@ const BestSection = React.createClass({
     return (
       <div className="thrd_contents _news_box" >
         <div id="item_list" className="ui items">
-          {data.map(createPostItem)}
+          {
+            data.map(createPostItem)
+          }
         </div>
 
         <div className="ui items">

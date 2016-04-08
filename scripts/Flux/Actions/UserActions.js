@@ -6,6 +6,19 @@ import Api from '../../Utils/ApiClient';
 import Validator from '../../Utils/validator';
 
 class UserActions {
+  requestLogout() {
+    return (dispatch) => {
+      Api
+        .post('/logout')
+        .then((res) => {
+          dispatch(res);
+        })
+        .catch((err) => {
+          return err;
+        });
+    };
+  }
+
   loginUser(user) {
     const uiValidator = new Validator();
 
