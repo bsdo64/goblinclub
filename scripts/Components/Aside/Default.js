@@ -34,6 +34,20 @@ const Aside = React.createClass({
   render() {
     const { login, user } = this.props.UserStore;
 
+    let avatarImg;
+    if ( user && user.UserProfile ) {
+      const { sex, avatar_img } = user.UserProfile;
+      if (avatar_img) {
+        avatarImg = <img src={'/image/files/' + avatar_img + '.png'} />;
+      } else {
+        if (sex) {
+          avatarImg = <img src="/statics/img/default-male.png" />;
+        } else {
+          avatarImg = <img src="/statics/img/default-female.png" />;
+        }
+      }
+    }
+
     _.reduce(user, (result, value, key) => {
       if (value.joined_at) {
         value.joined_at = moment(value.joined_at, moment.ISO_8601).format('YYYY-MM-DD');
@@ -90,10 +104,7 @@ const Aside = React.createClass({
                       <div className="ui items">
                         <div className="ui item">
                           <a className="ui tiny image">
-                            {
-                              !user.UserProfile.avatar_img &&
-                              <img src="/statics/img/default-male.png" />
-                            }
+                            { avatarImg }
                           </a>
                           <div className="content">
                             <a className="header">{user.nick}</a>

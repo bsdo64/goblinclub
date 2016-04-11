@@ -11,6 +11,10 @@ class PostSectionStore {
   onRequestComment(comments) {
     this.setState({Comments: comments});
   }
+
+  onRequestSubmitComment(comments) {
+    this.setState({Comments: comments});
+  }
 }
 
 export default alt.createStore(PostSectionStore, 'PostSectionStore');

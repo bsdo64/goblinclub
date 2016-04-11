@@ -59,7 +59,7 @@ const CommentItem = React.createClass({
               </div>
               <div className="ui primary submit labeled icon button">
                 <i className="icon edit"></i>
-                <span> Add Reply</span>
+                <span>댓글 달기</span>
               </div>
             </form>
           }
@@ -132,11 +132,27 @@ const CommentList = React.createClass({
 
 const PostComment = React.createClass({
   displayName: 'PostComment',
+  getInitialState() {
+    return {
+      commentValue: ''
+    }
+  },
   handleSetPage(pagination) {
     PostSectionActions.requestComment(this.props.postId, pagination.page, pagination.perPage);
   },
+  handleComment(e) {
+    this.setState({commentValue: e.target.value})
+  },
+  handleSubmitComment() {
+    PostSectionActions.requestSubmitComment(
+      this.props.postId,
+      this.state.commentValue
+    );
+  },
   render() {
     const { comments, total } = this.props; // = this.props.comments;
+    const commentValue = this.state.commentValue.replace('\\n', '\n');
+
     const page = 1,
           limit = 10,
           paginationVisible = page * limit < total;
@@ -153,11 +169,11 @@ const PostComment = React.createClass({
 
             <form className="ui reply form">
               <div className="field">
-                <textarea></textarea>
+                <textarea onChange={this.handleComment} value={commentValue} />
               </div>
-              <div className="ui primary submit labeled icon button">
+              <div className="ui primary submit labeled icon button" onClick={this.handleSubmitComment}>
                 <i className="icon edit"></i>
-                <span> Add Reply</span>
+                <span>댓글 달기</span>
               </div>
             </form>
 

@@ -67,7 +67,21 @@ const PostPage = React.createClass({
   displayName: 'PostPage',
   render() {
     const { id, title, content, comment_count, User, Tags, created_at, Comments, Club, like_count} = this.props.PostSectionStore;
-    console.log(Comments.length);
+
+    let avatarImg;
+    if ( User && User.UserProfile ) {
+      const { sex, avatar_img } = User.UserProfile;
+      if (avatar_img) {
+        avatarImg = <img src={'/image/files/' + avatar_img + '.png'} />;
+      } else {
+        if (sex) {
+          avatarImg = <img src="/statics/img/default-male.png" />;
+        } else {
+          avatarImg = <img src="/statics/img/default-female.png" />;
+        }
+      }
+    }
+    
     return (
       <div style={{padding: '25px'}} id="post_view">
 
@@ -81,7 +95,7 @@ const PostPage = React.createClass({
         <div id="" className="ui items">
           <div className="ui item">
             <div className="ui tiny image">
-              <img src="http://dummyimage.com/40x40"/>
+              { avatarImg }
             </div>
             <div className="ui content">
 

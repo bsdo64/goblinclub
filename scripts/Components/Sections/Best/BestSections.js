@@ -45,10 +45,24 @@ const BestPost = React.createClass({
       ClubGroup, Club, User, Tags
     } = this.props.post;
 
+    let avatarImg;
+    if ( User && User.UserProfile ) {
+      const { sex, avatar_img } = User.UserProfile;
+      if (avatar_img) {
+        avatarImg = <img src={'/image/files/' + avatar_img + '.png'} />;
+      } else {
+        if (sex) {
+          avatarImg = <img src="/statics/img/default-male.png" />;
+        } else {
+          avatarImg = <img src="/statics/img/default-female.png" />;
+        }
+      }
+    }
+
     return (
       <div key={id} className="ui item">
-        <div className="ui image">
-          <img src="http://dummyimage.com/40x40" />
+        <div className="ui image tiny">
+          { avatarImg }
         </div>
         <div className="ui content">
           <h2 className="ui header"><a href={"/club/" + Club.url + "/" + id}>{title}</a></h2>

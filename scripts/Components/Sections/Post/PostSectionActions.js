@@ -19,6 +19,21 @@ class PostSectionActions {
         });
     };
   }
+
+  requestSubmitComment(postId, content) {
+    return (dispatch) => {
+      Api
+        .post('/post/comment/', {post_id: postId, content: content})
+        .then((res) => {
+          dispatch(res);
+        })
+        .catch((err) => {
+          if (err) {
+            return err;
+          }
+        })
+    }
+  }
 }
 
 export default alt.createActions(PostSectionActions);
