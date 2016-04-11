@@ -139,7 +139,7 @@ let Header = React.createClass({
             <div className="ui feed ">
               <div className="event">
                 <div className="label">
-                  <img src="http://placehold.it/40x40" />
+                  <img src="http://dummyimage.com/40x40" />
                 </div>
                 <div className="content">
                   <div className="summary">
@@ -152,7 +152,7 @@ let Header = React.createClass({
               </div>
               <div className="event">
                 <div className="label">
-                  <img src="http://placehold.it/40x40" />
+                  <img src="http://dummyimage.com/40x40" />
                 </div>
                 <div className="content">
                   <div className="summary">
@@ -182,8 +182,8 @@ let Header = React.createClass({
               </h2>
 
               <div className="top_menu">
-                <div className="ui search">
-                  <input className="prompt" type="text" placeholder="Common passwords..." />
+                <div className="ui input fluid small">
+                  <input type="text" placeholder="여기에 검색.." />
                     <div className="results"></div>
                 </div>
               </div>

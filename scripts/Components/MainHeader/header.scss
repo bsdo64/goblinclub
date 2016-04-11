@@ -21,11 +21,9 @@
         margin: 0 auto;
 
         .top_logo {
-          overflow: hidden;
           float: left;
-          height: 42px;
           padding-top: 10px;
-          margin-left: 26px;
+          margin-left: 10px;
 
           span.logo_ci {
             width: 150px;
@@ -40,6 +38,7 @@
           }
         }
         .top_menu {
+          padding-top: 0.7em;
           line-height: 50px;
           position: relative;
           margin-left: 180px;

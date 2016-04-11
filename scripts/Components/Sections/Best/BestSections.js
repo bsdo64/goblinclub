@@ -48,7 +48,7 @@ const BestPost = React.createClass({
     return (
       <div key={id} className="ui item">
         <div className="ui image">
-          <img src="http://placehold.it/40x40" />
+          <img src="http://dummyimage.com/40x40" />
         </div>
         <div className="ui content">
           <h2 className="ui header"><a href={"/club/" + Club.url + "/" + id}>{title}</a></h2>

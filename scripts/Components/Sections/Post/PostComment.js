@@ -1,45 +1,10 @@
 import React from 'react';
 import Paginatior from '../../../Lib/Paginatior';
 
+import PostSectionActions from './PostSectionActions';
+
 if (process.env.BROWSER) {
   require('./Post.scss');
-}
-
-const tmpCommentconf = {
-  commentLength: 100,
-  subCommentLength: 100
-};
-
-let tempData = {
-  page: 1,
-  limit: 5,
-  total: tmpCommentconf.commentLength,
-  data: []
-};
-
-for (let i = 0; i < tmpCommentconf.commentLength; i++) {
-  let tempSubcomment = [];
-
-  for (let j = 0; j < tmpCommentconf.subCommentLength; j++) {
-    tempSubcomment.push({
-      id: j + 1,
-      content: 'Hello sub comment' + j,
-      User: { nick: '안녕' + j},
-      created_at: (j + 1) + '일 전',
-      sub_comment_like_count: j
-    });
-  }
-
-  tempData.data.push({
-    id: i + 1,
-    content: 'Hello comment1',
-    created_at: (i + 1) + '일 전',
-    comment_like_count: i + 1,
-    sub_comment_count: tmpCommentconf.subCommentLength,
-    User: { nick: 'test' + i},
-    SubComments: tempSubcomment
-  });
-  tempSubcomment = [];
 }
 
 const CommentItem = React.createClass({
@@ -62,7 +27,7 @@ const CommentItem = React.createClass({
     return (
       <div className="comment">
         <a className="avatar">
-          <img src="http://placehold.it/40x40"/></a>
+          <img src="http://dummyimage.com/40x40"/></a>
         <div className="content">
           <a className="author">{comment.User.nick}</a>
           <div className="metadata">
@@ -111,7 +76,7 @@ const SubCommentItem = React.createClass({
     return (
       <div className="comment">
         <a className="avatar">
-          <img src="http://placehold.it/40x40" />
+          <img src="http://dummyimage.com/40x40" />
         </a>
         <div className="content">
           <a className="author">{subcomment.User.nick}</a>
@@ -168,10 +133,14 @@ const CommentList = React.createClass({
 const PostComment = React.createClass({
   displayName: 'PostComment',
   handleSetPage(pagination) {
-    console.log(pagination);
+    PostSectionActions.requestComment(this.props.postId, pagination.page, pagination.perPage);
   },
   render() {
-    const { page, limit, total, data } = tempData; // = this.props.comments;
+    const { comments, total } = this.props; // = this.props.comments;
+    const page = 1,
+          limit = 10,
+          paginationVisible = page * limit < total;
+
     return (
       <div>
         <div className="ui hidden divider"></div>
@@ -180,7 +149,7 @@ const PostComment = React.createClass({
           <div className="ui comments">
             <h5 className="ui dividing header">{'댓글 ' + total + '개'}</h5>
 
-            <CommentList comments={data} />
+            <CommentList comments={comments} />
 
             <form className="ui reply form">
               <div className="field">
@@ -193,12 +162,16 @@ const PostComment = React.createClass({
             </form>
 
             <div className="ui center aligned container segment basic">
-              <Paginatior
-                total={total}
-                limit={limit}
-                page={page}
-                handleSetPage={this.handleSetPage}
-              />
+              {
+                paginationVisible &&
+                <Paginatior
+                  total={total}
+                  limit={limit}
+                  page={page}
+                  handleSetPage={this.handleSetPage}
+                />
+
+              }
             </div>
 
           </div>

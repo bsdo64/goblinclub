@@ -26,7 +26,7 @@ let Account = React.createClass({
         <div id="" className="ui items">
           <div className="ui item">
             <div className="ui tiny image">
-              <img src="http://placehold.it/40x40"/>
+              <img src="http://dummyimage.com/40x40"/>
             </div>
             <div className="ui content">
               <h2 className="ui header">중고 팩스, 삼성 팩스, 분당지역</h2>
@@ -74,7 +74,7 @@ let Account = React.createClass({
                   <h3 className="ui dividing header">댓글 2개</h3>
                   <div className="comment">
                     <a className="avatar">
-                      <img src="http://placehold.it/40x40"/></a>
+                      <img src="http://dummyimage.com/40x40"/></a>
                     <div className="content">
                       <a className="author">Matt</a>
                       <div className="metadata">
@@ -102,7 +102,7 @@ let Account = React.createClass({
                   </div>
                   <div className="comment">
                     <a className="avatar">
-                      <img src="http://placehold.it/40x40"/></a>
+                      <img src="http://dummyimage.com/40x40"/></a>
                     <div className="content">
                       <a className="author">Matt</a>
                       <div className="metadata">

@@ -6,9 +6,12 @@
  */
 import React from 'react';
 
+import Paginator from '../../../Lib/Paginatior';
+
 import connectToStores from 'alt-utils/lib/connectToStores';
 import ClubSectionActions from './ClubSectionActions';
 import ClubSectionStore from './ClubSectionStore';
+import UserStore from '../../../Flux/Stores/UserStore';
 
 
 if (process.env.BROWSER) {
@@ -19,15 +22,20 @@ const PostList = React.createClass({
   displayName: 'PostList',
   render: function () {
     const { id, title, Prefix, User, created_at, view_count, like_count, comment_count } = this.props.item;
-    const { defaultPageUrl } = this.props;
+    const { defaultPageUrl, page } = this.props;
+
+    let activeClass;
+    if (id === this.props.postId) {
+      activeClass = 'active';
+    }
 
     return (
-      <tr >
-        <td className="center aligned collapsing">{Prefix}</td>
+      <tr className={activeClass}>
+        <td className="center aligned collapsing">{Prefix && Prefix.name}</td>
         <td className="center aligned collapsing">{like_count}</td>
         <td className="center aligned collapsing">{view_count}</td>
         <td className="right aligned collapsing">{comment_count}</td>
-        <td className="left aligned"><a href={defaultPageUrl + id}>{title}</a></td>
+        <td className="left aligned"><a href={defaultPageUrl + id + '?p=' + page}>{title}</a></td>
         <td className="right aligned collapsing">{User.nick}</td>
         <td className="center aligned collapsing">{created_at}</td>
       </tr>
@@ -40,30 +48,36 @@ let ClubSections = React.createClass({
   statics: {
     getStores() {
       // this will handle the listening/unlistening for you
-      return [ClubSectionStore];
+      return [ClubSectionStore, UserStore];
     },
 
     getPropsFromStores() {
       // this is the data that gets passed down as props
       return {
-        ClubSectionStore: ClubSectionStore.getState()
+        ClubSectionStore: ClubSectionStore.getState(),
+        UserStore: UserStore.getState()
       };
     }
   },
+  handleSetPage(pagination) {
+    ClubSectionActions.requestPosts(this.props.ClubSectionStore.club.id, pagination);
+  },
   render() {
     const { list, club } = this.props.ClubSectionStore;
-    const { title, description, url } = club;
+    const { user, login } = this.props.UserStore;
+    const { title, description, url, ClubGroup } = club;
     const { page, limit, total, data } = list;
+    const { postId } = this.props;
 
     const defaultPageUrl = '/club/' + url + '/';
     return (
       <div id="club_section">
         <div className="ui small breadcrumb">
-          <a className="section">Home</a>
+          <a className="section">고블린 클럽</a>
           <i className="right chevron icon divider"></i>
-          <a className="section">Registration</a>
+          <a className="section">{ClubGroup.title}</a>
           <i className="right chevron icon divider"></i>
-          <div className="active section">Personal Information</div>
+          <div className="active section">{title}</div>
         </div>
         <h3 className="ui header">
           {title}
@@ -101,7 +115,10 @@ let ClubSections = React.createClass({
           {
             data &&
             data.map(function (item) {
-              return (<PostList item={item} defaultPageUrl={defaultPageUrl} />);
+              return (
+                <PostList item={item} defaultPageUrl={defaultPageUrl} 
+                          postId={postId} page={page} />
+              );
             })
           }
 
@@ -128,31 +145,25 @@ let ClubSections = React.createClass({
           </tbody>
         </table>
 
+        {
+          user && login &&
+          <div className="ui right aligned container">
+            <a className="ui button primary tiny" href={'/club/' + url + '/submit'}>글쓰기</a>
+          </div>
+        }
 
-        <div className="ui right aligned container">
-          <a className="ui button primary tiny" href="/club/it/submit">글쓰기</a>
-        </div>
         <div className="ui divider"></div>
 
 
         <div className="ui center aligned container">
-          <div className="ui pagination menu small">
-            <a className="active item">
-              1
-            </a>
-            <div className="disabled item">
-              ...
-            </div>
-            <a className="item">
-              10
-            </a>
-            <a className="item">
-              11
-            </a>
-            <a className="item">
-              12
-            </a>
-          </div>
+
+          <Paginator
+            total={total}
+            limit={limit}
+            page={page}
+            handleSetPage={this.handleSetPage}
+          />
+
           <div className="ui search mini" style={{padding: '15px'}}>
             <div className="ui icon input">
               <input className="prompt" type="text" placeholder="Search animals..." />

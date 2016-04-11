@@ -1,14 +1,15 @@
+
 /**
  * Created by dobyeongsu on 2016. 4. 5..
  */
 import alt from '../../../Utils/alt';
 import Api from '../../../Utils/ApiClient';
 
-class PostSectionActions {
-  requestComment(postId, page, perPage) {
+class SubmitActions {
+  requestSubmitPost(clubId, post) {
     return (dispatch) => {
       Api
-        .get('/comment/', {post_id: postId, page: page, limit: perPage})
+        .post('/post/submit', {club_id: clubId, post: post})
         .then((res) => {
           dispatch(res);
         })
@@ -21,4 +22,4 @@ class PostSectionActions {
   }
 }
 
-export default alt.createActions(PostSectionActions);
+export default alt.createActions(SubmitActions);

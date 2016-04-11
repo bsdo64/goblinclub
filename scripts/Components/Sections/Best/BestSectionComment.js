@@ -61,7 +61,7 @@ const CommentItem = React.createClass({
     return (
       <div className="comment">
         <a className="avatar">
-          <img src="http://placehold.it/40x40"/></a>
+          <img src="http://dummyimage.com/40x40"/></a>
         <div className="content">
           <a className="author">{comment.User.nick}</a>
           <div className="metadata">
@@ -110,7 +110,7 @@ const SubCommentItem = React.createClass({
     return (
       <div className="comment">
         <a className="avatar">
-          <img src="http://placehold.it/40x40" />
+          <img src="http://dummyimage.com/40x40" />
         </a>
         <div className="content">
           <a className="author">{subcomment.User.nick}</a>

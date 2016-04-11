@@ -13,7 +13,7 @@ var webpackConfig = require("./webpack.config.js");
 // Disadvantage: Requests are not blocked until bundle is available,
 //               can serve an old app on refresh
 gulp.task("default", ["javascript:concat", "webpack:build-dev"], function() {
-  gulp.watch(["scripts/**/*", "frontServer/**/*"], ["javascript:concat", "webpack:build-dev"]);
+  gulp.watch(["scripts/**/*", "frontServer/**/*"], [/*"javascript:concat", */"webpack:build-dev"]);
 });
 
 // modify some webpack config options

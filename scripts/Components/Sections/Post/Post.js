@@ -66,21 +66,22 @@ const NotFoundPostPage = React.createClass({
 const PostPage = React.createClass({
   displayName: 'PostPage',
   render() {
-    const { id, title, content, comment_count, User, Tags, created_at, Club, like_count} = this.props.PostSectionStore;
+    const { id, title, content, comment_count, User, Tags, created_at, Comments, Club, like_count} = this.props.PostSectionStore;
+    console.log(Comments.length);
     return (
       <div style={{padding: '25px'}} id="post_view">
 
         <div className="ui breadcrumb">
-          <a className="section">고블린 클럽</a>
-          <i className="right chevron icon divider"></i>
           <a className="section">{Club.ClubGroup.title}</a>
-          <i className="right arrow icon divider"></i>
+          <i className="right chevron icon divider"></i>
           <div className="active section">{Club.title}</div>
+          <i className="right arrow icon divider"></i>
+          <div className="active section">{title}</div>
         </div>
         <div id="" className="ui items">
           <div className="ui item">
             <div className="ui tiny image">
-              <img src="http://placehold.it/40x40"/>
+              <img src="http://dummyimage.com/40x40"/>
             </div>
             <div className="ui content">
 
@@ -126,14 +127,18 @@ const PostPage = React.createClass({
 
               { /* Comment */}
               <div className="ui extra" id="comment_section">
-                <PostComment comments={null} />
+                <PostComment
+                  postId={id}
+                  total={comment_count}
+                  comments={Comments}
+                />
               </div>
             </div>
           </div>
 
         </div>
 
-        <ClubSections />
+        <ClubSections postId={id} />
 
       </div>
     );

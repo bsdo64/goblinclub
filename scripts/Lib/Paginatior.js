@@ -30,8 +30,7 @@ export default class PaginatorApp extends React.Component {
     const pages = Math.ceil(state.dataLength / pagination.perPage);
 
     pagination.page = Math.min(Math.max(page, 1), pages);
-
-    console.log(page);
+    
     this.setState({
       pagination: pagination
     });
