@@ -2,7 +2,7 @@
  * Created by dobyeongsu on 2015. 11. 13..
  */
 import React from 'react';
-import Radium from 'radium';
+
 import _ from 'lodash';
 
 import connectToStores from '../../../node_modules/alt-utils/lib/connectToStores';
@@ -72,4 +72,4 @@ let Club = React.createClass({
   }
 });
 
-export default connectToStores(Radium(Club));
+export default connectToStores(Club);

@@ -2,7 +2,7 @@
  * Created by dobyeongsu on 2016. 1. 9..
  */
 import React from 'react';
-import Radium from 'radium';
+
 import {Link} from 'react-router';
 import {NavbarBrand} from 'react-bootstrap';
 
@@ -22,4 +22,4 @@ let HeaderLogo = React.createClass({
   }
 });
 
-export default Radium(HeaderLogo);
+export default HeaderLogo;

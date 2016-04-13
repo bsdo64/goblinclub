@@ -2,7 +2,7 @@
  * Created by dobyeongsu on 2015. 10. 15..
  */
 import React from 'react';
-import Radium from 'radium';
+
 
 import connectToStores from '../../../node_modules/alt-utils/lib/connectToStores';
 import PostStore from '../../Flux/Stores/PostStore';
@@ -41,6 +41,6 @@ WritePost = connectToStores({
       ClubStore: ClubStore.getState()
     };
   }
-}, Radium(WritePost));
+}, WritePost);
 
 export default WritePost;

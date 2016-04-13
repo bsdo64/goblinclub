@@ -2,7 +2,6 @@
  * Created by dobyeongsu on 2015. 10. 15..
  */
 import React from 'react';
-import Radium, {Style, StyleRoot} from 'radium';
 
 import AppActions from './AppActions';
 
@@ -45,17 +44,5 @@ let App = React.createClass({
     );
   }
 });
-App = Radium(App);
 
-let RootApp = React.createClass({
-  displayName: 'RootApp',
-  render() {
-    return (
-      <StyleRoot>
-        <App {...this.props} />
-      </StyleRoot>
-    );
-  }
-});
-
-export default Radium(RootApp);
+export default App;

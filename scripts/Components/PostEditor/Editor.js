@@ -2,7 +2,7 @@
  * Created by dobyeongsu on 2015. 11. 14..
  */
 import React from 'react';
-import Radium from 'radium';
+
 import Select from 'react-select';
 import _ from 'lodash';
 import {Button} from 'react-bootstrap';
@@ -181,6 +181,4 @@ let Editor = React.createClass({
   }
 });
 
-SubscribeClubs = Radium(SubscribeClubs);
-MainClubs = Radium(MainClubs);
-export default Editor = Radium(Editor);
+export default Editor;

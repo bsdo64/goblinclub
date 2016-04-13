@@ -2,7 +2,7 @@
  * Created by dobyeongsu on 2015. 10. 15..
  */
 import React from 'react';
-import Radium from 'radium';
+
 
 import connectToStores from '../../../node_modules/alt-utils/lib/connectToStores';
 import UserStore from '../../Flux/Stores/UserStore';
@@ -69,4 +69,4 @@ let Sidebar = React.createClass({
   }
 });
 
-export default connectToStores(Radium(Sidebar));
+export default connectToStores(Sidebar);

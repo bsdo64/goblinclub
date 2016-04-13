@@ -2,7 +2,7 @@
  * Created by dobyeongsu on 2015. 11. 13..
  */
 import React from 'react';
-import Radium from 'radium';
+
 import {Link} from 'react-router';
 
 import PostActions from '../../Flux/Actions/PostActions';
@@ -39,4 +39,4 @@ let NotFound = React.createClass({
   }
 });
 
-export default Radium(NotFound);
+export default NotFound;

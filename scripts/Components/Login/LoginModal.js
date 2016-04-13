@@ -2,7 +2,7 @@
  * Created by dobyeongsu on 2016. 1. 9..
  */
 import React from 'react';
-import Radium from 'radium';
+
 import {Modal} from 'react-bootstrap';
 
 import styles from './LoginModalStyle';
@@ -34,4 +34,4 @@ let LoginModal = React.createClass({
   }
 });
 
-export default Radium(LoginModal);
+export default LoginModal;

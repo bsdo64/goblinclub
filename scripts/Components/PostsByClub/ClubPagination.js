@@ -2,7 +2,7 @@
  * Created by dobyeongsu on 2016. 1. 16..
  */
 import React from 'react';
-import Radium from 'radium';
+
 
 import url from 'url';
 
@@ -64,4 +64,4 @@ let ClubPagination = React.createClass({
   }
 });
 
-export default Radium(ClubPagination);
+export default ClubPagination;

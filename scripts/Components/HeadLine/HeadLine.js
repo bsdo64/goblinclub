@@ -1,5 +1,5 @@
 import React from 'react';
-import Radium from 'radium';
+
 
 import styles from './HeadLineStyle';
 import AppActions from '../App/AppActions';
@@ -83,4 +83,4 @@ let HeadLine = React.createClass({
   }
 });
 
-export default Radium(HeadLine);
+export default HeadLine;

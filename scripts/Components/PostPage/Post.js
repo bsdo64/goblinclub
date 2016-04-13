@@ -3,7 +3,7 @@
  *
  */
 import React from 'react';
-import Radium from 'radium';
+
 import _ from 'lodash';
 import {browserHistory} from 'react-router';
 
@@ -108,4 +108,4 @@ let Post = React.createClass({
   }
 });
 
-export default connectToStores(Radium(Post));
+export default connectToStores(Post);

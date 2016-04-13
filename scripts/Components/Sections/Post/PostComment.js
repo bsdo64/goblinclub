@@ -24,10 +24,26 @@ const CommentItem = React.createClass({
         return <SubCommentList SubComments={SubComments} />
       }
     }
+
+    let avatarImg;
+    if ( comment.User && comment.User.UserProfile ) {
+      const { sex, avatar_img } = comment.User.UserProfile;
+      if (avatar_img) {
+        avatarImg = <img src={'/image/files/' + avatar_img + '.png'} />;
+      } else {
+        if (sex) {
+          avatarImg = <img src="/statics/img/default-male.png" />;
+        } else {
+          avatarImg = <img src="/statics/img/default-female.png" />;
+        }
+      }
+    }
+
     return (
       <div className="comment">
         <a className="avatar">
-          <img src="http://dummyimage.com/40x40"/></a>
+          { avatarImg }
+        </a>
         <div className="content">
           <a className="author">{comment.User.nick}</a>
           <div className="metadata">
@@ -55,7 +71,7 @@ const CommentItem = React.createClass({
             this.state.openSubComment &&
             <form className="ui reply form">
               <div className="field">
-                <textarea></textarea>
+                <textarea className="comment_textarea" rows="2"></textarea>
               </div>
               <div className="ui primary submit labeled icon button">
                 <i className="icon edit"></i>
@@ -144,10 +160,25 @@ const PostComment = React.createClass({
     this.setState({commentValue: e.target.value})
   },
   handleSubmitComment() {
-    PostSectionActions.requestSubmitComment(
-      this.props.postId,
-      this.state.commentValue
-    );
+    if (this.props.postId && (this.state.commentValue.length > 10)) {
+      PostSectionActions.requestSubmitComment(
+        this.props.postId,
+        this.state.commentValue
+      );
+
+      this.setState({commentValue: ''});
+    } else {
+      $('.ui.basic.modal')
+        .modal({
+          duration  : 200,
+          closable  : true,
+          onApprove : function() {
+            console.log('a');
+          }
+        })
+        .modal('show')
+      ;
+    }
   },
   render() {
     const { comments, total } = this.props; // = this.props.comments;
@@ -169,12 +200,30 @@ const PostComment = React.createClass({
 
             <form className="ui reply form">
               <div className="field">
-                <textarea onChange={this.handleComment} value={commentValue} />
+                <textarea className="comment_textarea" rows="2" onChange={this.handleComment} value={commentValue} />
               </div>
               <div className="ui primary submit labeled icon button" onClick={this.handleSubmitComment}>
                 <i className="icon edit"></i>
                 <span>댓글 달기</span>
               </div>
+
+              { /* Modal */ }
+              <div className="ui small basic modal">
+                <div className="ui icon header">
+                  <i className="archive icon"></i>
+                  댓글이 너무 짧아요!
+                </div>
+                <div className="ui container center aligned grid">
+                  <p>최소 10글자 이상 입력해 주세요</p>
+                </div>
+                <div className="actions">
+                  <div className="ui green ok inverted button">
+                    <i className="checkmark icon"></i>
+                    Yes
+                  </div>
+                </div>
+              </div>
+
             </form>
 
             <div className="ui center aligned container segment basic">

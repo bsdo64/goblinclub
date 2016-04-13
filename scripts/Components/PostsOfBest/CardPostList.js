@@ -1,5 +1,5 @@
 import React from 'react';
-import Radium from 'radium';
+
 
 import CardPostItem from './CardPostItem';
 import styles from './PostOfBestStyle';
@@ -52,4 +52,4 @@ let CardPostList = React.createClass({
   }
 });
 
-export default Radium(CardPostList);
+export default CardPostList;

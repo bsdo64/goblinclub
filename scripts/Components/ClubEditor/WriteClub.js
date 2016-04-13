@@ -2,7 +2,6 @@
  * Created by dobyeongsu on 2015. 10. 15..
  */
 import React from 'react';
-import Radium from 'radium';
 import {Input, Button} from 'react-bootstrap';
 
 import connectToStores from '../../../node_modules/alt-utils/lib/connectToStores';
@@ -78,6 +77,6 @@ WriteClub = connectToStores({
       ClubStore: ClubStore.getState()
     };
   }
-}, Radium(WriteClub));
+}, WriteClub);
 
 export default WriteClub;

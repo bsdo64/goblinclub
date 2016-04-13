@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import {Link, browserHistory} from 'react-router';
-import Radium from 'radium';
+
 import {
   Button,
   ButtonToolbar,
@@ -16,8 +16,8 @@ import {
 
 import styles from './HeaderStyle';
 
-const ButtonR = Radium(Button);
-const DropdownButtonR = Radium(DropdownButton);
+const ButtonR = Button;
+const DropdownButtonR = DropdownButton;
 
 let UserButton = React.createClass({
   displayName: 'UserButton',
@@ -84,4 +84,4 @@ let UserButton = React.createClass({
   }
 });
 
-export default Radium(UserButton);
+export default UserButton;

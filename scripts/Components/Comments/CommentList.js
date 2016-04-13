@@ -2,7 +2,7 @@
  * Created by dobyeongsu on 2015. 12. 4..
  */
 import React from 'react';
-import Radium from 'radium';
+
 import Textarea from 'react-textarea-autosize';
 import {Button} from 'react-bootstrap';
 
@@ -211,7 +211,6 @@ let CommentBox = React.createClass({
     </div>);
   }
 });
-CommentBox = Radium(CommentBox);
 
 let CommentListBox = React.createClass({
   displayName: 'CommentListBox',
@@ -256,7 +255,6 @@ let CommentListBox = React.createClass({
       </ul>);
   }
 });
-CommentListBox = Radium(CommentListBox);
 
 let CommentList = React.createClass({
   displayName: 'CommentList',
@@ -298,4 +296,4 @@ let CommentList = React.createClass({
   }
 });
 
-export default Radium(CommentList);
+export default CommentList;

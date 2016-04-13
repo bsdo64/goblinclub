@@ -2,7 +2,7 @@
  * Created by dobyeongsu on 2016. 1. 9..
  */
 import React from 'react';
-import Radium from 'radium';
+
 import {Nav} from 'react-bootstrap';
 
 import AppActions from '../App/AppActions';
@@ -32,4 +32,4 @@ let LoginButton = React.createClass({
   }
 });
 
-export default Radium(LoginButton);
+export default LoginButton;

@@ -1,5 +1,5 @@
 import React from 'react';
-import Radium from 'radium';
+
 import _ from 'lodash';
 import {Link} from 'react-router';
 import cheerio from 'cheerio';
@@ -9,7 +9,7 @@ import AppActions from '../App/AppActions';
 
 import styles from './PostsByClubStyle';
 
-const LinkR = Radium(Link);
+const LinkR = Link;
 
 let BtnArea = React.createClass({
   displayName: 'BtnArea',
@@ -170,6 +170,5 @@ let ClubPostList = React.createClass({
   }
 });
 
-BtnArea = Radium(BtnArea);
-export default ClubPostList = Radium(ClubPostList);
+export default ClubPostList;
 

@@ -2,7 +2,6 @@
  * Created by dobyeongsu on 2016. 3. 23..
  */
 import React from 'react';
-import Radium, {StyleRoot} from 'radium';
 
 import AppActions from '../App/AppActions';
 import LoginModalBox from '../MainHeader/LoginModalBox';
@@ -36,17 +35,5 @@ let Default = React.createClass({
     );
   }
 });
-Default = Radium(Default);
 
-let RootDefault = React.createClass({
-  displayName: 'RootDefault',
-  render() {
-    return (
-      <StyleRoot>
-        <Default {...this.props} />
-      </StyleRoot>
-    );
-  }
-});
-
-export default Radium(RootDefault);
+export default Default;

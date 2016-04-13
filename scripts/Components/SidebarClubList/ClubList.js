@@ -5,7 +5,7 @@
  * Created by dobyeongsu on 2015. 11. 10..
  */
 import React from 'react';
-import Radium from 'radium';
+
 import Popups from '../../Lib/Popups';
 import {Link} from 'react-router';
 
@@ -46,7 +46,6 @@ let Popup = React.createClass({
     );
   }
 });
-Popup = Radium(Popup);
 
 let PopupLink = React.createClass({
   render() {
@@ -196,5 +195,4 @@ let ClubList = React.createClass({
   }
 });
 
-Club = Radium(Club);
-export default ClubList = Radium(ClubList);
+export default ClubList;

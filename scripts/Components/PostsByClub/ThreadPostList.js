@@ -1,5 +1,5 @@
 import React from 'react';
-import Radium from 'radium';
+
 
 import styles from './PostsByClubStyle';
 
@@ -50,5 +50,5 @@ let ClubPostList = React.createClass({
   }
 });
 
-export default ClubPostList = Radium(ClubPostList);
+export default ClubPostList;
 

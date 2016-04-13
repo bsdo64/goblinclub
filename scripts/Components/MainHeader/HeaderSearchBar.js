@@ -1,5 +1,5 @@
 import React from 'react';
-import Radium from 'radium';
+
 
 import styles from './HeaderStyle';
 import SearchActions from '../../Flux/Actions/SearchActions';
@@ -42,4 +42,4 @@ let SearchBar = React.createClass({
   }
 });
 
-export default Radium(SearchBar);
+export default SearchBar;

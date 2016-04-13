@@ -2,7 +2,7 @@
  * Created by dobyeongsu on 2015. 11. 13..
  */
 import React from 'react';
-import Radium from 'radium';
+
 
 import AppActions from '../App/AppActions';
 import PostActions from '../../Flux/Actions/PostActions';
@@ -124,4 +124,4 @@ let Best = React.createClass({
   }
 });
 
-export default connectToStores(Radium(Best));
+export default connectToStores(Best);

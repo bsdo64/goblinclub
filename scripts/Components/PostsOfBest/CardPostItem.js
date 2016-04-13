@@ -1,5 +1,5 @@
 import React from 'react';
-import Radium from 'radium';
+
 import {Link} from 'react-router';
 import _ from 'lodash';
 
@@ -9,7 +9,7 @@ import CommentList from '../Comments/CommentList';
 import PostActions from '../../Flux/Actions/PostActions';
 import AppActions from '../App/AppActions';
 
-const LinkR = Radium(Link);
+const LinkR = Link;
 let BtnArea = React.createClass({
   displayName: 'BtnArea',
   propTypes: {
@@ -229,5 +229,4 @@ let CardPostItem = React.createClass({
   }
 });
 
-BtnArea = Radium(BtnArea);
-export default CardPostItem = Radium(CardPostItem);
+export default CardPostItem ;

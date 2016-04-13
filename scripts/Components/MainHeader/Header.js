@@ -2,7 +2,6 @@
  * Created by dobyeongsu on 2015. 10. 15..
  */
 import React from 'react';
-import Radium, {Style} from 'radium';
 import {Link} from 'react-router';
 import {Navbar} from 'react-bootstrap';
 
@@ -213,4 +212,4 @@ let Header = React.createClass({
   }
 });
 
-export default connectToStores(Radium(Header));
+export default connectToStores(Header);

@@ -2,7 +2,6 @@
  * Created by dobyeongsu on 2015. 10. 15..
  */
 import React from 'react';
-import Radium from 'radium';
 import {Link} from 'react-router';
 
 import HeadLine from '../HeadLine/HeadLine';
@@ -601,4 +600,4 @@ let Main = React.createClass({
   }
 });
 
-export default Radium(Main);
+export default Main;
