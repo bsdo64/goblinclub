@@ -8,7 +8,7 @@ import {Button} from 'react-bootstrap';
 
 import HeadLine from '../HeadLine/HeadLine';
 
-import AppActions from '../App/AppActions';
+import AppActions from '../Layout/AppActions';
 import CommentActions from '../../Flux/Actions/CommentActions';
 import styles from './styles';
 

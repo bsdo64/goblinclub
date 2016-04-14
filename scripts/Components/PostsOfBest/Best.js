@@ -4,11 +4,11 @@
 import React from 'react';
 
 
-import AppActions from '../App/AppActions';
+import AppActions from '../Layout/AppActions';
 import PostActions from '../../Flux/Actions/PostActions';
 
 import connectToStores from '../../../node_modules/alt-utils/lib/connectToStores';
-import AppStore from '../App/AppStore';
+import AppStore from '../Layout/AppStore';
 import UserStore from '../../Flux/Stores/UserStore';
 import PostStore from '../../Flux/Stores/PostStore';
 

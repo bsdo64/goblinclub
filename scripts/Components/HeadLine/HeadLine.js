@@ -2,7 +2,7 @@ import React from 'react';
 
 
 import styles from './HeadLineStyle';
-import AppActions from '../App/AppActions';
+import AppActions from '../Layout/AppActions';
 
 let HeadLine = React.createClass({
   displayName: 'HeadLine',

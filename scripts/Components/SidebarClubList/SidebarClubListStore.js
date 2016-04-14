@@ -1,8 +1,8 @@
 import alt from '../../Utils/alt';
 
-import AppActions from '../App/AppActions';
+import AppActions from '../Layout/AppActions';
 import ClubActions from './../ClubEditor/ClubEditorActions';
-import AppStore from './../App/AppStore';
+import AppStore from './../Layout/AppStore';
 
 import assign from 'object-assign';
 

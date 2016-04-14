@@ -3,7 +3,7 @@
  */
 import React from 'react';
 
-import AppActions from '../App/AppActions';
+import AppActions from './AppActions';
 import LoginModalBox from '../MainHeader/LoginModalBox';
 
 if (process.env.BROWSER) {
@@ -29,7 +29,6 @@ let Default = React.createClass({
         {Header}
 
         {Container}
-
         <LoginModalBox />
       </div>
     );

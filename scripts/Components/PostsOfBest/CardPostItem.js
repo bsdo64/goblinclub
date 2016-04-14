@@ -7,7 +7,7 @@ import styles from './PostOfBestStyle';
 import CommentList from '../Comments/CommentList';
 
 import PostActions from '../../Flux/Actions/PostActions';
-import AppActions from '../App/AppActions';
+import AppActions from '../Layout/AppActions';
 
 const LinkR = Link;
 let BtnArea = React.createClass({

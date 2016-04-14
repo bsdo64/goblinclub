@@ -5,7 +5,7 @@ import {Link} from 'react-router';
 import cheerio from 'cheerio';
 
 import PostActions from '../../Flux/Actions/PostActions';
-import AppActions from '../App/AppActions';
+import AppActions from '../Layout/AppActions';
 
 import styles from './PostsByClubStyle';
 

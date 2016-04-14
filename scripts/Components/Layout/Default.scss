@@ -3,3 +3,14 @@ $body_color: #ECEFEF;
 body {
   background-color: $body_color;
 }
+
+ul, li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#wrap {
+  width: 1230px;
+  margin: 0 auto;
+}

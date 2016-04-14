@@ -4,7 +4,6 @@
 import React from 'react';
 import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 
-import App from './../Components/App/App';
 import Main from './../Components/MainSection/Main';
 
 // Layout
@@ -69,7 +68,7 @@ export default (
       </Route>
     </Route>
 
-    <Route path="" component={App}>
+    <Route path="" component={DefaultLayout}>
       <Route path="/" components={{header: Header, main: Main, sidebar: Sidebar}}>
         <IndexRoute components={{mainSection: Best}}/>
         <Route path="submit" components={{mainSection: WritePost}}/>
@@ -86,11 +85,11 @@ export default (
       </Route>
     </Route>
 
-    <Route path="/notFound" components={App}>
+    <Route path="/notFound" components={DefaultLayout}>
       <IndexRoute components={{header: Header, main: NotFound, sidebar: Sidebar}}/>
     </Route>
 
-    <Route path="*" component={App}>
+    <Route path="*" component={DefaultLayout}>
       <IndexRoute components={{header: Header, main: NotFound, sidebar: Sidebar}}/>
     </Route>
   </Router>

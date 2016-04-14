@@ -5,7 +5,7 @@ import React from 'react';
 
 import {Nav} from 'react-bootstrap';
 
-import AppActions from '../App/AppActions';
+import AppActions from '../Layout/AppActions';
 
 import LoginModal from '../Login/LoginModal';
 import styles from './HeaderStyle';

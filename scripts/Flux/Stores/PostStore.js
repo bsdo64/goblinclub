@@ -2,11 +2,11 @@ import alt from '../../Utils/alt';
 import assign from 'object-assign';
 import _ from 'lodash';
 
-import AppActions from '../../Components/App/AppActions';
+import AppActions from '../../Components/Layout/AppActions';
 import PostActions from '../Actions/PostActions';
 import CommentActions from '../Actions/CommentActions';
 
-import AppStore from './../../Components/App/AppStore';
+import AppStore from './../../Components/Layout/AppStore';
 
 class PostStore {
   constructor() {
