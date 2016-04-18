@@ -16,7 +16,7 @@
        Links
 --------------------*/
 
-@linkColor           : #348E87;
+@linkColor           : #3769AC;
 
 /*-------------------
     Border Radius
@@ -25,15 +25,15 @@
 /* See Power-user section below
    for explanation of @px variables
 */
-@relativeBorderRadius: @relative2px;
-@absoluteBorderRadius: @2px;
+@relativeBorderRadius: @relative1px;
+@absoluteBorderRadius: @1px;
 
 /*-------------------
     Brand Colors
 --------------------*/
 
-@primaryColor        : #2B5F5B;
-@secondaryColor      : #154945;
+@primaryColor        : #3769AC;
+@secondaryColor      : #27485e;
 
-@lightPrimaryColor   : #348E87;
-@lightSecondaryColor : #348E87;
+@lightPrimaryColor   : #2185D0;
+@lightSecondaryColor : #3769AC;

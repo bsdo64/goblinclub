@@ -3,6 +3,8 @@
  */
 import React, {Component} from 'react';
 
+import RightMenuLayout from './RightMenuLayout';
+
 export default class SectionLayout extends Component {
   displayName() {
     return 'SectionLayout';
@@ -13,9 +15,9 @@ export default class SectionLayout extends Component {
         <div className="contents">
 
         </div>
-        <div className="right_col">
-  
-        </div>
+        
+        <RightMenuLayout />
+        
       </div>
     );
   }

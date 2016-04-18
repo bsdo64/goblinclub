@@ -1,25 +1,28 @@
 import React from 'react';
 import connectToStores from 'alt-utils/lib/connectToStores';
-import HeaderUserUI from '../Components/HeaderUser/HeaderUser';
-import UserStore from '../Flux/Stores/UserStore';
+import HeaderUserUI from '../Components/HeaderUserUI/HeaderUserUI';
 
-const HeaderUser = connectToStores({
+import UserStore from '../Flux/Stores/UserStore';
+import LoginStore from '../Flux/Stores/LoginStore';
+
+const HeaderUserContainer = connectToStores({
   getStores() {
     // this will handle the listening/unlistening for you
-    return [UserStore];
+    return [UserStore, LoginStore];
   },
 
   getPropsFromStores() {
     return {
-      UserStore: UserStore.getState()
+      UserStore: UserStore.getState(),
+      LoginStore: LoginStore.getState()
     }
   }
 }, React.createClass({
-  displayName: 'HeaderUser',
+  displayName: 'HeaderUserContainer',
 
   render() {
     return (<HeaderUserUI {...this.props} />);
   }
 }));
 
-export default HeaderUser;
+export default HeaderUserContainer;

@@ -3,9 +3,9 @@
  */
 import React from 'react';
 
-import connectToStores from 'alt-utils/lib/connectToStores';
-import LoginActions from './LoginActions';
-import LoginStore from './LoginStore';
+import connectToStores from '../../../node_modules/alt-utils/lib/connectToStores';
+import LoginActions from '../../Flux/Actions/LoginActions';
+import LoginStore from '../../Flux/Stores/LoginStore';
 
 const LoginModalBox = React.createClass({
   displayName: 'LoginModalBox',
@@ -101,7 +101,7 @@ const LoginModalBox = React.createClass({
           <div id="daumHead" role="banner">
             <h1>
               <a href="/" id="daumServiceLogo"><span
-                className="ir_wa">Goblin Club</span></a>
+                className="ir_wa">Trend Clear</span></a>
             </h1>
           </div>
 
@@ -131,7 +131,7 @@ const LoginModalBox = React.createClass({
                   <span> / </span>
                   <a href="/member/find/password" className="link_find">비밀번호찾기</a>
                   <span className="txt_bar">|</span>
-                  <a href="/signin" className="ico_comm link_join">회원 가입하기</a>
+                  <a href="/signin">회원 가입하기</a>
                 </div>
 
               </form>
@@ -139,7 +139,7 @@ const LoginModalBox = React.createClass({
             <div id="daumFoot" className="footer_tistory" role="contentinfo">
               <div className="inner_footer">
                 <address className="txt_copyright">Copyright © <a
-                  className="link_daum">TrendClubr Corp.</a>
+                  className="link_daum">TrendClear Corp.</a>
                   All rights reserved.
                 </address>
               </div>

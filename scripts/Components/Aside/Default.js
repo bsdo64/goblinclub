@@ -6,7 +6,7 @@ import {Link} from 'react-router';
 
 import connectToStores from 'alt-utils/lib/connectToStores';
 import UserStore from '../../Flux/Stores/UserStore';
-import LoginStore from '../MainHeader/LoginStore';
+import LoginStore from '../../Flux/Stores/LoginStore';
 import _ from 'lodash';
 import moment from 'moment';
 moment.locale('ko');

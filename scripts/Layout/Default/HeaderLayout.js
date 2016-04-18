@@ -3,7 +3,7 @@
  */
 import React from 'react';
 
-import HeaderUser from '../../Container/HeaderUserContainer';
+import HeaderUserContainer from '../../Container/HeaderUserContainer';
 
 if (process.env.BROWSER) {
   require('./HeaderLayout.scss');
@@ -28,7 +28,7 @@ let HeaderLayout = React.createClass({
                   <div className="results"></div>
                 </div>
               </div>
-              <HeaderUser />
+              <HeaderUserContainer />
             </div>
           </div>
         </div>

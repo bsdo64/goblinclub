@@ -1,5 +1,5 @@
 import alt from '../../Utils/alt';
-import LoginActions from './LoginActions';
+import LoginActions from '../Actions/LoginActions';
 
 class LoginStore {
   constructor() {

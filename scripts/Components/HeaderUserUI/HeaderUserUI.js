@@ -1,59 +1,16 @@
-/**
- * Created by dobyeongsu on 2015. 10. 15..
- */
-import React from 'react';
+import React, {Component} from 'react';
 
-import connectToStores from '../../../node_modules/alt-utils/lib/connectToStores';
-import UserStore from '../../Flux/Stores/UserStore';
-import LoginStore from '../../Flux/Stores/LoginStore';
-import LoginActions from './LoginActions';
-import UserActions from '../../Flux/Actions/UserActions';
+import LoginActions from '../../Flux/Actions/LoginActions';
 
-if (process.env.BROWSER) {
-  // require('./header.scss');
-  require('./gnb.scss');
-  require('./loginModal.scss');
-}
-
-let LoginButton = React.createClass({
-  displayName: 'LoginButton',
-  handleOpenLoginModal() {
-    LoginActions.openLoginModal();
-  },
-  render() {
-    return (
-      <div className="item">
-        <div className="ui mini button green"
-             style={{padding: '5px 10px', borderRadius: '2px', backgroundColor: '#154945'}}
-             onClick={this.handleOpenLoginModal} >
-          {'로그인'}
-        </div>
-      </div>
-    );
+export default class HeaderUserUI extends Component {
+  static displayName() {
+    return 'HeaderUserUI';
   }
-});
+  constructor(props) {
+    super();
 
-let Header = React.createClass({
-  displayName: 'Header',
-  propTypes: {
-    UserStore: React.PropTypes.shape({
-      authSuccess: React.PropTypes.boolean
-    })
-  },
-  statics: {
-    getStores() {
-      // this will handle the listening/unlistening for you
-      return [UserStore, LoginStore];
-    },
-
-    getPropsFromStores() {
-      // this is the data that gets passed down as props
-      return {
-        UserStore: UserStore.getState(),
-        LoginStore: LoginStore.getState()
-      };
-    }
-  },
+    this.handleOpenLoginModal = this.handleOpenLoginModal.bind(this);
+  }
   componentDidMount() {
     $('#profile_id_button')
       .popup({
@@ -68,22 +25,28 @@ let Header = React.createClass({
         position : 'bottom right',
         on    : 'click'
       });
-  },
+  }
   handleToggleAlarmPopup() {
     $('.large.alarm.icon').popup({ popup : $('#alarm_popup') }).popup('toggle');
-  },
+  }
   handleToggleProfilePopup() {
     $('#profile_id_button').popup({ popup : $('#profile_popup') }).popup('toggle');
-  },
+  }
   handleLogout() {
     UserActions.requestLogout();
-  },
+  }
 
   handleSubmit() {
     console.log('Hello world handleSubmit');
     $(this.refs.loginform).form('validate form');
-  },
+  }
+
+  handleOpenLoginModal() {
+    LoginActions.openLoginModal();
+  }
+
   render() {
+
     const {logout, login, user} = this.props.UserStore;
 
     if (logout) {
@@ -91,14 +54,9 @@ let Header = React.createClass({
     }
 
     let loginButton,
-        userButtons;
+      userButtons;
 
-    if (!login) {
-      loginButton = <LoginButton
-        LoginStore={this.props.LoginStore}
-        handleSubmit={this.handleSubmit}
-      />;
-    } else {
+    if (login) {
       userButtons = [
         <div className="item gnb_my_namebox">
           {
@@ -160,46 +118,23 @@ let Header = React.createClass({
     }
 
     return (
-      <div id="header">
-        <div className="head_contents">
-          <div className="top_area">
-            <div className="top_contents">
-              <h2 className="top_logo">
-                <span className="logo_ci">
-                  <a href="/" className="">Goblin Club</a>
-                </span>
-              </h2>
+      <div className="my_area">
+        <div className="ui horizontal list">
 
-              <div className="top_menu">
-                <div className="ui input fluid small">
-                  <input type="text" placeholder="여기에 검색.." />
-                    <div className="results"></div>
-                </div>
-              </div>
-
-              <div className="my_area">
-                <div id="gnb" className="gnb_dark_type2" style={{right: '20px'}}>
-                  <div className="ui horizontal list" style={{color: '#fff'}}>
-
-                    {
-                      !login &&
-                      <LoginButton
-                        LoginStore={this.props.LoginStore}
-                        handleSubmit={this.handleSubmit}
-                      />
-                    }
-
-                    { userButtons }
-
-                  </div>
-                </div>
+          {
+            !login &&
+            <div className="item">
+              <div className="ui mini button blue"
+                   onClick={this.handleOpenLoginModal} >
+                {'로그인'}
               </div>
             </div>
-          </div>
+          }
+
+          { userButtons }
+
         </div>
       </div>
     );
   }
-});
-
-export default connectToStores(Header);
+}

@@ -1,0 +1,14 @@
+.right_col {
+  .login_bar {
+    width: 100%;
+    margin-top: 15px;
+
+    &>button {
+      width: 100%;
+      background: #3769AC;
+      color: #fff;
+      border: none;
+      height: 30px;
+    }
+  }
+}

@@ -4,7 +4,7 @@
 import React from 'react';
 
 import AppActions from './AppActions';
-import LoginModalBox from '../MainHeader/LoginModalBox';
+import LoginModalBox from '../HeaderUserUI/LoginModalBox';
 
 if (process.env.BROWSER) {
   require('./Default.scss');
