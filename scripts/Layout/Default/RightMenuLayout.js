@@ -13,7 +13,7 @@ let LeftMenuLayout = React.createClass({
     return (
       <div className="right_col">
         <div className="login_bar widget">
-          <button>지금 가입하세요</button>
+          <a href="/signin"><button>지금 가입하세요</button></a>
         </div>
       </div>
     );

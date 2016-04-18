@@ -478,8 +478,8 @@ const SigninContents = React.createClass({
 
             <div className="ui error message"></div>
 
-            <div className="btn_confirm">
-              <div className={buttonClass} onClick={submitAgreement} >다음</div>
+            <div className="">
+              <div className={"ui button primary fluid " + buttonClass} onClick={submitAgreement} >다음</div>
             </div>
             
           </div>

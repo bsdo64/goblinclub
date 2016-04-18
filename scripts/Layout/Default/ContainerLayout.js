@@ -3,9 +3,6 @@
  */
 import React from 'react';
 
-import LeftMenuLayout from './LeftMenuLayout';
-import SectionLayout from './SectionLayout';
-
 if (process.env.BROWSER) {
   require('./ContainerLayout.scss');
 }
@@ -13,11 +10,12 @@ if (process.env.BROWSER) {
 let ContainerLayout = React.createClass({
   displayName: 'ContainerLayout',
   render() {
+    const { LeftMenuLayout, SectionLayout } = this.props;
     return (
       <div id="container">
-        <LeftMenuLayout />
-        
-        <SectionLayout />
+        { LeftMenuLayout }
+
+        { SectionLayout }
         
       </div>
     );

@@ -14,6 +14,8 @@ export default class SectionLayout extends Component {
       <div className="section">
         <div className="contents">
 
+          { this.props.Contents }
+
         </div>
         
         <RightMenuLayout />

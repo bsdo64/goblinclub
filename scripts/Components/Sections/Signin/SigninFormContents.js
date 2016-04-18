@@ -406,7 +406,7 @@ const SigninFormContents = React.createClass({
           {dupError}
 
           <div className="ui basic segment">
-            <div className="btn_submit ui button" onClick={this.handleSubmit}>가입하기</div>
+            <div className="ui button primary fluid" onClick={this.handleSubmit}>가입하기</div>
           </div>
         </form>
       </div>

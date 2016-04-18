@@ -14,7 +14,7 @@
     float: left;
   }
 
-  .section {
+  &>.section {
     float: none;
     margin-left: 250px;
     *zoom: 1;

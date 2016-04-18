@@ -40,11 +40,23 @@ import ProfileSection from '../Components/Sections/Profile/Profile';
 import DefaultLayout from './../Layout/Default/index';
 import HeaderLayout from './../Layout/Default/HeaderLayout';
 import ContainerLayout from './../Layout/Default/ContainerLayout';
+import LeftMenuLayout from './../Layout/Default/LeftMenuLayout';
+import SectionLayout from './../Layout/Default/SectionLayout';
 
 export default (
   <Router history={browserHistory}>
     <Route path="" component={DefaultLayout}>
-      <Route path="/" components={{HeaderLayout: HeaderLayout, ContainerLayout: ContainerLayout}} />
+      <Route path="/" components={{HeaderLayout: HeaderLayout, ContainerLayout: ContainerLayout}}>
+        
+        <Route components={{LeftMenuLayout: LeftMenuLayout, SectionLayout: SectionLayout}}>
+          <IndexRoute components={{Contents: BestSection}} />
+        </Route>
+
+        <Route path="signin" components={{LeftMenuLayout: LeftMenuLayout, SectionLayout: SectionLayout}} >
+          <IndexRoute components={{Contents: SigninSection}}/>
+        </Route>
+
+      </Route>
     </Route>
     
     <Route path="" component={Default}>
