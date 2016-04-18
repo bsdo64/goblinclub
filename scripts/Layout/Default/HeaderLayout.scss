@@ -1,0 +1,52 @@
+#header {
+  height: 50px;
+
+  .head_contents {
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: fixed;
+    height: 50px;
+    z-index: 100;
+
+    .top_area {
+      height: 50px;
+      background: #27485e;
+
+      .top_contents {
+        position: relative;
+        width: 1230px;
+        height: 50px;
+        margin: 0 auto;
+
+        .top_logo {
+          float: left;
+          padding-top: 10px;
+          width: 250px;
+          text-align: center;
+
+          span a {
+            display: inline-block;
+            width: 100%;
+            font-size: 27px;
+            color: #fff;
+          }
+        }
+        .top_menu {
+          padding-top: 0.7em;
+          line-height: 50px;
+          position: relative;
+          margin-left: 180px;
+          float: none;
+          width: 580px;
+        }
+        .my_area {
+          position: absolute;
+          right: 0px;
+          top: 7px;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

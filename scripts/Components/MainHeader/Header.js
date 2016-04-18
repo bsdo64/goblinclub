@@ -20,7 +20,7 @@ import styles from './HeaderStyle';
 import LoginModalBox from './LoginModalBox';
 
 if (process.env.BROWSER) {
-  require('./header.scss');
+  // require('./header.scss');
   require('./gnb.scss');
   require('./loginModal.scss');
 }

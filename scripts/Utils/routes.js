@@ -7,7 +7,7 @@ import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 import Main from './../Components/MainSection/Main';
 
 // Layout
-import DefaultLayout from './../Components/Layout/Default';
+import Default from './../Components/Layout/Default';
 import Container from './../Components/Layout/Container';
 
 // Injecters
@@ -37,9 +37,17 @@ import SubmitSection from '../Components/Sections/Submit/Submit';
 import PostSection from '../Components/Sections/Post/Post';
 import ProfileSection from '../Components/Sections/Profile/Profile';
 
+import DefaultLayout from './../Layout/Default/index';
+import HeaderLayout from './../Layout/Default/HeaderLayout';
+import ContainerLayout from './../Layout/Default/ContainerLayout';
+
 export default (
   <Router history={browserHistory}>
     <Route path="" component={DefaultLayout}>
+      <Route path="/" components={{HeaderLayout: HeaderLayout, ContainerLayout: ContainerLayout}} />
+    </Route>
+    
+    <Route path="" component={Default}>
       <Route path="/" components={{Header: Header, Container: Container}}>
 
         <Route components={{LeftMenu: MainLeft, SectionLayout: DefaultSection}}>
@@ -68,7 +76,7 @@ export default (
       </Route>
     </Route>
 
-    <Route path="" component={DefaultLayout}>
+    <Route path="" component={Default}>
       <Route path="/" components={{header: Header, main: Main, sidebar: Sidebar}}>
         <IndexRoute components={{mainSection: Best}}/>
         <Route path="submit" components={{mainSection: WritePost}}/>
