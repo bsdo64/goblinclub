@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LoginModalBox from '../../Components/HeaderUserUI/LoginModalBox';
+import LoginModalBox from '../../Components/HeaderUserInfoUI/LoginModalBox';
 
 if (process.env.BROWSER) {
   // require('./Default.scss');

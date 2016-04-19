@@ -4,6 +4,7 @@
     background: #3769ac;
     color: #fff;
     vertical-align: middle;
+    position: relative;
 
     .category_button {
       padding: 10px 25px 10px 30px;
@@ -18,6 +19,78 @@
       }
     }
   }
+
+  .category_box {
+    display: none;
+    position: absolute;
+    left: 251px;
+    top: 0px;
+    width: 728px;
+    z-index: 1;
+    background: #fff;
+    min-height: 320px;
+    border: 1px solid #3769AC;
+
+    .gnb_menu {
+      width: 150px;
+      border-right: 1px solid #bac;
+      height: 318px;
+      float: left;
+
+      .gnbm {
+        &>a {
+          padding: 10px;
+          display: block;
+          border-bottom: 1px solid #ccc;
+        }
+
+        .gnb_inner_wrap {
+          position: absolute;
+          left: 150px;
+          top: 0;
+
+          .gnb_inner>.grouping {
+            float: left;
+            border-right: 1px solid #aaa;
+            height: 318px;
+            width: 150px;
+
+            h3 {
+              color: #fff;
+              background: #3769AC;
+              margin: 8px 11px 0;
+              font-size: 12px;
+              font-weight: normal;
+              padding-left: 8px;
+            }
+
+            ul.category_lists {
+              margin: 11px;
+
+              &>li {
+                padding-left: 8px;
+              }
+
+              a {
+                font-size: 11px;
+                color: #27485E;
+              }
+            }
+          }
+          .gnb_inner>.banner {
+            float: left;
+            width: 276px;
+
+            img {
+              width: 276px;
+              height: 318px;
+            }
+          }
+        }
+      }
+    }
+  }
+
   #sub_category {
     height: 40px;
     color: #3769ac;
@@ -34,7 +107,6 @@
     }
   }
   menu.sub_category_list {
-    height: 240px;
     background: #3769AC;
     color: #fff;
     margin: 0;
@@ -56,8 +128,17 @@
       }
       li {
         padding-top: 8px;
-        .sub_category.item {
+        &>h5 {
+          text-align: left;
+          margin-bottom: 2px;
 
+          a {
+            color: #fff;
+            display: block;
+          }
+        }
+        &>.sub_category.item {
+          margin-bottom: 2px;
           text-align: right;
 
           a {
@@ -66,6 +147,9 @@
             display: block;
           }
         }
+      }
+      li:last-child {
+        padding-bottom: 25px;
       }
     }
   }

@@ -43,17 +43,26 @@ import ContainerLayout from './../Layout/Default/ContainerLayout';
 import LeftMenuLayout from './../Layout/Default/LeftMenuLayout';
 import SectionLayout from './../Layout/Default/SectionLayout';
 
+import RightMenuLayout from './../Layout/Default/RightMenuLayout';
+
 export default (
   <Router history={browserHistory}>
     <Route path="" component={DefaultLayout}>
       <Route path="/" components={{HeaderLayout: HeaderLayout, ContainerLayout: ContainerLayout}}>
         
         <Route components={{LeftMenuLayout: LeftMenuLayout, SectionLayout: SectionLayout}}>
-          <IndexRoute components={{Contents: BestSection}} />
+          <IndexRoute components={{Contents: BestSection, RightMenuLayout: RightMenuLayout}} />
         </Route>
 
         <Route path="signin" components={{LeftMenuLayout: LeftMenuLayout, SectionLayout: SectionLayout}} >
-          <IndexRoute components={{Contents: SigninSection}}/>
+          <IndexRoute components={{Contents: SigninSection, RightMenuLayout: RightMenuLayout}}/>
+        </Route>
+
+        <Route path="club" components={{LeftMenuLayout: LeftMenuLayout, SectionLayout: SectionLayout}} >
+          <IndexRoute components={{Contents: ClubSection, RightMenuLayout: RightMenuLayout}}/>
+          <Route path=":clubUrl" components={{Contents: ClubSection, RightMenuLayout: RightMenuLayout}} />
+          <Route path=":clubUrl/submit" components={{Contents: SubmitSection, RightMenuLayout: RightMenuLayout}} />
+          <Route path=":clubUrl/:postId" components={{Contents: PostSection, RightMenuLayout: RightMenuLayout}} />
         </Route>
 
       </Route>

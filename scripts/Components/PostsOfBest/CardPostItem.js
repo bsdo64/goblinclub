@@ -101,7 +101,6 @@ let CardPostItem = React.createClass({
   propTypes: {
     auth: React.PropTypes.object,
     authSuccess: React.PropTypes.bool,
-    commentList: React.PropTypes.Array,
     hasComment: React.PropTypes.bool,
     post: React.PropTypes.shape({
       uid: React.PropTypes.string.isRequired,

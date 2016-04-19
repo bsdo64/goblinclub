@@ -141,7 +141,7 @@ const BestSection = React.createClass({
     const { data } = this.props.BestSectionStore.postsData;
 
     const createPostItem = function (item) {
-      return <BestPost post={item} />;
+      return <BestPost post={item} key={item.id} />;
     };
 
     return (

@@ -118,10 +118,16 @@ const SigninFormContents = React.createClass({
       });
   },
   handleEmail() {
-    SigninActions.checkEmail({signinEmail: this.refs.signinEmail.value});
+    const emailValue = this.refs.signinEmail.value;
+    if (emailValue.length > 3) {
+      SigninActions.checkEmail({signinEmail: emailValue});
+    }
   },
   handleNick() {
-    SigninActions.checkNick({signinNick: this.refs.signinNick.value});
+    const nickValue = this.refs.signinNick.value;
+    if (nickValue.length > 1) {
+      SigninActions.checkNick({signinNick: nickValue});
+    }
   },
   handleSubmit() {
     const {emailDup, nickDup, emailVerifyFail ,emailVerifySuccess, emailRequested} = this.props.SigninStore;

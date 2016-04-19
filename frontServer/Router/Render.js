@@ -32,7 +32,7 @@ function renderServersideReact(renderProps, req, res, callback) {
   alt.bootstrap(state);
 
   Content = ReactDOM.renderToString(
-    <RouterContext {...renderProps} radiumConfig={{userAgent: 'all'}} />
+    <RouterContext {...renderProps} />
   );
 
   fs.readFile(path.join(dist, '/index.html'), 'utf8', function (err, data){
