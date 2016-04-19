@@ -1,19 +1,14 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class CategoryItem extends Component {
-  constructor(props) {
-    super(props);
-
-    this.createListItem = this.createListItem.bind(this);
-    this.createSubListItem = this.createSubListItem.bind(this);
-  }
+const CategoryItem = React.createClass({
+  displayName: 'CategoryItem',
   createListItem(list) {
     return (
       <div className="sub_category item">
         <a href="#">{list.title}</a>
       </div>
     )
-  }
+  },
   createSubListItem(subList) {
     return (
       <li>
@@ -26,7 +21,7 @@ class CategoryItem extends Component {
         {subList.list.map(this.createListItem)}
       </li>
     )
-  }
+  },
   render() {
     const { category } = this.props;
     return (
@@ -45,17 +40,13 @@ class CategoryItem extends Component {
       </div>
     )
   }
-}
+});
 
-class CategoryList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.createCategoryItem = this.createCategoryItem.bind(this);
-  }
+const CategoryList = React.createClass({
+  displayName: 'CategoryList',
   createCategoryItem(category) {
     return <CategoryItem category={category} />;
-  }
+  },
   render() {
     const { categories } = this.props;
     if (Array.isArray(categories)) {
@@ -64,16 +55,12 @@ class CategoryList extends Component {
       return <div>{this.createCategoryItem(categories)}</div>;
     }
   }
-}
+});
 
-export default class MenuContainer extends Component {
-  displayName() {
-    return 'MenuContainer';
-  }
-  constructor() {
-    super();
-
-    this.state = {
+const MenuContainer = React.createClass({
+  displayName: 'MenuContainer',
+  getInitialState() {
+    return {
       categories: {
         menuHeader: '베스트',
         subHeader: '전체보기',
@@ -86,12 +73,13 @@ export default class MenuContainer extends Component {
           ]
         }]
       }
-    };
-  }
+    }
+  },
   render() {
-    console.log(this.state);
     return (
       <CategoryList categories={this.state.categories} />
     );
   }
-}
+});
+
+export default MenuContainer;

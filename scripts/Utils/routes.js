@@ -45,14 +45,59 @@ import SectionLayout from './../Layout/Default/SectionLayout';
 
 import RightMenuLayout from './../Layout/Default/RightMenuLayout';
 
+const routes = [{
+  LeftMenuLayout: 'Default',
+  SectionLayout: 'Default',
+  child: [
+    {index: { Contents: 'Best', RightMenuLayout: 'Default' }}
+  ]
+}, {
+  path: 'signin',
+  LeftMenuLayout: 'Default',
+  SectionLayout: 'Default',
+  child: [
+    {index: { Contents: 'Signin', RightMenuLayout: 'Default' }}
+  ]
+}, {
+  path: 'club',
+  LeftMenuLayout: 'Default',
+  SectionLayout: 'Default',
+  child: [
+    {index: { Contents: 'Club', RightMenuLayout: 'Default' }},
+    {route: { path: ':clubUrl', Contents: 'Club', RightMenuLayout: 'Default' }},
+    {route: { path: ':clubUrl/submit', Contents: 'Submit', RightMenuLayout: 'Default' }},
+    {route: { path: ':clubUrl/:postId', Contents: 'Post', RightMenuLayout: 'Default' }}
+  ]
+}];
+
+function routeLayout(route) {
+  let LeftMenuLayout, SectionLayout, Contents, RightMenuLayout;
+
+  if (route.LeftMenuLayout) {
+    LeftMenuLayout = require('./../Layout/' + route.LeftMenuLayout + '/LeftMenuLayout');
+  }
+  if (route.SectionLayout) {
+    SectionLayout = require('./../Layout/' + route.SectionLayout + '/SectionLayout');
+  }
+  if (route.Contents) {
+    Contents = require('./../Layout/' + route.Contents + '/Contents');
+  }
+  if (route.RightMenuLayout) {
+    RightMenuLayout = require('./../Layout/' + route.RightMenuLayout + '/RightMenuLayout');
+  }
+  return (
+    <Route path={path} components={null} />
+  )
+}
+
 export default (
   <Router history={browserHistory}>
     <Route path="" component={DefaultLayout}>
       <Route path="/" components={{HeaderLayout: HeaderLayout, ContainerLayout: ContainerLayout}}>
         
         <Route components={{LeftMenuLayout: LeftMenuLayout, SectionLayout: SectionLayout}}>
-          <IndexRoute components={{Contents: BestSection, RightMenuLayout: RightMenuLayout}} />
-        </Route>
+        <IndexRoute components={{Contents: BestSection, RightMenuLayout: RightMenuLayout}} />
+      </Route>
 
         <Route path="signin" components={{LeftMenuLayout: LeftMenuLayout, SectionLayout: SectionLayout}} >
           <IndexRoute components={{Contents: SigninSection, RightMenuLayout: RightMenuLayout}}/>

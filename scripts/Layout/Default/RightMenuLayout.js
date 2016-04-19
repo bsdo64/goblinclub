@@ -3,6 +3,8 @@
  */
 import React from 'react';
 
+import UserBoxContainer from '../../Container/RightWidget/UserBoxContainer';
+
 if (process.env.BROWSER) {
   require('./RightMenuLayout.scss');
 }
@@ -12,9 +14,7 @@ let LeftMenuLayout = React.createClass({
   render() {
     return (
       <div className="right_col">
-        <div className="login_bar widget">
-          <a href="/signin"><button>지금 가입하세요</button></a>
-        </div>
+        <UserBoxContainer />
       </div>
     );
   }

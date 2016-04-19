@@ -1,11 +1,7 @@
 #section_info {
   .ui.cards > .card {
     & > .userinfo_header {
-      padding: 8px 8px 5px;
-
-      & > .ui.description {
-        color: #acacac;
-      }
+      padding: 8px 12px 5px;
     }
   }
 }

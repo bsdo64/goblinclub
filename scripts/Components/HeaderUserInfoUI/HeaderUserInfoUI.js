@@ -7,7 +7,7 @@ export default class HeaderUserUI extends Component {
     return 'HeaderUserUI';
   }
   constructor(props) {
-    super();
+    super(props);
 
     this.handleOpenLoginModal = this.handleOpenLoginModal.bind(this);
   }

@@ -1,11 +1,26 @@
 import alt from '../../Utils/alt';
+import immutable from 'alt-utils/lib/ImmutableUtil';
 import UserActions from '../Actions/UserActions';
+import Immutable from 'immutable';
 
 class UserStore {
   constructor() {
     this.bindActions(UserActions);
 
-    this.state = {};
+    this.state = Immutable.Map({
+      todos: Immutable.Map({})
+    });
+  }
+
+  static config = {
+    onSerialize(states) {
+      return {
+        state: states.toJS()
+      }
+    },
+    onDeserialize(data) {
+      return Immutable.fromJS(data);
+    }
   }
 
   onRequestLogout(res) {
@@ -69,4 +84,4 @@ class UserStore {
   }
 }
 
-export default alt.createStore(UserStore, 'UserStore');
+export default alt.createStore(immutable(UserStore));

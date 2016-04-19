@@ -1,0 +1,28 @@
+#section_info {
+  padding: 10px;
+
+  #widget_user_info>.card {
+    box-shadow: 0 1px 3px 0 #92B5CF,0 0 0 1px #DEDEE3;
+
+    .content.userinfo_header {
+      padding: 8px 12px 5px;
+
+      .ui.description {
+        font-size: 13px;
+        font-weight: bold;
+        display: inline-block;
+      }
+    }
+
+    .description {
+      margin: 0;
+
+      &>.item {
+        .point_color {
+          color: #3769AC;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
